@@ -1,0 +1,10 @@
+{
+   "completionTime": "yyyy-MM-dd HH:mm",
+   "trackingIds":    [
+      "track1",
+      "track2"
+   ],
+   "type": "TYPE",
+   "unLocode": "ULOCD",
+   "voyageNumber": "VGNM"
+}

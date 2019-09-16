@@ -1,0 +1,79 @@
+<!--
+    The MIT License
+    
+    Copyright (c) 2019 Oracle and/or its affiliates
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+        <ui:define name="title">Cargo Registration</ui:define>        
+        <h:head>
+            <style>
+                <!-- work around to fix selectonemenu bug in Chrome & Safari -->
+                .ui-selectonemenu-label{
+                    width:90% !important;
+                }
+            </style>
+        </h:head>
+        
+        
+        <ui:define name="content">
+
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" id="leftCol"></div>
+                    <div class="ui-grid-col-6" id="mainCol">
+
+                        <br/>
+                        <h:form>
+                            <p:outputLabel value="2. Set the destination for this new cargo coming from #{bookingBackingBean.originName}" />
+                            <hr/>
+                            <p:selectOneMenu id="destination" value="#{bookingBackingBean.destinationUnlocode}">
+                                <f:selectItems value="#{bookingBackingBean.locations}" var="location"
+                                               itemLabel="#{location.name} " itemValue="#{location.unLocode}" />
+                            </p:selectOneMenu>
+                            <hr/>   
+
+                            <h:panelGrid columns="5" styleClass="registrationPanelGrid" style="margin: 0 auto;">
+                                <p:commandButton value="Back" action="booking" />
+                                <p:commandButton value="Cancel" action="/admin/dashboard" />
+                                <p:commandButton value="Next" action="booking-date" />
+
+                            </h:panelGrid>
+
+                        </h:form>
+                    </div>
+
+                    <div class="ui-grid-col-3" id="leftCol"></div>
+                </div>
+            </div>
+    
+    
+        </ui:define>
+        
+        
+    </ui:composition>
+        
+        
+</html>

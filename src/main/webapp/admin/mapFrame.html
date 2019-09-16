@@ -1,0 +1,208 @@
+<!--
+    The MIT License
+    
+    Copyright (c) 2019 Oracle and/or its affiliates
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>    
+        <title>Cargo Live Map</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/cargo-tracker/resources/jquery-jvectormap.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="/cargo-tracker/resources/dd.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"/>
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="/cargo-tracker/resources/js/jquery-jvectormap.js"></script>
+        <script src="/cargo-tracker/resources/js/jquery-jvectormap-world-mill-en.js"></script>
+        <script type="text/javascript">
+            var locationName = new Array();
+
+            locationName["CNHKG"] = "Hong Kong";
+            locationName["AUMEL"] = "Melbourne";
+            locationName["SESTO"] = "Stockholm";
+            locationName["FIHEL"] = "Helsinki";
+            locationName["USCHI"] = "Chicago";
+            locationName["JNTKO"] = "Tokyo";
+            locationName["DEHAM"] = "Hamburg";
+            locationName["CNSHA"] = "Shanghai";
+            locationName["NLRTM"] = "Rotterdam";
+            locationName["SEGOT"] = "Guttenburg";
+            locationName["CNHGH"] = "Hangzhou";
+            locationName["USNYC"] = "New York";
+            locationName["USDAL"] = "Dallas";
+
+            var routingStatusName = new Array();
+            routingStatusName["NOT_ROUTED"] = "Not routed";
+            routingStatusName["ROUTED"] = "Routed";
+            routingStatusName["MISROUTED"] = "Misrouted";
+
+            var transportStatusName = new Array();
+            transportStatusName["NOT_RECEIVED"] = "Not received";
+            transportStatusName["IN_PORT"] = " In port";
+            transportStatusName["ONBOARD_CARRIER"] = "Onboard carrier";
+            transportStatusName["CLAIMED"] = "Claimed";
+            transportStatusName["UNKNOWN"] = "Unknown";
+
+            // TODO See if there is a service to get the latitude/longitude
+            // data from.
+            var latitude = new Array();
+
+            latitude["CNHKG"] = 22;
+            latitude["AUMEL"] = -38;
+            latitude["SESTO"] = 59;
+            latitude["FIHEL"] = 60;
+            latitude["USCHI"] = 42;
+            latitude["JNTKO"] = 36;
+            latitude["DEHAM"] = 54;
+            latitude["CNSHA"] = 31;
+            latitude["NLRTM"] = 52;
+            latitude["SEGOT"] = 58;
+            latitude["CNHGH"] = 30;
+            latitude["USNYC"] = 41;
+            latitude["USDAL"] = 33;
+
+            var longitude = new Array();
+            longitude["CNHKG"] = 114;
+            longitude["AUMEL"] = 145;
+            longitude["SESTO"] = 18;
+            longitude["FIHEL"] = 25;
+            longitude["USCHI"] = -88;
+            longitude["JNTKO"] = 140;
+            longitude["DEHAM"] = 10;
+            longitude["CNSHA"] = 121;
+            longitude["NLRTM"] = 5;
+            longitude["SEGOT"] = 12;
+            longitude["CNHGH"] = 120;
+            longitude["USNYC"] = -74;
+            longitude["USDAL"] = -97;
+
+            var colorCodes = new Array();
+
+            colorCodes["NOT_ROUTED"] = "gray";
+            colorCodes["MISROUTED"] = "red";
+            colorCodes["NOT_RECEIVED"] = "white";
+            colorCodes["IN_PORT"] = "green";
+            colorCodes["ONBOARD_CARRIER"] = "green";
+            colorCodes["MISDIRECTED"] = "red";
+            colorCodes["AT_DESTINATION"] = "black";
+            colorCodes["CLAIMED"] = "black";
+            colorCodes["UNKNOWN"] = "red";
+        </script>
+    </head>
+    <body style="background-color: white">
+        <div>
+            <div id="world-map" style="height: 600px;  border:#FFF; border-style: solid; border-width: 8px;"/>
+            <div id='connected' class='status'>
+                <p id='status' class='status_content'>Offline</p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var statusBox = document.getElementById('connected');
+            statusBox.style.cursor = 'pointer';
+            statusBox.onclick = function () {
+                location.reload(true);
+            };
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $.getJSON('/cargo-tracker/rest/cargo', function (data) {
+                    var coordinates = new Array();
+
+                    for (var i in data) {
+                        cargo = data[i];
+                        var locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
+                        var statusCode = 'NOT_RECEIVED';
+                        if ((cargo.routingStatus == 'NOT_ROUTED') || (cargo.routingStatus == 'MISROUTED')) {
+                            statusCode = cargo.routingStatus;
+                        } else if (cargo.misdirected == true) {
+                            statusCode = 'MISDIRECTED';
+                        } else if (cargo.atDestination == true) {
+                            statusCode = 'AT_DESTINATION';
+                        } else {
+                            statusCode = cargo.transportStatus;
+                        }
+
+                        coordinates.push(
+                                {latLng: [latitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
+                                        longitude[locationCode] + (Math.floor((Math.random() * 3) - 3))],
+                                    name: cargo.trackingId,
+                                    style: {fill: colorCodes[statusCode]}});
+                    }
+
+
+                    $('#world-map').vectorMap({
+                        map: 'world_mill_en',
+                        backgroundColor: "#B9CFff",
+                        markers: coordinates,
+                        regionStyle: {
+                            fill: "#ff0000",
+                            scaleColors: ['#b7bdc3', '#a2aaad'],
+                            "fill-opacity": 1,
+                            stroke: '#a2aaad',
+                            "stroke-width": 2,
+                            "stroke-opacity": 1
+                        },
+                        onMarkerLabelShow: function (event, label, index) {
+                            label.html(
+                                    'Tracking ID: ' + data[index].trackingId + '<br/>' +
+                                    'Routing Status: ' + routingStatusName[data[index].routingStatus] + '<br/>' +
+                                    'Misdirected: ' + (data[index].misdirected ? "Yes" : "No") + '<br/>' +
+                                    'Transport Status: ' + transportStatusName[data[index].transportStatus] + '<br/>' +
+                                    'At Destination: ' + (data[index].atDestination ? "Yes" : "No") + '<br/>' +
+                                    'Origin: ' + locationName[data[index].origin] + '<br/>' +
+                                    'Last known location: ' + locationName[data[index].lastKnownLocation]);
+                        },
+                        onMarkerClick: function (event, index) {
+                            var applicationPath = window.location.pathname.split('/')[1];
+                            var trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + data[index].trackingId;
+                            var winHeight = $(window).height();
+                            var winWidth = $(window).width();
+                            var winDimensions = "height=" + winHeight + ",width=" + winWidth;
+                            window.open(trackingUri, "winMap", winDimensions);
+                        }
+
+                    });
+                });
+            });
+
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                var applicationPath = window.location.pathname.split('/')[1];
+                var socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
+                var socket = new WebSocket(socketUri);
+
+                socket.onopen = function (event) {
+                    document.getElementById("status").innerHTML = "online";
+                }
+
+                socket.onmessage = function (event) {
+                    document.getElementById("status").innerHTML = "mesage";
+                    location.reload(true);
+                };
+
+                socket.onclose = function (event) {
+                    document.getElementById("status").innerHTML = "offline";
+                };
+            });
+        </script>
+    </body>
+</html>
