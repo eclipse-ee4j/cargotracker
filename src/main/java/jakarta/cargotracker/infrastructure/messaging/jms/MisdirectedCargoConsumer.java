@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,36 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.infrastructure.messaging.jms;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+
+@MessageDriven(activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationType",
+            propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+            propertyValue = "java:app/jms/MisdirectedCargoQueue")
+})
+public class MisdirectedCargoConsumer implements MessageListener {
+
+    private static final Logger logger = Logger.getLogger(
+            MisdirectedCargoConsumer.class.getName());
+
+    @Override
+    public void onMessage(Message message) {
+        try {
+            logger.log(Level.INFO, 
+                    "Cargo with tracking ID {0} misdirected.", 
+                    message.getBody(String.class));
+        } catch (JMSException ex) {
+            logger.log(Level.WARNING, "Error processing message.", ex);
+        }
+    }
+}

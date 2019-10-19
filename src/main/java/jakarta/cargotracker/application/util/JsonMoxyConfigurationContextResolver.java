@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,29 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.application.util;
+
+import java.util.HashMap;
+import java.util.Map;
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.Provider;
+import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
+
+@Provider
+// TODO See if this can be removed.
+public class JsonMoxyConfigurationContextResolver
+        implements ContextResolver<MoxyJsonConfig> {
+
+    @Override
+    public MoxyJsonConfig getContext(Class<?> objectType) {
+        MoxyJsonConfig configuration = new MoxyJsonConfig();
+
+        Map<String, String> namespacePrefixMapper = new HashMap<>(1);
+        namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
+        configuration.setNamespacePrefixMapper(namespacePrefixMapper);
+        configuration.setNamespaceSeparator(':');
+
+        return configuration;
+    }
+}

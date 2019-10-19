@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,32 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.interfaces.booking.facade;
+
+import java.util.Date;
+import java.util.List;
+import jakarta.cargotracker.interfaces.booking.facade.dto.CargoRoute;
+import jakarta.cargotracker.interfaces.booking.facade.dto.Location;
+import jakarta.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
+
+/**
+ * This facade shields the domain layer - model, services, repositories - from
+ * concerns about such things as the user interface and remoting.
+ */
+public interface BookingServiceFacade {
+
+    String bookNewCargo(String origin, String destination, Date arrivalDeadline);
+
+    CargoRoute loadCargoForRouting(String trackingId);
+
+    void assignCargoToRoute(String trackingId, RouteCandidate route);
+
+    void changeDestination(String trackingId, String destinationUnLocode);
+
+    List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId);
+
+    List<Location> listShippingLocations();
+
+    List<CargoRoute> listAllCargos();
+}

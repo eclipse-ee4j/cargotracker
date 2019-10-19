@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,52 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.interfaces.booking.web;
+
+import java.io.Serializable;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
+
+/**
+ *
+ * @author davidd
+ */
+@Named
+@ViewScoped
+public class DashboardView implements Serializable{
+
+    private DashboardModel model;
+
+    private String name = "TestDD";
+
+    public String getName() {
+        return name;
+    }
+       
+    public DashboardView(){
+        // Initialize the dashboard model
+        this.model = new DefaultDashboardModel();
+        DashboardColumn mainColumn = new DefaultDashboardColumn();
+ 
+        mainColumn.addWidget("Routed");
+        mainColumn.addWidget("NotRouted");
+        mainColumn.addWidget("Claimed");      
+ 
+        this.model.addColumn(mainColumn);
+ 
+    }
+ 
+    public DashboardModel getModel() {
+        return model;
+    }
+ 
+    public void setModel(DashboardModel model) {
+        this.model = model;
+    }
+    
+}

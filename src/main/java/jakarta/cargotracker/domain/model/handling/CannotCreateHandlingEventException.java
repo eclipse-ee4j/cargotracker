@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,29 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.domain.model.handling;
+
+import javax.ejb.ApplicationException;
+
+/**
+ * If a {@link jakarta.cargotracker.domain.model.handling.HandlingEvent} can't
+ * be created from a given set of parameters.
+ *
+ * It is a checked exception because it's not a programming error, but rather a
+ * special case that the application is built to handle. It can occur during
+ * normal program execution.
+ */
+@ApplicationException(rollback = true)
+public class CannotCreateHandlingEventException extends Exception {
+
+    private static final long serialVersionUID = 1L;
+
+    public CannotCreateHandlingEventException(Exception e) {
+        super(e);
+    }
+
+    public CannotCreateHandlingEventException() {
+        super();
+    }
+}

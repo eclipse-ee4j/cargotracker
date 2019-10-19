@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,35 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.infrastructure.persistence.jpa;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import jakarta.cargotracker.domain.model.location.Location;
+import jakarta.cargotracker.domain.model.location.LocationRepository;
+import jakarta.cargotracker.domain.model.location.UnLocode;
+
+@ApplicationScoped
+public class JpaLocationRepository implements LocationRepository, Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Location find(UnLocode unLocode) {
+        return entityManager.createNamedQuery("Location.findByUnLocode",
+                Location.class).setParameter("unLocode", unLocode)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<Location> findAll() {
+        return entityManager.createNamedQuery("Location.findAll", Location.class)
+                .getResultList();
+    }
+}

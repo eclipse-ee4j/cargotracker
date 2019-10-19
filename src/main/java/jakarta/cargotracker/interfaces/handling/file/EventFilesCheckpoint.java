@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
     The MIT License
     
     Copyright (c) 2019 Oracle and/or its affiliates
@@ -20,28 +19,47 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
--->
-<job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     version="1.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
-    <listeners>
-        <listener ref="FileProcessorJobListener"/>
-    </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader" />
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
-</job>
+*/
+package jakarta.cargotracker.interfaces.handling.file;
+
+import java.io.File;
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+
+public class EventFilesCheckpoint implements Serializable {
+
+    private List<File> files = new LinkedList<>();
+    private int fileIndex = 0;
+    private long filePointer = 0;
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public long getFilePointer() {
+        return filePointer;
+    }
+
+    public void setFilePointer(long filePointer) {
+        this.filePointer = filePointer;
+    }
+
+    public File currentFile() {
+        if (files.size() > fileIndex) {
+            return files.get(fileIndex);
+        } else {
+            return null;
+        }
+    }
+
+    public File nextFile() {
+        filePointer = 0;
+
+        if (files.size() > ++fileIndex) {
+            return files.get(fileIndex);
+        } else {
+            return null;
+        }
+    }
+}

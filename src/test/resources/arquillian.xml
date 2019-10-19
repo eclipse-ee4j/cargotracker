@@ -31,16 +31,8 @@
     <container qualifier="glassfish" default="true">
         <configuration>
             <!-- <property name="outputToConsole">true</property> -->
+            <property name="adminUser">admin</property>
+            <property name="adminPassword">adminadmin</property>
         </configuration>
     </container>
-    <container qualifier="weblogic">
-        <defaultProtocol type="Servlet 3.0" />    
-        <configuration>
-            <property name="wlHome">/oracle/middleware/wlserver</property>
-            <property name="adminUrl">t3://localhost:7001</property>
-            <property name="adminUserName">weblogic</property>
-            <property name="adminPassword">weblogic1</property>
-            <property name="target">AdminServer</property>
-        </configuration>
-    </container>    
 </arquillian>
