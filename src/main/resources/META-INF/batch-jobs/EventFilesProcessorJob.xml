@@ -40,7 +40,7 @@
             <reader ref="EventItemReader" />
             <writer ref="EventItemWriter"/>
             <skippable-exception-classes>
-                <include class="net.java.cargotracker.interfaces.handling.file.EventLineParseException"/>
+                <include class="jakarta.cargotracker.interfaces.handling.file.EventLineParseException"/>
             </skippable-exception-classes>
         </chunk>
     </step>

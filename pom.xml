@@ -30,7 +30,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>org.eclipse.cargo-tracker</name>
-    <description>The project demonstrates how you can develop applications with the Java EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.</description>
+    <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.</description>
     <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
      <organization>
         <name>Oracle Corporation</name>
@@ -43,10 +43,9 @@
     </issueManagement>
 
     <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <netbeans.hint.j2eeVersion>1.7</netbeans.hint.j2eeVersion>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
     </properties>
@@ -73,22 +72,15 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Java EE API -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
+        <!-- Jakarta EE API -->
+       <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
 
-	<!-- https://mvnrepository.com/artifact/org.glassfish/javax.faces -->
-	<dependency>
-	    <groupId>org.glassfish</groupId>
-	    <artifactId>javax.faces</artifactId>
-	    <version>2.4.0</version>
-	</dependency>
-        
-	<!-- GlassFish specific dependencies, could go away in Java EE 8 -->
+    	<!-- GlassFish specific dependencies, could go away in Java EE 8 -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
@@ -140,11 +132,11 @@
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <scope>test</scope>
         </dependency>
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
-	<dependency>
-    		<groupId>org.hibernate</groupId>
-    		<artifactId>hibernate-validator-cdi</artifactId>
-    		<version>6.0.16.Final</version>
+    	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
+    	<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-cdi</artifactId>
+            <version>6.0.16.Final</version>
 	</dependency>
     </dependencies>
 
@@ -153,20 +145,8 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <compilerArguments>
-                        <endorseddirs>${endorsed.dir}</endorseddirs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -174,7 +154,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>2.22.2</version>
                 <configuration>
                     <skipTests>true</skipTests>
                     <systemPropertyVariables>
@@ -198,7 +178,7 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.0.CR4</version>
+                    <version>1.0.2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -207,12 +187,12 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.14</version>
+                        <version>1.7.7</version>
                         <configuration>
                             <container>
-                                <containerId>glassfish4x</containerId>
+                                <containerId>glassfish5x</containerId>
                                 <zipUrlInstaller>
-                                    <url>http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip</url>
+                                    <url>https://mirrors.dotsrc.org/eclipse//glassfish/glassfish-5.1.0.zip</url>
                                 </zipUrlInstaller>
                             </container>
                             <properties>
@@ -222,54 +202,6 @@
                     </plugin>
 		 </plugins>
 		</build>
-        </profile>
-
-        <!-- WebLogic Profile -->
-        <profile>
-            <id>weblogic</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <webapp.graphTraversalUrl>http://localhost:7001/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
-                    <version>1.0.0.Alpha3</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>2.6</version>
-                        <configuration>
-                            <failOnMissingWebXml>false</failOnMissingWebXml>
-                            <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-                            <webXml>${basedir}/src/weblogic/webapp/WEB-INF/web.xml</webXml>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.18.1</version>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                            <systemPropertyVariables>
-                                <!-- This is needed to tell the unit tests which profile
-                                we are running. -->
-                                <profileId>${project.activeProfiles[0].id}</profileId>
-                                <!-- This is needed to tell Arquillian which profile
-                                we are running. -->
-                                <arquillian.launch>${project.activeProfiles[0].id}</arquillian.launch>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>
