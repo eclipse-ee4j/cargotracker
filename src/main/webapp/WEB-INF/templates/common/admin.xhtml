@@ -1,78 +1,58 @@
-<!--
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
--->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title><ui:insert name="title">Title</ui:insert></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
-        <h:outputStylesheet name="calendar.css" />
-        <h:outputStylesheet name="dd.css"/>
-    </h:head>
-    <h:body>
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" class="decoration">
-                <div class="ui-grid ui-grid-responsive">
-                    <div class="ui-grid-row shadowme">
-                        <div class="ui-grid-col-1"></div>
-                        <div class="ui-grid-col-5">
-                            <a href="#{request.contextPath}" style="text-decoration: none;color:white;">
-                                <img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="30"/>&#160;&#160;&#160;
-                                <h:outputText styleClass="titleText" value="Cargo Tracker" /><nospan style="font-size:.85em">&nbsp;- Powered by Java EE 8</nospan>
-                            </a></div>
-                        <div class="ui-grid-col-5 alignRight" style="padding-top: 26px;">
-                            <h:form>
-                                <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
-                                &nbsp;&nbsp;
-                                <h:commandLink value="Book" action="booking" styleClass="headerLink" />
-                                &nbsp;&nbsp;
-                                <h:commandLink value="Track" action="/admin/track.xhtml" styleClass="headerLink" />
-                                &nbsp;&nbsp;
-                                <h:commandLink value="Live" action="/admin/map.xhtml" styleClass="headerLink" target="_blank" />
-                                &nbsp;&nbsp;
-                                <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink" />
-                            </h:form>
-                        </div>
-                        <div class="ui-grid-col-1"></div>
+<h:head>
+    <title><ui:insert name="title">Title</ui:insert></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
+    <h:outputStylesheet name="calendar.css"/>
+    <h:outputStylesheet name="dd.css"/>
+</h:head>
+<h:body>
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" class="decoration">
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row shadowme">
+                    <div class="ui-grid-col-1"></div>
+                    <div class="ui-grid-col-5">
+                        <a href="#{request.contextPath}" style="text-decoration: none;color:white;">
+                            <img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="30"/>&#160;&#160;&#160;
+                            <h:outputText styleClass="titleText" value="Cargo Tracker"/>
+                            <nospan style="font-size:.85em">&nbsp;- Powered by Java EE 8</nospan>
+                        </a></div>
+                    <div class="ui-grid-col-5 alignRight" style="padding-top: 26px;">
+                        <h:form>
+                            <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
+                            &nbsp;&nbsp;
+                            <h:commandLink value="Book" action="booking" styleClass="headerLink"/>
+                            &nbsp;&nbsp;
+                            <h:commandLink value="Track" action="/admin/track.xhtml" styleClass="headerLink"/>
+                            &nbsp;&nbsp;
+                            <h:commandLink value="Live" action="/admin/map.xhtml" styleClass="headerLink"
+                                           target="_blank"/>
+                            &nbsp;&nbsp;
+                            <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink"/>
+                        </h:form>
                     </div>
+                    <div class="ui-grid-col-1"></div>
                 </div>
-            </p:layoutUnit>
-            <p:layoutUnit position="center" >
-                <div id="body">
-                    <ui:insert name="content">Default Content</ui:insert>
-                </div>
-            </p:layoutUnit>
-            <p:layoutUnit position="south" size="50" class="clearCargoBkg" style="margin: 0 auto;">
-                <center> <!-- TODO: change center to CCS -->
-                    <p:separator/>
-                    <p:outputLabel style="center"></p:outputLabel>
-                </center>
-            </p:layoutUnit>
-        </p:layout>
-    </h:body>
+            </div>
+        </p:layoutUnit>
+        <p:layoutUnit position="center">
+            <div id="body">
+                <ui:insert name="content">Default Content</ui:insert>
+            </div>
+        </p:layoutUnit>
+        <p:layoutUnit position="south" size="50" class="clearCargoBkg" style="margin: 0 auto;">
+            <center> <!-- TODO: change center to CCS -->
+                <p:separator/>
+                <p:outputLabel style="center"></p:outputLabel>
+            </center>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
 </html>

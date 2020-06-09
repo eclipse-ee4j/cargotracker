@@ -1,74 +1,46 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import jakarta.cargotracker.domain.model.handling.HandlingEvent;
 import jakarta.cargotracker.domain.model.handling.HandlingHistory;
 import jakarta.cargotracker.domain.model.location.Location;
 import jakarta.cargotracker.domain.shared.DomainObjectUtils;
 import org.apache.commons.lang3.Validate;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * A Cargo. This is the central class in the domain model, and it is the root of
  * the Cargo-Itinerary-Leg-Delivery-RouteSpecification aggregate.
- *
+ * <p>
  * A cargo is identified by a unique tracking id, and it always has an origin
  * and a route specification. The life cycle of a cargo begins with the booking
  * procedure, when the tracking id is assigned. During a (short) period of time,
  * between booking and initial routing, the cargo has no itinerary.
- *
+ * <p>
  * The booking clerk requests a list of possible routes, matching the route
  * specification, and assigns the cargo to one route. The route to which a cargo
  * is assigned is described by an itinerary.
- *
+ * <p>
  * A cargo can be re-routed during transport, on demand of the customer, in
  * which case a new route is specified for the cargo and a new route is
  * requested. The old itinerary, being a value object, is discarded and a new
  * one is attached.
- *
+ * <p>
  * It may also happen that a cargo is accidentally misrouted, which should
  * notify the proper personnel and also trigger a re-routing procedure.
- *
+ * <p>
  * When a cargo is handled, the status of the delivery changes. Everything about
  * the delivery of the cargo is contained in the Delivery value object, which is
  * replaced whenever a cargo is handled by an asynchronous event triggered by
  * the registration of the handling event.
- *
+ * <p>
  * The delivery can also be affected by routing changes, i.e. when a the route
  * specification changes, or the cargo is assigned to a new route. In that case,
  * the delivery update is performed synchronously within the cargo aggregate.
- *
+ * <p>
  * The life cycle of a cargo ends when the cargo is claimed by the customer.
- *
+ * <p>
  * The cargo aggregate, and the entire domain model, is built to solve the
  * problem of booking and tracking cargo. All important business rules for
  * determining whether or not a cargo is misdirected, what the current status of
@@ -76,12 +48,12 @@ import org.apache.commons.lang3.Validate;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Cargo.findAll",
-            query = "Select c from Cargo c"),
-    @NamedQuery(name = "Cargo.findByTrackingId",
-            query = "Select c from Cargo c where c.trackingId = :trackingId"),
-    @NamedQuery(name = "Cargo.getAllTrackingIds",
-            query = "Select c.trackingId from Cargo c") })
+        @NamedQuery(name = "Cargo.findAll",
+                query = "Select c from Cargo c"),
+        @NamedQuery(name = "Cargo.findByTrackingId",
+                query = "Select c from Cargo c where c.trackingId = :trackingId"),
+        @NamedQuery(name = "Cargo.getAllTrackingIds",
+                query = "Select c.trackingId from Cargo c")})
 public class Cargo implements Serializable {
 
     private static final long serialVersionUID = 1L;

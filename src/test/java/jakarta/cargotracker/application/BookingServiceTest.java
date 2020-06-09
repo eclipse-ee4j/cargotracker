@@ -1,65 +1,17 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.application;
 
 import jakarta.cargotracker.application.internal.DefaultBookingService;
 import jakarta.cargotracker.application.util.DateUtil;
 import jakarta.cargotracker.application.util.JsonMoxyConfigurationContextResolver;
-import jakarta.cargotracker.domain.model.cargo.Cargo;
-import jakarta.cargotracker.domain.model.cargo.CargoRepository;
-import jakarta.cargotracker.domain.model.cargo.Delivery;
-import jakarta.cargotracker.domain.model.cargo.HandlingActivity;
-import jakarta.cargotracker.domain.model.cargo.Itinerary;
-import jakarta.cargotracker.domain.model.cargo.Leg;
-import jakarta.cargotracker.domain.model.cargo.RouteSpecification;
-import jakarta.cargotracker.domain.model.cargo.RoutingStatus;
-import jakarta.cargotracker.domain.model.cargo.TrackingId;
-import jakarta.cargotracker.domain.model.cargo.TransportStatus;
-import jakarta.cargotracker.domain.model.handling.CannotCreateHandlingEventException;
-import jakarta.cargotracker.domain.model.handling.HandlingEvent;
-import jakarta.cargotracker.domain.model.handling.HandlingEventFactory;
-import jakarta.cargotracker.domain.model.handling.HandlingEventRepository;
-import jakarta.cargotracker.domain.model.handling.HandlingHistory;
-import jakarta.cargotracker.domain.model.handling.UnknownCargoException;
-import jakarta.cargotracker.domain.model.handling.UnknownLocationException;
-import jakarta.cargotracker.domain.model.handling.UnknownVoyageException;
+import jakarta.cargotracker.domain.model.cargo.*;
+import jakarta.cargotracker.domain.model.handling.*;
 import jakarta.cargotracker.domain.model.location.Location;
 import jakarta.cargotracker.domain.model.location.LocationRepository;
 import jakarta.cargotracker.domain.model.location.SampleLocations;
 import jakarta.cargotracker.domain.model.location.UnLocode;
-import jakarta.cargotracker.domain.model.voyage.CarrierMovement;
-import jakarta.cargotracker.domain.model.voyage.SampleVoyages;
-import jakarta.cargotracker.domain.model.voyage.Schedule;
-import jakarta.cargotracker.domain.model.voyage.Voyage;
-import jakarta.cargotracker.domain.model.voyage.VoyageNumber;
-import jakarta.cargotracker.domain.model.voyage.VoyageRepository;
+import jakarta.cargotracker.domain.model.voyage.*;
 import jakarta.cargotracker.domain.service.RoutingService;
-import jakarta.cargotracker.domain.shared.AbstractSpecification;
-import jakarta.cargotracker.domain.shared.AndSpecification;
-import jakarta.cargotracker.domain.shared.DomainObjectUtils;
-import jakarta.cargotracker.domain.shared.NotSpecification;
-import jakarta.cargotracker.domain.shared.OrSpecification;
-import jakarta.cargotracker.domain.shared.Specification;
+import jakarta.cargotracker.domain.shared.*;
 import jakarta.cargotracker.infrastructure.persistence.jpa.JpaCargoRepository;
 import jakarta.cargotracker.infrastructure.persistence.jpa.JpaHandlingEventRepository;
 import jakarta.cargotracker.infrastructure.persistence.jpa.JpaLocationRepository;
@@ -69,14 +21,6 @@ import jakarta.pathfinder.api.GraphTraversalService;
 import jakarta.pathfinder.api.TransitEdge;
 import jakarta.pathfinder.api.TransitPath;
 import jakarta.pathfinder.internal.GraphDao;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Random;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.validator.cdi.internal.interceptor.ValidationInterceptor;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -85,11 +29,16 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Application layer integration test covering a number of otherwise fairly
@@ -184,8 +133,8 @@ public class BookingServiceTest {
 
         war.addAsLibraries(
                 Maven.resolver().loadPomFromFile("pom.xml")
-                .resolve("org.apache.commons:commons-lang3")
-                .withTransitivity().asFile());
+                        .resolve("org.apache.commons:commons-lang3")
+                        .withTransitivity().asFile());
 
         return war;
     }
