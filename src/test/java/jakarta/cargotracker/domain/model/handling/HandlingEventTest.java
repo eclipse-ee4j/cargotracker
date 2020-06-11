@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 // TODO This set of tests is very trivial, consider removing them.
@@ -80,8 +81,7 @@ public class HandlingEventTest {
                 HandlingEvent.Type.UNLOAD, SampleLocations.HAMBURG,
                 SampleVoyages.CM004);
 
-        org.junit.Assert
-                .assertEquals(SampleLocations.HAMBURG, ev.getLocation());
+        assertEquals(SampleLocations.HAMBURG, ev.getLocation());
     }
 
     @Test

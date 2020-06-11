@@ -20,6 +20,7 @@ has several interfaces described in the following sections.
 
 For further details on the project, please visit:
 https://github.com/eclipse-ee4j/cargotracker
+
 Getting Started
 ===============
 The project site has detailed information on how to get started: 
@@ -29,13 +30,13 @@ The simplest steps are the following (no IDE required):
 
 * Get the project source code: https://github.com/eclipse-ee4j/cargotracker
 * As long as you have Maven set up, navigate to the project source root and 
-  type: mvn package cargo:run
-* To run with WildFly 8x, type: mvn -Pwildfly package cargo:run
+  type: `mvn package cargo:run`
+* To run with WildFly 8x, type: `mvn -Pwildfly package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
 To set up in NetBeans, follow these steps:
 
-* Set up JDK 8+, NetBeans 7.3+ and GlassFish 5+ 
+* Set up JDK 8+, NetBeans 7.3+ and GlassFish 4+ 
   (preferably GlassFish 4.1+ and NetBeans 8.0.1+).
 * Open the source code directory in NetBeans - it's just a Maven project, 
   NetBeans will do the rest for you. As noted in the site instructions on
@@ -76,10 +77,10 @@ also change the destination for cargo if needed or track cargo.
 The Incident Logging interface is intended for port personnel registering what 
 happened to cargo. The interface is primarily intended for mobile devices, but
 you can use it via a desktop browser. The interface is accessible at:
-http://localhost:8080/cargo-tracker/incident-logger/. For convenience, you
+http://localhost:8080/cargo-tracker/eventLogger/. For convenience, you
 could use a mobile emulator instead of an actual mobile device. On Windows,
 you can use Microsoft WebMatrix for device emulation. Generally speaking cargo
-goes though these events:
+goes through these events:
 
 * It's received at the origin port.
 * It's loaded and unloaded onto voyages on it's itinerary.

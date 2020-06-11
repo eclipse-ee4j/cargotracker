@@ -56,9 +56,9 @@
     <dependencies>
         <!-- Jakarta EE API -->
         <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>8.0.0</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -172,9 +172,9 @@
                         <version>1.7.7</version>
                         <configuration>
                             <container>
-                                <containerId>glassfish5x</containerId>
+                                <containerId>glassfish4x</containerId>
                                 <zipUrlInstaller>
-                                    <url>https://mirrors.dotsrc.org/eclipse//glassfish/glassfish-5.1.0.zip</url>
+                                    <url>http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip</url>
                                 </zipUrlInstaller>
                             </container>
                             <properties>

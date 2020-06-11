@@ -37,8 +37,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Application layer integration test covering a number of otherwise fairly
@@ -125,7 +124,7 @@ public class BookingServiceTest {
                         "META-INF/persistence.xml");
 
         // The web.xml is slightly different for weblogic.
-        if (System.getProperty("profileId").equals("weblogic")) {
+        if ("weblogic".equals(System.getProperty("profileId"))) {
             war.addAsWebInfResource("test-web-weblogic.xml", "web.xml");
         } else {
             war.addAsWebInfResource("test-web.xml", "web.xml");

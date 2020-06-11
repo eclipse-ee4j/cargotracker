@@ -14,6 +14,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 //TODO This set of tests is very trivial, consider removing them.
 public class HandlingHistoryTest {
 
