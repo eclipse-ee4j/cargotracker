@@ -1,25 +1,3 @@
-<!--
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -30,9 +8,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>org.eclipse.cargo-tracker</name>
-    <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.</description>
+    <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely
+        adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.
+    </description>
     <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
-     <organization>
+    <organization>
         <name>Oracle Corporation</name>
         <url>http://www.oracle.com/</url>
     </organization>
@@ -47,7 +27,9 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
-        <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+        <webapp.graphTraversalUrl>
+            http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+        </webapp.graphTraversalUrl>
     </properties>
 
     <!-- We need to use the PrimeFaces repository -->
@@ -73,14 +55,14 @@
 
     <dependencies>
         <!-- Jakarta EE API -->
-       <dependency>
+        <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
 
-    	<!-- GlassFish specific dependencies, could go away in Java EE 8 -->
+        <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
@@ -132,12 +114,12 @@
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <scope>test</scope>
         </dependency>
-    	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
-    	<dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator-cdi</artifactId>
             <version>6.0.16.Final</version>
-	</dependency>
+        </dependency>
     </dependencies>
 
     <build>
@@ -200,8 +182,8 @@
                             </properties>
                         </configuration>
                     </plugin>
-		 </plugins>
-		</build>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

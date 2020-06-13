@@ -1,45 +1,11 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.scenario;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 import jakarta.cargotracker.application.ApplicationEvents;
 import jakarta.cargotracker.application.BookingService;
 import jakarta.cargotracker.application.CargoInspectionService;
 import jakarta.cargotracker.application.HandlingEventService;
 import jakarta.cargotracker.application.util.DateUtil;
-import jakarta.cargotracker.domain.model.cargo.Cargo;
-import jakarta.cargotracker.domain.model.cargo.CargoRepository;
-import jakarta.cargotracker.domain.model.cargo.HandlingActivity;
-import jakarta.cargotracker.domain.model.cargo.Itinerary;
-import jakarta.cargotracker.domain.model.cargo.Leg;
-import jakarta.cargotracker.domain.model.cargo.RouteSpecification;
-import jakarta.cargotracker.domain.model.cargo.RoutingStatus;
-import jakarta.cargotracker.domain.model.cargo.TrackingId;
-import jakarta.cargotracker.domain.model.cargo.TransportStatus;
+import jakarta.cargotracker.domain.model.cargo.*;
 import jakarta.cargotracker.domain.model.handling.CannotCreateHandlingEventException;
 import jakarta.cargotracker.domain.model.handling.HandlingEvent;
 import jakarta.cargotracker.domain.model.handling.HandlingEventFactory;
@@ -53,6 +19,10 @@ import jakarta.cargotracker.domain.model.voyage.Voyage;
 import jakarta.cargotracker.domain.model.voyage.VoyageNumber;
 import jakarta.cargotracker.domain.model.voyage.VoyageRepository;
 import jakarta.cargotracker.domain.service.RoutingService;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class CargoLifecycleScenarioTest {
 
@@ -68,7 +38,7 @@ public class CargoLifecycleScenarioTest {
      * This interface is part of the application layer, and defines a number of
      * events that occur during aplication execution. It is used for
      * message-driving and is implemented using JMS.
-     *
+     * <p>
      * In this test it is stubbed with synchronous calls.
      */
     ApplicationEvents applicationEvents;
@@ -89,7 +59,7 @@ public class CargoLifecycleScenarioTest {
     /**
      * This is a domain service interface, whose implementation is part of the
      * infrastructure layer (remote call to external system).
-     *
+     * <p>
      * It is stubbed in this test.
      */
     RoutingService routingService;
@@ -144,7 +114,7 @@ public class CargoLifecycleScenarioTest {
                 cargo.getDelivery().getRoutingStatus());
         org.junit.Assert.assertNotNull(cargo.getDelivery().getEstimatedTimeOfArrival());
         org.junit.Assert.assertEquals(new HandlingActivity(
-                HandlingEvent.Type.RECEIVE, SampleLocations.HONGKONG),
+                        HandlingEvent.Type.RECEIVE, SampleLocations.HONGKONG),
                 cargo.getDelivery().getNextExpectedActivity());
 
         /*
@@ -317,7 +287,7 @@ public class CargoLifecycleScenarioTest {
                 cargo.getDelivery().getTransportStatus());
         org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
         org.junit.Assert.assertEquals(new HandlingActivity(
-                HandlingEvent.Type.CLAIM, SampleLocations.STOCKHOLM),
+                        HandlingEvent.Type.CLAIM, SampleLocations.STOCKHOLM),
                 cargo.getDelivery().getNextExpectedActivity());
 
         // Finally, cargo is claimed in SampleLocations.STOCKHOLM. This ends the cargo lifecycle from our perspective.
@@ -351,10 +321,10 @@ public class CargoLifecycleScenarioTest {
                 if (routeSpecification.getOrigin().equals(SampleLocations.HONGKONG)) {
                     // Hongkong - NYC - Chicago - SampleLocations.STOCKHOLM, initial routing
                     return Arrays.asList(new Itinerary(Arrays.asList(new Leg(
-                            SampleVoyages.v100, SampleLocations.HONGKONG,
-                            SampleLocations.NEWYORK,
-                            DateUtil.toDate("2009-03-03"),
-                            DateUtil.toDate("2009-03-09")),
+                                    SampleVoyages.v100, SampleLocations.HONGKONG,
+                                    SampleLocations.NEWYORK,
+                                    DateUtil.toDate("2009-03-03"),
+                                    DateUtil.toDate("2009-03-09")),
                             new Leg(SampleVoyages.v200,
                                     SampleLocations.NEWYORK,
                                     SampleLocations.CHICAGO,
@@ -366,16 +336,16 @@ public class CargoLifecycleScenarioTest {
                                     DateUtil.toDate("2009-03-07"),
                                     DateUtil.toDate("2009-03-11")))));
                 } else {
-                    // Tokyo - Hamburg - SampleLocations.STOCKHOLM, rerouting misdirected cargo from Tokyo 
+                    // Tokyo - Hamburg - SampleLocations.STOCKHOLM, rerouting misdirected cargo from Tokyo
                     return Arrays.asList(new Itinerary(Arrays.asList(new Leg(
                             SampleVoyages.v300, SampleLocations.TOKYO,
                             SampleLocations.HAMBURG,
                             DateUtil.toDate("2009-03-08"),
                             DateUtil.toDate("2009-03-12")), new Leg(
-                                    SampleVoyages.v400, SampleLocations.HAMBURG,
-                                    SampleLocations.STOCKHOLM,
-                                    DateUtil.toDate("2009-03-14"),
-                                    DateUtil.toDate("2009-03-15")))));
+                            SampleVoyages.v400, SampleLocations.HAMBURG,
+                            SampleLocations.STOCKHOLM,
+                            DateUtil.toDate("2009-03-14"),
+                            DateUtil.toDate("2009-03-15")))));
                 }
             }
         };

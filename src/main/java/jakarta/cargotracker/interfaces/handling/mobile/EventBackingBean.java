@@ -1,38 +1,5 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.interfaces.handling.mobile;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.flow.FlowScoped;
-import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import javax.inject.Named;
 import jakarta.cargotracker.application.ApplicationEvents;
 import jakarta.cargotracker.domain.model.cargo.TrackingId;
 import jakarta.cargotracker.domain.model.handling.HandlingEvent;
@@ -44,12 +11,24 @@ import jakarta.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import jakarta.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import jakarta.cargotracker.interfaces.booking.web.CargoDetails;
 import jakarta.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
-//import org.primefaces.PF;
 import org.primefaces.PrimeFaces;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.flow.FlowScoped;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+//import org.primefaces.PF;
 //import org.primefaces.context.RequestContext;
 
 /**
- *
  * @author davidd
  */
 @Named
@@ -64,7 +43,7 @@ public class EventBackingBean implements Serializable {
 
     @Inject
     private ApplicationEvents applicationEvents;
-    
+
     @Inject
     private VoyageRepository voyageRepository;
 
@@ -98,22 +77,22 @@ public class EventBackingBean implements Serializable {
                 trackIds.add(new SelectItem(routedUnclaimedId, routedUnclaimedId));
             }
         }
-        
+
         // fill the Port dropdown list
         locations = new ArrayList<>();
         List<String> allLocations = jakarta.cargotracker.application.util.LocationUtil.getLocationsCode();
         for (String tempLoc : allLocations) {
             locations.add(new SelectItem(tempLoc, tempLoc));
         }
-        
+
         // fill the Voyage dropdown list (only needed for LOAD & UNLOAD events)
         List<Voyage> allVoyages = voyageRepository.findAll();
-        List<SelectItem> allVoyagesModel = new ArrayList<>(allVoyages.size());        
+        List<SelectItem> allVoyagesModel = new ArrayList<>(allVoyages.size());
         for (Voyage voyage : allVoyages) {
             String voyageNumber = voyage.getVoyageNumber().getIdString();
             allVoyagesModel.add(new SelectItem(voyageNumber, voyageNumber));
-        }        
-        this.voyages = allVoyagesModel;        
+        }
+        this.voyages = allVoyagesModel;
     }
 
     public boolean isVoyageSelectable() {
@@ -249,20 +228,20 @@ public class EventBackingBean implements Serializable {
     public String handleEventSubmission() {
 
         VoyageNumber selectedVoyage = null;
-        
-        //Date completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(completionDate);                                
+
+        //Date completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(completionDate);
         Date registrationTime = new Date();
         TrackingId trackingId = new TrackingId(trackId);
         UnLocode unLocode = new UnLocode(this.location);
         HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
 
-        if (voyageNumber!= null) {  // Only Load & Unload could have a Voyage set
+        if (voyageNumber != null) {  // Only Load & Unload could have a Voyage set
             selectedVoyage = new VoyageNumber(voyageNumber);
         }
-        
+
         HandlingEventRegistrationAttempt attempt
                 = new HandlingEventRegistrationAttempt(registrationTime, completionDate, trackingId, selectedVoyage, type, unLocode);
-        
+
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
         voyageNumber = null;
@@ -271,7 +250,7 @@ public class EventBackingBean implements Serializable {
         eventType = null;
         location = null;
         trackId = null;
-        eventSubmitable = loadEventCondition = voyageSelectable = inputsOk = false; 
+        eventSubmitable = loadEventCondition = voyageSelectable = inputsOk = false;
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Event submitted", ""));

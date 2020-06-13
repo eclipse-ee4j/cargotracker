@@ -1,50 +1,24 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.domain.model.cargo;
 
-import jakarta.cargotracker.domain.model.cargo.TrackingId;
-import jakarta.cargotracker.domain.model.cargo.Itinerary;
-import jakarta.cargotracker.domain.model.cargo.RoutingStatus;
-import jakarta.cargotracker.domain.model.cargo.Cargo;
-import jakarta.cargotracker.domain.model.cargo.TransportStatus;
-import jakarta.cargotracker.domain.model.cargo.RouteSpecification;
-import jakarta.cargotracker.domain.model.cargo.Leg;
-import static org.junit.Assert.*;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import jakarta.cargotracker.application.util.DateUtil;
+import jakarta.cargotracker.domain.model.cargo.Cargo;
+import jakarta.cargotracker.domain.model.cargo.Itinerary;
+import jakarta.cargotracker.domain.model.cargo.RouteSpecification;
 import jakarta.cargotracker.domain.model.handling.HandlingEvent;
 import jakarta.cargotracker.domain.model.handling.HandlingHistory;
 import jakarta.cargotracker.domain.model.location.Location;
 import jakarta.cargotracker.domain.model.location.SampleLocations;
 import jakarta.cargotracker.domain.model.voyage.Voyage;
 import jakarta.cargotracker.domain.model.voyage.VoyageNumber;
-
 import org.junit.Test;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CargoTest {
 
@@ -87,11 +61,11 @@ public class CargoTest {
                 cargo.getOrigin(), cargo.getRouteSpecification()
                 .getDestination(), new Date()) {
 
-                    @Override
-                    public boolean isSatisfiedBy(Itinerary itinerary) {
-                        return itinerary == good;
-                    }
-                };
+            @Override
+            public boolean isSatisfiedBy(Itinerary itinerary) {
+                return itinerary == good;
+            }
+        };
 
         cargo.specifyNewRoute(acceptOnlyGood);
 
@@ -163,7 +137,7 @@ public class CargoTest {
 
         Voyage voyage = new Voyage.Builder(new VoyageNumber("0123"),
                 SampleLocations.HANGZOU).addMovement(SampleLocations.NEWYORK,
-                        new Date(), new Date()).build();
+                new Date(), new Date()).build();
 
         // Adding an unload event, but not at the final destination
         events.add(new HandlingEvent(cargo, new Date(20), new Date(),
@@ -360,13 +334,13 @@ public class CargoTest {
     }
 
     private Cargo setUpCargoWithItinerary(Location origin, Location midpoint,
-            Location destination) {
+                                          Location destination) {
         Cargo cargo = new Cargo(new TrackingId("CARGO1"),
                 new RouteSpecification(origin, destination, new Date()));
 
         Itinerary itinerary = new Itinerary(Arrays.asList(new Leg(voyage,
                 origin, midpoint, new Date(), new Date()), new Leg(voyage,
-                        midpoint, destination, new Date(), new Date())));
+                midpoint, destination, new Date(), new Date())));
 
         cargo.assignToRoute(itinerary);
         return cargo;

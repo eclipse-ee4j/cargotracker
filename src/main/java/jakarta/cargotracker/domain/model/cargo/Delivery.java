@@ -1,42 +1,5 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Iterator;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import static jakarta.cargotracker.domain.model.cargo.RoutingStatus.*;
-import static jakarta.cargotracker.domain.model.cargo.TransportStatus.*;
 import jakarta.cargotracker.domain.model.handling.HandlingEvent;
 import jakarta.cargotracker.domain.model.handling.HandlingHistory;
 import jakarta.cargotracker.domain.model.location.Location;
@@ -45,6 +8,15 @@ import jakarta.cargotracker.domain.shared.DomainObjectUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Iterator;
+
+import static jakarta.cargotracker.domain.model.cargo.RoutingStatus.*;
+import static jakarta.cargotracker.domain.model.cargo.TransportStatus.*;
 
 /**
  * The actual transportation of the cargo, as opposed to the customer
@@ -94,7 +66,7 @@ public class Delivery implements Serializable {
     }
 
     public Delivery(HandlingEvent lastEvent, Itinerary itinerary,
-            RouteSpecification routeSpecification) {
+                    RouteSpecification routeSpecification) {
         this.calculatedAt = new Date();
         this.lastEvent = lastEvent;
 
@@ -116,7 +88,7 @@ public class Delivery implements Serializable {
      * handling of the cargo has been performed.
      */
     Delivery updateOnRouting(RouteSpecification routeSpecification,
-            Itinerary itinerary) {
+                             Itinerary itinerary) {
         Validate.notNull(routeSpecification, "Route specification is required");
 
         return new Delivery(this.lastEvent, itinerary, routeSpecification);
@@ -127,12 +99,12 @@ public class Delivery implements Serializable {
      * a cargo, as well as its route specification and itinerary.
      *
      * @param routeSpecification route specification
-     * @param itinerary itinerary
-     * @param handlingHistory delivery history
+     * @param itinerary          itinerary
+     * @param handlingHistory    delivery history
      * @return An up to date delivery.
      */
     static Delivery derivedFrom(RouteSpecification routeSpecification,
-            Itinerary itinerary, HandlingHistory handlingHistory) {
+                                Itinerary itinerary, HandlingHistory handlingHistory) {
         Validate.notNull(routeSpecification, "Route specification is required");
         Validate.notNull(handlingHistory, "Delivery history is required");
 
@@ -304,7 +276,7 @@ public class Delivery implements Serializable {
 
             case UNLOAD:
                 for (Iterator<Leg> iterator = itinerary.getLegs().iterator(); iterator
-                        .hasNext();) {
+                        .hasNext(); ) {
                     Leg leg = iterator.next();
 
                     if (leg.getUnloadLocation().sameIdentityAs(
@@ -335,7 +307,7 @@ public class Delivery implements Serializable {
     }
 
     private RoutingStatus calculateRoutingStatus(Itinerary itinerary,
-            RouteSpecification routeSpecification) {
+                                                 RouteSpecification routeSpecification) {
         if (itinerary == null || itinerary == Itinerary.EMPTY_ITINERARY) {
             return NOT_ROUTED;
         } else {
@@ -352,7 +324,7 @@ public class Delivery implements Serializable {
         return lastEvent != null
                 && HandlingEvent.Type.UNLOAD.sameValueAs(lastEvent.getType())
                 && routeSpecification.getDestination().sameIdentityAs(
-                        lastEvent.getLocation());
+                lastEvent.getLocation());
     }
 
     private boolean onTrack() {

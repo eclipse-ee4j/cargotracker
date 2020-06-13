@@ -1,41 +1,15 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import jakarta.cargotracker.domain.model.location.Location;
 import jakarta.cargotracker.domain.shared.AbstractSpecification;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Route specification. Describes where a cargo origin and destination is, and
@@ -61,12 +35,12 @@ public class RouteSpecification extends AbstractSpecification<Itinerary>
     }
 
     /**
-     * @param origin origin location - can't be the same as the destination
-     * @param destination destination location - can't be the same as the origin
+     * @param origin          origin location - can't be the same as the destination
+     * @param destination     destination location - can't be the same as the origin
      * @param arrivalDeadline arrival deadline
      */
     public RouteSpecification(Location origin, Location destination,
-            Date arrivalDeadline) {
+                              Date arrivalDeadline) {
         Validate.notNull(origin, "Origin is required");
         Validate.notNull(destination, "Destination is required");
         Validate.notNull(arrivalDeadline, "Arrival deadline is required");
@@ -94,9 +68,9 @@ public class RouteSpecification extends AbstractSpecification<Itinerary>
     public boolean isSatisfiedBy(Itinerary itinerary) {
         return itinerary != null
                 && getOrigin().sameIdentityAs(
-                        itinerary.getInitialDepartureLocation())
+                itinerary.getInitialDepartureLocation())
                 && getDestination().sameIdentityAs(
-                        itinerary.getFinalArrivalLocation())
+                itinerary.getFinalArrivalLocation())
                 && getArrivalDeadline().after(itinerary.getFinalArrivalDate());
     }
 

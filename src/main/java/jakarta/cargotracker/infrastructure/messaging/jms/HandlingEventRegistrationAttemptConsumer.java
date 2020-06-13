@@ -1,26 +1,8 @@
-/*
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-*/
 package jakarta.cargotracker.infrastructure.messaging.jms;
+
+import jakarta.cargotracker.application.HandlingEventService;
+import jakarta.cargotracker.domain.model.handling.CannotCreateHandlingEventException;
+import jakarta.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -29,19 +11,16 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import jakarta.cargotracker.application.HandlingEventService;
-import jakarta.cargotracker.domain.model.handling.CannotCreateHandlingEventException;
-import jakarta.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 
 /**
  * Consumes handling event registration attempt messages and delegates to proper
  * registration.
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationType",
-            propertyValue = "javax.jms.Queue"),
-    @ActivationConfigProperty(propertyName = "destinationLookup",
-            propertyValue = "java:app/jms/HandlingEventRegistrationAttemptQueue")
+        @ActivationConfigProperty(propertyName = "destinationType",
+                propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName = "destinationLookup",
+                propertyValue = "java:app/jms/HandlingEventRegistrationAttemptQueue")
 })
 public class HandlingEventRegistrationAttemptConsumer implements MessageListener {
 

@@ -1,33 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    The MIT License
-    
-    Copyright (c) 2019 Oracle and/or its affiliates
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
--->
-<con:soapui-project activeEnvironment="Default" name="CargoTracker" resourceRoot="" soapui-version="4.5.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="CargoTracker" type="rest" basePath="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="shortest-path" path="/cargo-tracker/rest/graph-traversal/shortest-path"><con:settings/><con:parameters><con:parameter><con:name>origin</con:name><con:value>CNHKG</con:value><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default>CNHKG</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>destination</con:name><con:value>USNYC</con:value><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default>USNYC</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>deadline</con:name><con:value>10102013</con:value><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default>10102013</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Get Shortest Paths" method="GET"><con:settings/><con:parameters><con:parameter><con:name>origin</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>destination</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>deadline</con:name><con:value/><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>500 404</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="GET" mediaType="application/xml"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
-  <con:entry key="origin" value="CNHKG"/>
-  <con:entry key="deadline" value="10102013"/>
-  <con:entry key="destination" value="USNYC"/>
-</con:parameters></con:request></con:method></con:resource><con:resource name="handling-reports" path="/cargo-tracker/rest/handling/reports"><con:settings/><con:parameters/><con:method name="Submit Report" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>404 400</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:exam="http://localhost/cargo-tracker/rest/handling/example">exam:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="POST" mediaType="application/json" postQueryString="false" accept="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
-   "completionTime": "2013-08-28 09:30",
-   "trackingId": "3B071792",
-   "eventType": "RECEIVE",
-   "unLocode": "CNHKG"
-}</con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+
+<con:soapui-project activeEnvironment="Default" name="CargoTracker" resourceRoot="" soapui-version="4.5.2"
+                    abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings/>
+    <con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="CargoTracker"
+                   type="rest" basePath="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:settings/>
+        <con:definitionCache type="TEXT" rootPart=""/>
+        <con:endpoints>
+            <con:endpoint>http://localhost:8080</con:endpoint>
+        </con:endpoints>
+        <con:resource name="shortest-path" path="/cargo-tracker/rest/graph-traversal/shortest-path">
+            <con:settings/>
+            <con:parameters>
+                <con:parameter>
+                    <con:name>origin</con:name>
+                    <con:value>CNHKG</con:value>
+                    <con:style>QUERY</con:style>
+                    <con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
+                    <con:default>CNHKG</con:default>
+                    <con:path xsi:nil="true"/>
+                    <con:description xsi:nil="true"/>
+                </con:parameter>
+                <con:parameter>
+                    <con:name>destination</con:name>
+                    <con:value>USNYC</con:value>
+                    <con:style>QUERY</con:style>
+                    <con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
+                    <con:default>USNYC</con:default>
+                    <con:path xsi:nil="true"/>
+                    <con:description xsi:nil="true"/>
+                </con:parameter>
+                <con:parameter>
+                    <con:name>deadline</con:name>
+                    <con:value>10102013</con:value>
+                    <con:style>QUERY</con:style>
+                    <con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
+                    <con:default>10102013</con:default>
+                    <con:path xsi:nil="true"/>
+                    <con:description xsi:nil="true"/>
+                </con:parameter>
+            </con:parameters>
+            <con:method name="Get Shortest Paths" method="GET">
+                <con:settings/>
+                <con:parameters>
+                    <con:parameter>
+                        <con:name>origin</con:name>
+                        <con:value/>
+                        <con:style>QUERY</con:style>
+                        <con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
+                        <con:default/>
+                        <con:path xsi:nil="true"/>
+                        <con:description xsi:nil="true"/>
+                    </con:parameter>
+                    <con:parameter>
+                        <con:name>destination</con:name>
+                        <con:value/>
+                        <con:style>QUERY</con:style>
+                        <con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
+                        <con:default/>
+                        <con:path xsi:nil="true"/>
+                        <con:description xsi:nil="true"/>
+                    </con:parameter>
+                    <con:parameter>
+                        <con:name>deadline</con:name>
+                        <con:value/>
+                        <con:style>QUERY</con:style>
+                        <con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
+                        <con:default/>
+                        <con:path xsi:nil="true"/>
+                        <con:description xsi:nil="true"/>
+                    </con:parameter>
+                </con:parameters>
+                <con:representation type="RESPONSE">
+                    <con:mediaType>application/json</con:mediaType>
+                    <con:status>200</con:status>
+                    <con:params/>
+                    <con:element>Response</con:element>
+                </con:representation>
+                <con:representation type="FAULT">
+                    <con:mediaType>text/html</con:mediaType>
+                    <con:status>500 404</con:status>
+                    <con:params/>
+                    <con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>0</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:request name="GET" mediaType="application/xml">
+                    <con:settings>
+                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
+                        </con:setting>
+                    </con:settings>
+                    <con:endpoint>http://localhost:8080</con:endpoint>
+                    <con:request/>
+                    <con:credentials>
+                        <con:authType>Global HTTP Settings</con:authType>
+                    </con:credentials>
+                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                    <con:jmsPropertyConfig/>
+                    <con:parameters>
+                        <con:entry key="origin" value="CNHKG"/>
+                        <con:entry key="deadline" value="10102013"/>
+                        <con:entry key="destination" value="USNYC"/>
+                    </con:parameters>
+                </con:request>
+            </con:method>
+        </con:resource>
+        <con:resource name="handling-reports" path="/cargo-tracker/rest/handling/reports">
+            <con:settings/>
+            <con:parameters/>
+            <con:method name="Submit Report" method="POST">
+                <con:settings/>
+                <con:parameters/>
+                <con:representation type="FAULT">
+                    <con:mediaType>text/html</con:mediaType>
+                    <con:status>404 400</con:status>
+                    <con:params/>
+                    <con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType>application/json</con:mediaType>
+                    <con:status>200</con:status>
+                    <con:params/>
+                    <con:element xmlns:exam="http://localhost/cargo-tracker/rest/handling/example">exam:Response
+                    </con:element>
+                </con:representation>
+                <con:representation type="REQUEST">
+                    <con:mediaType>application/json</con:mediaType>
+                    <con:params/>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>0</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>204</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:representation type="RESPONSE">
+                    <con:mediaType xsi:nil="true"/>
+                    <con:status>204</con:status>
+                    <con:params/>
+                    <con:element>data</con:element>
+                </con:representation>
+                <con:request name="POST" mediaType="application/json" postQueryString="false" accept="application/json">
+                    <con:settings>
+                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
+                        </con:setting>
+                    </con:settings>
+                    <con:endpoint>http://localhost:8080</con:endpoint>
+                    <con:request>{
+                        "completionTime": "2013-08-28 09:30",
+                        "trackingId": "3B071792",
+                        "eventType": "RECEIVE",
+                        "unLocode": "CNHKG"
+                        }
+                    </con:request>
+                    <con:credentials>
+                        <con:authType>Global HTTP Settings</con:authType>
+                    </con:credentials>
+                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                    <con:jmsPropertyConfig/>
+                    <con:parameters/>
+                </con:request>
+            </con:method>
+        </con:resource>
+    </con:interface>
+    <con:properties/>
+    <con:wssContainer/>
+    <con:sensitiveInformation/>
+</con:soapui-project>
