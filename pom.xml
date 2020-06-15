@@ -40,13 +40,20 @@
         </repository>
     </repositories>
 
+
+    <!-- ##################################################
+        dependencies
+        ################################################## -->
+
     <dependencyManagement>
-        <!-- Arquillian BOM used to reduce collision between testing dependecies. -->
         <dependencies>
+            <!-- Arquillian Bill Of Management used to reduce collision between testing dependencies.
+                 Using a dependency manager we don't need to specify the version of each Arquillian decency.
+              -->
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.10.Final</version>
+                <version>1.4.1.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -54,6 +61,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- ==================================================
+             Application dependencies
+             ================================================== -->
+
+
         <!-- Jakarta EE API -->
         <dependency>
             <groupId>javax</groupId>
@@ -96,35 +108,59 @@
             <version>1.0.10</version>
         </dependency>
 
-        <!-- Test dependendencies -->
+        <!-- ==================================================
+             Test dependencies
+             ================================================== -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Arquillian decencies -->
+
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Resolvers are needed in the Arquillian tests -->
+
+        <!--
+            Resolvers are needed in the Arquillian tests
+            This is used for adding all the runtime dependencies inside a testing war.
+            For doing this you can use the following code
+
+                File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml")
+                                           .importRuntimeDependencies().resolve().withTransitivity().asFile();
+
+            NOTE: this is necessary when running the tests on a managed or remote JVM.
+        -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator-cdi</artifactId>
             <version>6.0.16.Final</version>
         </dependency>
+
     </dependencies>
+
+    <!-- ##################################################
+        build
+        ################################################## -->
 
     <build>
         <finalName>cargo-tracker</finalName>
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -134,28 +170,43 @@
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>false</skipTests>
+
                     <systemPropertyVariables>
-                        <!-- This is needed to tell the unit tests which profile
-                        we are running. -->
+                        <!-- This is needed to tell the unit tests which profile we are running.
+                             @see jakarta.cargotracker.application.BookingServiceTest
+                        -->
                         <profileId>${project.activeProfiles[0].id}</profileId>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
+    <!-- ##################################################
+         profiles
+         ################################################## -->
+
     <profiles>
-        <!-- GlassFish specific version of build -->
+
+        <!-- ==================================================
+             glassgish profile
+
+             GlassFish specific version of build
+             ================================================== -->
         <profile>
             <id>glassfish</id>
+
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
@@ -164,6 +215,7 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+
             <build>
                 <plugins>
                     <plugin>
@@ -185,5 +237,6 @@
                 </plugins>
             </build>
         </profile>
+
     </profiles>
 </project>
