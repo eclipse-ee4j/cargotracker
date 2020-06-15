@@ -260,9 +260,17 @@
                             <container>
                                 <containerId>glassfish4x</containerId>
                                 <zipUrlInstaller>
-                                    <url>https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/Payara+4.1.2.174/payara-4.1.2.174.zip</url>
+                                    <url>https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip</url>
                                 </zipUrlInstaller>
                             </container>
+                            <!-- configuration>
+                                <properties>
+                                    <username>admin</username>
+                                    <password></password>
+                                    <hostname>localhost</hostname>
+                                    <cargo.glassfish.admin.port>4848</cargo.glassfish.admin.port>
+                                </properties>
+                            </configuration -->
                             <properties>
                                 <context>cargo-tracker</context>
                             </properties>
