@@ -70,7 +70,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
+            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -237,6 +237,45 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>payara</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <version>1.0.2</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.7.7</version>
+                        <configuration>
+                            <container>
+                                <containerId>glassfish4x</containerId>
+                                <zipUrlInstaller>
+                                    <url>https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/Payara+4.1.2.174/payara-4.1.2.174.zip</url>
+                                </zipUrlInstaller>
+                            </container>
+                            <properties>
+                                <context>cargo-tracker</context>
+                            </properties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
 
     </profiles>
 </project>
