@@ -1,0 +1,32 @@
+package org.eclipse.cargotracker.infrastructure.messaging.jms;
+
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+@MessageDriven(activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationType",
+                propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName = "destinationLookup",
+                propertyValue = "java:app/jms/RejectedRegistrationAttemptsQueue")
+})
+public class RejectedRegistrationAttemptsConsumer implements MessageListener {
+
+    private static final Logger logger = Logger.getLogger(
+            RejectedRegistrationAttemptsConsumer.class.getName());
+
+    @Override
+    public void onMessage(Message message) {
+        try {
+            logger.log(Level.INFO,
+                    "Rejected registration attempt of cargo with tracking ID {0}.",
+                    message.getBody(String.class));
+        } catch (JMSException ex) {
+            logger.log(Level.WARNING, "Error processing message.", ex);
+        }
+    }
+}

@@ -164,7 +164,7 @@
 
                     <systemPropertyVariables>
                         <!-- This is needed to tell the unit tests which profile we are running.
-                             @see jakarta.cargotracker.application.BookingServiceTest
+                             @see org.eclipse.cargotracker.application.BookingServiceTest
                         -->
                         <profileId>${project.activeProfiles[0].id}</profileId>
                     </systemPropertyVariables>
