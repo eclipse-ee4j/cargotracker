@@ -1,10 +1,8 @@
-================================================================================                            
-                              Cargo Tracker
-            Applied Domain-Driven Design Blue Prints for Java EE
-================================================================================
+Cargo Tracker: Applied Domain-Driven Design Blue Prints for Java EE
+=======
 
-Overview
-========
+# Overview
+
 The project demonstrates how you can develop applications with the Java EE 
 platform using widely adopted architectural best practices like Domain-Driven 
 Design (DDD), TDD and agile. The project is directly based on the well known 
@@ -12,23 +10,23 @@ original Java DDD sample (http://dddsample.sourceforge.net) application
 developed by DDD pioneer Eric Evans' company Domain Language and the Swedish 
 software consulting company Citerus. The cargo example actually comes from 
 Eric Evans' seminal book on DDD. The original application is written in Spring,
-Hibernate and Jetty whereas the application is build entirely on Java EE 8 and
-GlassFish 4.  It also supports WildFly 8.
+Hibernate and Jetty whereas the application is build entirely on Java EE 7 and
+Payara 4.
 
 The application is an end-to-end system for keeping track of shipping cargo. It 
 has several interfaces described in the following sections.
 
 For further details on the project, please visit:
 https://github.com/eclipse-ee4j/cargotracker
+ 
+# Getting Started
 
-Getting Started
-===============
 The project site has detailed information on how to get started: 
 https://projects.eclipse.org/projects/ee4j.cargotracker/.
 
 The simplest steps are the following (no IDE required):
 
-* Get the project source code: https://github.com/eclipse-ee4j/cargotracker
+* Get the project source code: `git clone https://github.com/eclipse-ee4j/cargotracker.git`
 * As long as you have Maven set up, navigate to the project source root and 
   type: `mvn package cargo:run`
 * To run with WildFly 8x, type: `mvn -Pwildfly package cargo:run`
@@ -36,25 +34,25 @@ The simplest steps are the following (no IDE required):
 
 To set up in NetBeans, follow these steps:
 
-* Set up JDK 8+, NetBeans 7.3+ and GlassFish 4+ 
-  (preferably GlassFish 4.1+ and NetBeans 8.0.1+).
+* Set up JDK 8+, NetBeans 7.3+ and Payara 4+ 
+  (preferably Payara 4.1+ and NetBeans 8.0.1+).
 * Open the source code directory in NetBeans - it's just a Maven project, 
   NetBeans will do the rest for you. As noted in the site instructions on
   NetBeans, you may get a few spurious errors due to reported NetBeans bugs.
   Just ignore them and proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
-  Maven downloads dependencies), simply run it via GlassFish 4.
+  Maven downloads dependencies), simply run it via Payara 4.
   
 It's best to use Chrome for the application since it has the best support for 
-HTML 5 forms, but any HTML 5 capable browser is fine. There are some known 
-issues due to reported GlassFish 4 bugs - please read the Known Issues section 
-below.
+HTML 5 forms, but any HTML 5 capable browser is fine. If you are running it 
+with GlassFish, there are some known issues due to reported GlassFish 4 bugs -
+please read the Known Issues section below.
 
-Exploring the Application
-=========================
+# Exploring the Application
+
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Java EE (and Java EE 8) features including JSF 2.2, CDI, EJB 3.2, 
+number of Java EE (and Java EE 7) features including JSF 2.2, CDI, EJB 3.2, 
 JPA 2.1, JAX-RS 2, WebSocket, JSON-P, Bean Validation 1.1 and JMS 2.
 
 There are several web interfaces, REST interfaces and a file system scanning
@@ -116,8 +114,8 @@ You can also use the soapUI scripts included in the source code to explore the
 REST interfaces as well as the numerous unit tests covering the code base 
 generally.
 
-Exploring the Code
-==================
+# Exploring the Code
+
 As mentioned earlier, the real point of the application is demonstrating how to 
 create well architected, effective Java EE applications. To that end, once you 
 have gotten some familiarity with the application functionality the next thing 
@@ -137,6 +135,28 @@ understanding both Java EE and DDD. Though it's not our goal to become a kitchen
 sink example for demonstrating the vast amount of APIs and features in Java EE,
 we do use a very representative set. You'll find that you'll learn a fair amount
 by simply digging into the code to see how things are implemented.
+
+## Exploring the tests
+
+Cargo Tracker's testing is done using Junit 4 and Arquillian. The Arquillian configuration
+uses a [remote container](http://arquillian.org/arquillian-core/#_containers)
+such as Payara 4.1 . Therefore, to perform a test you will need to make sure
+to have a container running. 
+
+### Testing locally with Payara
+For testing locally you will first need to run a Payara 4+ server.
+
+You can do that with the following script:
+```shell script
+wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
+unzip payara-4.1.2.181.zip && cd payara41/bin
+./asadmin start-domain
+```
+
+Now for running the tests: 
+```shell script
+mvn -Ppayara test
+```
 
 Known Issues
 ============
