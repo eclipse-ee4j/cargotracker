@@ -11,6 +11,7 @@ import static org.eclipse.cargotracker.application.util.DateUtil.toDate;
 /**
  * Sample carrier movements, for test purposes.
  */
+@SuppressWarnings("unchecked")
 public class SampleVoyages {
 
     public static final Voyage CM001 = createVoyage("CM001", SampleLocations.STOCKHOLM, SampleLocations.HAMBURG);

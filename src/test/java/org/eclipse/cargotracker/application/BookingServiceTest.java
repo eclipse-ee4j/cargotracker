@@ -127,12 +127,7 @@ public class BookingServiceTest {
                 .addAsResource("META-INF/persistence.xml",
                         "META-INF/persistence.xml");
 
-        // The web.xml is slightly different for weblogic.
-        if ("weblogic".equals(System.getProperty("profileId"))) {
-            war.addAsWebInfResource("test-web-weblogic.xml", "web.xml");
-        } else {
-            war.addAsWebInfResource("test-web.xml", "web.xml");
-        }
+        war.addAsWebInfResource("test-web.xml", "web.xml");
 
         war.addAsLibraries(
                 Maven.resolver().loadPomFromFile("pom.xml")
