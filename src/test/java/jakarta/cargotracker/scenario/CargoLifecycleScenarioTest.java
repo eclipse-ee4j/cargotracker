@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class CargoLifecycleScenarioTest {
 
     /**
@@ -87,13 +89,13 @@ public class CargoLifecycleScenarioTest {
          the cargo aggregate in a suitable way. */
         Cargo cargo = cargoRepository.find(trackingId);
         org.junit.Assert.assertNotNull(cargo);
-        org.junit.Assert.assertEquals(TransportStatus.NOT_RECEIVED,
+        assertEquals(TransportStatus.NOT_RECEIVED,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertEquals(RoutingStatus.NOT_ROUTED,
+        assertEquals(RoutingStatus.NOT_ROUTED,
                 cargo.getDelivery().getRoutingStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertNull(cargo.getDelivery().getEstimatedTimeOfArrival());
-        org.junit.Assert.assertNull(cargo.getDelivery().getNextExpectedActivity());
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertNull(cargo.getDelivery().getEstimatedTimeOfArrival());
+        assertNull(cargo.getDelivery().getNextExpectedActivity());
 
         /* Use case 2: routing
 
@@ -108,12 +110,12 @@ public class CargoLifecycleScenarioTest {
         Itinerary itinerary = selectPreferedItinerary(itineraries);
         cargo.assignToRoute(itinerary);
 
-        org.junit.Assert.assertEquals(TransportStatus.NOT_RECEIVED,
+        assertEquals(TransportStatus.NOT_RECEIVED,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertEquals(RoutingStatus.ROUTED,
+        assertEquals(RoutingStatus.ROUTED,
                 cargo.getDelivery().getRoutingStatus());
         org.junit.Assert.assertNotNull(cargo.getDelivery().getEstimatedTimeOfArrival());
-        org.junit.Assert.assertEquals(new HandlingActivity(
+        assertEquals(new HandlingActivity(
                         HandlingEvent.Type.RECEIVE, SampleLocations.HONGKONG),
                 cargo.getDelivery().getNextExpectedActivity());
 
@@ -136,9 +138,9 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.HONGKONG.getUnLocode(),
                 HandlingEvent.Type.RECEIVE);
 
-        org.junit.Assert.assertEquals(TransportStatus.IN_PORT,
+        assertEquals(TransportStatus.IN_PORT,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertEquals(SampleLocations.HONGKONG,
+        assertEquals(SampleLocations.HONGKONG,
                 cargo.getDelivery().getLastKnownLocation());
 
         // Next event: Load onto voyage SampleVoyages.CM003 in Hongkong
@@ -148,14 +150,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.HONGKONG.getUnLocode(), HandlingEvent.Type.LOAD);
 
         // Check current state - should be ok
-        org.junit.Assert.assertEquals(SampleVoyages.v100,
+        assertEquals(SampleVoyages.v100,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.HONGKONG,
+        assertEquals(SampleLocations.HONGKONG,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.ONBOARD_CARRIER,
+        assertEquals(TransportStatus.ONBOARD_CARRIER,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertEquals(new HandlingActivity(
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertEquals(new HandlingActivity(
                 HandlingEvent.Type.UNLOAD, SampleLocations.NEWYORK,
                 SampleVoyages.v100), cargo.getDelivery().getNextExpectedActivity());
 
@@ -184,14 +186,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.TOKYO.getUnLocode(), HandlingEvent.Type.UNLOAD);
 
         // Check current state - cargo is misdirected!
-        org.junit.Assert.assertEquals(Voyage.NONE,
+        assertEquals(Voyage.NONE,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.TOKYO,
+        assertEquals(SampleLocations.TOKYO,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.IN_PORT,
+        assertEquals(TransportStatus.IN_PORT,
                 cargo.getDelivery().getTransportStatus());
         org.junit.Assert.assertTrue(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertNull(cargo.getDelivery().getNextExpectedActivity());
+        assertNull(cargo.getDelivery().getNextExpectedActivity());
 
         // -- Cargo needs to be rerouted --
         // TODO cleaner reroute from "earliest location from where the new route originates"
@@ -201,9 +203,9 @@ public class CargoLifecycleScenarioTest {
         cargo.specifyNewRoute(fromTokyo);
 
         // The old itinerary does not satisfy the new specification
-        org.junit.Assert.assertEquals(RoutingStatus.MISROUTED,
+        assertEquals(RoutingStatus.MISROUTED,
                 cargo.getDelivery().getRoutingStatus());
-        org.junit.Assert.assertNull(cargo.getDelivery().getNextExpectedActivity());
+        assertNull(cargo.getDelivery().getNextExpectedActivity());
 
         // Repeat procedure of selecting one out of a number of possible routes satisfying the route spec
         List<Itinerary> newItineraries
@@ -212,7 +214,7 @@ public class CargoLifecycleScenarioTest {
         cargo.assignToRoute(newItinerary);
 
         // New itinerary should satisfy new route
-        org.junit.Assert.assertEquals(RoutingStatus.ROUTED, cargo.getDelivery().getRoutingStatus());
+        assertEquals(RoutingStatus.ROUTED, cargo.getDelivery().getRoutingStatus());
 
         // TODO we can't handle the face that after a reroute, the cargo isn't misdirected anymore
         //org.junit.Assert.assertFalse(cargo.isMisdirected());
@@ -225,14 +227,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.TOKYO.getUnLocode(), HandlingEvent.Type.LOAD);
 
         // Check current state - should be ok
-        org.junit.Assert.assertEquals(SampleVoyages.v300,
+        assertEquals(SampleVoyages.v300,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.TOKYO,
+        assertEquals(SampleLocations.TOKYO,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.ONBOARD_CARRIER,
+        assertEquals(TransportStatus.ONBOARD_CARRIER,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertEquals(new HandlingActivity(
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertEquals(new HandlingActivity(
                 HandlingEvent.Type.UNLOAD, SampleLocations.HAMBURG,
                 SampleVoyages.v300), cargo.getDelivery().getNextExpectedActivity());
 
@@ -243,14 +245,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.HAMBURG.getUnLocode(), HandlingEvent.Type.UNLOAD);
 
         // Check current state - should be ok
-        org.junit.Assert.assertEquals(Voyage.NONE,
+        assertEquals(Voyage.NONE,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.HAMBURG,
+        assertEquals(SampleLocations.HAMBURG,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.IN_PORT,
+        assertEquals(TransportStatus.IN_PORT,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertEquals(new HandlingActivity(
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertEquals(new HandlingActivity(
                 HandlingEvent.Type.LOAD, SampleLocations.HAMBURG,
                 SampleVoyages.v400), cargo.getDelivery().getNextExpectedActivity());
 
@@ -261,14 +263,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.HAMBURG.getUnLocode(), HandlingEvent.Type.LOAD);
 
         // Check current state - should be ok
-        org.junit.Assert.assertEquals(SampleVoyages.v400,
+        assertEquals(SampleVoyages.v400,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.HAMBURG,
+        assertEquals(SampleLocations.HAMBURG,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.ONBOARD_CARRIER,
+        assertEquals(TransportStatus.ONBOARD_CARRIER,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertEquals(new HandlingActivity(
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertEquals(new HandlingActivity(
                 HandlingEvent.Type.UNLOAD, SampleLocations.STOCKHOLM,
                 SampleVoyages.v400), cargo.getDelivery().getNextExpectedActivity());
 
@@ -279,14 +281,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.STOCKHOLM.getUnLocode(), HandlingEvent.Type.UNLOAD);
 
         // Check current state - should be ok
-        org.junit.Assert.assertEquals(Voyage.NONE,
+        assertEquals(Voyage.NONE,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.STOCKHOLM,
+        assertEquals(SampleLocations.STOCKHOLM,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.IN_PORT,
+        assertEquals(TransportStatus.IN_PORT,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertEquals(new HandlingActivity(
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertEquals(new HandlingActivity(
                         HandlingEvent.Type.CLAIM, SampleLocations.STOCKHOLM),
                 cargo.getDelivery().getNextExpectedActivity());
 
@@ -296,14 +298,14 @@ public class CargoLifecycleScenarioTest {
                 SampleLocations.STOCKHOLM.getUnLocode(), HandlingEvent.Type.CLAIM);
 
         // Check current state - should be ok
-        org.junit.Assert.assertEquals(Voyage.NONE,
+        assertEquals(Voyage.NONE,
                 cargo.getDelivery().getCurrentVoyage());
-        org.junit.Assert.assertEquals(SampleLocations.STOCKHOLM,
+        assertEquals(SampleLocations.STOCKHOLM,
                 cargo.getDelivery().getLastKnownLocation());
-        org.junit.Assert.assertEquals(TransportStatus.CLAIMED,
+        assertEquals(TransportStatus.CLAIMED,
                 cargo.getDelivery().getTransportStatus());
-        org.junit.Assert.assertFalse(cargo.getDelivery().isMisdirected());
-        org.junit.Assert.assertNull(cargo.getDelivery().getNextExpectedActivity());
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertNull(cargo.getDelivery().getNextExpectedActivity());
     }
 
 

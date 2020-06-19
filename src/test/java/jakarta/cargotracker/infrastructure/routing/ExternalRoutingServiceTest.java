@@ -8,6 +8,8 @@ import jakarta.cargotracker.domain.model.voyage.VoyageRepository;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class ExternalRoutingServiceTest {
 
     private ExternalRoutingService externalRoutingService;
@@ -42,23 +44,23 @@ public class ExternalRoutingServiceTest {
 //        replay(voyageRepository);
 
         List<Itinerary> candidates = externalRoutingService.fetchRoutesForSpecification(routeSpecification);
-        org.junit.Assert.assertNotNull(candidates);
+        assertNotNull(candidates);
 
         for (Itinerary itinerary : candidates) {
             List<Leg> legs = itinerary.getLegs();
-            org.junit.Assert.assertNotNull(legs);
-            org.junit.Assert.assertFalse(legs.isEmpty());
+            assertNotNull(legs);
+            assertFalse(legs.isEmpty());
 
             // Cargo origin and start of first leg should match
-            org.junit.Assert.assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
+            assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
 
             // Cargo final destination and last leg stop should match
             Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
-            org.junit.Assert.assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
+            assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
 
+            // Assert that all legs are connected
             for (int i = 0; i < legs.size() - 1; i++) {
-                // Assert that all legs are connected
-                org.junit.Assert.assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());
+                assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());
             }
         }
 

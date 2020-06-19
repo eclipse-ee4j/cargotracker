@@ -12,9 +12,10 @@
         adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.
     </description>
     <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
+
     <organization>
-        <name>Oracle Corporation</name>
-        <url>http://www.oracle.com/</url>
+        <name>Eclipse Foundation</name>
+        <url>https://www.eclipse.org/org/foundation/</url>
     </organization>
 
     <issueManagement>
@@ -22,17 +23,7 @@
         <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
     </issueManagement>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
-        <webapp.graphTraversalUrl>
-            http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
-        </webapp.graphTraversalUrl>
-    </properties>
-
-    <!-- We need to use the PrimeFaces repository -->
+    <!-- We need to use the PrimeFaces repository for the theme -->
     <repositories>
         <repository>
             <id>org.primefaces</id>
@@ -53,7 +44,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.4.1.Final</version>
+                <version>${arquillian.core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -70,7 +61,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>${javaee_api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -108,6 +99,7 @@
             <version>1.0.10</version>
         </dependency>
 
+
         <!-- ==================================================
              Test dependencies
              ================================================== -->
@@ -140,14 +132,6 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator-cdi</artifactId>
-            <version>6.0.16.Final</version>
             <scope>test</scope>
         </dependency>
 
@@ -195,14 +179,8 @@
          ################################################## -->
 
     <profiles>
-
-        <!-- ==================================================
-             glassgish profile
-
-             GlassFish specific version of build
-             ================================================== -->
         <profile>
-            <id>glassfish</id>
+            <id>payara</id>
 
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -210,9 +188,9 @@
 
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.2</version>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-remote</artifactId>
+                    <version>1.1</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -222,12 +200,12 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.7.7</version>
+                        <version>${cargo.version}</version>
                         <configuration>
                             <container>
-                                <containerId>glassfish4x</containerId>
+                                <containerId>${cargo.payara.container_id}</containerId>
                                 <zipUrlInstaller>
-                                    <url>https://download.java.net/glassfish/4.1/release/glassfish-4.1.zip</url>
+                                    <url>${cargo.payara.download_uri}</url>
                                 </zipUrlInstaller>
                             </container>
                             <properties>
@@ -238,48 +216,29 @@
                 </plugins>
             </build>
         </profile>
-
-        <profile>
-            <id>payara</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.2</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.7.7</version>
-                        <configuration>
-                            <container>
-                                <containerId>glassfish4x</containerId>
-                                <zipUrlInstaller>
-                                    <url>https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip</url>
-                                </zipUrlInstaller>
-                            </container>
-                            <!-- configuration>
-                                <properties>
-                                    <username>admin</username>
-                                    <password></password>
-                                    <hostname>localhost</hostname>
-                                    <cargo.glassfish.admin.port>4848</cargo.glassfish.admin.port>
-                                </properties>
-                            </configuration -->
-                            <properties>
-                                <context>cargo-tracker</context>
-                            </properties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-
     </profiles>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <javaee_api.version>7.0</javaee_api.version>
+
+        <!-- arquillian variables -->
+        <arquillian.core.version>1.4.1.Final</arquillian.core.version>
+
+        <!-- cargo variables -->
+        <cargo.version>1.7.7</cargo.version>
+        <cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
+        <cargo.payara.download_uri>
+            https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
+        </cargo.payara.download_uri>
+
+        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
+        <webapp.graphTraversalUrl>
+            http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+        </webapp.graphTraversalUrl>
+    </properties>
 </project>

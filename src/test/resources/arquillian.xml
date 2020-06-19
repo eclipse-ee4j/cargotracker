@@ -7,7 +7,7 @@
     <engine>
         <property name="deploymentExportPath">target/</property>
     </engine>
-    <container qualifier="glassfish" default="true">
+    <container qualifier="payara" default="true">
         <configuration>
             <!-- <property name="outputToConsole">true</property> -->
             <property name="adminUser">admin</property>

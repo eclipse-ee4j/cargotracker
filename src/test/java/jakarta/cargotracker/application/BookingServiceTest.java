@@ -22,7 +22,6 @@ import jakarta.pathfinder.api.TransitEdge;
 import jakarta.pathfinder.api.TransitPath;
 import jakarta.pathfinder.internal.GraphDao;
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.validator.cdi.internal.interceptor.ValidationInterceptor;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -119,7 +118,6 @@ public class BookingServiceTest {
                 .addClass(SampleVoyages.class)
                 .addClass(DateUtil.class)
                 .addClass(BookingServiceTestRestConfiguration.class)
-                .addClass(ValidationInterceptor.class)
                 .addAsResource("META-INF/persistence.xml",
                         "META-INF/persistence.xml");
 

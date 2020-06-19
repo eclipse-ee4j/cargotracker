@@ -4,8 +4,6 @@ import jakarta.cargotracker.application.util.DateUtil;
 import jakarta.cargotracker.domain.model.cargo.Cargo;
 import jakarta.cargotracker.domain.model.cargo.RouteSpecification;
 import jakarta.cargotracker.domain.model.cargo.TrackingId;
-import jakarta.cargotracker.domain.model.handling.HandlingEvent;
-import jakarta.cargotracker.domain.model.handling.HandlingHistory;
 import jakarta.cargotracker.domain.model.location.SampleLocations;
 import jakarta.cargotracker.domain.model.voyage.Voyage;
 import jakarta.cargotracker.domain.model.voyage.VoyageNumber;
