@@ -155,7 +155,7 @@ unzip payara-4.1.2.181.zip && cd payara41/bin
 
 Now for running the tests: 
 ```shell script
-mvn -Ppayara test
+mvn -Ppayara -DskipTests=false test
 ```
 
 Known Issues

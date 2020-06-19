@@ -160,7 +160,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>${skipTests}</skipTests>
 
                     <systemPropertyVariables>
                         <!-- This is needed to tell the unit tests which profile we are running.
@@ -228,6 +228,7 @@
 
         <!-- arquillian variables -->
         <arquillian.core.version>1.4.1.Final</arquillian.core.version>
+        <skipTests>true</skipTests>
 
         <!-- cargo variables -->
         <cargo.version>1.7.7</cargo.version>
