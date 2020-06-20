@@ -12,9 +12,10 @@
         adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.
     </description>
     <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
+
     <organization>
-        <name>Oracle Corporation</name>
-        <url>http://www.oracle.com/</url>
+        <name>Eclipse Foundation</name>
+        <url>https://www.eclipse.org/org/foundation/</url>
     </organization>
 
     <issueManagement>
@@ -22,17 +23,7 @@
         <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
     </issueManagement>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
-        <webapp.graphTraversalUrl>
-            http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
-        </webapp.graphTraversalUrl>
-    </properties>
-
-    <!-- We need to use the PrimeFaces repository -->
+    <!-- We need to use the PrimeFaces repository for the theme -->
     <repositories>
         <repository>
             <id>org.primefaces</id>
@@ -40,13 +31,20 @@
         </repository>
     </repositories>
 
+
+    <!-- ##################################################
+        dependencies
+        ################################################## -->
+
     <dependencyManagement>
-        <!-- Arquillian BOM used to reduce collision between testing dependecies. -->
         <dependencies>
+            <!-- Arquillian Bill Of Management used to reduce collision between testing dependencies.
+                 Using a dependency manager we don't need to specify the version of each Arquillian decency.
+              -->
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.10.Final</version>
+                <version>${arquillian.core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -54,11 +52,16 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- ==================================================
+             Application dependencies
+             ================================================== -->
+
+
         <!-- Jakarta EE API -->
         <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>8.0.0</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee_api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -96,35 +99,53 @@
             <version>1.0.10</version>
         </dependency>
 
-        <!-- Test dependendencies -->
+
+        <!-- ==================================================
+             Test dependencies
+             ================================================== -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Arquillian decencies -->
+
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Resolvers are needed in the Arquillian tests -->
+
+        <!--
+            Resolvers are needed in the Arquillian tests
+            This is used for adding all the runtime dependencies inside a testing war.
+            For doing this you can use the following code
+
+                File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml")
+                                           .importRuntimeDependencies().resolve().withTransitivity().asFile();
+
+            NOTE: this is necessary when running the tests on a managed or remote JVM.
+        -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-cdi -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator-cdi</artifactId>
-            <version>6.0.16.Final</version>
-        </dependency>
+
     </dependencies>
+
+    <!-- ##################################################
+        build
+        ################################################## -->
 
     <build>
         <finalName>cargo-tracker</finalName>
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -134,47 +155,57 @@
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>${skipTests}</skipTests>
+
                     <systemPropertyVariables>
-                        <!-- This is needed to tell the unit tests which profile
-                        we are running. -->
+                        <!-- This is needed to tell the unit tests which profile we are running.
+                             @see org.eclipse.cargotracker.application.BookingServiceTest
+                        -->
                         <profileId>${project.activeProfiles[0].id}</profileId>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
+    <!-- ##################################################
+         profiles
+         ################################################## -->
+
     <profiles>
-        <!-- GlassFish specific version of build -->
         <profile>
-            <id>glassfish</id>
+            <id>payara</id>
+
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.2</version>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-remote</artifactId>
+                    <version>1.1</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.7.7</version>
+                        <version>${cargo.version}</version>
                         <configuration>
                             <container>
-                                <containerId>glassfish5x</containerId>
+                                <containerId>${cargo.payara.container_id}</containerId>
                                 <zipUrlInstaller>
-                                    <url>https://mirrors.dotsrc.org/eclipse//glassfish/glassfish-5.1.0.zip</url>
+                                    <url>${cargo.payara.download_uri}</url>
                                 </zipUrlInstaller>
                             </container>
                             <properties>
@@ -186,4 +217,29 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <javaee_api.version>7.0</javaee_api.version>
+
+        <!-- arquillian variables -->
+        <arquillian.core.version>1.4.1.Final</arquillian.core.version>
+        <skipTests>true</skipTests>
+
+        <!-- cargo variables -->
+        <cargo.version>1.7.7</cargo.version>
+        <cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
+        <cargo.payara.download_uri>
+            https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
+        </cargo.payara.download_uri>
+
+        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
+        <webapp.graphTraversalUrl>
+            http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+        </webapp.graphTraversalUrl>
+    </properties>
 </project>
