@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Cargo Tracker">
+        <meta name="author" content="Reza Rahman">
+
+        <title>Cargo Tracker</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="css/cargo.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#home">Cargo Tracker - DDD Powered Java EE</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#overview">Overview</a>
+                        </li>
+                        <li>
+                            <a href="#getstarted">Getting Started</a>
+                        </li>
+                        <li>
+                            <a href="#eeddd">Java EE</a>
+                        </li>
+                        <li>
+                            <a href="https://cargo-tracker.gitbook.io/documentation/">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="mailto:reza_rahman@lycos.com">Forum</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+        <!-- Header -->
+        <div class="intro-header">
+            <div class="container">
+                <span class="anchor" id="home"></span>
+                <div class="section"></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="intro-message">
+                            <hr class="intro-divider">
+                            <h1>Cargo Tracker</h1>
+                            <h2 class="shadowme">Applied Domain-Driven Design Blueprints for Java EE</h2>
+                            <hr class="intro-divider">
+                            <ul class="list-inline intro-social-buttons"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- /.intro-header -->
+
+        <!-- Page Content -->
+        <div class="content-section-a">
+            <div class="container">
+                <!--a name="overview"></a--> 
+				<span class="anchor" id="overview"></span>
+				<div class="section"></div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Overview</h2>
+                        <hr class="section-heading-spacer">
+                    </div>
+                    <div class="col-lg-9 col-lg-offset-1 col-sm-6">
+                        <p class="lead">This project demonstrates how you can develop applications with the Java EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD). The code is intended to mirror a non-trivial application that developers in the real work would work on. It attempts to demonstrate first-hand how you can use Java EE to effectively meet practical enterprise concerns such as productivity, agility, testability, flexibility, maintainability, scalability and security.<br><br>
+
+                            The project is directly based on the well known original <a target="_blank" href="http://dddsample.sourceforge.net/">Java DDD sample</a> application developed by DDD pioneer Eric Evans' company <a target="_blank" href="http://domainlanguage.com/">Domain Language</a> and the Swedish software consulting company <a target="_blank" href="http://www.citerus.se/">Citerus</a>. The cargo example actually comes from Eric Evans' <a target="_blank" href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">seminal book</a>. That project uses older versions of Spring, Hibernate and Jetty whereas we focus on vanilla Java EE.<br><br>
+
+                            In the same vein as that project, we certainly are not in the business of prescribing how you should write Java EE applications. The code simply demonstrates ideas that you could adopt if you think they are right for you. We have also tried to show you just some of the many different approaches that you could take to interpret and implement DDD concepts. You are of course warmly welcomed to provide feedback and contribute to this Open Source project.<br><br>
+
+                            As such, we will continue to rely heavily on the original DDD sample application as well as the existing knowledge base in the DDD community as invaluable resources on further details on DDD as it applies to this code base (please see the <a target="_blank" href=" http://dddsample.sourceforge.net">DDD Sample pages</a> for vital details). We also highly recommend you read the <a target="_blank" href="#eeddd">Java EE and DDD</a> section. It is perhaps best to skim it, explore the application/code and revisit the section.<br><br>
+
+                            This effort is very grateful for the kind blessings and guidance of the good folks behind the original DDD sample application.</p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- /.content-section-a -->
+
+        <div class="content-section-b">
+            <a name="goals"></a> 
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Goals</h2>
+                        <hr class="section-heading-spacer">
+
+                    </div>
+
+                    <div class="col-lg-9 col-lg-offset-1 col-sm-6">
+                        <ul class="lead"><li>Demonstrate well established architectural patterns/blueprints for enterprise development with Java EE using pretty close to a real world application.</li>
+                            <li>Demonstrate a concrete implementation of DDD concepts.</li>
+                            <li>Showcase some core Java EE technologies.</li>
+                            <li>Contrary to beliefs long held by some folks, Java EE does not attempt to be a walled garden. Like all open standards, the goal of Java EE is to provide a reliable core standard foundation that a vibrant ecosystem of plug-ins and extensions can be built around. In that spirit, we will incorporate a select set of representative tools that complement Java EE well such as Maven, JUnit, Cargo, JMeter, soapUI, Arquillian, PrimeFaces and DeltaSpike.</li>
+                        </ul>
+                    </div>
+                </div><!-- /.row -->
+
+
+                <center><h3>&#126;</h3></center><br>
+
+
+                <div class="row">
+
+                    <div class="col-lg-9 col-sm-6">
+                        <ul class="lead">
+                            <li>Comparison with other technologies such as Spring or .NET. We suggest you do your own research using the plethora of good information already available. This project is squarely about showing you how you could write good Java EE applications and nothing else.</li>
+                            <li>Attempting to demonstrate the very wide gamut of Java EE APIs and features. While we do incorporate a pretty representative set of Java EE APIs and features, it is not our goal to serve as a kitchen sink of comprehensive Java EE samples. The Java EE samples project serves that purpose far better than us.</li>
+                            <li>While it is certainly possible to learn certain aspects of Java EE (primarily how to architect good Java EE applications), this project is not intended to teach you the basics of Java EE. The Java EE Tutorial is intended as a basic learning tool for Java EE.</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Non Goals</h2>
+                        <hr class="section-heading-spacer">
+                    </div>
+                </div><!-- /.row -->
+            </div> 
+            <!-- /.container -->
+        </div>
+        <!-- /.content-section-b -->
+
+        <div class="content-section-a">
+            <!-- a class="class="anchor" name="getstarted"></a --> 
+
+			<span class="anchor" id="getstarted"></span>
+			<div class="section"></div>
+
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Getting Started</h2>
+                        <hr class="section-heading-spacer">
+                    </div>
+                    <div class="col-lg-9 col-lg-offset-1 col-sm-6">
+                        <p class="lead">Before exploring the code, it may be helpful to view a demo of the application functionality. 
+		           You can do that 
+			    through the <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/getting-started#screen-cast">video on 
+			    the Getting Started section of the 
+			    documentation</a> that covers most of the major functionality for Cargo Tracker.
+		            <br/><br/>
+		            If you simply wish to explore the code, <a target="_blank" href="https://github.com/m-reza-rahman/cargo-tracker/archive/master.zip">download it as a zip</a> or browse the <a target="_blank" href="https://github.com/m-reza-rahman/cargo-tracker/">GitHub repository</A>.
+                            <br/><br/>
+                            The source is a Maven project, so you should be able to easily build it or set it up in your favorite IDE. 
+			    We currently have instructions for <a href="https://cargo-tracker.gitbook.io/documentation/netbeans" target="_blank">NetBeans 
+			    as part of our documentation</a>. We welcome contributions showing how to use the project with other IDEs.
+		            Note that we currently do not recommend Eclipse due to it's poor support of Maven.<br><br>
+                            You can also run the application directly from the Maven command line using Apache Cargo. All you need to 
+			    is navigate to the project source root and type:
+
+                            <br/><br/><code>mvn package cargo:run</code><br/><br/>
+                            Once the application starts up, just open up a browser and navigate 
+			    to <a target="_blank" href="http://localhost:8080/cargo-tracker/">http://localhost:8080/cargo-tracker/</a>.<br><br>
+
+                            The project currently runs on Java EE 8/Payara 5 and Java SE 8. We welcome contributions for running the 
+			    application on other Java EE application servers (as you will see in the source code, there are few 
+			    dependencies on Payara so this should be pretty easy to do).
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- /.content-section-a -->
+
+        <div class="content-section-b">
+            <a name="background"></a> 
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Background</h2>
+                        <hr class="section-heading-spacer">
+                    </div>
+                    <div class="col-lg-9 col-lg-offset-1 col-sm-6">
+                        <p class="lead">Many of you might have at least heard of the J2EE Blue Prints/PetStore. In many ways, the J2EE 
+			    Blue Prints/PetStore was far ahead of it's time. It helped establish some degree of order out of the chaos 
+			    of mid-nineties enterprise development. It brought to the mainstream many architectural patterns like 
+			    separation of concerns, layering, MVC, DAO, DTO and the like that we now mostly take for granted. It also 
+			    helped catapult J2EE itself. The PetStore of course was not without its own fair share of problems. The 
+			    most significant of these problems is the fact that many patterns in the PetStore were either motivated or 
+			    encumbered by the problems of the then relatively new J2EE and EJB 2 technologies and EJB 2 entity beans 
+		            did not support OO well.</p>
+
+                        <center><img src="img/cargotracker-influences.png"/></center>
+
+                        <p class="lead">DDD provided concrete solutions to the weaknesses in the PetStore with the help of emergent 
+			    concepts of POJO programming, ORM and lightweight frameworks. It is no accident that DDD is now widely 
+			    adopted by the Spring and .NET communities. As Java EE has now fully embraced concepts like POJO 
+			    programming, lightweight programming models, annotations, ORM, rich domain models, agility and testability, 
+			    this project brings things full circle. It demonstrates first hand how you can utilize the best of the 
+			    breed in enterprise software development practices using the power and simplicity of the standard, 
+			    vendor-neutral Java EE platform. Notably unlike the J2EE Blue Prints/PetStore, we will not invent new 
+			    patterns here but simply adopt the proven, mature ideas in the DDD community.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.content-section-B -->
+
+        <div class="content-section-a">
+
+				<span class="anchor" id="eeddd"></span>
+				<div class="section"></div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Java EE and DDD</h2>
+                        <hr class="section-heading-spacer">
+                    </div>
+                    <div class="col-lg-9 col-lg-offset-1 col-sm-6">
+                        <p class="lead">As the name implies, Domain-Driven Design is an approach to software design and development 
+			    that focuses on the core domain and domain logic. The domain is implemented through a careful focus on 
+			    traditional OOAD (Object Oriented Analysis and Design) and modeling the real world problem the software is 
+			    trying to solve as closely as possible.</p>
+
+                        <p class="lead"><a target="_blank" href="http://en.wikipedia.org/wiki/Domain-driven_design">Wikipedia</a> does 
+			    a surprisingly good job at overviewing DDD. Aslam Khan's 
+			    <a target="_blank" href="http://refcardz.dzone.com/refcardz/getting-started-domain-driven">DDD Ref Card</a> 
+			    on DZone is a brief read and does a great job of explaining the core concepts of DDD. For a bit more 
+			    detail, you could read the 
+			    <a target="_blank" href="http://www.infoq.com/minibooks/domain-driven-design-quickly">free DDD eBook</a> on 
+			    InfoQ. Finally, you can of course read 
+			    <a target="_blank" href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Eric Evans' book</a> 
+			    itself. However, we recommend not starting with the book until you get a bit of your bearings around this 
+			    application first.</p>
+
+                        <p class="lead">The basic building blocks of the domain are entities, value objects, aggregates, services, 
+			    repositories and factories. The <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/characterization">Characterization</a> 
+			    section of our documentation overviews how these concepts are implemented in the application using Java EE. 
+			    Logical layers partitioning distinct concerns are super-imposed on the core concept of the domain. These 
+			    layers generally consist of the UI/interface layer, the application layer, the domain layer (of course!) 
+			    and the infrastructure layer respectively. The <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/layers">Layers</a> 
+			    section of our documentation explains the architectural layers in the application and how they relate to 
+			    various Java EE APIs. The DDD community also fully embraces practices like automated testing, agile, 
+			    emergent design, refactoring and Continuous Integration. We have incorporated all these practices into the 
+			    application in a pragmatic fashion.</p>
+
+                        <center><img src="img/ddd-diagram.png"><br>(Diagram credited to <a target="_blank" href="http://www.infoq.com/minibooks/domain-driven-design-quickly">Domain-Driven Design Quickly</a>)</center><br>
+
+                        <p class="lead">One of the primary principles of DDD is that design should be focused on the business domain, 
+			    not technology. The role of technology is to empower software developers to implement readable, productive, 
+			    maintainable systems that mirror the real world, not place constraints on design choices. Most mainstream 
+			    technology stacks today have matured enough to make this principle a reality, Java EE is no exception. In 
+			    fact, with a single-minded focus on simplicity, POJOs, Java/OO centric strong typing, annotations and 
+			    intelligent defaults that minimize system configuration and lets developers focus on solving the business 
+			    problem, we think Java EE is one of the best platforms to support DDD. Java EE makes it possible to quickly 
+			    and effectively produce a working system by annotating domain and application classes and implementing 
+			    interface and infrastructure code. In the <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/characterization">Characterization</a> and <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/layers">Layers</a> 
+			    sections of our documentation we have overviewed how some key Java EE APIs map to DDD concepts and pointed 
+			    you to some of the most important bits of implementation code in the application. In the figure below, we 
+			    have summarized how this mapping looks like visually as a handy cross reference.</p>
+
+                        <center><img src="img/ddd_javaee.png"></center>
+
+                        <p class="lead">Note, the diagram above is most certainly not intended to be comprehensive. For example, 
+			    besides JSF, JAX-RS, WebSocket and JBatch, some other technologies that are very useful in implementing 
+			    interfaces are CDI (for JSF backing beans), Bean Validation, EJB (e.g. remote or JMS messaging end-points), 
+			    JAX-WS (SOAP end-points), JSON-P and JSON-B. Similarly, you can choose to implement application services as 
+			    transactional CDI beans as opposed to EJB and you can use Interceptors, the low level JTA API and Java EE 
+			    Concurrency Utilities in the application layer. Value Objects can be implemented as either JPA embeddables or 
+			    entities. In addition to JPA, JMS, JAX-RS clients, JAX-WS clients and EJB clients it is very likely may use 
+			    CDI, Bean Validation, JCA and WebSocket clients to implement infrastructure components. The DeltaSpike Data
+		            module is very helpful in implementing repositories. The point really is that Java EE APIs are there to help
+			    you implement elegantly designed systems as needed.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.content-section-A -->
+
+        <div class="content-section-b">
+            <a name="eeanddd"></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Java EE Features</h2>
+                        <hr class="section-heading-spacer">
+                    </div>
+                    <div class="col-lg-9 col-lg-offset-1 col-sm-6">
+                        
+                        <p class="lead">The following table shows some of the Java EE features we have used in the application. This is by no means a comprehensive list, just the primary ones worth mentioning.</p>
+                               <table class="table" style="font-weight:200;">
+<tr><td>JSF</td><td>Facelets, templates, view parameters, view actions, message bundles, CDI compatible view scope, HTML 5 pass-though attributes, HTML 5 pass-though elements</td></tr>
+<tr><td>CDI</td><td>Basic injection, scopes, named beans, qualifiers, events, observers, default enablement</td></tr>
+<tr><td>EJB</td><td>Transactions, stateless session bean, message driven bean, startup singleton, CRON style scheduling, application exceptions, XML deployment descriptors, portable activation configuration</td></tr>
+<tr><td>JPA</td><td>Generated ID, basic mapping, embeddables, many-to-one, one-to-many, enumerations, temporal types, named queries, managed persistence context, portable data source definition, schema generation</td></tr>
+<tr><td>JAX-RS</td><td>REST endpoint, MIME types, client API, JSON processing, content-type negotiation</td></tr>
+<tr><td>WebSocket</td><td>Server-side endpoint, sending messages to remote endpoints, EJB integration</td></tr>
+<tr><td>JSON-P</td><td>Writing JSON using Streaming API</td></tr>
+<tr><td>Bean Validation</td><td>Basic validation annotations, method level validation for REST endpoints, method level validation for local EJB application services</td></tr>
+<tr><td>JMS</td><td>JMS 2 simplified API message send, portable JMS resource definition</td></tr>
+<tr><td>Java Batch</td><td>Job operator, job XML, job properties, job context, job listener, skip listener, reader, writer, skippable exceptions, checkpointing, chunking</td></tr>
+<tr><td>JTA 1.2</td><td>@Transactional interceptor</td></tr>
+</table>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- /.content-section-B -->
+        <!-- /.container -->
+
+        <div class="banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <center><h2 class="shadowme">Make sure to follow <a target="_blank" href="https://twitter.com/java_ee">@Java_EE</a> on <i class="fa fa-twitter"></i></h2></center>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.banner -->
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--ul class="list-inline">
+                            <li>
+                                <a target="_blank" href="#home">Home</a>
+                            </li>
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a target="_blank" href="#about">About</a>
+                            </li>
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a target="_blank" href="#services">...</a>
+                            </li>
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a target="_blank" href="#contact">...</a>
+                            </li>
+                        </ul-->
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- jQuery Version 1.11.0 -->
+        <script src="js/jquery-1.11.0.js"></script>
+		<script>
+			$('a').click(function(){
+		    $('html, body').animate({
+		        scrollTop: $( $.attr(this, 'href') ).offset().top
+		    }, 500);
+		    return false;
+		});
+		</script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
