@@ -8,7 +8,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>org.eclipse.cargo-tracker</name>
-    <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely
+    <description>
+        The project demonstrates how you can develop applications with the Jakarta EE platform using widely
         adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.
     </description>
     <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
@@ -22,15 +23,6 @@
         <system>github</system>
         <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
     </issueManagement>
-
-    <!-- We need to use the PrimeFaces repository for the theme -->
-    <repositories>
-        <repository>
-            <id>org.primefaces</id>
-            <url>https://repository.primefaces.org</url>
-        </repository>
-    </repositories>
-
 
     <!-- ##################################################
         dependencies
@@ -91,14 +83,8 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>6.2</version>
+            <version>8.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>ui-lightness</artifactId>
-            <version>1.0.10</version>
-        </dependency>
-
 
         <!-- ==================================================
              Test dependencies
@@ -161,13 +147,6 @@
                 <version>2.22.2</version>
                 <configuration>
                     <skipTests>${skipTests}</skipTests>
-
-                    <systemPropertyVariables>
-                        <!-- This is needed to tell the unit tests which profile we are running.
-                             @see org.eclipse.cargotracker.application.BookingServiceTest
-                        -->
-                        <profileId>${project.activeProfiles[0].id}</profileId>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
@@ -208,9 +187,6 @@
                                     <url>${cargo.payara.download_uri}</url>
                                 </zipUrlInstaller>
                             </container>
-                            <properties>
-                                <context>cargo-tracker</context>
-                            </properties>
                         </configuration>
                     </plugin>
                 </plugins>
