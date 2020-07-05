@@ -1,7 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.mobile;
 
-//import javax.faces.bean.SessionScoped;
-
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowHandler;
@@ -13,6 +11,7 @@ import java.io.Serializable;
  */
 @Named
 @SessionScoped
+@Deprecated
 public class HolderBean implements Serializable {
 
     // TODO: this is really a workaround for now as viewaction can't invoke a faceflow directly!

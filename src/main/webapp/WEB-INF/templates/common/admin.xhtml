@@ -1,58 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+
 <h:head>
     <title><ui:insert name="title">Title</ui:insert></title>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
-    <h:outputStylesheet name="calendar.css"/>
-    <h:outputStylesheet name="dd.css"/>
+
+    <h:outputStylesheet name="css/app.css"/>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
 </h:head>
+
 <h:body>
-    <p:layout fullPage="true">
-        <p:layoutUnit position="north" class="decoration">
-            <div class="ui-grid ui-grid-responsive">
-                <div class="ui-grid-row shadowme">
-                    <div class="ui-grid-col-1"></div>
-                    <div class="ui-grid-col-5">
-                        <a href="#{request.contextPath}" style="text-decoration: none;color:white;">
-                            <img src="../images/CTlogobadge128.png" style="padding-top: 10px;" height="30"/>&#160;&#160;&#160;
-                            <h:outputText styleClass="titleText" value="Cargo Tracker"/>
-                            <nospan style="font-size:.85em">&nbsp;- Powered by Java EE 7</nospan>
-                        </a></div>
-                    <div class="ui-grid-col-5 alignRight" style="padding-top: 26px;">
-                        <h:form>
-                            <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
-                            &nbsp;&nbsp;
-                            <h:commandLink value="Book" action="booking" styleClass="headerLink"/>
-                            &nbsp;&nbsp;
-                            <h:commandLink value="Track" action="/admin/track.xhtml" styleClass="headerLink"/>
-                            &nbsp;&nbsp;
-                            <h:commandLink value="Live" action="/admin/map.xhtml" styleClass="headerLink"
-                                           target="_blank"/>
-                            &nbsp;&nbsp;
-                            <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink"/>
-                        </h:form>
-                    </div>
-                    <div class="ui-grid-col-1"></div>
+    <div class="ui-g full-page">
+        <!-- MENU -->
+        <div class="ui-g-12 ui-md-2 side-panel">
+            <div class="ui-g-12 menu-container">
+                <h:graphicImage value="#{resource['/images/CTlogobadge128.png']}" class="side-panel-img"/>
+                    <p:menu>
+                        <p:menuitem value="Dashboard" url="/admin/dashboard.xhtml" />
+                        <p:menuitem value="Book" url="booking" />
+                        <p:menuitem value="Track" url="/admin/track.xhtml" />
+                        <p:menuitem value="Live" url="/admin/map.xhtml" />
+                        <p:menuitem value="About" url="/admin/about.xhtml" />
+                    </p:menu>
+            </div>
+        </div>
+
+        <!-- Main Section -->
+        <div class="ui-g-12 ui-md-10 ui-g-nopad">
+            <div class="ui-g-12">
+                Bar
+            </div>
+            <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, orci nec dictum convallis, ligula mauris vestibulum turpis, nec varius tortor quam at diam. Nullam a viverra nibh. In tincidunt tempor lectus quis vulputate. Pellentesque nec dui aliquam, lobortis est in, lobortis ante</div>
+                    <div class="ui-g-12 ui-md-4">Maecenas vel nisi aliquet, vulputate tortor id, laoreet massa. Maecenas mattis tristique bibendum. Suspendisse vel mi dictum, vestibulum lacus quis, pulvinar quam. Proin vulputate, nibh at finibus varius, leo eros lacinia elit, nec blandit odio tellus a justo. Donec nec ex auctor, tristique nulla nec, rutrum sapien.</div>
+                    <div class="ui-g-12 ui-md-4">Proin efficitur in leo eget ornare. Nam vestibulum neque sed velit sagittis sodales. Sed scelerisque hendrerit magna a hendrerit. Cras tempor sem at justo pharetra convallis. Curabitur vel sodales purus. Vestibulum interdum facilisis nulla imperdiet suscipit. Quisque lectus felis, condimentum eget hendrerit sit amet.</div>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-6 ui-md-3"><p:graphicImage name="demo/images/nature/nature1.jpg" style="width:100%"/></div>
+                    <div class="ui-g-6 ui-md-3"><p:graphicImage name="demo/images/nature/nature2.jpg" style="width:100%"/></div>
+                    <div class="ui-g-6 ui-md-3"><p:graphicImage name="demo/images/nature/nature3.jpg" style="width:100%"/></div>
+                    <div class="ui-g-6 ui-md-3"><p:graphicImage name="demo/images/nature/nature4.jpg" style="width:100%"/></div>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-6">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci, ullamcorper vitae ligula quis, dignissim euismod augue.</div>
+                    <div class="ui-g-12 ui-md-6">Fusce ullamcorper congue massa, eget ullamcorper nunc lobortis egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultrices dui eget dolor feugiat dapibus. Aliquam pretium leo et egestas luctus. Nunc facilisis gravida tellus.</div>
                 </div>
             </div>
-        </p:layoutUnit>
-        <p:layoutUnit position="center">
-            <div id="body">
-                <ui:insert name="content">Default Content</ui:insert>
-            </div>
-        </p:layoutUnit>
-        <p:layoutUnit position="south" size="50" class="clearCargoBkg" style="margin: 0 auto;">
-            <center> <!-- TODO: change center to CCS -->
-                <p:separator/>
-                <p:outputLabel style="center"></p:outputLabel>
-            </center>
-        </p:layoutUnit>
-    </p:layout>
+        </div>
+    </div>
 </h:body>
 </html>

@@ -1,0 +1,82 @@
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.full-page {
+    height: 100vh;
+}
+
+.side-panel {
+    background-color: #262626;
+
+    padding: 0;
+    margin: 0;
+}
+
+/*this is for overriding Primefaces' background and color */
+.side-panel * {
+    background-color: #262626;
+    color: #f5f5f5;
+}
+
+.side-panel .side-panel-img {
+    display: block;
+
+    width: 80%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-bottom: 50px;
+}
+
+.side-panel > .menu-container {
+    width: 100%;
+    margin: 0;
+
+    font-size: 25px;
+}
+
+.side-panel .menu-container .ui-menu {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.side-panel .menu-container .ui-menu .ui-menu-list .ui-menuitem {
+    border-bottom: solid 2px orange;
+    margin: 0 0 10px 0;
+    padding: 0 0 10px 0;
+}
+
+.side-panel .menu-container .ui-menu .ui-menu-list .ui-menuitem:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.side-panel .menu-container .ui-menu .ui-state-hover {
+    background: inherit; /* remove default Primefaces background on hover */
+}
+
+.side-panel .menu-container .ui-menu .ui-state-hover span {
+    color: orange;
+}
+
+.side-panel .menu-footer {
+    position: absolute;
+    bottom: 0;
+    width: inherit;
+    margin-left: -0.5em;
+}
+
+/*
+.ui-menu 	Container element of menu
+.ui-menu-list 	List container
+.ui-menuitem 	Each menu item
+.ui-menuitem-link 	Anchor element in a link item
+.ui-menuitem-text 	Text element in an item
+.ui-menu-sliding 	Container of ipod like sliding menu
+*/

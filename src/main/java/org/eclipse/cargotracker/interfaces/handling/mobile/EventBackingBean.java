@@ -26,14 +26,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//import org.primefaces.PF;
-//import org.primefaces.context.RequestContext;
-
 /**
  * @author davidd
  */
 @Named
 @FlowScoped("eventLogger")
+@Deprecated
 public class EventBackingBean implements Serializable {
 
     @Inject
@@ -226,7 +224,7 @@ public class EventBackingBean implements Serializable {
         eventSubmitable = true;
     }
 
-    public String handleEventSubmission() {
+    public void handleEventSubmission() {
 
         VoyageNumber selectedVoyage = null;
 
@@ -247,7 +245,6 @@ public class EventBackingBean implements Serializable {
 
         voyageNumber = null;
         completionDate = null;
-        unLocode = null;
         eventType = null;
         location = null;
         trackId = null;
@@ -255,8 +252,6 @@ public class EventBackingBean implements Serializable {
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Event submitted", ""));
-
-        return null;
     }
 
 }

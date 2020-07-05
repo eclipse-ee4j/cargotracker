@@ -14,8 +14,5 @@
         <view-handler>
             org.primefaces.application.DialogViewHandler
         </view-handler>
-        <navigation-handler>
-            org.primefaces.mobile.application.MobileNavigationHandler
-        </navigation-handler>
     </application>
 </faces-config>
