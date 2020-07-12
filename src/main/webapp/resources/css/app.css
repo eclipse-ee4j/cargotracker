@@ -1,3 +1,9 @@
+/* Variables */
+:root {
+    --background-primary-color: #FFA500;
+}
+
+
 body {
     height: 100vh;
     margin: 0;
@@ -6,6 +12,10 @@ body {
 .full-page {
     height: 100vh;
 }
+
+/*************************************
+             Side panel style
+ *************************************/
 
 .side-panel {
     background-color: #262626;
@@ -72,11 +82,65 @@ body {
     margin-left: -0.5em;
 }
 
-/*
-.ui-menu 	Container element of menu
-.ui-menu-list 	List container
-.ui-menuitem 	Each menu item
-.ui-menuitem-link 	Anchor element in a link item
-.ui-menuitem-text 	Text element in an item
-.ui-menu-sliding 	Container of ipod like sliding menu
-*/
+/*************************************
+             Table style
+ *************************************/
+
+.ui-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.ui-datatable .ui-datatable-header,
+.ui-datatable .ui-datatable-footer {
+    text-align: left;
+    padding: 4px 10px;
+    text-align-last: left;
+}
+
+.ui-datatable .ui-datatable-header {
+    background: var(--background-primary-color);
+    color: #ffffff;
+
+    font-weight: bold;
+    font-size: 2em;
+
+    border-bottom: 0 none;
+}
+
+.ui-datatable .ui-datatable-footer {
+    border-top: 0 none;
+    background: var(--background-primary-color);
+}
+
+.ui-datatable th.ui-state-default,
+.ui-datatable tfoot td.ui-state-default {
+    background: var(--background-primary-color);
+
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+
+    border-top: 0 none;
+    border-right: 0 none;
+    border-left: 0 none;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+    padding: 4px 10px;
+    white-space: pre-line;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+    border: 0 none !important;
+}
+
+.ui-datatable tbody > tr.ui-widget-content {
+    border: 0 none;
+}
+
+.ui-datatable-odd {
+    background-color: #f5ecda;
+}
