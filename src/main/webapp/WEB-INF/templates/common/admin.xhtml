@@ -25,11 +25,11 @@
             <div class="ui-g-12 menu-container">
                 <h:graphicImage value="#{resource['/images/CTlogobadge128.png']}" class="side-panel-img"/>
                     <p:menu>
-                        <p:menuitem value="Dashboard" url="/admin/dashboard.xhtml" />
+                        <p:menuitem value="Dashboard" url="dashboard.xhtml" />
                         <p:menuitem value="Book" url="booking" />
-                        <p:menuitem value="Track" url="/admin/track.xhtml" />
-                        <p:menuitem value="Live" url="/admin/map.xhtml" />
-                        <p:menuitem value="About" url="/admin/about.xhtml" />
+                        <p:menuitem value="Track" url="track.xhtml" />
+                        <p:menuitem value="Live" url="map.xhtml" />
+                        <p:menuitem value="About" url="about.xhtml" />
                     </p:menu>
             </div>
         </div>
@@ -38,9 +38,7 @@
         <div class="ui-g-12 ui-md-10 ui-g-nopad">
             <div class="ui-g-12 ui-g-nopad">
                 <div class="ui-g">
-                    <div class="ui-g-12">
-                        <ui:insert name="content">Default Content</ui:insert>
-                    </div>
+                    <ui:insert name="content">Default Content</ui:insert>
                 </div>
             </div>
         </div>

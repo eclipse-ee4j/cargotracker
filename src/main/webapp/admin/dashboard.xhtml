@@ -10,13 +10,16 @@
     <ui:define name="title">Cargo Dashboard</ui:define>
 
     <ui:define name="content">
-        <h:form id="mainDash">
-            <ui:include src="/admin/tables/listRouted.xhtml" class="clearCargoBkg"/>
-            <br/><br/>
-            <ui:include src="/admin/tables/listNotRouted.xhtml"/>
-            <br/><br/>
-            <ui:include src="/admin/tables/listClaimed.xhtml"/>
-        </h:form>
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
+            <h:form id="mainDash">
+                <ui:include src="/admin/tables/listRouted.xhtml" class="clearCargoBkg"/>
+                <br/><br/>
+                <ui:include src="/admin/tables/listNotRouted.xhtml"/>
+                <br/><br/>
+                <ui:include src="/admin/tables/listClaimed.xhtml"/>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>
 </html>
