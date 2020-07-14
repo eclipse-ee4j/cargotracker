@@ -11,32 +11,32 @@
 
         <p:column headerText="Id" width="94">
             <h:link id="trackingId" value="#{cargoNotRouted.trackingId}"
-                    outcome="route.xhtml?faces-redirect=true" style="text-decoration: none;">
+                    outcome="/admin/route.xhtml?faces-redirect=true" style="text-decoration: none;">
                 <f:param name="trackingId" value="#{cargoNotRouted.trackingId}"/>
-                <i class="fa fa-globe" style="color: #999999;"></i>
+                <i class="fa fa-globe" style="color: #999999;" />
             </h:link>
             <p:tooltip id="toolTipFade" for="trackingId"
                        value="This cargo is not routed. Click on its ID to route it!"/>
         </p:column>
 
         <p:column headerText="Origin">
-            <h:outputText value="#{cargoNotRouted.originName}  "/> -
+            <h:outputText value="#{cargoNotRouted.originName}  "/><br/>
             <h:outputText value="#{cargoNotRouted.originCode}" style="color: #999999;font-size:.8em;"/>
         </p:column>
 
         <p:column headerText="Destination" id="ColDest">
             <p:commandLink action="#{changeDestinationDialog.showDialog(cargoNotRouted.trackingId)}"
                            style="text-decoration: none;" id="toUpdate">
-                <h:outputText value="#{cargoNotRouted.finalDestinationName}  "/> -
+                <h:outputText value="#{cargoNotRouted.finalDestinationName}  "/><br/>
                 <h:outputText value="#{cargoNotRouted.finalDestinationCode}" style="color: #999999;font-size:.8em;"/>
-                <i class="fa fa-edit" style="color: #999999;"></i>
+                <i class="fa fa-edit" style="color: #999999;" />
                 <p:ajax event="dialogReturn" listener="#{changeDestinationDialog.handleReturn}"
                         update="tableNotRouted"/>
             </p:commandLink>
         </p:column>
 
         <p:column headerText="Deadline">
-            <h:outputText value="#{cargoNotRouted.arrivalDeadlineDate}"/> -
+            <h:outputText value="#{cargoNotRouted.arrivalDeadlineDate}"/><br/>
             <h:outputText value="#{cargoNotRouted.arrivalDeadlineTime}" style="color: #999999;font-size:.8em;"/>
         </p:column>
 
