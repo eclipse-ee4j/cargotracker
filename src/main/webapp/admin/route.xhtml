@@ -46,61 +46,66 @@
             </h:panelGrid>
             <p:separator/>
             <h:panelGroup rendered="#{empty itinerarySelection.routeCandidates}">
-                <p><i class="fa fa-exclamation-triangle"
-                      style="color: #9b2332"></i> No routes found that satisfy the route specification. Try setting an arrival deadline further into the future.
+                <p>
+                    <i class="fa fa-exclamation-triangle" style="color: #9b2332"/> No routes found that satisfy the route specification. Try setting an arrival deadline further into the future.
                 </p>
             </h:panelGroup>
 
             <ui:repeat value="#{itinerarySelection.routeCandidates}" var="itinerary"
                        varStatus="itineraryStatus">
+                <div class="ui-g ui-g-12">
+                    <div class="ui-g-3" style="font-size: 1.5em; padding: 10px;">
+                        <span class="success label">##{itineraryStatus.index + 1} route candidate</span>
+                    </div>
+                    <div class="ui-g-1 ui-g-offset-8" style="font-size: 1.5em; padding: 10px;">
+                        <p:commandLink action="#{itinerarySelection.assignItinerary(itineraryStatus.index)}"
+                                       style="text-decoration: none;">
+                            <span style="color: #e8b44b; font-weight: bold;">Select</span>
+                        </p:commandLink>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:dataTable var="legs" value="#{itinerary.legs}" style="text-align: center;" id="legs">
 
-                <span class="success label">Route candidate #{itineraryStatus.index + 1}: </span>
-                <p:commandLink action="#{itinerarySelection.assignItinerary(itineraryStatus.index)}"
-                               style="text-decoration: none;">
-                    <span style="color: #e8b44b; font-weight: bold;">Select</span></p:commandLink>
+                            <p:column headerText="Voyage" width="64" style="text-align: center;">
+                                <h:outputText value="#{legs.voyageNumber}" style="color: #9b2332"/>
+                            </p:column>
 
-                <p:dataTable var="legs" value="#{itinerary.legs}" style="text-align: center;" id="legs">
+                            <p:column headerText="Load" style="text-align: center;">
+                                <h:outputText value="#{legs.fromName}"
+                                              style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.fromName) ? 'bold' : 'normal'}"/>
+                                <ui:fragment rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.fromName)}">
+                                    <i class="fa fa-arrow-right" />
+                                </ui:fragment>
 
-                    <p:column headerText="Voyage" width="64" style="text-align: center;">
-                        <h:outputText value="#{legs.voyageNumber}" style="color: #9b2332"/>
-                    </p:column>
+                            </p:column>
 
-                    <p:column headerText="Load" style="text-align: center;">
-                        <h:outputText value="#{legs.fromName}"
-                                      style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.fromName) ? 'bold' : 'normal'}"/>
-                        <ui:fragment rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.fromName)}">
-                            <i class="fa fa-arrow-right"></i>
-                        </ui:fragment>
+                            <p:column headerText="at" style="text-align: center;">
+                                <h:outputText value="#{legs.loadTimeDate}"/><br/>
+                                <h:outputText value="#{legs.loadTimeTime}" style="color: #999999;font-size:.8em;"/>
+                            </p:column>
 
-                    </p:column>
+                            <p:column headerText="Unload" style="text-align: center;">
+                                <ui:fragment
+                                        rendered="${fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName)}">
+                                    <i class="fa fa-arrow-right"/>
+                                </ui:fragment>
+                                <h:outputText value="#{legs.toName}"
+                                              style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName) ?'bolder' : 'normal'}"/>
+                            </p:column>
 
-                    <p:column headerText="at" style="text-align: center;">
-                        <h:outputText value="#{legs.loadTimeDate}"/><br/>
-                        <h:outputText value="#{legs.loadTimeTime}" style="color: #999999;font-size:.8em;"/>
-                    </p:column>
+                            <p:column headerText="at" style="text-align: center;">
+                                <h:outputText value="#{legs.unloadTimeDate}"/><br/>
+                                <h:outputText value="#{legs.unloadTimeTime}" style="color: #999999;font-size:.8em;"/>
+                            </p:column>
 
-                    <p:column headerText="Unload" style="text-align: center;">
-                        <ui:fragment
-                                rendered="${fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName)}">
-                            <i class="fa fa-arrow-right"/>
-                        </ui:fragment>
-                        <h:outputText value="#{legs.toName}"
-                                      style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName) ?'bolder' : 'normal'}"/>
-                    </p:column>
-
-                    <p:column headerText="at" style="text-align: center;">
-                        <h:outputText value="#{legs.unloadTimeDate}"/><br/>
-                        <h:outputText value="#{legs.unloadTimeTime}" style="color: #999999;font-size:.8em;"/>
-                    </p:column>
-
-                </p:dataTable>
-                <p:tooltip for="legs" value="Hit 'Select' to assign this candidate itinerary to the cargo"
-                           trackMouse="true"/>
-                <br/>
+                        </p:dataTable>
+                        <p:tooltip for="legs" value="Hit 'Select' to assign this candidate itinerary to the cargo"
+                                   trackMouse="true"/>
+                        <br/>
+                    </div>
+                </div>
             </ui:repeat>
-            <p:separator/>
         </div>
-        <div class="ui-grid-col-2" id="rightCol"></div>
     </ui:define>
 </ui:composition>
 </html>
