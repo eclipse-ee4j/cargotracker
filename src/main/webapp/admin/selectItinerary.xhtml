@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+    <ui:define name="title">Cargo Administration</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="trackingId"
+                         value="#{itinerarySelection.trackingId}"/>
+            <f:viewAction action="#{itinerarySelection.load}"/>
+        </f:metadata>
+
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
+            <h:panelGroup rendered="#{empty itinerarySelection.routeCandidates}">
+                <p>No routes found that satisfy the route specification. Try
+                    setting an arrival deadline further into the future (a few weeks at
+                    least).</p>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

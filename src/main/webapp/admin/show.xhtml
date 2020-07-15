@@ -52,6 +52,7 @@
 
             </h:panelGrid>
 
+            <p:separator/>
             <br/>
 
             <div class="row">
@@ -60,7 +61,7 @@
 
                         <h:panelGroup rendered="#{cargoDetails.cargo.routed}">
                             <h:panelGroup rendered="#{cargoDetails.cargo.misrouted}">
-                                <h:panelGrid columns="3" styleClass="registrationPanelGrid" cellpadding="5">
+                                <h:panelGrid columns="3" style="font-size: 1.2em" cellpadding="5">
                                     <p:outputLabel value="Misrouted cargo!" style="vertical-align: top;"/>
                                     <h:form>
                                         <p:button value="Reroute"
@@ -74,7 +75,7 @@
                                 </h:panelGrid>
 
                             </h:panelGroup>
-
+                            <br/>
                             <p:dataTable var="legs" value="#{cargoDetails.cargo.legs}"
                                          style="text-align: center;">
                                 <p:column headerText="Voyage" width="64" style="text-align: center;">
