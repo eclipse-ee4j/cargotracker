@@ -23,14 +23,16 @@
         <!-- MENU -->
         <div class="ui-g-12 ui-md-2 side-panel">
             <div class="ui-g-12 menu-container">
-                <h:graphicImage value="#{resource['/images/CTlogobadge128.png']}" class="side-panel-img"/>
+                <h:form>
+                    <h:graphicImage value="#{resource['/images/CTlogobadge128.png']}" class="side-panel-img"/>
                     <p:menu>
                         <p:menuitem value="Dashboard" url="dashboard.xhtml" />
-                        <p:menuitem value="Book" url="booking" />
+                        <p:menuitem value="Book" action="booking" />
                         <p:menuitem value="Track" url="track.xhtml" />
                         <p:menuitem value="Live" url="map.xhtml" />
                         <p:menuitem value="About" url="about.xhtml" />
                     </p:menu>
+                </h:form>
             </div>
         </div>
 

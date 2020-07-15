@@ -1,6 +1,15 @@
 /* Variables */
 :root {
+    --secondary-text-color: #f5f5f5;
+
+
     --background-primary-color: #FFA500;
+    --background-primary-color-darker: #d48900;
+    --background-primary-color-lighten: #f5ecda;
+
+
+    --background-panel-main-color: #262626;
+
 }
 
 
@@ -18,7 +27,7 @@ body {
  *************************************/
 
 .side-panel {
-    background-color: #262626;
+    background-color: var(--background-panel-main-color);
 
     padding: 0;
     margin: 0;
@@ -26,8 +35,8 @@ body {
 
 /*this is for overriding Primefaces' background and color */
 .side-panel * {
-    background-color: #262626;
-    color: #f5f5f5;
+    background-color: var(--background-panel-main-color);
+    color: var(--secondary-text-color);
 }
 
 .side-panel .side-panel-img {
@@ -56,7 +65,7 @@ body {
 }
 
 .side-panel .menu-container .ui-menu .ui-menu-list .ui-menuitem {
-    border-bottom: solid 2px orange;
+    border-bottom: solid 2px var(--background-primary-color);
     margin: 0 0 10px 0;
     padding: 0 0 10px 0;
 }
@@ -142,5 +151,52 @@ body {
 }
 
 .ui-datatable-odd {
-    background-color: #f5ecda;
+    background-color: var(--background-primary-color-lighten);
+}
+
+/*************************************
+             Calendar style
+ *************************************/
+.ui-datepicker .ui-datepicker-header,
+.ui-datepicker .ui-timepicker-div > .ui-widget-header {
+    background: var(--background-panel-main-color);
+    background: -webkit-linear-gradient(top,var(--background-panel-main-color) 0, #474a4b 100%);
+
+    box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset;
+    border-radius: 0;
+}
+
+.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div > .ui-widget-header {
+    border: 1px solid #3b3e40;
+}
+
+.ui-datepicker th {
+    color: #e8e9ea !important;
+
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#474a4b),color-stop(100%,#5b5e5e));
+
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    border: none !important;
+}
+
+.ui-datepicker-current-day a {
+    background: var(--background-primary-color) !important;
+    color: #fff !important;
+}
+
+/*************************************
+             Components style
+ *************************************/
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    background-color: var(--background-primary-color);
+    border: 1px solid var(--background-primary-color-darker);
+
+    color: var(--secondary-text-color);
+
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: var(--background-primary-color-darker);
+    color: var(--secondary-text-color);
 }
