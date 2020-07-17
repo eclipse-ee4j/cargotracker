@@ -200,3 +200,19 @@ body {
     background: var(--background-primary-color-darker);
     color: var(--secondary-text-color);
 }
+
+/*************************************
+             Timeline style
+ *************************************/
+
+.ok-timeline-event {
+    border: #90ee90;
+    background: #818181 none !important;
+    color: #ffffff !important;
+}
+
+.error-timeline-event {
+    border: #cd5c5c;
+    background: #818181 none !important;
+    color: #ffffff !important;
+}

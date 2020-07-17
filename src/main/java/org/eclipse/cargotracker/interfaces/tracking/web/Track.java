@@ -5,6 +5,8 @@ import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
+import org.primefaces.model.timeline.TimelineEvent;
+import org.primefaces.model.timeline.TimelineModel;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -12,7 +14,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Backing bean for tracking cargo. This interface sits immediately on top of
@@ -87,5 +92,24 @@ public class Track implements Serializable {
             context.addMessage(null, message);
             this.cargo = null;
         }
+    }
+
+    public TimelineModel<String, ?> getTimeline() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z");
+
+        Function<CargoTrackingViewAdapter.HandlingEventViewAdapter, TimelineEvent<String>> cargoEventMapper =
+                event ->  TimelineEvent.<String>builder()
+                                        .data(event.getDescription())
+                                        .styleClass(event.isExpected() ? "ok-timeline-event" : "error-timeline-event")
+                                        .startDate(LocalDate.parse(event.getTime(), formatter))
+                                        .build();
+
+        TimelineModel<String, ?> tm = new TimelineModel<>();
+
+        getCargo().getEvents().stream()
+                .map(cargoEventMapper)
+                .forEach(tm::add);
+
+        return tm;
     }
 }

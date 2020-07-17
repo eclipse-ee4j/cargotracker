@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+    <ui:define name="title">Track Cargo</ui:define>
+    <ui:define name="content">
+        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+        <div class="ui-grid-col-2" id="leftCol"></div>
+        <div class="ui-grid-col-8" id="mainCol">
+
+            <br/>
+            <div class="ui-g ui-g-12">
+                <div class="ui-g-6 ui-g-offset-3">
+                    <h:form id="trackingForm">
+                        <h:panelGrid columns="3" cellpadding="15">
+                            <p>Enter your tracking ID:</p>
+                            <h:inputText id="trackingIdInput"
+                                             value="#{track.trackingId}"
+                                             p:autofocus="true"
+                                             p:placeholder="XYZ789"
+                                             p:required="true"
+                                             p:pattern=".*\S+.*"
+                                             p:title="Valid tracking ID"/>
+                            <h:commandButton value="Track!"
+                                                 action="#{track.onTrackById()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+
+                <div class="ui-g-12"><p:separator/></div>
+            </div>
+
+            <br/>
+            <p:separator/>
+            <br/>
+
+            <div class="ui-g-12">
+                <h:panelGroup rendered="#{not empty track.cargo}">
+                    <div id="result">
+                        <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently
+                            <strong>#{track.cargo.statusText}</strong></p>
+
+                        <p>Estimated time of arrival in
+                            <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
+                        <ui:fragment rendered="#{not empty track.cargo.nextExpectedActivity}">
+                            <p>#{track.cargo.nextExpectedActivity}</p></ui:fragment>
+
+                        <h:panelGroup rendered="#{track.cargo.misdirected}">
+                            <p><i class="fa fa-exclamation-triangle"
+                                  style="color: #9b2332"></i> Cargo is misdirected.</p>
+                        </h:panelGroup>
+                    </div>
+                </h:panelGroup>
+            </div>
+
+            <div class="ui-g ui-g-12">
+                <div class="ui-g-3">
+                    <p:outputLabel value="Handling History"
+                                   style="font-size: 2em; font-weight: bold"/>
+                </div>
+
+                <div class="ui-g-12">
+                    <p:separator/>
+                    <br/><br/>
+                </div>
+
+                <h:outputLabel value="There are no events recorded for the tracking #{track.cargo.trackingId}."
+                               rendered="#{empty track.cargo.events}"/>
+
+                <div class="ui-g-12">
+                    <p:timeline value="#{track.timeline}"
+                                zoomable="true"
+                                selectable="false"
+                                moveable="true"
+                                stackEvents="true"
+                                showCurrentTime="true"
+                                editable="false"
+                                width="100%"
+
+                                widgetVar="cargoEventTimeline"
+
+                                rendered="#{not empty track.cargo.events}">
+                        <f:facet name="menu">
+                            <p:commandButton type="button" icon="fa fa-arrow-left" onclick="PF('cargoEventTimeline').move(-0.3);" />
+                            <p:commandButton type="button" icon="fa fa-arrow-right" onclick="PF('cargoEventTimeline').move(0.3);" />
+                            <p:commandButton type="button" icon="fa fa-search-minus" onclick="PF('cargoEventTimeline').zoom(-0.5);" />
+                            <p:commandButton type="button" icon="fa fa-search-plus" onclick="PF('cargoEventTimeline').zoom(0.5);" />
+                        </f:facet>
+                    </p:timeline>
+                </div>
+
+                <br/>
+                <br/>
+
+                <div class="ui-g-offset-3 ui-g-1">
+                    <h:panelGroup rendered="#{not empty track.cargo.destinationCoordinates}">
+                        <p:gmap center="#{track.cargo.destinationCoordinates}" fitBounds="true" zoom="2"
+                                model="#{track.cargo.mapModel}" type="PLAN" style="width:620px;height:360px;">
+                            <p:ajax event="pointSelect" listener="#{track.onPointSelect}"/>
+                        </p:gmap>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
