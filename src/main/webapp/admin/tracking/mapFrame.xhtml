@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
 <head>
     <title>Cargo Live Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/cargo-tracker/resources/jquery-jvectormap.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="/cargo-tracker/resources/dd.css" type="text/css" media="screen"/>
+
+    <h:outputStylesheet name="css/jquery-jvectormap.css"/>
+    <h:outputStylesheet name="css/dd.css"/>
+
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"/>
-    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="/cargo-tracker/resources/js/jquery-jvectormap.js"></script>
-    <script src="/cargo-tracker/resources/js/jquery-jvectormap-world-mill-en.js"></script>
+
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js" />
+
+    <h:outputScript name="js/vendor/jquery-jvectormap.js"/>
+    <h:outputScript name="js/vendor/jquery-jvectormap-world-mill-en.js"/>
+
     <script type="text/javascript">
         var locationName = new Array();
 
