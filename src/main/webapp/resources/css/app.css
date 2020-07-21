@@ -216,3 +216,49 @@ body {
     background: #d26161 none !important;
     color: #ffffff !important;
 }
+
+/*************************************
+             Wizard style
+ *************************************/
+
+.ui-wizard-step-titles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.ui-wizard-step-titles::before {
+    content: ' ';
+    border-top: 1px solid black;
+    width: 100%;
+    left: 0;
+    display: block;
+    position: absolute;
+    z-index: -100;
+}
+
+.ui-wizard-step-title::before{
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    -moz-border-radius: 7.5px;
+    -webkit-border-radius: 7.5px;
+    border-radius: 7.5px;
+    background-color: var(--background-panel-main-color);
+    padding: 1px;
+    margin: 10px;
+}
+
+.ui-wizard-step-title {
+    font-size: 0 !important;
+    background: none;
+    border: none;
+}
+
+.ui-wizard-step-title.ui-state-highlight::before {
+    background-color: var(--background-primary-color);
+
+}
