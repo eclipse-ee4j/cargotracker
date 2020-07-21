@@ -17,13 +17,13 @@
                     <h:form id="trackingForm">
                         <h:panelGrid columns="3" cellpadding="15">
                             <p>Enter your tracking ID:</p>
-                            <h:inputText id="trackingIdInput"
-                                             value="#{track.trackingId}"
-                                             p:autofocus="true"
-                                             p:placeholder="XYZ789"
-                                             p:required="true"
-                                             p:pattern=".*\S+.*"
-                                             p:title="Valid tracking ID"/>
+                            <p:autoComplete id="trackingIdInput"
+                                            value="#{track.trackingId}"
+                                            required="true"
+                                            forceSelection="true"
+                                            placeholder="XYZ789"
+                                            title="Valid tracking ID"
+                                            completeMethod="#{track.getTrackingIds}"/>
                             <h:commandButton value="Track!"
                                                  action="#{track.onTrackById()}"/>
                         </h:panelGrid>
