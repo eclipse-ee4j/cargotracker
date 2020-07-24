@@ -17,7 +17,7 @@
     <h:outputScript name="js/vendor/jquery-jvectormap-world-mill-en.js"/>
 
     <script type="text/javascript">
-        var locationName = new Array();
+        const locationName = [];
 
         locationName["CNHKG"] = "Hong Kong";
         locationName["AUMEL"] = "Melbourne";
@@ -33,12 +33,12 @@
         locationName["USNYC"] = "New York";
         locationName["USDAL"] = "Dallas";
 
-        var routingStatusName = new Array();
+        const routingStatusName = [];
         routingStatusName["NOT_ROUTED"] = "Not routed";
         routingStatusName["ROUTED"] = "Routed";
         routingStatusName["MISROUTED"] = "Misrouted";
 
-        var transportStatusName = new Array();
+        const transportStatusName = [];
         transportStatusName["NOT_RECEIVED"] = "Not received";
         transportStatusName["IN_PORT"] = " In port";
         transportStatusName["ONBOARD_CARRIER"] = "Onboard carrier";
@@ -47,7 +47,7 @@
 
         // TODO See if there is a service to get the latitude/longitude
         // data from.
-        var latitude = new Array();
+        const latitude = [];
 
         latitude["CNHKG"] = 22;
         latitude["AUMEL"] = -38;
@@ -63,7 +63,7 @@
         latitude["USNYC"] = 41;
         latitude["USDAL"] = 33;
 
-        var longitude = new Array();
+        const longitude = [];
         longitude["CNHKG"] = 114;
         longitude["AUMEL"] = 145;
         longitude["SESTO"] = 18;
@@ -78,7 +78,7 @@
         longitude["USNYC"] = -74;
         longitude["USDAL"] = -97;
 
-        var colorCodes = new Array();
+        const colorCodes = [];
 
         colorCodes["NOT_ROUTED"] = "gray";
         colorCodes["MISROUTED"] = "red";
@@ -95,11 +95,11 @@
 <div>
     <div id="world-map" style="height: 600px;  border:#FFF; border-style: solid; border-width: 8px;"/>
     <div id='connected' class='status'>
-        <p id='status' class='status_content'>Offline</p>
+        <p id='status' class='status_constent'>Offline</p>
     </div>
 </div>
 <script type="text/javascript">
-    var statusBox = document.getElementById('connected');
+    const statusBox = document.getElementById('connected');
     statusBox.style.cursor = 'pointer';
     statusBox.onclick = function () {
         location.reload(true);
@@ -108,12 +108,13 @@
 <script type="text/javascript">
     $(function () {
         $.getJSON('/cargo-tracker/rest/cargo', function (data) {
-            var coordinates = new Array();
+            const coordinates = [];
 
-            for (var i in data) {
+            let cargo;
+            for (const i in data) {
                 cargo = data[i];
-                var locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
-                var statusCode = 'NOT_RECEIVED';
+                const locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
+                let statusCode = 'NOT_RECEIVED';
                 if ((cargo.routingStatus == 'NOT_ROUTED') || (cargo.routingStatus == 'MISROUTED')) {
                     statusCode = cargo.routingStatus;
                 } else if (cargo.misdirected == true) {
@@ -157,11 +158,11 @@
                         'Last known location: ' + locationName[data[index].lastKnownLocation]);
                 },
                 onMarkerClick: function (event, index) {
-                    var applicationPath = window.location.pathname.split('/')[1];
-                    var trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + data[index].trackingId;
-                    var winHeight = $(window).height();
-                    var winWidth = $(window).width();
-                    var winDimensions = "height=" + winHeight + ",width=" + winWidth;
+                    const applicationPath = window.location.pathname.split('/')[1];
+                    const trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + data[index].trackingId;
+                    const winHeight = $(window).height();
+                    const winWidth = $(window).width();
+                    const winDimensions = "height=" + winHeight + ",width=" + winWidth;
                     window.open(trackingUri, "winMap", winDimensions);
                 }
 
@@ -172,9 +173,9 @@
 </script>
 <script type="text/javascript">
     $(function () {
-        var applicationPath = window.location.pathname.split('/')[1];
-        var socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
-        var socket = new WebSocket(socketUri);
+        const applicationPath = window.location.pathname.split('/')[1];
+        const socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
+        const socket = new WebSocket(socketUri);
 
         socket.onopen = function (event) {
             document.getElementById("status").innerHTML = "online";
