@@ -3,13 +3,13 @@
     --secondary-text-color: #f5f5f5;
 
 
-    --background-primary-color: #FFA500;
-    --background-primary-color-darker: #d48900;
-    --background-primary-color-lighten: #f5ecda;
+    --primary-color: #FFA500;
+    --primary-color-darker: #d48900;
+    --primary-color-lighten: #f5ecda;
 
+    --secondary-color: #262626;
 
     --background-panel-main-color: #262626;
-
 }
 
 
@@ -65,7 +65,7 @@ body {
 }
 
 .side-panel .menu-container .ui-menu .ui-menu-list .ui-menuitem {
-    border-bottom: solid 2px var(--background-primary-color);
+    border-bottom: solid 2px var(--primary-color);
     margin: 0 0 10px 0;
     padding: 0 0 10px 0;
 }
@@ -109,7 +109,7 @@ body {
 }
 
 .ui-datatable .ui-datatable-header {
-    background: var(--background-primary-color);
+    background: var(--primary-color);
     color: #ffffff;
 
     font-weight: bold;
@@ -120,12 +120,12 @@ body {
 
 .ui-datatable .ui-datatable-footer {
     border-top: 0 none;
-    background: var(--background-primary-color);
+    background: var(--primary-color);
 }
 
 .ui-datatable th.ui-state-default,
 .ui-datatable tfoot td.ui-state-default {
-    background: var(--background-primary-color);
+    background: var(--primary-color);
 
     color: #ffffff;
     text-align: center;
@@ -151,7 +151,7 @@ body {
 }
 
 .ui-datatable-odd {
-    background-color: var(--background-primary-color-lighten);
+    background-color: var(--primary-color-lighten);
 }
 
 /*************************************
@@ -180,7 +180,7 @@ body {
 }
 
 .ui-datepicker-current-day a {
-    background: var(--background-primary-color) !important;
+    background: var(--primary-color) !important;
     color: #fff !important;
 }
 
@@ -189,16 +189,27 @@ body {
  *************************************/
 
 .ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
-    background-color: var(--background-primary-color);
-    border: 1px solid var(--background-primary-color-darker);
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color-darker);
 
     color: var(--secondary-text-color);
 
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-    background: var(--background-primary-color-darker);
+    background: var(--primary-color-darker);
     color: var(--secondary-text-color);
+}
+
+.ui-inputfield {
+    border-width: 0 0 2px;
+    border-color: var(--secondary-color)
+}
+
+.ui-inputfield.ui-state-focus {
+    outline: 0 none;
+    box-shadow: none;
+    border-color: var(--primary-color);
 }
 
 /*************************************
@@ -259,6 +270,5 @@ body {
 }
 
 .ui-wizard-step-title.ui-state-highlight::before {
-    background-color: var(--background-primary-color);
-
+    background-color: var(--primary-color);
 }

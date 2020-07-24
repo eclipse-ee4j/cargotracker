@@ -71,37 +71,16 @@
                                rendered="#{empty track.cargo.events}"/>
 
                 <div class="ui-g-12">
-                    <p:timeline value="#{track.timeline}"
-                                zoomable="true"
-                                selectable="false"
-                                moveable="true"
-                                stackEvents="true"
-                                showCurrentTime="true"
-                                editable="false"
-                                width="100%"
-
-                                widgetVar="cargoEventTimeline"
-
-                                rendered="#{not empty track.cargo.events}">
-                        <f:facet name="menu">
-                            <p:commandButton type="button" icon="fa fa-arrow-left" onclick="PF('cargoEventTimeline').move(-0.3);" />
-                            <p:commandButton type="button" icon="fa fa-arrow-right" onclick="PF('cargoEventTimeline').move(0.3);" />
-                            <p:commandButton type="button" icon="fa fa-search-minus" onclick="PF('cargoEventTimeline').zoom(-0.5);" />
-                            <p:commandButton type="button" icon="fa fa-search-plus" onclick="PF('cargoEventTimeline').zoom(0.5);" />
-                        </f:facet>
-                    </p:timeline>
-                </div>
-
-                <br/>
-                <br/>
-
-                <div class="ui-g-offset-3 ui-g-1">
-                    <h:panelGroup rendered="#{not empty track.cargo.destinationCoordinates}">
-                        <p:gmap center="#{track.cargo.destinationCoordinates}" fitBounds="true" zoom="2"
-                                model="#{track.cargo.mapModel}" type="PLAN" style="width:620px;height:360px;">
-                            <p:ajax event="pointSelect" listener="#{track.onPointSelect}"/>
-                        </p:gmap>
-                    </h:panelGroup>
+                    <ui:repeat value="#{track.cargo.events}" var="leg">
+                        <ui:fragment rendered="#{leg.expected}">
+                            &#160;&#160;<i class="fa fa-check"
+                                           style="color: green"/>&#160;#{leg.description}<br/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{!leg.expected}">
+                            &#160;&#160;<em class="fa fa-flag"
+                                            style="color: #9b2332"/>&#160;#{leg.description}<br/>
+                        </ui:fragment>
+                    </ui:repeat>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
     <h:form>
         <p:growl id="growl" sticky="true" showDetail="true"/>
 
-        <p:wizard flowListener="#{eventWizard.onFlowProcess}" onnext="hideBackButton()">
+        <p:wizard flowListener="#{eventWizard.onFlowProcess}" onnext="hideBackButton()" widgetVar="wiz">
             <p:tab id="trackingTab" title="Tracking">
                 <p:panel header="Tracking">
                     <p:messages />
@@ -107,12 +107,19 @@
                         </h:panelGrid>
                     </h:panelGrid>
 
-                    <p:commandButton value="Submit" action="#{eventWizard.save}" update="growl" process="@this"/>
+                    <p:commandButton value="Submit" action="#{eventWizard.save}"
+                                     update="growl" process="@this"
+                                     oncomplete="PF('wiz').loadStep('trackingTab', true)"/>
                 </p:panel>
             </p:tab>
-
         </p:wizard>
     </h:form>
+
+    <div class="ui-g ui-g-12">
+        <div class="ui-g-offset-5 ui-g-1">
+            <h:graphicImage value="#{resource['/images/CTlogobadge128.png']}" height="68"/>
+        </div>
+    </div>
 
     <script>
         function hideBackButton() {
