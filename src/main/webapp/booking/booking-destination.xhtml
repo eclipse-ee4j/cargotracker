@@ -21,34 +21,28 @@
 
     <ui:define name="content">
 
-        <div class="ui-grid ui-grid-responsive">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-3" id="leftCol"></div>
-                <div class="ui-grid-col-6" id="mainCol">
+        <div class="ui-g-2" id="leftCol"></div>
+        <div class="ui-g-8" id="mainCol">
 
-                    <br/>
-                    <h:form>
-                        <p:outputLabel
-                                value="2. Set the destination for this new cargo coming from #{bookingBackingBean.originName}"/>
-                        <hr/>
-                        <p:selectOneMenu id="destination" value="#{bookingBackingBean.destinationUnlocode}">
-                            <f:selectItems value="#{bookingBackingBean.locations}" var="location"
-                                           itemLabel="#{location.name} " itemValue="#{location.unLocode}"/>
-                        </p:selectOneMenu>
-                        <hr/>
+            <br/>
+            <h:form>
+                <p:outputLabel
+                        value="2. Set the destination for this new cargo coming from #{bookingBackingBean.originName}"/>
+                <hr/>
+                <p:selectOneMenu id="destination" value="#{bookingBackingBean.destinationUnlocode}">
+                    <f:selectItems value="#{bookingBackingBean.locations}" var="location"
+                                   itemLabel="#{location.name} " itemValue="#{location.unLocode}"/>
+                </p:selectOneMenu>
+                <hr/>
 
-                        <h:panelGrid columns="5" styleClass="registrationPanelGrid" style="margin: 0 auto;">
-                            <p:commandButton value="Back" action="booking"/>
-                            <p:commandButton value="Cancel" action="/admin/dashboard"/>
-                            <p:commandButton value="Next" action="booking-date"/>
+                <h:panelGrid columns="5" styleClass="registrationPanelGrid" style="margin: 0 auto;">
+                    <p:commandButton value="Back" action="booking"/>
+                    <p:commandButton value="Cancel" action="/admin/dashboard"/>
+                    <p:commandButton value="Next" action="booking-date"/>
 
-                        </h:panelGrid>
+                </h:panelGrid>
 
-                    </h:form>
-                </div>
-
-                <div class="ui-grid-col-3" id="leftCol"></div>
-            </div>
+            </h:form>
         </div>
 
 

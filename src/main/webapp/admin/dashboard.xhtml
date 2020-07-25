@@ -1,33 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
     <ui:define name="title">Cargo Dashboard</ui:define>
-    <!-- TODO: Are the widgets really needed? -->
-    <ui:define name="content">
-        <div class="ui-grid ui-grid-responsive">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-1" id="leftCol"/>
-                <div class="ui-grid-col-10" id="mainCol">
-                    <h:form id="mainDash">
-                        <p:dashboard id="board" model="#{dashboardView.model}">
-                            <p:panel id="Routed" header="Routed">
-                                <ui:include src="/admin/listRouted.xhtml" class="clearCargoBkg"/>
-                            </p:panel>
-                            <p:panel id="NotRouted" header="Not Routed">
-                                <ui:include src="/admin/listNotRouted.xhtml"/>
-                            </p:panel>
-                            <p:panel id="Claimed" header="Claimed">
-                                <ui:include src="/admin/listClaimed.xhtml"/>
-                            </p:panel>
-                        </p:dashboard>
-                    </h:form>
-                </div>
-                <div class="ui-grid-col-1" id="rightCol"/>
-            </div>
-        </div>
 
+    <ui:define name="content">
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
+            <h:form id="mainDash">
+                <ui:include src="/admin/tables/listRouted.xhtml" class="clearCargoBkg"/>
+                <br/><br/>
+                <ui:include src="/admin/tables/listNotRouted.xhtml"/>
+                <br/><br/>
+                <ui:include src="/admin/tables/listClaimed.xhtml"/>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>
 </html>

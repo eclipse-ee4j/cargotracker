@@ -177,6 +177,10 @@ public class CargoTrackingViewAdapter {
             return handlingEvent.getLocation().getName();
         }
 
+        /**
+         *
+         * @return the date in the format MM/dd/yyyy hh:mm a z
+         */
         public String getTime() {
             return DATE_FORMAT.format(handlingEvent
                     .getCompletionTime());
@@ -200,22 +204,17 @@ public class CargoTrackingViewAdapter {
                 case LOAD:
                     return "Loaded onto voyage "
                             + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-                            + " in " + handlingEvent.getLocation().getName() + ", at "
-                            + DATE_FORMAT.format(handlingEvent.getCompletionTime()) + ".";
+                            + " in " + handlingEvent.getLocation().getName();
                 case UNLOAD:
                     return "Unloaded off voyage "
                             + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-                            + " in " + handlingEvent.getLocation().getName() + ", at "
-                            + DATE_FORMAT.format(handlingEvent.getCompletionTime()) + ".";
+                            + " in " + handlingEvent.getLocation().getName();
                 case RECEIVE:
-                    return "Received in " + handlingEvent.getLocation().getName()
-                            + ", at " + DATE_FORMAT.format(handlingEvent.getCompletionTime()) + ".";
+                    return "Received in " + handlingEvent.getLocation().getName();
                 case CLAIM:
-                    return "Claimed in " + handlingEvent.getLocation().getName()
-                            + ", at " + DATE_FORMAT.format(handlingEvent.getCompletionTime()) + ".";
+                    return "Claimed in " + handlingEvent.getLocation().getName();
                 case CUSTOMS:
-                    return "Cleared customs in " + handlingEvent.getLocation().getName()
-                            + ", at " + DATE_FORMAT.format(handlingEvent.getCompletionTime()) + ".";
+                    return "Cleared customs in " + handlingEvent.getLocation().getName();
                 default:
                     return "[Unknown]";
             }

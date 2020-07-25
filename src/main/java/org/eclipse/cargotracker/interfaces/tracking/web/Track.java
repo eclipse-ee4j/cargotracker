@@ -79,7 +79,6 @@ public class Track implements Serializable {
                     .getDistinctEventsByCompletionTime();
             this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
         } else {
-            // TODO See if this can be injected.
             FacesContext context = FacesContext.getCurrentInstance();
             FacesMessage message = new FacesMessage(
                     "Cargo with tracking ID: " + trackingId + " not found.");

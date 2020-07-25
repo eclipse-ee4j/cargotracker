@@ -11,9 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import org.primefaces.PF;
-//import org.primefaces.context.RequestContext;
-
 /**
  * @author davidd
  */
@@ -27,28 +24,22 @@ public class ChangeDestinationDialog implements Serializable {
         options.put("modal", true);
         options.put("draggable", true);
         options.put("resizable", false);
-        options.put("contentWidth", 360);
-        options.put("contentHeight", 230);
+        options.put("contentWidth", 410);
+        options.put("contentHeight", 280);
 
         Map<String, List<String>> params = new HashMap<>();
         List<String> values = new ArrayList<>();
         values.add(trackingId);
         params.put("trackingId", values);
-        //PF.current().dialog().openDynamic("/admin/changeDestination.xhtml", options, params);
-        PrimeFaces.current().dialog().openDynamic("/admin/changeDestination.xhtml", options, params);
-        //RequestContext.getCurrentInstance().openDialog("/admin/changeDestination.xhtml", options, params);
+
+        PrimeFaces.current().dialog().openDynamic("/admin/dialogs/changeDestination.xhtml", options, params);
     }
 
-    public void handleReturn(SelectEvent event) {
-    }
+    public void handleReturn(SelectEvent event) {  }
 
     public void cancel() {
         // just kill the dialog
-        //PF.current().dialog().closeDynamic("");
         PrimeFaces.current().dialog().closeDynamic("");
-        //RequestContext.getCurrentInstance().closeDialog("");
     }
-
-
 }
 

@@ -5,48 +5,27 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
     <ui:define name="title">Cargo Registration</ui:define>
-    <h:head>
-        <style>
-            <!--
-            work around to fix selectonemenu bug in Chrome & Safari
-
-            -->
-            .ui-selectonemenu-label {
-                width: 90% !important;
-            }
-        </style>
-    </h:head>
-
 
     <ui:define name="content">
+        <div class="ui-g-2" id="leftCol"></div>
+        <div class="ui-g-8" id="mainCol">
+            <br/>
+            <h:form>
+                <p:outputLabel value="1.Choose the origin of the new cargo"/>
+                <hr/>
+                <p:selectOneMenu id="origin" value="#{bookingBackingBean.originUnlocode}">
+                    <f:selectItems value="#{bookingBackingBean.locations}" var="location"
+                                   itemLabel="#{location.name}" itemValue="#{location.unLocode}"/>
+                </p:selectOneMenu>
+                <hr/>
 
-        <div class="ui-grid ui-grid-responsive">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-3" id="leftCol"></div>
-                <div class="ui-grid-col-6" id="mainCol">
+                <h:panelGrid columns="2" style="margin: 0 auto;">
+                    <p:commandButton value="Cancel" action="/admin/dashboard"/>
+                    <p:commandButton value="Next" action="booking-destination"/>
+                </h:panelGrid>
 
-                    <br/>
-                    <h:form>
-                        <p:outputLabel value="1.Choose the origin of the new cargo"/>
-                        <hr/>
-                        <p:selectOneMenu id="origin" value="#{bookingBackingBean.originUnlocode}">
-                            <f:selectItems value="#{bookingBackingBean.locations}" var="location"
-                                           itemLabel="#{location.name}" itemValue="#{location.unLocode}"/>
-                        </p:selectOneMenu>
-                        <hr/>
-
-                        <h:panelGrid columns="2" style="margin: 0 auto;">
-                            <p:commandButton value="Cancel" action="/admin/dashboard"/><p:commandButton value="Next"
-                                                                                                        action="booking-destination"/>
-                        </h:panelGrid>
-
-                    </h:form>
-
-                </div>
-                <div class="ui-grid-col-3" id="leftCol"></div>
-            </div>
+            </h:form>
         </div>
-
     </ui:define>
 </ui:composition>
 </html>
