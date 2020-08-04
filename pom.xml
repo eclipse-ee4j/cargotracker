@@ -1,221 +1,208 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.eclipse.ee4j</groupId>
-    <artifactId>cargo-tracker</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>org.eclipse.cargo-tracker</name>
-    <description>
+	<groupId>org.eclipse.ee4j</groupId>
+	<artifactId>cargo-tracker</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Eclipse Cargo Tracker</name>
+	<description>
         The project demonstrates how you can develop applications with the Jakarta EE platform using widely
-        adopted architectural best practices like Domain-Driven Design (DDD), TDD and agile.
+        adopted architectural best practices like Domain-Driven Design (DDD).
     </description>
-    <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
+	<url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
 
-    <organization>
-        <name>Eclipse Foundation</name>
-        <url>https://www.eclipse.org/org/foundation/</url>
-    </organization>
+	<organization>
+		<name>Eclipse Foundation</name>
+		<url>https://www.eclipse.org/org/foundation/</url>
+	</organization>
 
-    <issueManagement>
-        <system>github</system>
-        <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
-    </issueManagement>
-    
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
+	</issueManagement>
 
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <javaee_api.version>7.0</javaee_api.version>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
 
-        <!-- arquillian variables -->
-        <arquillian.core.version>1.4.1.Final</arquillian.core.version>
-        <skipTests>true</skipTests>
+		<javaee_api.version>7.0</javaee_api.version>
 
-        <!-- cargo variables -->
-        <cargo.version>1.7.7</cargo.version>
-        <cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
-        <cargo.payara.download_uri>
-            https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
-        </cargo.payara.download_uri>
+		<!-- Arquillian properties -->
+		<arquillian.core.version>1.4.1.Final</arquillian.core.version>
+		<skipTests>true</skipTests>
 
-        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
-        <webapp.graphTraversalUrl>
-            http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
-        </webapp.graphTraversalUrl>
-    </properties>    
+		<!-- cargo variables -->
+		<cargo.version>1.7.7</cargo.version>
+		<cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
+		<cargo.payara.download_uri>
+			https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
+		</cargo.payara.download_uri>
 
-    <!-- ##################################################
-        dependencies
-        ################################################## -->
+		<webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
+		<webapp.graphTraversalUrl>
+			http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+		</webapp.graphTraversalUrl>
+	</properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Arquillian Bill Of Management used to reduce collision between testing dependencies.
-                 Using a dependency manager we don't need to specify the version of each Arquillian decency.
-              -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian.core.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<!-- ################################################## dependencies ################################################## -->
 
-    <dependencies>
-        <!-- ==================================================
-             Application dependencies
-             ================================================== -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- Arquillian Bill Of Management used to reduce collision between testing 
+				dependencies. Using a dependency manager we don't need to specify the version 
+				of each Arquillian decency. -->
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${arquillian.core.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- ================================================== Application dependencies 
+			================================================== -->
 
 
-        <!-- Jakarta EE API -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${javaee_api.version}</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- Jakarta EE API -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${javaee_api.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- GlassFish specific dependencies, is not needed with Jakarta EE 8+  -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>2.28</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-            <version>2.28</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- GlassFish specific dependencies, is not needed with Jakarta EE 8+ -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet-core</artifactId>
+			<version>2.28</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>2.28</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- The third-party dependencies this application has -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-            <scope>compile</scope>
-        </dependency>
+		<!-- The third-party dependencies this application has -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <!-- PrimeFaces dependencies -->
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>8.0</version>
-        </dependency>
+		<!-- PrimeFaces dependencies -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>8.0</version>
+		</dependency>
 
-        <!-- ==================================================
-             Test dependencies
-             ================================================== -->
+		<!-- ================================================== Test dependencies 
+			================================================== -->
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
-        <!-- Arquillian decencies -->
+		<!-- Arquillian decencies -->
 
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <!--
-            Resolvers are needed in the Arquillian tests
-            This is used for adding all the runtime dependencies inside a testing war.
-            For doing this you can use the following code
+		<!-- Resolvers are needed in the Arquillian tests This is used for adding 
+			all the runtime dependencies inside a testing war. For doing this you can 
+			use the following code File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml") 
+			.importRuntimeDependencies().resolve().withTransitivity().asFile(); NOTE: 
+			this is necessary when running the tests on a managed or remote JVM. -->
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-                File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml")
-                                           .importRuntimeDependencies().resolve().withTransitivity().asFile();
+	</dependencies>
 
-            NOTE: this is necessary when running the tests on a managed or remote JVM.
-        -->
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <scope>test</scope>
-        </dependency>
+	<!-- ################################################## build ################################################## -->
 
-    </dependencies>
+	<build>
+		<finalName>cargo-tracker</finalName>
 
-    <!-- ##################################################
-        build
-        ################################################## -->
+		<plugins>
 
-    <build>
-        <finalName>cargo-tracker</finalName>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+				</configuration>
+			</plugin>
 
-        <plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<skipTests>${skipTests}</skipTests>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-                </configuration>
-            </plugin>
+		</plugins>
+	</build>
 
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <skipTests>${skipTests}</skipTests>
-                </configuration>
-            </plugin>
+	<!-- ################################################## profiles ################################################## -->
 
-        </plugins>
-    </build>
+	<profiles>
+		<profile>
+			<id>payara</id>
 
-    <!-- ##################################################
-         profiles
-         ################################################## -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 
-    <profiles>
-        <profile>
-            <id>payara</id>
+			<dependencies>
+				<dependency>
+					<groupId>fish.payara.arquillian</groupId>
+					<artifactId>arquillian-payara-server-4-remote</artifactId>
+					<version>1.1</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-remote</artifactId>
-                    <version>1.1</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.version}</version>
-                        <configuration>
-                            <container>
-                                <containerId>${cargo.payara.container_id}</containerId>
-                                <zipUrlInstaller>
-                                    <url>${cargo.payara.download_uri}</url>
-                                </zipUrlInstaller>
-                            </container>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<version>${cargo.version}</version>
+						<configuration>
+							<container>
+								<containerId>${cargo.payara.container_id}</containerId>
+								<zipUrlInstaller>
+									<url>${cargo.payara.download_uri}</url>
+								</zipUrlInstaller>
+							</container>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
