@@ -29,17 +29,13 @@ The simplest steps are the following (no IDE required):
 To set up in Eclipse, follow these steps:
 
 * Set up JDK 8+, Eclipse for Enterprise Java Developers and Payara 4+.
-* Open the source code directory in NetBeans - it's just a Maven project, 
-  NetBeans will do the rest for you. As noted in the site instructions on
-  NetBeans, you may get a few spurious errors due to reported NetBeans bugs.
-  Just ignore them and proceed with clean/building the application.
+* Import the source code directory in Eclipse as a Maven project, 
+  Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
   Maven downloads dependencies), simply run it via Payara 4.
   
 It's best to use Chrome for the application since it has the best support for 
-HTML 5 forms, but any HTML 5 capable browser is fine. If you are running it 
-with GlassFish, there are some known issues due to reported GlassFish 4 bugs -
-please read the Known Issues section below.
+HTML 5 forms, but any HTML 5 capable browser is fine.
 
 ## Exploring the Application
 
@@ -152,15 +148,10 @@ mvn -Ppayara -DskipTests=false test
 ```
 
 ## Known Issues
-There are no known issues while running on GlassFish 4.1. For previous versions
-you might run into the following issues:
-
-* If you restart the application a few times, you will run into a GlassFish 4 
-  bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
-  Just re-run the application (make sure to completely shut down GlassFish first).
-* You will see some spurious JSF warnings on some pages due to a GlassFish 
-  4/Mojarra bug. The error is harmless and can be ignored.
-* Sometimes when GlassFish is not shutdown correctly, the Derby database that 
+There are no significant known issues at the current time with Payara 4+.
+* If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
+  Just re-run the application (make sure to completely shut down Payara first).
+* Sometimes when the server is not shut down correctly, the Derby database that 
   the application uses get's corrupted, resulting is strange JDBC errors. If 
   this occurs, you will need to stop the application and clean the database. You 
   can do this by simply removing \temp\cargo-tracker-database from the file 
