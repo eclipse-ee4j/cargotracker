@@ -8,8 +8,7 @@ original [Java DDD sample application](http://dddsample.sourceforge.net)
 developed by DDD pioneer Eric Evans' company Domain Language and the Swedish 
 software consulting company Citerus. The cargo example actually comes from 
 Eric Evans' seminal book on DDD. The original application is written in Spring,
-Hibernate and Jetty whereas the application is build entirely on Java EE 7 and
-Payara 4.
+Hibernate and Jetty whereas the application is built on Jakarta EE.
 
 The application is an end-to-end system for keeping track of shipping cargo. It 
 has several interfaces described in the following sections.
