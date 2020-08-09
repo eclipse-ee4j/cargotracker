@@ -1,5 +1,4 @@
-# Cargo Tracker
-## Applied Domain-Driven Design Blue Prints for Jakarta EE
+# Eclipse Cargo Tracker - Applied Domain-Driven Design Blueprints for Jakarta EE
 
 # Overview
 
