@@ -17,8 +17,7 @@ For further details on the project, please visit: https://github.com/eclipse-ee4
  
 ## Getting Started
 
-The project site has detailed information on how to get started: 
-https://projects.eclipse.org/projects/ee4j.cargotracker/.
+The [project site](https://projects.eclipse.org/projects/ee4j.cargotracker/) has detailed information on how to get started.
 
 The simplest steps are the following (no IDE required):
 
