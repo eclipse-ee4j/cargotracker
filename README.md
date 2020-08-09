@@ -2,9 +2,8 @@
 
 ## Overview
 
-The project demonstrates how you can develop applications with the Java EE 
-platform using widely adopted architectural best practices like Domain-Driven 
-Design (DDD), TDD and agile. The project is directly based on the well known 
+The project demonstrates how you can develop applications with Jakarta EE using widely adopted architectural best practices like Domain-Driven 
+Design (DDD). The project is directly based on the well known 
 original Java DDD sample (http://dddsample.sourceforge.net) application 
 developed by DDD pioneer Eric Evans' company Domain Language and the Swedish 
 software consulting company Citerus. The cargo example actually comes from 
