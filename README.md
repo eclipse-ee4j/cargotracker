@@ -26,10 +26,9 @@ The simplest steps are the following (no IDE required):
   type: `mvn package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
-To set up in NetBeans, follow these steps:
+To set up in Eclipse, follow these steps:
 
-* Set up JDK 8+, NetBeans 7.3+ and Payara 4+ 
-  (preferably Payara 4.1+ and NetBeans 8.0.1+).
+* Set up JDK 8+, Eclipse for Enterprise Java Developers and Payara 4+.
 * Open the source code directory in NetBeans - it's just a Maven project, 
   NetBeans will do the rest for you. As noted in the site instructions on
   NetBeans, you may get a few spurious errors due to reported NetBeans bugs.
