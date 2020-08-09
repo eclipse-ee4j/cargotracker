@@ -24,7 +24,6 @@ The simplest steps are the following (no IDE required):
 * Get the project source code: `git clone https://github.com/eclipse-ee4j/cargotracker.git`
 * As long as you have Maven set up, navigate to the project source root and 
   type: `mvn package cargo:run`
-* To run with WildFly 8x, type: `mvn -Pwildfly package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
 To set up in NetBeans, follow these steps:
