@@ -1,5 +1,5 @@
-Cargo Tracker - Applied Domain-Driven Design Blue Prints for Jakarta EE
-=======
+# Cargo Tracker
+## Applied Domain-Driven Design Blue Prints for Jakarta EE
 
 # Overview
 
