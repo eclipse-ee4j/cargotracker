@@ -13,8 +13,7 @@ Hibernate and Jetty whereas the application is built on Jakarta EE.
 The application is an end-to-end system for keeping track of shipping cargo. It 
 has several interfaces described in the following sections.
 
-For further details on the project, please visit:
-https://github.com/eclipse-ee4j/cargotracker
+For further details on the project, please visit: https://github.com/eclipse-ee4j/cargotracker.
  
 ## Getting Started
 
