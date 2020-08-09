@@ -41,7 +41,7 @@ HTML 5 forms, but any HTML 5 capable browser is fine.
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Java EE (and Java EE 7) features including JSF 2.2, CDI, EJB 3.2, 
+number of Jakarta EE (Java EE 7) features including JSF 2.2, CDI, EJB 3.2, 
 JPA 2.1, JAX-RS 2, WebSocket, JSON-P, Bean Validation 1.1 and JMS 2.
 
 There are several web interfaces, REST interfaces and a file system scanning
