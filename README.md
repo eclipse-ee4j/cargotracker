@@ -1,6 +1,6 @@
 # Eclipse Cargo Tracker - Applied Domain-Driven Design Blueprints for Jakarta EE
 
-# Overview
+## Overview
 
 The project demonstrates how you can develop applications with the Java EE 
 platform using widely adopted architectural best practices like Domain-Driven 
@@ -18,7 +18,7 @@ has several interfaces described in the following sections.
 For further details on the project, please visit:
 https://github.com/eclipse-ee4j/cargotracker
  
-# Getting Started
+## Getting Started
 
 The project site has detailed information on how to get started: 
 https://projects.eclipse.org/projects/ee4j.cargotracker/.
@@ -47,7 +47,7 @@ HTML 5 forms, but any HTML 5 capable browser is fine. If you are running it
 with GlassFish, there are some known issues due to reported GlassFish 4 bugs -
 please read the Known Issues section below.
 
-# Exploring the Application
+## Exploring the Application
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
@@ -113,7 +113,7 @@ You can also use the soapUI scripts included in the source code to explore the
 REST interfaces as well as the numerous unit tests covering the code base 
 generally.
 
-# Exploring the Code
+## Exploring the Code
 
 As mentioned earlier, the real point of the application is demonstrating how to 
 create well architected, effective Java EE applications. To that end, once you 
@@ -135,14 +135,14 @@ sink example for demonstrating the vast amount of APIs and features in Java EE,
 we do use a very representative set. You'll find that you'll learn a fair amount
 by simply digging into the code to see how things are implemented.
 
-## Exploring the tests
+### Exploring the tests
 
 Cargo Tracker's testing is done using Junit 4 and Arquillian. The Arquillian configuration
 uses a [remote container](http://arquillian.org/arquillian-core/#_containers)
 such as Payara 4.1 . Therefore, to perform a test you will need to make sure
 to have a container running. 
 
-### Testing locally with Payara
+#### Testing locally with Payara
 For testing locally you will first need to run a Payara 4+ server.
 
 You can do that with the following script:
@@ -157,8 +157,7 @@ Now for running the tests:
 mvn -Ppayara -DskipTests=false test
 ```
 
-Known Issues
-============
+## Known Issues
 There are no known issues while running on GlassFish 4.1. For previous versions
 you might run into the following issues:
 
@@ -172,4 +171,3 @@ you might run into the following issues:
   this occurs, you will need to stop the application and clean the database. You 
   can do this by simply removing \temp\cargo-tracker-database from the file 
   system and restarting the application.
-
