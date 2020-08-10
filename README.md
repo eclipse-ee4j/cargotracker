@@ -87,7 +87,7 @@ for other events will result in an  error).
 
 You should also explore the file system based bulk event registration interface. 
 It reads files under /tmp/uploads. The files are just CSV files. A sample CSV
-file is available under src/main/resources/handling_events.csv. Sucessfully 
+file is available under [src/main/resources/handling_events.csv](src/main/resources/handling_events.csv). Sucessfully 
 processed entries are archived under /tmp/archive. Any failed records are 
 archived under /tmp/failed. Just like the mobile interface, processing events
 in bulk will also cause the dashboard to automatically update.
