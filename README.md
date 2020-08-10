@@ -105,7 +105,7 @@ generally.
 ## Exploring the Code
 
 As mentioned earlier, the real point of the application is demonstrating how to 
-create well architected, effective Java EE applications. To that end, once you 
+create well architected, effective Jakarta EE applications. To that end, once you 
 have gotten some familiarity with the application functionality the next thing 
 to do is to dig right into the code.
 
