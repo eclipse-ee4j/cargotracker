@@ -123,14 +123,13 @@ sink example for demonstrating the vast amount of APIs and features in Jakarta E
 we do use a very representative set. You'll find that you'll learn a fair amount
 by simply digging into the code to see how things are implemented.
 
-### Exploring the tests
+## Exploring the Tests
 
-Cargo Tracker's testing is done using Junit 4 and Arquillian. The Arquillian configuration
-uses a [remote container](http://arquillian.org/arquillian-core/#_containers)
-such as Payara 4.1 . Therefore, to perform a test you will need to make sure
+Cargo Tracker's testing is done using JUnit and Arquillian. The Arquillian configuration
+uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 4.1). Therefore, to perform a test you will need to make sure
 to have a container running. 
 
-#### Testing locally with Payara
+## Testing Locally with Payara
 For testing locally you will first need to run a Payara 4+ server.
 
 You can do that with the following script:
