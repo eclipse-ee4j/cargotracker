@@ -91,6 +91,11 @@
 
 		<!-- The third-party dependencies this application has -->
 		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.10.6</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
@@ -118,10 +123,7 @@
 		</dependency>
 
 		<!-- Resolvers are needed in the Arquillian tests. This is used for adding 
-			all the runtime dependencies inside a testing war. For doing this you can 
-			use the following code File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml") 
-			.importRuntimeDependencies().resolve().withTransitivity().asFile(); NOTE: 
-			this is necessary when running the tests on a managed or remote JVM. -->
+			all the runtime dependencies inside a testing war. -->
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
