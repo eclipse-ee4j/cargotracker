@@ -8,7 +8,7 @@
 
 	<p:dataTable var="cargo" value="#{listCargo.routedUnclaimedCargos}"
 		style="text-align: center;">
-		<p:column headerText="ID" width="94">
+		<p:column headerText="Tracking ID" width="94">
 			<h:link value="#{cargo.trackingId}" id="trackingId"
 				outcome="show.xhtml?faces-redirect=true"
 				style="text-decoration: none;">
