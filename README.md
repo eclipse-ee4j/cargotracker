@@ -145,7 +145,9 @@ mvn -Ppayara -DskipTests=false test
 ```
 
 ## Known Issues
-There are no significant known issues at the current time with Payara 4+.
+* If you are running older versions of Payara, you will get a log message stating that SSL certificates have expired. This won't get in the way of functionality, but it will
+  stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
+  explained [here](https://github.com/payara/Payara/issues/3038).
 * If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
   Just re-run the application (make sure to completely shut down Payara first).
 * Sometimes when the server is not shut down correctly, the Derby database that 
