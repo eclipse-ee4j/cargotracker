@@ -47,7 +47,6 @@ public class SampleDataGenerator {
 	@PostConstruct
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void loadSampleData() {
-		System.err.println("Loading sample data.");
 		logger.info("Loading sample data.");
 		unLoadAll(); // Fail-safe in case of application restart that does not trigger a JPA schema
 						// drop.
