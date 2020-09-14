@@ -41,8 +41,8 @@ HTML 5 forms, but any HTML 5 capable browser is fine.
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Jakarta EE (Java EE 7) features including JSF 2.2, CDI, EJB 3.2, 
-JPA 2.1, JAX-RS 2, WebSocket, JSON-P, Bean Validation 1.1 and JMS 2.
+number of Jakarta EE (Java EE 7) features including Faces 2.2, CDI, EJB 3.2, 
+Persistence 2.1, REST 2, WebSocket, JSON Processing, Bean Validation 1.1 and Messaging 2.
 
 There are several web interfaces, REST interfaces and a file system scanning
 interface. It's probably best to start exploring the interfaces in the rough
@@ -54,8 +54,7 @@ application is pre-populated with some sample data).
 
 The administrative interface is intended for the shipping company that manages
 cargo. The landing page of the interface is a dashboard providing an overall 
-view of registered cargo. The dashboard will update automatically when cargo
-is handled (described below). You can book cargo using the booking interface.
+view of registered cargo. You can book cargo using the booking interface.
 One cargo is booked, you can route it. When you initiate a routing request,
 the system will determine routes that might work for the cargo. Once you select
 a route, the cargo will be ready to process handling events at the port. You can
@@ -65,8 +64,7 @@ The Incident Logging interface is intended for port personnel registering what
 happened to cargo. The interface is primarily intended for mobile devices, but
 you can use it via a desktop browser. The interface is accessible at:
 http://localhost:8080/cargo-tracker/eventLogger/. For convenience, you
-could use a mobile emulator instead of an actual mobile device. On Windows,
-you can use Microsoft WebMatrix for device emulation. Generally speaking cargo
+could use a mobile emulator instead of an actual mobile device. Generally speaking cargo
 goes through these events:
 
 * It's received at the origin port.
@@ -75,22 +73,15 @@ goes through these events:
 * It may go through customs at arbitrary points.
 
 While filling out the event registration form, it's best to have the itinerary 
-handy. You can access the itinerary for registered cargo via the admin interface.
-As you register handling events, the administrative dashboard will be 
-automatically updated in real time without a page refresh in addition to cargo 
-state. The cargo handling is done via JMS for scalability and the event 
-notification to the system happens via the CDI event bus and WebSocket, so you 
-will see a visible delay of a few seconds after registering the event for the
-dashboard to update. While using the incident logger, note that only the load 
-and unload events require as associated voyage (entering an unnecessary voyage 
-for other events will result in an  error).
+handy. You can access the itinerary for registered cargo via the admin interface. The cargo handling is done via Messaging for scalability. While using the incident logger, note that only the load 
+and unload events require as associated voyage.
 
 You should also explore the file system based bulk event registration interface. 
 It reads files under /tmp/uploads. The files are just CSV files. A sample CSV
-file is available under [src/main/resources/handling_events.csv](src/main/resources/handling_events.csv). Sucessfully 
-processed entries are archived under /tmp/archive. Any failed records are 
-archived under /tmp/failed. Just like the mobile interface, processing events
-in bulk will also cause the dashboard to automatically update.
+file is available under [src/test/resources/handling_events.csv](src/test/resources/handling_events.csv). The sample is already set up to match the remaining itinerary events for cargo ABC123. Just make sure to update the times in the first column of the sample CSV file to match the itinerary as well.
+
+Sucessfully processed entries are archived under /tmp/archive. Any failed records are 
+archived under /tmp/failed.
 
 Don't worry about making mistakes. The application is intended to be fairly 
 error tolerant. If you do come across issues, you should [report them](https://github.com/eclipse-ee4j/cargotracker/issues).
