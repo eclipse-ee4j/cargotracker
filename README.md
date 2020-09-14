@@ -78,8 +78,9 @@ and unload events require as associated voyage.
 
 You should also explore the file system based bulk event registration interface. 
 It reads files under /tmp/uploads. The files are just CSV files. A sample CSV
-file is available under [src/main/resources/handling_events.csv](src/main/resources/handling_events.csv). Sucessfully 
-processed entries are archived under /tmp/archive. Any failed records are 
+file is available under [src/test/resources/handling_events.csv](src/test/resources/handling_events.csv). The sample is already set up to match the remaining itinerary events for cargo ABC123. Just make sure to update the times in the first column of the sample CSV file to match the itinerary as well.
+
+Sucessfully processed entries are archived under /tmp/archive. Any failed records are 
 archived under /tmp/failed.
 
 Don't worry about making mistakes. The application is intended to be fairly 
