@@ -19,23 +19,13 @@ For further details on the project, please visit: https://github.com/eclipse-ee4
 
 The [project site](https://projects.eclipse.org/projects/ee4j.cargotracker/) has detailed information on how to get started.
 
-The simplest steps are the following (no IDE required):
-
-* Get the project source code: `git clone https://github.com/eclipse-ee4j/cargotracker.git`
-* As long as you have Maven set up, navigate to the project source root and 
-  type: `mvn package cargo:run`
-* Go to http://localhost:8080/cargo-tracker
-
 To set up in Eclipse, follow these steps:
 
 * Set up JDK 8+, Eclipse for Enterprise Java Developers and Payara 4+.
-* Import the source code directory in Eclipse as a Maven project, 
+* Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
   Maven downloads dependencies), simply run it via Payara 4.
-  
-It's best to use Chrome for the application since it has the best support for 
-HTML 5 forms, but any HTML 5 capable browser is fine.
 
 ## Exploring the Application
 
