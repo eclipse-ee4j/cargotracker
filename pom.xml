@@ -37,10 +37,10 @@
 		<skipTests>true</skipTests>
 
 		<!-- Codehaus Cargo plugin properties -->
-		<cargo.version>1.7.7</cargo.version>
-		<cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
+		<cargo.version>1.8.1</cargo.version>
+		<cargo.payara.container_id>payara</cargo.payara.container_id>
 		<cargo.payara.download_uri>
-			https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
+			https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.193.1/payara-5.193.1.zip
 		</cargo.payara.download_uri>
 
 		<!-- Application properties -->
@@ -159,12 +159,12 @@
 			<id>payara</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
-			</activation>
+ 			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>fish.payara.arquillian</groupId>
-					<artifactId>arquillian-payara-server-4-remote</artifactId>
-					<version>1.1</version>
+					<artifactId>arquillian-payara-server-remote</artifactId>
+					<version>2.3.1</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>

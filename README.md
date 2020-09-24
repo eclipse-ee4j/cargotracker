@@ -21,17 +21,17 @@ The [project site](https://projects.eclipse.org/projects/ee4j.cargotracker/) has
 
 To set up in Eclipse, follow these steps:
 
-* Set up JDK 8+, Eclipse for Enterprise Java Developers and Payara 4+.
+* Set up JDK 8+, Eclipse for Enterprise Java Developers and Payara 5+.
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
-  Maven downloads dependencies), simply run it via Payara 4.
+  Maven downloads dependencies), simply run it via Payara 5.
 
 ## Exploring the Application
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Jakarta EE (Java EE 7) features including Faces 2.2, CDI, EJB 3.2, 
+number of Jakarta EE (Java EE 8) features including Faces 2.2, CDI, EJB 3.2, 
 Persistence 2.1, REST 2, WebSocket, JSON Processing, Bean Validation 1.1 and Messaging 2.
 
 There are several web interfaces, REST interfaces and a file system scanning
@@ -107,16 +107,16 @@ by simply digging into the code to see how things are implemented.
 ## Exploring the Tests
 
 Cargo Tracker's testing is done using JUnit and Arquillian. The Arquillian configuration
-uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 4.1). Therefore, to perform a test you will need to make sure
+uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 5). Therefore, to perform a test you will need to make sure
 to have a container running. 
 
 ## Testing Locally with Payara
-For testing locally you will first need to run a Payara 4+ server.
+For testing locally you will first need to run a Payara 5+ server.
 
 You can do that with the following script:
 ```shell script
-wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
-unzip payara-4.1.2.181.zip && cd payara41/bin
+wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.193.1/payara-5.193.1.zip
+unzip payara-4.193.1.zip && cd payara5/bin
 ./asadmin start-domain
 ```
 
