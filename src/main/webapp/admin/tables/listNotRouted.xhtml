@@ -45,7 +45,17 @@
 		</p:column>
 
 		<p:column headerText="Deadline">
-			<h:outputText value="#{cargoNotRouted.arrivalDeadlineDate}" />
+			<p:commandLink
+					action="#{changeArrivalDeadlineDateDialog.showDialog(cargoNotRouted.trackingId)}"
+					style="text-decoration: none;" id="arrivalDeadlineToUpdate">
+				<h:outputText value="#{cargoNotRouted.arrivalDeadlineDate}  " />
+				<i class="fa fa-edit" style="color: #999999;" />
+				<p:ajax event="dialogReturn"
+						listener="#{changeArrivalDeadlineDateDialog.handleReturn}"
+						update="tableNotRouted" />
+				<p:tooltip id="updateToolTipFadeArrival" for="arrivalDeadlineToUpdate"
+						   value="Click to change cargo arrival deadline date." />
+			</p:commandLink>
 		</p:column>
 	</p:dataTable>
 </div>

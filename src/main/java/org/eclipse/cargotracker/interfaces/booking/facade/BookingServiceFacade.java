@@ -21,6 +21,8 @@ public interface BookingServiceFacade {
 
     void changeDestination(String trackingId, String destinationUnLocode);
 
+    void changeDeadline(String trackingId, Date arrivalDeadline);
+
     List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId);
 
     List<Location> listShippingLocations();

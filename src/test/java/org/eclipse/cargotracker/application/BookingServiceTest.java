@@ -246,4 +246,38 @@ public class BookingServiceTest {
         assertEquals(RoutingStatus.MISROUTED, cargo.getDelivery()
                 .getRoutingStatus());
     }
+
+    @Test
+    @InSequence(5)
+    public void testChangeDeadline() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(deadline);
+        cal.add(Calendar.MONTH, 1); // Change the deadline one month ahead of the original
+        Date newDeadline = cal.getTime();
+        bookingService.changeDeadline(trackingId, newDeadline);
+
+        Cargo cargo = entityManager
+                .createNamedQuery("Cargo.findByTrackingId", Cargo.class)
+                .setParameter("trackingId", trackingId).getSingleResult();
+
+        assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
+        assertEquals(SampleLocations.HELSINKI, cargo.getRouteSpecification()
+                .getDestination());
+        assertTrue(DateUtils.isSameDay(newDeadline,
+                cargo.getRouteSpecification().getArrivalDeadline()));
+        assertEquals(assigned, cargo.getItinerary());
+        assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery()
+                .getTransportStatus());
+        assertEquals(Location.UNKNOWN, cargo.getDelivery()
+                .getLastKnownLocation());
+        assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
+        assertFalse(cargo.getDelivery().isMisdirected());
+        assertEquals(Delivery.ETA_UNKOWN, cargo.getDelivery()
+                .getEstimatedTimeOfArrival());
+        assertEquals(Delivery.NO_ACTIVITY, cargo.getDelivery()
+                .getNextExpectedActivity());
+        assertFalse(cargo.getDelivery().isUnloadedAtDestination());
+        assertEquals(RoutingStatus.MISROUTED, cargo.getDelivery()
+                .getRoutingStatus());
+    }
 }

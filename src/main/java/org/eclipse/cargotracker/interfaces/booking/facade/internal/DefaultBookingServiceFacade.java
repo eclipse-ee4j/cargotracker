@@ -78,6 +78,11 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade,
     }
 
     @Override
+    public void changeDeadline(String trackingId, Date arrivalDeadline) {
+        bookingService.changeDeadline(new TrackingId(trackingId), arrivalDeadline);
+    }
+
+    @Override
     public List<CargoRoute> listAllCargos() {
         List<Cargo> cargos = cargoRepository.findAll();
         List<CargoRoute> routes = new ArrayList<>(cargos.size());
