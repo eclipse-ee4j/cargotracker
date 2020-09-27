@@ -37,7 +37,7 @@
 		<skipTests>true</skipTests>
 
 		<!-- Codehaus Cargo plugin properties -->
-		<cargo.version>1.7.7</cargo.version>
+		<cargo.version>1.8.1</cargo.version>
 		<cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
 		<cargo.payara.download_uri>
 			https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
@@ -122,8 +122,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Resolvers are needed in the Arquillian tests. This is used for adding 
-			all the runtime dependencies inside a testing war. -->
+		<!-- Resolvers are needed in the Arquillian tests. This is used for adding all the runtime dependencies inside a testing war. -->
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
