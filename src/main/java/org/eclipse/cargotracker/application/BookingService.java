@@ -28,4 +28,6 @@ public interface BookingService {
     void assignCargoToRoute(Itinerary itinerary, TrackingId trackingId);
 
     void changeDestination(TrackingId trackingId, UnLocode unLocode);
+
+    void changeDeadline(TrackingId trackingId, Date deadline);
 }
