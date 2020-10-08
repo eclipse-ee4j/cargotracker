@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -86,16 +87,85 @@ public class EventWizard implements Serializable {
 
     public String onFlowProcess(FlowEvent event) {
         // here we can customize the flow of the wizard
+        String nextStep = event.getNewStep();
 
         // Voyage is set only for LOAD and UNLOAD events.
         // For other events, it is null.
         // Thus we can skip in those cases the voyage tab and go straight to the date tab.
-        if (event.getOldStep().equals("eventTab")
-                && !"LOAD".equals(eventType) && !"UNLOAD".equals(eventType))
-            return "dateTab";
-        return event.getNewStep(); // default flow of the wizard
+        if (
+            "eventTab".equals(event.getOldStep())
+            && "voyageTab".equals(nextStep)
+            && !"LOAD".equals(eventType)
+            && !"UNLOAD".equals(eventType)
+        ) {
+            voyageNumber = null;
+            nextStep = "dateTab";
+        }
+
+        if ("dateTab".equals(nextStep)) {
+            completionDate = Calendar.getInstance().getTime();
+        }
+
+        return nextStep;
     }
 
+    public boolean isOriginLocation(CargoRoute cargoRoute) {
+        if (cargoRoute == null || location == null) {
+            return true;
+        }
+
+        return cargoRoute.getOriginCode().equals(location);
+    }
+
+    public boolean isDestination(CargoRoute cargoRoute) {
+        if (cargoRoute == null || location == null) {
+            return true;
+        }
+
+        return cargoRoute.getFinalDestinationCode().equals(location);
+    }
+
+    public boolean canLoadOrUnload(CargoRoute cargoRoute) {
+        if (cargoRoute == null || location == null) {
+            return true;
+        }
+
+        if (
+            !cargoRoute.getOriginCode().equals(location)
+                && !cargoRoute.getFinalDestinationCode().equals(location)
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public List<SelectItem> getEventTypes() {
+        List<SelectItem> showEvents = new ArrayList<>();
+        showEvents.add(new SelectItem("CUSTOM", "CUSTOM"));
+
+        CargoRoute cargoRoute;
+        if (trackId != null) {
+            cargoRoute = bookingServiceFacade.loadCargoForRouting(trackId);
+        } else {
+            cargoRoute = null;
+        }
+
+        if (isOriginLocation(cargoRoute)) {
+            showEvents.add(new SelectItem("RECEIVE", "RECEIVE"));
+        }
+
+        if (canLoadOrUnload(cargoRoute)) {
+            showEvents.add(new SelectItem("LOAD", "LOAD"));
+            showEvents.add(new SelectItem("UNLOAD", "UNLOAD"));
+        }
+
+        if (isDestination(cargoRoute)) {
+            showEvents.add(new SelectItem("CLAIM", "CLAIM"));
+        }
+
+        return showEvents;
+    }
 
     public void save() {
         VoyageNumber selectedVoyage = null;
