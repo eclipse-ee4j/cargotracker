@@ -89,26 +89,55 @@ public class EventWizard implements Serializable {
 
     public String onFlowProcess(FlowEvent event) {
         // here we can customize the flow of the wizard
-        String nextStep = event.getNewStep();
-
-        // Voyage is set only for LOAD and UNLOAD events.
-        // For other events, it is null.
-        // Thus we can skip in those cases the voyage tab and go straight to the date tab.
-        if (
-            "eventTab".equals(event.getOldStep())
-            && "voyageTab".equals(nextStep)
-            && !"LOAD".equals(eventType)
-            && !"UNLOAD".equals(eventType)
-        ) {
-            voyageNumber = null;
-            nextStep = "dateTab";
+        if (!validate(event.getOldStep())) {
+            return event.getOldStep();
         }
 
-        if ("dateTab".equals(nextStep)) {
+        if ("dateTab".equals(event.getNewStep())) {
             completionDate = Calendar.getInstance().getTime();
         }
 
-        return nextStep;
+        return event.getNewStep();
+    }
+
+    private boolean validate(final String step) {
+        CargoRoute cargoRoute = bookingServiceFacade.loadCargoForRouting(trackId);
+
+        if ("eventTab".equals(step) && "RECEIVE".equals(eventType) && !isOriginLocation(cargoRoute)) {
+            FacesMessage message = new FacesMessage(
+                FacesMessage.SEVERITY_ERROR,
+                "A cargo can be RECEIVEd only in his origin port, please fix the errors to continue.",
+                ""
+            );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        if ("eventTab".equals(step) && "CLAIM".equals(eventType) && !isDestination(cargoRoute)) {
+            FacesMessage message = new FacesMessage(
+                FacesMessage.SEVERITY_ERROR,
+                "A cargo can be CLAIMed only in his destination port, please fix errors to continue.",
+                ""
+            );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        if (
+            "voyageTab".equals(step)
+            && ("LOAD".equals(eventType) || "UNLOAD".equals(eventType))
+            && voyageNumber == null
+        ) {
+            FacesMessage message = new FacesMessage(
+                FacesMessage.SEVERITY_ERROR,
+                "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
+                ""
+            );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        return true;
     }
 
     public boolean isOriginLocation(CargoRoute cargoRoute) {
@@ -127,58 +156,19 @@ public class EventWizard implements Serializable {
         return cargoRoute.getFinalDestinationCode().equals(location);
     }
 
-    public boolean canLoadOrUnload(CargoRoute cargoRoute) {
-        if (cargoRoute == null || location == null) {
-            return true;
-        }
-
-        if (
-            !cargoRoute.getOriginCode().equals(location)
-                && !cargoRoute.getFinalDestinationCode().equals(location)
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public List<SelectItem> getEventTypes() {
-        List<SelectItem> showEvents = new ArrayList<>();
-        showEvents.add(new SelectItem("CUSTOM", "CUSTOM"));
-
-        CargoRoute cargoRoute;
-        if (trackId != null) {
-            cargoRoute = bookingServiceFacade.loadCargoForRouting(trackId);
-        } else {
-            cargoRoute = null;
-        }
-
-        if (isOriginLocation(cargoRoute)) {
-            showEvents.add(new SelectItem("RECEIVE", "RECEIVE"));
-        }
-
-        if (canLoadOrUnload(cargoRoute)) {
-            showEvents.add(new SelectItem("LOAD", "LOAD"));
-            showEvents.add(new SelectItem("UNLOAD", "UNLOAD"));
-        }
-
-        if (isDestination(cargoRoute)) {
-            showEvents.add(new SelectItem("CLAIM", "CLAIM"));
-        }
-
-        return showEvents;
-    }
-
     public void save() {
-        VoyageNumber selectedVoyage = null;
+        VoyageNumber selectedVoyage;
 
         Date registrationTime = new Date();
         TrackingId trackingId = new TrackingId(trackId);
         UnLocode unLocode = new UnLocode(this.location);
         HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
 
-        if (voyageNumber != null) {  // Only Load & Unload could have a Voyage set
+        // Only Load & Unload could have a Voyage set
+        if ("LOAD".equals(eventType) || "UNLOAD".equals(eventType)) {
             selectedVoyage = new VoyageNumber(voyageNumber);
+        } else {
+            selectedVoyage = null;
         }
 
         HandlingEventRegistrationAttempt attempt
