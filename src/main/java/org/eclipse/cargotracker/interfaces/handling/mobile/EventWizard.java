@@ -4,6 +4,7 @@ import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.util.LocationUtil;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
+import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
@@ -68,9 +69,10 @@ public class EventWizard implements Serializable {
 
         // fill the Port dropdown list
         locations = new ArrayList<>();
-        List<String> allLocations = LocationUtil.getLocationsCode();
-        for (String tempLoc : allLocations) {
-            locations.add(new SelectItem(tempLoc, tempLoc));
+        List<Location> allLocations = LocationUtil.getLocationsCode();
+        for (Location tempLoc : allLocations) {
+            String code = tempLoc.getUnLocode().getIdString();
+            locations.add(new SelectItem(code, tempLoc.getName() + " (" + code + ")"));
         }
 
         // fill the Voyage dropdown list (only needed for LOAD & UNLOAD events)
