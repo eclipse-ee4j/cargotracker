@@ -1,5 +1,7 @@
 package org.eclipse.cargotracker.application.util;
 
+import org.eclipse.cargotracker.domain.model.location.Location;
+import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.primefaces.model.map.LatLng;
 
 import java.util.ArrayList;
@@ -19,25 +21,25 @@ public class LocationUtil {
         return location.substring(location.indexOf("(") + 1, location.indexOf(")"));
     }
 
-    public static List<String> getLocationsCode() {
+    public static List<Location> getLocationsCode() {
 
-        List<String> locationsCode = new ArrayList<>(13);
+        List<Location> locationsCode = new ArrayList<>(13);
 
-        locationsCode.add("USCHI");
-        locationsCode.add("USDAL");
-        locationsCode.add("USNYC");
+        locationsCode.add(SampleLocations.CHICAGO);
+        locationsCode.add(SampleLocations.DALLAS);
+        locationsCode.add(SampleLocations.NEWYORK);
 
-        locationsCode.add("NLRTM");
-        locationsCode.add("DEHAM");
-        locationsCode.add("FIHEL");
-        locationsCode.add("SEGOT");
-        locationsCode.add("SESTO");
+        locationsCode.add(SampleLocations.ROTTERDAM);
+        locationsCode.add(SampleLocations.HAMBURG);
+        locationsCode.add(SampleLocations.HELSINKI);
+        locationsCode.add(SampleLocations.GOTHENBURG);
+        locationsCode.add(SampleLocations.STOCKHOLM);
 
-        locationsCode.add("AUMEL");
-        locationsCode.add("CNSHA");
-        locationsCode.add("CNHGH");
-        locationsCode.add("CNHKG");
-        locationsCode.add("JNTKO");
+        locationsCode.add(SampleLocations.MELBOURNE);
+        locationsCode.add(SampleLocations.SHANGHAI);
+        locationsCode.add(SampleLocations.HANGZOU);
+        locationsCode.add(SampleLocations.HONGKONG);
+        locationsCode.add(SampleLocations.TOKYO);
 
         return locationsCode;
     }
