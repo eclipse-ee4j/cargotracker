@@ -30,7 +30,7 @@ The simplest steps are the following (no IDE required):
 
 To set up in Eclipse, follow these steps:
 
-* Set up JDK 8+, Eclipse for Enterprise Java Developers and Payara 4+.
+* Set up [Java SE 8](https://www.azul.com/downloads/zulu-community/?version=java-8-lts), [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 4.1](https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip)(Payara 5 is not supported yet. Payara 4.1 only supports Java SE 8).
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
@@ -120,7 +120,7 @@ uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (P
 to have a container running. 
 
 ## Testing Locally with Payara
-For testing locally you will first need to run a Payara 4+ server.
+For testing locally you will first need to run a Payara 4.1 server.
 
 You can do that with the following script:
 ```shell script
@@ -140,8 +140,8 @@ mvn -Ppayara -DskipTests=false test
   explained [here](https://github.com/payara/Payara/issues/3038).
 * If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
   Just re-run the application (make sure to completely shut down Payara first).
-* Sometimes when the server is not shut down correctly, the Derby database that 
-  the application uses get's corrupted, resulting is strange JDBC errors. If 
+* Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the Derby database that 
+  the application uses get's corrupted, resulting is strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
-  can do this by simply removing \temp\cargo-tracker-database from the file 
+  can do this by simply removing \tmp\cargo-tracker-database from the file 
   system and restarting the application.
