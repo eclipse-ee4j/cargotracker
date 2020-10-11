@@ -126,7 +126,7 @@ div.wrapper {
 div.status {
     position: absolute;
     /* bottom:0px; */
-    top: 57px; /* yes 57! */
+    top: 85px; /* yes 85! */
     left: 17px; /* yes 17! */
     width: 44px;
     background-color: black;
