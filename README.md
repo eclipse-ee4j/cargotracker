@@ -141,7 +141,7 @@ mvn -Ppayara -DskipTests=false test
 * If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
   Just re-run the application (make sure to completely shut down Payara first).
 * Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the Derby database that 
-  the application uses get's corrupted, resulting is strange database errors. If 
+  the application uses get's corrupted, resulting in strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
   can do this by simply removing \tmp\cargo-tracker-database from the file 
   system and restarting the application.
