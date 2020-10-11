@@ -204,7 +204,7 @@
                 L.control.scale().addTo(map);
 
                 coordinates.forEach((coord, index) => {
-                    const popupValue =  'Tracking ID: ' + data[index].trackingId + '&lt;br/>' +
+                    const popupContent =  'Tracking ID: ' + data[index].trackingId + '&lt;br/>' +
                         'Routing Status: ' + routingStatusName[data[index].routingStatus] + '&lt;br/>' +
                         'Misdirected: ' + (data[index].misdirected ? "Yes" : "No") + '&lt;br/>' +
                         'Transport Status: ' + transportStatusName[data[index].transportStatus] + '&lt;br/>' +
@@ -213,7 +213,7 @@
                         'Last known location: ' + locationName[data[index].lastKnownLocation];
 
                     L.marker(coord['position'], {icon: coord.style})
-                        .bindPopup('The center of the world')
+                        .bindTooltip(popupContent)
                         .addTo(map)
                         .on('click', () => {
                             const applicationPath = window.location.pathname.split('/')[1];
