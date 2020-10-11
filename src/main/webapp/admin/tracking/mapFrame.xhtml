@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Cargo Live Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <link rel="stylesheet" href="#{resource['/css/dd.css']}"/>
-    <link rel="stylesheet" href="#{resource['/css/jquery-jvectormap.css']}"/>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"/>
 
-    <script src="http://code.jquery.com/jquery-3.4.1.min.js" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin="" />
 
-    <h:outputScript name="js/vendor/jquery-jvectormap.js"/>
-    <h:outputScript name="js/vendor/jquery-jvectormap-world-mill-en.js"/>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js" />
 
     <script type="text/javascript">
         const locationName = [];
@@ -78,118 +80,173 @@
         longitude["USNYC"] = -74;
         longitude["USDAL"] = -97;
 
+
+        //  load the icons for the map
+        const greenIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const greyIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const blackIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const goldIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         const colorCodes = [];
 
-        colorCodes["NOT_ROUTED"] = "gray";
-        colorCodes["MISROUTED"] = "red";
-        colorCodes["NOT_RECEIVED"] = "white";
-        colorCodes["IN_PORT"] = "green";
-        colorCodes["ONBOARD_CARRIER"] = "green";
-        colorCodes["MISDIRECTED"] = "red";
-        colorCodes["AT_DESTINATION"] = "black";
-        colorCodes["CLAIMED"] = "black";
-        colorCodes["UNKNOWN"] = "red";
+        colorCodes["NOT_ROUTED"] = greyIcon;
+        colorCodes["MISROUTED"] = redIcon;
+        colorCodes["NOT_RECEIVED"] = goldIcon;
+        colorCodes["IN_PORT"] = greenIcon;
+        colorCodes["ONBOARD_CARRIER"] = greenIcon;
+        colorCodes["MISDIRECTED"] = redIcon;
+        colorCodes["AT_DESTINATION"] = blackIcon;
+        colorCodes["CLAIMED"] = blackIcon;
+        colorCodes["UNKNOWN"] = redIcon;
     </script>
 </head>
+
 <body style="background-color: white">
-<div>
-    <div id="world-map" style="height: 600px;  border:#FFF; border-style: solid; border-width: 8px;"/>
-    <div id='connected' class='status'>
-        <p id='status' class='status_constent'>Offline</p>
+    <div>
+        <div id="map"
+             style="height: 600px;  border:#FFF; border-style: solid; border-width: 8px;">
+        </div>
+
+        <br/><br/>
+        <div id='connected' class='status'>
+            <p id='status' class='status_constent'>Offline</p>
+        </div>
     </div>
-</div>
-<script type="text/javascript">
-    const statusBox = document.getElementById('connected');
-    statusBox.style.cursor = 'pointer';
-    statusBox.onclick = function () {
-        location.reload(true);
-    };
-</script>
-<script type="text/javascript">
-    $(function () {
-        $.getJSON('/cargo-tracker/rest/cargo', function (data) {
-            const coordinates = [];
 
-            let cargo;
-            for (const i in data) {
-                cargo = data[i];
-                const locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
-                let statusCode = 'NOT_RECEIVED';
-                if ((cargo.routingStatus == 'NOT_ROUTED') || (cargo.routingStatus == 'MISROUTED')) {
-                    statusCode = cargo.routingStatus;
-                } else if (cargo.misdirected == true) {
-                    statusCode = 'MISDIRECTED';
-                } else if (cargo.atDestination == true) {
-                    statusCode = 'AT_DESTINATION';
-                } else {
-                    statusCode = cargo.transportStatus;
-                }
-
-                coordinates.push(
-                    {
-                        latLng: [latitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
-                            longitude[locationCode] + (Math.floor((Math.random() * 3) - 3))],
-                        name: cargo.trackingId,
-                        style: {fill: colorCodes[statusCode]}
-                    });
-            }
-
-
-            $('#world-map').vectorMap({
-                map: 'world_mill_en',
-                backgroundColor: "#B9CFff",
-                markers: coordinates,
-                regionStyle: {
-                    fill: "#ff0000",
-                    scaleColors: ['#b7bdc3', '#a2aaad'],
-                    "fill-opacity": 1,
-                    stroke: '#a2aaad',
-                    "stroke-width": 2,
-                    "stroke-opacity": 1
-                },
-                onMarkerLabelShow: function (event, label, index) {
-                    label.html(
-                        'Tracking ID: ' + data[index].trackingId + '<br/>' +
-                        'Routing Status: ' + routingStatusName[data[index].routingStatus] + '<br/>' +
-                        'Misdirected: ' + (data[index].misdirected ? "Yes" : "No") + '<br/>' +
-                        'Transport Status: ' + transportStatusName[data[index].transportStatus] + '<br/>' +
-                        'At Destination: ' + (data[index].atDestination ? "Yes" : "No") + '<br/>' +
-                        'Origin: ' + locationName[data[index].origin] + '<br/>' +
-                        'Last known location: ' + locationName[data[index].lastKnownLocation]);
-                },
-                onMarkerClick: function (event, index) {
-                    const applicationPath = window.location.pathname.split('/')[1];
-                    const trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + data[index].trackingId;
-                    const winHeight = $(window).height();
-                    const winWidth = $(window).width();
-                    const winDimensions = "height=" + winHeight + ",width=" + winWidth;
-                    window.open(trackingUri, "winMap", winDimensions);
-                }
-
-            });
-        });
-    });
-
-</script>
-<script type="text/javascript">
-    $(function () {
-        const applicationPath = window.location.pathname.split('/')[1];
-        const socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
-        const socket = new WebSocket(socketUri);
-
-        socket.onopen = function (event) {
-            document.getElementById("status").innerHTML = "online";
-        }
-
-        socket.onmessage = function (event) {
-            document.getElementById("status").innerHTML = "mesage";
+    <script type="text/javascript">
+        const statusBox = document.getElementById('connected');
+        statusBox.style.cursor = 'pointer';
+        statusBox.onclick = function () {
             location.reload(true);
         };
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $.getJSON('/cargo-tracker/rest/cargo', data => {
+                const coordinates = [];
 
-        socket.onclose = function (event) {
-            document.getElementById("status").innerHTML = "offline";
-        };
-    });
-</script>
+                for (const i in data) {
+                    const cargo = data[i];
+                    const locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
+
+                    let statusCode = 'NOT_RECEIVED';
+                    if ((cargo.routingStatus === 'NOT_ROUTED') || (cargo.routingStatus === 'MISROUTED')) {
+                        statusCode = cargo.routingStatus;
+                    } else if (cargo.misdirected === true) {
+                        statusCode = 'MISDIRECTED';
+                    } else if (cargo.atDestination === true) {
+                        statusCode = 'AT_DESTINATION';
+                    } else {
+                        statusCode = cargo.transportStatus;
+                    }
+
+                    coordinates.push(
+                        {
+                            position: {
+                                lon: longitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
+                                lat: latitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
+                            },
+                            trackingId: cargo.trackingId,
+                            style: colorCodes[statusCode]
+                        }
+                    );
+                }
+
+                const map = L.map('map').setView({lon: 0, lat: 0}, 2);
+
+                // add the OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
+                }).addTo(map);
+
+                // show the scale bar on the lower left corner
+                L.control.scale().addTo(map);
+
+                coordinates.forEach((coord, index) => {
+                    const popupValue =  'Tracking ID: ' + data[index].trackingId + '&lt;br/>' +
+                        'Routing Status: ' + routingStatusName[data[index].routingStatus] + '&lt;br/>' +
+                        'Misdirected: ' + (data[index].misdirected ? "Yes" : "No") + '&lt;br/>' +
+                        'Transport Status: ' + transportStatusName[data[index].transportStatus] + '&lt;br/>' +
+                        'At Destination: ' + (data[index].atDestination ? "Yes" : "No") + '&lt;br/>' +
+                        'Origin: ' + locationName[data[index].origin] + '&lt;br/>' +
+                        'Last known location: ' + locationName[data[index].lastKnownLocation];
+
+                    L.marker(coord['position'], {icon: coord.style})
+                        .bindPopup('The center of the world')
+                        .addTo(map)
+                        .on('click', () => {
+                            const applicationPath = window.location.pathname.split('/')[1];
+                            const trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + coord.trackingId;
+                            const winHeight = $(window).height();
+                            const winWidth = $(window).width();
+                            const winDimensions = "height=" + winHeight + ",width=" + winWidth;
+                            window.open(trackingUri, "winMap", winDimensions);
+                        });
+                });
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            const applicationPath = window.location.pathname.split('/')[1];
+            const socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
+            const socket = new WebSocket(socketUri);
+
+            socket.onopen = function (event) {
+                document.getElementById("status").innerHTML = "online";
+            }
+
+            socket.onmessage = function (event) {
+                document.getElementById("status").innerHTML = "mesage";
+                location.reload(true);
+            };
+
+            socket.onclose = function (event) {
+                document.getElementById("status").innerHTML = "offline";
+            };
+        });
+    </script>
 </body>
 </html>

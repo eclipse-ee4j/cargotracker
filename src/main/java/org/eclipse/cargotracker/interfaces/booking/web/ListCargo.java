@@ -28,7 +28,6 @@ public class ListCargo {
     private List<CargoRoute> cargos;
     private List<CargoRoute> routedCargos;
     private List<CargoRoute> claimedCargos;
-    private List<CargoRoute> notRoutedCargos;
     private List<CargoRoute> routedUnclaimedCargos;
 
     @Inject
@@ -79,13 +78,11 @@ public class ListCargo {
     }
 
     public List<CargoRoute> getNotRoutedCargos() {
-        notRoutedCargos = new ArrayList<>();
+        List<CargoRoute> notRoutedCargos = new ArrayList<>();
 
-        for (CargoRoute route : cargos) {
-            if (!route.isRouted()) {
+        for (CargoRoute route : cargos)
+            if (!route.isRouted())
                 notRoutedCargos.add(route);
-            }
-        }
 
         return notRoutedCargos;
     }
