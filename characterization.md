@@ -26,7 +26,7 @@ An [Itinerary](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main
 
 ![](.gitbook/assets/leg.png)
 
-Value Objects are typically implemented as JPA embedded objects. However, it is sometimes useful and valid to implement them as JPA entities.
+Value Objects are typically implemented as Jakarta Persistence embedded objects. However, it is sometimes useful and valid to implement them as Jakarta Persistence entities.
 
 ## Domain Events
 
