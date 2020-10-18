@@ -4,7 +4,7 @@ The Cargo Tracker application is layered as illustrated by the following picture
 
 ![](.gitbook/assets/layers.jpg)
 
-As you can see, there are three vertical layers: Interfaces, Application and Domain, each supported by different kinds of Infrastructure. In the application, the [package naming](https://github.com/m-reza-rahman/cargo-tracker/tree/master/src/main/java/net/java/cargotracker) reflects these layers.
+As you can see, there are three vertical layers: interfaces, application and domain, each supported by different kinds of infrastructure. In the application, the [package naming](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker) reflects these layers.
 
 ## Interfaces
 
