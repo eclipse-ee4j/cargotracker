@@ -28,7 +28,7 @@ The domain layer is the heart of the software, and this is where the interesting
 
 The core of the business logic, such as determining whether a handling event should be registered and how the delivery of a cargo is affected by handling, belongs here. The structure and naming of aggregates, classes and methods in the domain layer should follow the real world as closely as possible, and you should be able to explain to a business domain expert how this part of the software works by drawing a few simple diagrams and using the actual class and method names of the source code. Note that it is not uncommon for some domain classes to simply model data and not contain any business logic.
 
-The domain layer is usually implemented primarily using JPA and CDI.
+The domain layer is usually implemented primarily using Jakarta Persistence, Bean Validation and CDI.
 
 ## Infrastructure
 
