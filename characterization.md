@@ -30,11 +30,11 @@ Value Objects are typically implemented as Jakarta Persistence embedded objects.
 
 ## Domain Events
 
-Some things clearly have identity but no life-cycle, or an extremely limited life-cycle with just one state. We call these things Domain Events and they can be viewed as hybrid of Entities and Value Objects. In our application [HandlingEvent](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/handling/HandlingEvent.java) is a Domain Event that represent a real-life event such as cargo being loaded or unloaded, customs cleared etc. They carry both a completion time and a registration time. The completion time is the time when the event occurred and the registration time is the time when the event was received by the system. The handling event id is composed of the cargo, voyage, completion time, location and type \(LOAD, UNLOAD etc\).
+Some things clearly have identity but no life-cycle, or an extremely limited life-cycle with just one state. We call these things Domain Events and they can be viewed as hybrid of Entities and Value Objects. In our application [HandlingEvent](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/handling/HandlingEvent.java) is a Domain Event that represent a real-life event such as cargo being loaded or unloaded, customs cleared etc. They carry both a completion time and a registration time. The completion time is the time when the event occurred and the registration time is the time when the event was received by the system. The handling event ID is composed of the cargo, voyage, completion time, location and type \(LOAD, UNLOAD etc\).
 
 ![](.gitbook/assets/handling_event.png)
 
-Domain Events are usually implemented as JPA entities.
+Domain Events are usually implemented as Jakarta Persistence entities.
 
 ## Aggregates
 
