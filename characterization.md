@@ -68,7 +68,7 @@ Factories are typically implemented using CDI.
 
 Domain services encapsulate key domain concepts that just are not naturally modeled as things. However, domain service method arguments and the return values are usually domain classes. Sometimes only the service interface \(what the service does\) is part of the domain layer, but the implementation \(how the service does it\) is part of the infrastructure layer. This is analogous to how repository interfaces are part of the domain layer, but the JPA implementations are not.
 
-A good example of that is the [RoutingService](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/java/cargotracker/domain/service/RoutingService.java), which provides access to the routing system and is used to find possible routes for a given specification. The implementation, [ExternalRoutingService](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/infrastructure/routing/ExternalRoutingService.java), communicates with another system and translates to/from an external API/data model in the infrastructure layer.
+A good example of that is the [RoutingService](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/service/RoutingService.java), which provides access to the routing system and is used to find possible routes for a given specification. The implementation, [ExternalRoutingService](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/infrastructure/routing/ExternalRoutingService.java), communicates with another system and translates to/from an external API/data model in the infrastructure layer.
 
 ![](.gitbook/assets/routing_service.png)
 
