@@ -18,6 +18,7 @@ Start Eclipse, you will first need to add the Payara plugin. Go to Help -> Eclip
 
 ![ ](.gitbook/assets/eclipse_step1.png)
 
+Once the Payara plugin is installed, go to 
 in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
 
 ![ ](.gitbook/assets/nb_step1.png)
