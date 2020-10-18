@@ -10,9 +10,9 @@ This section outlines how to set up the application in the Eclipse IDE.
 
 ## Download
 
-[Download](https://github.com/m-reza-rahman/cargo-tracker/archive/master.zip) the source code zip file and expand it somewhere in your file system, ideally into _'/Projects'_. Note that this is a Maven project.
+[Download](https://github.com/eclipse-ee4j/cargotracker/archive/master.zip) the source code zip file and expand it somewhere in your file system. Note that this is a Maven project.
 
-## NetBeans Setup
+## Eclipse Setup
 
 Start NetBeans, you will first need to configure Payara. Go in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
 
