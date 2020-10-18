@@ -4,7 +4,7 @@ This section outlines how to set up the application in the Eclipse IDE.
 
 ## Prerequisites
 
-* Java SE 8 is required. You can download the JDK from [here](https://www.azul.com/downloads/zulu-community/?version=java-8-lts).
+* Java SE 8 is required. You can download Java SE 8 from [here](https://www.azul.com/downloads/zulu-community/?version=java-8-lts).
 * Payara Server 4.1 is required. You can download Payara Server 4.1 from [here](https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip).
 * Eclipse for Enterprise Java Developers is required (please make sure to download the correct edition). You can download the Eclipse IDE from [here](https://www.eclipse.org/downloads/packages/).
 
