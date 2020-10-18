@@ -54,9 +54,9 @@ With the aggregates and their roots identified it is fairly trivial to identify 
 
 ![](.gitbook/assets/cargo_repository.png)
 
-While Repository interfaces are part of the domain layer, their implementations are part of the infrastructure layer. For example the CargoRepository has JPA implementation in the infrastructure layer, [JpaCargoRepository](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/infrastructure/persistence/jpa/JpaCargoRepository.java).
+While Repository interfaces are part of the domain layer, their implementations are part of the infrastructure layer. For example the CargoRepository has a Jakarta Persistence implementation in the infrastructure layer, [JpaCargoRepository](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/infrastructure/persistence/jpa/JpaCargoRepository.java).
 
-Repositories in Java EE are typically implemented using JPA and CDI. The DeltaSpike Data module is particularly helpful in implementing repositories. 
+Repositories in Jakarta EE are typically implemented using Jakarta Persistence and CDI. The DeltaSpike Data module is particularly helpful in implementing repositories. 
 
 ## Factories
 
