@@ -16,7 +16,7 @@ The cargo's delivery state will change during it's lifetime. It's transport stat
 
 A [Voyage](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/Voyage.java) is a vessel's trip from origin to destination, typically made up of several segments \([CarrierMovements](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/CarrierMovement.java)\). In the application a [Voyage](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/Voyage.java) consists of a [Schedule](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/Schedule.java) with the different [CarrierMovements](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/CarrierMovement.java) in it and has a very clear notion of identity, [VoyageNumber](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/VoyageNumber.java). This ID could be something like a flight number for air shipments or a vessel voyage number for a ship, it is not the name or the identification of the actual vessel.
 
-Unsurprisingly, domain entities are usually implemented as JPA entities. Note however, that sometimes it is necessary or convenient to implement value objects as JPA entities as well.
+Unsurprisingly, domain entities are usually implemented as Jakarta Persistence entities. Note however, that sometimes it is necessary or convenient to implement value objects as Jakarta Persistence entities as well.
 
 ## Value Objects
 
