@@ -14,7 +14,10 @@ This section outlines how to set up the application in the Eclipse IDE.
 
 ## Eclipse Setup
 
-Start NetBeans, you will first need to configure Payara. Go in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
+Start Eclipse, you will first need to add the Payara plugin. Go to Help -> Eclipse Marketplace. Search for "Payara" and install Payara Tools.
+
+
+in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
 
 ![ ](.gitbook/assets/nb_step1.png)
 
