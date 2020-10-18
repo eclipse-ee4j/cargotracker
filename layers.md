@@ -20,7 +20,7 @@ The application layer is responsible for driving the workflow of the application
 
 Note, the application layer is very thin in terms of domain logic - it merely coordinates the domain layer objects to perform the actual work. This is very different from traditional tiered architectures that tend to look more procedural with a lot of business logic in the application layer.
 
-The [org.eclpse.cargotracker.application](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application) package contains all the application classes. The application layer is typically implemented using EJBs or CDI beans. Other Java EE APIs likely to be used in this layer are Java EE Security, interceptors, JTA \(in very rare situations where you would like to manage transactions yourself\) and Java EE Concurrency.
+The [org.eclpse.cargotracker.application](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application) package contains all the application classes. The application layer is typically implemented using Enterprise Beans or CDI beans. Other Jakarta EE APIs likely to be used in this layer are Jakarta EE Security, Interceptors, Transactions \(in very rare situations where you would like to manage transactions yourself\) and Concurrency.
 
 ## Domain
 
