@@ -1,4 +1,4 @@
-# NetBeans
+# Eclipse
 
 This section outlines how to set up the application in the Eclipse IDE.
 
