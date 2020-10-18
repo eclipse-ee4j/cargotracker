@@ -16,6 +16,7 @@ This section outlines how to set up the application in the Eclipse IDE.
 
 Start Eclipse, you will first need to add the Payara plugin. Go to Help -> Eclipse Marketplace. Search for "Payara" and install Payara Tools.
 
+![ ](.gitbook/assets/eclipse_step1.png)
 
 in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
 
