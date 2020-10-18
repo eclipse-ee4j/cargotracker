@@ -34,7 +34,7 @@ The domain layer is usually implemented primarily using Jakarta Persistence, Bea
 
 In addition to the three vertical layers, there is also the infrastructure. As the picture shows, it supports all of the three layers in different ways, sometimes facilitating communication between the layers. In the most common case the infrastructure layer consists of Repository implementations interacting with a database. In simple terms, the infrastructure consists of everything that exists independently of our application: external/third-party resources, persistence/database engines, messaging back-ends, legacy systems, and so on.
 
-All of the infrastructure classes are in the [org.eclipse.cargotracker.infrastructure](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/infrastructure) package. We use Jakarta Persistence, CDI, Messaging and the REST client API in this layer. The application will mostly have Jakarta Persistence code in this layer encapsulated with thin CDI bean Repository classes. Other Jakarta EE APIs commonly used in this layer include Jakarta Mail and Messaging.
+All of the infrastructure classes are in the [org.eclipse.cargotracker.infrastructure](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/infrastructure) package. We use Jakarta Persistence, CDI, Messaging and the REST client API in this layer. The application will mostly have Jakarta Persistence code in this layer encapsulated with thin CDI bean Repository classes. Other Jakarta EE APIs commonly used in this layer include Jakarta Mail and XML Web Services clients.
 
 ## Are Layers Mandatory?
 
