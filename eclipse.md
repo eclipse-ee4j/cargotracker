@@ -24,17 +24,9 @@ Once the Payara plugin is installed, go to Servers -> New -> Server. Select Paya
 
 Accept the defaults for Payara properties, hit next and then finish.
 
-in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
+Go to File -> Import -> Existing Maven Projects. Hit next. Select the root directory of the Cargo Tracker project in your file system. Hit finish.
 
-![ ](.gitbook/assets/nb_step1.png)
-
-On the _'Add Server Instance'_ dialog, choose GlassFish and give the instance a sensible name. Hit _'Next'_.
-
-![ ](.gitbook/assets/nb_step2.png)
-
-Point the _'Installation Location'_ to where you have Payara installed on your file system \(typically the install is just the Payara download unzipped\). Hit _'Next'_. On the _'Domain Location'_ screen, accept the defaults and hit _'Finish'_.
-
-![ ](.gitbook/assets/nb_step3.png)
+![ ](.gitbook/assets/eclipse_step3.png)
 
 Go to File-&gt;Open Project. Select the Cargo Tracker project from the file system and hit _'Open Project'_. NetBeans should recognize it as a Maven project on the file system. It may take a little bit to open and scan the project.
 
