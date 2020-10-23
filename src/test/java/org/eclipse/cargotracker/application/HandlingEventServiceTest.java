@@ -12,7 +12,7 @@ import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class HandlingEventServiceTest {
 
@@ -24,7 +24,7 @@ public class HandlingEventServiceTest {
     private LocationRepository locationRepository;
     private Cargo cargo = new Cargo(new TrackingId("ABC"),
             new RouteSpecification(SampleLocations.HAMBURG, SampleLocations.TOKYO,
-                    new Date()));
+                    LocalDateTime.now()));
 
     protected void setUp() throws Exception {
 //        cargoRepository = createMock(CargoRepository.class);
@@ -53,7 +53,7 @@ public class HandlingEventServiceTest {
 //        replay(cargoRepository, voyageRepository, handlingEventRepository,
 //                locationRepository, applicationEvents);
 
-        service.registerHandlingEvent(new Date(), cargo.getTrackingId(),
+        service.registerHandlingEvent(LocalDateTime.now(), cargo.getTrackingId(),
                 SampleVoyages.CM001.getVoyageNumber(),
                 SampleLocations.STOCKHOLM.getUnLocode(),
                 HandlingEvent.Type.LOAD);

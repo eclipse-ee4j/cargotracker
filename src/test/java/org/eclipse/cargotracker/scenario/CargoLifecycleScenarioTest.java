@@ -23,8 +23,8 @@ import org.eclipse.cargotracker.domain.model.cargo.*;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class CargoLifecycleScenarioTest {
@@ -72,7 +72,7 @@ public class CargoLifecycleScenarioTest {
          and it should arrive in no more than two weeks. */
         Location origin = SampleLocations.HONGKONG;
         Location destination = SampleLocations.STOCKHOLM;
-        Date arrivalDeadline = DateUtil.toDate("2009-03-18");
+        LocalDateTime arrivalDeadline = DateUtil.toDate("2009-03-18");
 
         /* Use case 1: booking
 

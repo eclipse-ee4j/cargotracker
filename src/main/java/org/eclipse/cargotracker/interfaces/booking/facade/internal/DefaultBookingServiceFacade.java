@@ -19,8 +19,8 @@ import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.Loc
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
@@ -46,7 +46,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade,
 
     @Override
     public String bookNewCargo(String origin, String destination,
-                               Date arrivalDeadline) {
+                               LocalDateTime arrivalDeadline) {
         TrackingId trackingId = bookingService.bookNewCargo(
                 new UnLocode(origin), new UnLocode(destination),
                 arrivalDeadline);
@@ -78,7 +78,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade,
     }
 
     @Override
-    public void changeDeadline(String trackingId, Date arrivalDeadline) {
+    public void changeDeadline(String trackingId, LocalDateTime arrivalDeadline) {
         bookingService.changeDeadline(new TrackingId(trackingId), arrivalDeadline);
     }
 

@@ -16,8 +16,9 @@ import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -102,13 +103,9 @@ public class EventItemReader extends AbstractItemReader {
             throw new EventLineParseException("Wrong number of data elements", line);
         }
 
-        Date completionTime = null;
+        LocalDateTime completionTime = null;
 
-        try {
-            completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(result[0]);
-        } catch (ParseException e) {
-            throw new EventLineParseException("Cannot parse completion time", e, line);
-        }
+        completionTime = LocalDateTime.from(DateTimeFormatter.ofPattern(ISO_8601_FORMAT).parse(result[0]));
 
         TrackingId trackingId = null;
 
@@ -145,7 +142,7 @@ public class EventItemReader extends AbstractItemReader {
         }
 
         HandlingEventRegistrationAttempt attempt
-                = new HandlingEventRegistrationAttempt(new Date(), completionTime,
+                = new HandlingEventRegistrationAttempt(LocalDateTime.now(), completionTime,
                 trackingId, voyageNumber, eventType, unLocode);
 
         return attempt;

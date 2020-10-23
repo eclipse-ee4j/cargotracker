@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Stateless
@@ -30,7 +31,7 @@ public class GraphTraversalService {
             @NotNull @Size(min = 5, max = 5) @QueryParam("origin") String originUnLocode,
             @NotNull @Size(min = 5, max = 5) @QueryParam("destination") String destinationUnLocode,
             @QueryParam("deadline") String deadline) {
-        Date date = nextDate(new Date());
+        LocalDateTime date = nextDate(LocalDateTime.now());
 
         List<String> allVertices = dao.listLocations();
         allVertices.remove(originUnLocode);
@@ -46,8 +47,8 @@ public class GraphTraversalService {
                     allVertices.size() - 1);
             String firstLegTo = allVertices.get(0);
 
-            Date fromDate = nextDate(date);
-            Date toDate = nextDate(fromDate);
+            LocalDateTime fromDate = nextDate(date);
+            LocalDateTime toDate = nextDate(fromDate);
             date = nextDate(toDate);
 
             transitEdges.add(new TransitEdge(
@@ -77,9 +78,8 @@ public class GraphTraversalService {
         return candidates;
     }
 
-    private Date nextDate(Date date) {
-        return new Date(date.getTime() + ONE_DAY_MS
-                + (random.nextInt(1000) - 500) * ONE_MIN_MS);
+    private LocalDateTime nextDate(LocalDateTime date) {
+        return date.plusDays(1).plusMinutes(random.nextInt(1000) - 500);
     }
 
     private int getRandomNumberOfCandidates() {

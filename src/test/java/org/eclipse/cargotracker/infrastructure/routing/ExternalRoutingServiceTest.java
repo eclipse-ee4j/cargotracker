@@ -8,7 +8,7 @@ import org.eclipse.cargotracker.domain.model.cargo.*;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ExternalRoutingServiceTest {
@@ -37,7 +37,7 @@ public class ExternalRoutingServiceTest {
     // TODO this test belongs in com.pathfinder
     public void testCalculatePossibleRoutes() {
         TrackingId trackingId = new TrackingId("ABC");
-        RouteSpecification routeSpecification = new RouteSpecification(SampleLocations.HONGKONG, SampleLocations.HELSINKI, new Date());
+        RouteSpecification routeSpecification = new RouteSpecification(SampleLocations.HONGKONG, SampleLocations.HELSINKI, LocalDateTime.now());
         Cargo cargo = new Cargo(trackingId, routeSpecification);
 
 //        expect(voyageRepository.find(isA(VoyageNumber.class))).andStubReturn(SampleVoyages.CM002);

@@ -6,7 +6,7 @@ import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * This is a simple transfer object for passing incoming handling event
@@ -16,15 +16,15 @@ import java.util.Date;
  */
 public class HandlingEventRegistrationAttempt implements Serializable {
 
-    private final Date registrationTime;
-    private final Date completionTime;
+    private final LocalDateTime registrationTime;
+    private final LocalDateTime completionTime;
     private final TrackingId trackingId;
     private final VoyageNumber voyageNumber;
     private final HandlingEvent.Type type;
     private final UnLocode unLocode;
 
-    public HandlingEventRegistrationAttempt(Date registrationDate,
-                                            Date completionDate, TrackingId trackingId,
+    public HandlingEventRegistrationAttempt(LocalDateTime registrationDate,
+                                            LocalDateTime completionDate, TrackingId trackingId,
                                             VoyageNumber voyageNumber, HandlingEvent.Type type,
                                             UnLocode unLocode) {
         this.registrationTime = registrationDate;
@@ -35,8 +35,8 @@ public class HandlingEventRegistrationAttempt implements Serializable {
         this.unLocode = unLocode;
     }
 
-    public Date getCompletionTime() {
-        return new Date(completionTime.getTime());
+    public LocalDateTime getCompletionTime() {
+        return completionTime;
     }
 
     public TrackingId getTrackingId() {
@@ -55,7 +55,7 @@ public class HandlingEventRegistrationAttempt implements Serializable {
         return unLocode;
     }
 
-    public Date getRegistrationTime() {
+    public LocalDateTime getRegistrationTime() {
         return registrationTime;
     }
 

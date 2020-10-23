@@ -8,10 +8,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Handles changing the cargo destination. Operates against a dedicated service
@@ -32,7 +31,7 @@ public class ChangeArrivalDeadlineDate implements Serializable {
     private static final long serialVersionUID = 1L;
     private String trackingId;
     private CargoRoute cargo;
-    private Date arrivalDeadlineDate;
+    private LocalDateTime arrivalDeadlineDate;
     @Inject
     private BookingServiceFacade bookingServiceFacade;
 
@@ -48,20 +47,20 @@ public class ChangeArrivalDeadlineDate implements Serializable {
         return cargo;
     }
 
-    public Date getArrivalDeadlineDate() {
+    public LocalDateTime getArrivalDeadlineDate() {
         return this.arrivalDeadlineDate;
     }
 
-    public void setArrivalDeadlineDate(Date arrivalDeadlineDate) {
+    public void setArrivalDeadlineDate(LocalDateTime arrivalDeadlineDate) {
         this.arrivalDeadlineDate = arrivalDeadlineDate;
     }
 
     public void load() {
         cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         try {
-            arrivalDeadlineDate = df.parse(cargo.getArrivalDeadline());
-        } catch (ParseException e) {
+            arrivalDeadlineDate = LocalDateTime.parse(cargo.getArrivalDeadline());
+        } catch (DateTimeParseException e) {
             e.printStackTrace();
         }
     }

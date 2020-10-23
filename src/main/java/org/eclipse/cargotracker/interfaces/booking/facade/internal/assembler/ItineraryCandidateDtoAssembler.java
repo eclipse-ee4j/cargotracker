@@ -10,15 +10,16 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItineraryCandidateDtoAssembler {
 
-    private static final SimpleDateFormat DATE_FORMAT
-            = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+    private static final DateTimeFormatter DATE_FORMAT
+            = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z");
 
     public RouteCandidate toDTO(Itinerary itinerary) {
         List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs = new ArrayList<>(
@@ -58,9 +59,9 @@ public class ItineraryCandidateDtoAssembler {
 
             try {
                 legs.add(new Leg(voyage, from, to,
-                        DATE_FORMAT.parse(legDTO.getLoadTime()),
-                        DATE_FORMAT.parse(legDTO.getUnloadTime())));
-            } catch (ParseException ex) {
+                        LocalDateTime.from(DATE_FORMAT.parse(legDTO.getLoadTime())),
+                        LocalDateTime.from(DATE_FORMAT.parse(legDTO.getUnloadTime()))));
+            } catch (DateTimeParseException ex) {
                 throw new RuntimeException("Could not parse date", ex);
             }
         }

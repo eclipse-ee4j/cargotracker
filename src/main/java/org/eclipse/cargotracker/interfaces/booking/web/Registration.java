@@ -10,8 +10,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -76,10 +77,12 @@ public class Registration implements Serializable {
 
         try {
             if (!originUnlocode.equals(destinationUnlocode)) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern(FORMAT);
+                LocalDateTime adl = LocalDateTime.from(dtf.parse(arrivalDeadline));
                 trackingId = bookingServiceFacade.bookNewCargo(
                         originUnlocode,
                         destinationUnlocode,
-                        new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
+                        adl);
             } else {
                 // TODO See if this can be injected.
                 FacesContext context = FacesContext.getCurrentInstance();
@@ -89,7 +92,7 @@ public class Registration implements Serializable {
                 context.addMessage(null, message);
                 return null;
             }
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             throw new RuntimeException("Error parsing date", e);
         }
 

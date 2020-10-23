@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * A carrier movement is a vessel voyage from one location to another.
@@ -29,24 +29,22 @@ public class CarrierMovement implements Serializable {
     @JoinColumn(name = "arrival_location_id")
     @NotNull
     private Location arrivalLocation;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "departure_time")
+    @Column(name = "departure_time", columnDefinition = "TIME")
     @NotNull
-    private Date departureTime;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "arrival_time")
+    private LocalDateTime departureTime;
+    @Column(name = "arrival_time", columnDefinition = "TIME")
     @NotNull
-    private Date arrivalTime;
+    private LocalDateTime arrivalTime;
     // Null object pattern
     public static final CarrierMovement NONE = new CarrierMovement(
-            Location.UNKNOWN, Location.UNKNOWN, new Date(0), new Date(0));
+            Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
 
     public CarrierMovement() {
         // Nothing to initialize.
     }
 
     public CarrierMovement(Location departureLocation,
-                           Location arrivalLocation, Date departureTime, Date arrivalTime) {
+                           Location arrivalLocation, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         Validate.noNullElements(new Object[]{departureLocation,
                 arrivalLocation, departureTime, arrivalTime});
         this.departureTime = departureTime;
@@ -63,12 +61,12 @@ public class CarrierMovement implements Serializable {
         return arrivalLocation;
     }
 
-    public Date getDepartureTime() {
-        return new Date(departureTime.getTime());
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public Date getArrivalTime() {
-        return new Date(arrivalTime.getTime());
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
     @Override

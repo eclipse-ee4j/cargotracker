@@ -23,8 +23,6 @@ import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
 import org.eclipse.pathfinder.internal.GraphDao;
 
-import org.apache.commons.lang3.time.DateUtils;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,6 +39,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.*;
 
 
@@ -60,7 +60,7 @@ public class BookingServiceTest {
 
     private static TrackingId trackingId;
     private static List<Itinerary> candidates;
-    private static Date deadline;
+    private static LocalDateTime deadline;
     private static Itinerary assigned;
 
     @Deployment
@@ -143,11 +143,7 @@ public class BookingServiceTest {
         UnLocode fromUnlocode = new UnLocode("USCHI");
         UnLocode toUnlocode = new UnLocode("SESTO");
 
-        deadline = new Date();
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(deadline);
-        calendar.add(Calendar.MONTH, 6); // Six months ahead.
-        deadline.setTime(calendar.getTime().getTime());
+        deadline = LocalDateTime.now().plus(Period.ofMonths(6));
 
         trackingId = bookingService.bookNewCargo(fromUnlocode, toUnlocode,
                 deadline);
@@ -159,8 +155,9 @@ public class BookingServiceTest {
         assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
         assertEquals(SampleLocations.STOCKHOLM, cargo.getRouteSpecification()
                 .getDestination());
-        assertTrue(DateUtils.isSameDay(deadline, cargo.getRouteSpecification()
-                .getArrivalDeadline()));
+        assertTrue(
+                deadline.getDayOfMonth() == cargo.getRouteSpecification().getArrivalDeadline().getDayOfMonth()
+        );
         assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery()
                 .getTransportStatus());
         assertEquals(Location.UNKNOWN, cargo.getDelivery()
@@ -205,7 +202,7 @@ public class BookingServiceTest {
         assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
         assertFalse(cargo.getDelivery().isMisdirected());
         assertTrue(cargo.getDelivery().getEstimatedTimeOfArrival()
-                .before(deadline));
+                .isBefore(deadline));
         Assert.assertEquals(HandlingEvent.Type.RECEIVE, cargo.getDelivery()
                 .getNextExpectedActivity().getType());
         Assert.assertEquals(SampleLocations.CHICAGO, cargo.getDelivery()
@@ -229,8 +226,9 @@ public class BookingServiceTest {
         assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
         assertEquals(SampleLocations.HELSINKI, cargo.getRouteSpecification()
                 .getDestination());
-        assertTrue(DateUtils.isSameDay(deadline, cargo.getRouteSpecification()
-                .getArrivalDeadline()));
+        assertTrue(
+    deadline.getDayOfMonth() == cargo.getRouteSpecification().getArrivalDeadline().getDayOfMonth()
+        );
         assertEquals(assigned, cargo.getItinerary());
         assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery()
                 .getTransportStatus());
@@ -250,10 +248,7 @@ public class BookingServiceTest {
     @Test
     @InSequence(5)
     public void testChangeDeadline() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(deadline);
-        cal.add(Calendar.MONTH, 1); // Change the deadline one month ahead of the original
-        Date newDeadline = cal.getTime();
+        LocalDateTime newDeadline = deadline.plusMonths(1);
         bookingService.changeDeadline(trackingId, newDeadline);
 
         Cargo cargo = entityManager
@@ -263,8 +258,9 @@ public class BookingServiceTest {
         assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
         assertEquals(SampleLocations.HELSINKI, cargo.getRouteSpecification()
                 .getDestination());
-        assertTrue(DateUtils.isSameDay(newDeadline,
-                cargo.getRouteSpecification().getArrivalDeadline()));
+        assertTrue(
+                newDeadline.getDayOfMonth() == cargo.getRouteSpecification().getArrivalDeadline().getDayOfMonth()
+        );
         assertEquals(assigned, cargo.getItinerary());
         assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery()
                 .getTransportStatus());

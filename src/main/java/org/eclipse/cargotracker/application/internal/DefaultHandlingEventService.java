@@ -12,7 +12,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 @Stateless
@@ -28,10 +28,10 @@ public class DefaultHandlingEventService implements HandlingEventService {
             DefaultHandlingEventService.class.getName());
 
     @Override
-    public void registerHandlingEvent(Date completionTime,
+    public void registerHandlingEvent(LocalDateTime completionTime,
                                       TrackingId trackingId, VoyageNumber voyageNumber, UnLocode unLocode,
                                       HandlingEvent.Type type) throws CannotCreateHandlingEventException {
-        Date registrationTime = new Date();
+        LocalDateTime registrationTime = LocalDateTime.now();
         /* Using a factory to create a HandlingEvent (aggregate). This is where
          it is determined wether the incoming data, the attempt, actually is capable
          of representing a real handling event. */

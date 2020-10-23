@@ -4,7 +4,7 @@ import org.eclipse.cargotracker.application.util.DateUtil;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * DTO for a leg in an itinerary.
@@ -28,8 +28,8 @@ public class Leg implements Serializable {
             String fromName,
             String toUnLocode,
             String toName,
-            Date loadTime,
-            Date unloadTime) {
+            LocalDateTime loadTime,
+            LocalDateTime unloadTime) {
         this.voyageNumber = voyageNumber;
         this.fromUnLocode = fromUnLocode;
         this.fromName = fromName;

@@ -15,9 +15,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -42,30 +41,26 @@ public class HandlingReportService {
     @Consumes(MediaType.APPLICATION_JSON)
     // TODO Better exception handling.
     public void submitReport(@NotNull @Valid HandlingReport handlingReport) {
-        try {
-            Date completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(
-                    handlingReport.getCompletionTime());
-            VoyageNumber voyageNumber = null;
+        LocalDateTime completionTime = LocalDateTime.from(DateTimeFormatter.ofPattern(ISO_8601_FORMAT).parse(
+                handlingReport.getCompletionTime()));
+        VoyageNumber voyageNumber = null;
 
-            if (handlingReport.getVoyageNumber() != null) {
-                voyageNumber = new VoyageNumber(
-                        handlingReport.getVoyageNumber());
-            }
-
-            HandlingEvent.Type type = HandlingEvent.Type.valueOf(
-                    handlingReport.getEventType());
-            UnLocode unLocode = new UnLocode(handlingReport.getUnLocode());
-
-            TrackingId trackingId = new TrackingId(handlingReport.getTrackingId());
-
-            Date registrationTime = new Date();
-            HandlingEventRegistrationAttempt attempt =
-                    new HandlingEventRegistrationAttempt(registrationTime,
-                            completionTime, trackingId, voyageNumber, type, unLocode);
-
-            applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
-        } catch (ParseException ex) {
-            throw new RuntimeException("Error parsing completion time", ex);
+        if (handlingReport.getVoyageNumber() != null) {
+            voyageNumber = new VoyageNumber(
+                    handlingReport.getVoyageNumber());
         }
+
+        HandlingEvent.Type type = HandlingEvent.Type.valueOf(
+                handlingReport.getEventType());
+        UnLocode unLocode = new UnLocode(handlingReport.getUnLocode());
+
+        TrackingId trackingId = new TrackingId(handlingReport.getTrackingId());
+
+        LocalDateTime registrationTime = LocalDateTime.now();
+        HandlingEventRegistrationAttempt attempt =
+                new HandlingEventRegistrationAttempt(registrationTime,
+                        completionTime, trackingId, voyageNumber, type, unLocode);
+
+        applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
     }
 }

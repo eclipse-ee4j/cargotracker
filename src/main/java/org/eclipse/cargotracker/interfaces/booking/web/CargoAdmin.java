@@ -10,8 +10,8 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,7 +33,7 @@ public class CargoAdmin {
     private List<Location> locations;
     private List<String> unlocodes;
     private List<CargoRoute> cargos;
-    private Date arrivalDeadline;
+    private LocalDateTime arrivalDeadline;
     private String originUnlocode;
     private String destinationUnlocode;
     private String trackingId;
@@ -53,11 +53,11 @@ public class CargoAdmin {
         return cargos;
     }
 
-    public Date getArrivalDeadline() {
+    public LocalDateTime getArrivalDeadline() {
         return arrivalDeadline;
     }
 
-    public void setArrivalDeadline(Date arrivalDeadline) {
+    public void setArrivalDeadline(LocalDateTime arrivalDeadline) {
         this.arrivalDeadline = arrivalDeadline;
     }
 

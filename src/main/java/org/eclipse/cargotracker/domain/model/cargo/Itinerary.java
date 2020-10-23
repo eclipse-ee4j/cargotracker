@@ -8,15 +8,14 @@ import org.eclipse.persistence.annotations.PrivateOwned;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Embeddable
 public class Itinerary implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final Date END_OF_DAYS = new Date(Long.MAX_VALUE);
     // Null object pattern.
     public static final Itinerary EMPTY_ITINERARY = new Itinerary();
     // TODO Look into why cascade delete doesn't work.
@@ -116,13 +115,13 @@ public class Itinerary implements Serializable {
     /**
      * @return Date when cargo arrives at final destination.
      */
-    Date getFinalArrivalDate() {
+    LocalDateTime getFinalArrivalDate() {
         Leg lastLeg = getLastLeg();
 
         if (lastLeg == null) {
-            return new Date(END_OF_DAYS.getTime());
+            return LocalDateTime.MAX;
         } else {
-            return new Date(lastLeg.getUnloadTime().getTime());
+            return lastLeg.getUnloadTime();
         }
     }
 
