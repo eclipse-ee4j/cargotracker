@@ -22,6 +22,8 @@ Once the Payara plugin is installed, go to Servers -> New -> Server. Select Paya
 
 ![ ](.gitbook/assets/eclipse_step2.png)
 
+Accept the defaults for Payara properties, hit next and then finish.
+
 in the _'Services'_ tab, right click _'Servers'_ and hit _'Add Server'_.
 
 ![ ](.gitbook/assets/nb_step1.png)
