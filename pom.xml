@@ -30,17 +30,21 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
-		<javaee_api.version>7.0</javaee_api.version>
+		<jakartaee_api.version>8.0.0</jakartaee_api.version>
 
 		<!-- Arquillian properties -->
-		<arquillian.core.version>1.4.1.Final</arquillian.core.version>
+		<arquillian.core.version>1.6.0.Final</arquillian.core.version>
 		<skipTests>true</skipTests>
 
+		<!-- Payara server -->
+		<payara.version>5.2020.5</payara.version>
+		<arquillian-payara.version>2.3.1</arquillian-payara.version>
+
 		<!-- Codehaus Cargo plugin properties -->
-		<cargo.version>1.8.1</cargo.version>
-		<cargo.payara.container_id>glassfish4x</cargo.payara.container_id>
+		<cargo.version>1.8.2</cargo.version>
+		<cargo.payara.container_id>glassfish5x</cargo.payara.container_id>
 		<cargo.payara.download_uri>
-			https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
+			https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.2020.5/payara-5.2020.5.zip
 		</cargo.payara.download_uri>
 
 		<!-- Application properties -->
@@ -69,9 +73,9 @@
 
 		<!-- Jakarta EE API -->
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>${javaee_api.version}</version>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>${jakartaee_api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -115,6 +119,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.14.2.0</version>
+		</dependency>
+
 		<!-- Arquillian dependencies -->
 		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
@@ -136,7 +146,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
+				<version>3.3.1</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -144,7 +154,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>3.0.0-M1</version>
 				<configuration>
 					<skipTests>${skipTests}</skipTests>
 				</configuration>
@@ -162,7 +172,7 @@
 			<dependencies>
 				<dependency>
 					<groupId>fish.payara.arquillian</groupId>
-					<artifactId>arquillian-payara-server-4-remote</artifactId>
+					<artifactId>arquillian-payara-server-remote</artifactId>
 					<version>1.1</version>
 					<scope>test</scope>
 				</dependency>
