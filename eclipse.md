@@ -34,7 +34,8 @@ After the project builds, you are now ready to run it. Right click the project a
 
 ![ ](.gitbook/assets/eclipse_step4.png)
 
-The first time startup might take a bit of time. After Payara starts, NetBeans should open up a browser window with the application.
+The first time startup might take a bit of time. After Payara starts, Eclipse should open up a browser window with the application.
+
+![ ](.gitbook/assets/eclipse_step5.png)
 
 There is a tracking interface to track the current status of cargo and a booking interface to book and route cargo. You should explore both interfaces before diving into the code. You should also check out the [REST](https://github.com/m-reza-rahman/cargo-tracker/blob/master/src/main/java/net/java/cargotracker/interfaces/handling/rest/HandlingReportService.java) and [file processing](https://github.com/m-reza-rahman/cargo-tracker/blob/master/src/main/java/net/java/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java) interfaces to register handling events as well as the mobile web interface. You can test against the REST interfaces using our [soapUI tests](https://github.com/m-reza-rahman/cargo-tracker/tree/master/src/test/soapui).
-
