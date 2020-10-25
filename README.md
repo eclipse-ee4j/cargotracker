@@ -9,4 +9,4 @@ The Cargo Tracker project demonstrates how you can develop applications with the
 * The [Layers](layers.md) section explains the architectural layers in the application and how they relate to various Jakarta EE APIs.
 * The [Resources](resources.md) section provides some useful resources for learning more about DDD and Jakarta EE.
 
-You should also check out the [project website](https://m-reza-rahman.github.io/cargo-tracker/) for further context.
+You should also check out the [project website](https://eclipse-ee4j.github.io/cargotracker/) for further context.
