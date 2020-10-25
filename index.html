@@ -296,7 +296,7 @@
 
                         <p class="lead"><a target="_blank" href="http://en.wikipedia.org/wiki/Domain-driven_design">Wikipedia</a> does 
 			    a surprisingly good job at overviewing DDD. Aslam Khan's 
-			    <a target="_blank" href="http://refcardz.dzone.com/refcardz/getting-started-domain-driven">DDD Ref Card</a> 
+			    <a target="_blank" href="https://dzone.com/refcardz/getting-started-domain-driven">DDD Ref Card</a> 
 			    on DZone is a brief read and does a great job of explaining the core concepts of DDD. For a bit more 
 			    detail, you could read the 
 			    <a target="_blank" href="http://www.infoq.com/minibooks/domain-driven-design-quickly">free DDD eBook</a> on 
@@ -307,41 +307,43 @@
 
                         <p class="lead">The basic building blocks of the domain are entities, value objects, aggregates, services, 
 			    repositories and factories. The <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/characterization">Characterization</a> 
-			    section of our documentation overviews how these concepts are implemented in the application using Java EE. 
+			    section of our documentation overviews how these concepts are implemented in the application using Jakarta EE. 
 			    Logical layers partitioning distinct concerns are super-imposed on the core concept of the domain. These 
 			    layers generally consist of the UI/interface layer, the application layer, the domain layer (of course!) 
 			    and the infrastructure layer respectively. The <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/layers">Layers</a> 
 			    section of our documentation explains the architectural layers in the application and how they relate to 
-			    various Java EE APIs. The DDD community also fully embraces practices like automated testing, agile, 
+			    various Jakarta EE APIs. The DDD community also fully embraces practices like automated testing, agile, 
 			    emergent design, refactoring and Continuous Integration. We have incorporated all these practices into the 
-			    application in a pragmatic fashion.</p>
+			    application in a pragmatic fashion. DDD is a very useful concept in pragmatic microservices development, particularly ideas such 
+		            as the bounded context. We have incorporated some of these ideas. Some DDD related concepts we have not tackled are CQRS and 
+		            Event Sourcing.</p>
 
                         <center><img src="img/ddd-diagram.png"><br>(Diagram credited to <a target="_blank" href="http://www.infoq.com/minibooks/domain-driven-design-quickly">Domain-Driven Design Quickly</a>)</center><br>
 
                         <p class="lead">One of the primary principles of DDD is that design should be focused on the business domain, 
 			    not technology. The role of technology is to empower software developers to implement readable, productive, 
 			    maintainable systems that mirror the real world, not place constraints on design choices. Most mainstream 
-			    technology stacks today have matured enough to make this principle a reality, Java EE is no exception. In 
+			    technology stacks today have matured enough to make this principle a reality, Jakarta EE is no exception. In 
 			    fact, with a single-minded focus on simplicity, POJOs, Java/OO centric strong typing, annotations and 
 			    intelligent defaults that minimize system configuration and lets developers focus on solving the business 
-			    problem, we think Java EE is one of the best platforms to support DDD. Java EE makes it possible to quickly 
+			    problem, we think Jakarta EE is one of the best platforms to support DDD. Jakarta EE makes it possible to quickly 
 			    and effectively produce a working system by annotating domain and application classes and implementing 
 			    interface and infrastructure code. In the <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/characterization">Characterization</a> and <a target="_blank" href="https://cargo-tracker.gitbook.io/documentation/layers">Layers</a> 
-			    sections of our documentation we have overviewed how some key Java EE APIs map to DDD concepts and pointed 
+			    sections of our documentation we have overviewed how some key Jakarta EE APIs map to DDD concepts and pointed 
 			    you to some of the most important bits of implementation code in the application. In the figure below, we 
 			    have summarized how this mapping looks like visually as a handy cross reference.</p>
 
                         <center><img src="img/ddd_javaee.png"></center>
 
                         <p class="lead">Note, the diagram above is most certainly not intended to be comprehensive. For example, 
-			    besides JSF, JAX-RS, WebSocket and JBatch, some other technologies that are very useful in implementing 
-			    interfaces are CDI (for JSF backing beans), Bean Validation, EJB (e.g. remote or JMS messaging end-points), 
-			    JAX-WS (SOAP end-points), JSON-P and JSON-B. Similarly, you can choose to implement application services as 
-			    transactional CDI beans as opposed to EJB and you can use Interceptors, the low level JTA API and Java EE 
-			    Concurrency Utilities in the application layer. Value Objects can be implemented as either JPA embeddables or 
-			    entities. In addition to JPA, JMS, JAX-RS clients, JAX-WS clients and EJB clients it is very likely may use 
-			    CDI, Bean Validation, JCA and WebSocket clients to implement infrastructure components. The DeltaSpike Data
-		            module is very helpful in implementing repositories. The point really is that Java EE APIs are there to help
+			    besides Jakarta Faces, REST, WebSocket and Batch, some other technologies that are very useful in implementing 
+			    interfaces are CDI (for Faces backing beans), Bean Validation, Enterprise Beans (e.g. messaging end-points), 
+	                    JSON Processing and JSON Binding. Similarly, you can choose to implement application services as 
+			    transactional CDI beans as opposed to Enterprise Beans and you can use Interceptors, Jakarta Transactions, Jakarta 
+			    Concurrency and Jakarta Security in the application layer. Value Objects can be implemented as either Jakarta Persistence 
+			    embeddables or entities. In addition to Jakarta Persistence, Messaging and REST clients it is very likely you may use 
+			    CDI and Bean Validation to implement infrastructure components. The DeltaSpike Data
+		            module is very helpful in implementing repositories. The point really is that Jakarta EE APIs are there to help
 			    you implement elegantly designed systems as needed.</p>
                     </div>
                 </div>
