@@ -14,6 +14,8 @@ The application is an end-to-end system for keeping track of shipping cargo. It
 has several interfaces described in the following sections.
 
 For further details on the project, please visit: https://eclipse-ee4j.github.io/cargotracker/.
+
+![Cargo Tracker cover](cargo_tracker_cover.png)
  
 ## Getting Started
 
