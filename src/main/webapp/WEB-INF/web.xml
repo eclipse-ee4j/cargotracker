@@ -58,7 +58,7 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-	<!-- Application resource dependencies like JMS queues and data sources 
+	<!-- Application resource dependencies like JMS queues and data sources
 		are still good candidates for XML, as is application configuration. -->
 	<env-entry>
 		<env-entry-name>java:app/configuration/GraphTraversalUrl</env-entry-name>
@@ -66,12 +66,12 @@
 		<env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
 	</env-entry>
 
-	<!-- Defining these at the application server level instead of here can 
+	<!-- Defining these at the application server level instead of here can
 		be more operations friendly and help make deployment even faster. -->
 	<data-source>
 		<name>java:app/jdbc/CargoTrackerDatabase</name>
-		<class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
-		<url>jdbc:derby:${webapp.databaseTempDir}/cargo-tracker-database;create=true</url>
+		<class-name>org.h2.Driver</class-name>
+		<url>jdbc:h2:/${webapp.databaseTempDir}/cargo-tracker-database;create=true</url>
 	</data-source>
 	<jms-destination>
 		<name>java:app/jms/CargoHandledQueue</name>
