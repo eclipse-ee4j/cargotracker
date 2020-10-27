@@ -11,6 +11,7 @@ import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class BookingBackingBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String FORMAT = "yyyy-MM-dd";
     List<Location> locations;
-    private LocalDateTime arrivalDeadline;
+    private LocalDate arrivalDeadline;
     private String originUnlocode;
     private String originName;
     private String destinationName;
@@ -72,7 +73,7 @@ public class BookingBackingBean implements Serializable {
         return filteredLocations;
     }
 
-    public LocalDateTime getArrivalDeadline() {
+    public LocalDate getArrivalDeadline() {
         return arrivalDeadline;
     }
 
@@ -118,7 +119,7 @@ public class BookingBackingBean implements Serializable {
         return duration;
     }
 
-    public void setArrivalDeadline(LocalDateTime arrivalDeadline) {
+    public void setArrivalDeadline(LocalDate arrivalDeadline) {
         this.arrivalDeadline = arrivalDeadline;
     }
 
@@ -140,7 +141,7 @@ public class BookingBackingBean implements Serializable {
                         destinationUnlocode,
                         //new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
                         //new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(arrivalDeadline)); // davidd
-                        arrivalDeadline);
+                        arrivalDeadline.atStartOfDay());
 
             } else {
                 // TODO See if this can be injected.
@@ -163,7 +164,7 @@ public class BookingBackingBean implements Serializable {
     }
 
     public void deadlineUpdated() {
-        duration = computeDuration(arrivalDeadline);
+        duration = computeDuration(arrivalDeadline.atStartOfDay());
         if (duration >= MIN_JOURNEY_DURATION) {
             bookable = true;
         } else {
