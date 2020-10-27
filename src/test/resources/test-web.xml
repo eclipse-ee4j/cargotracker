@@ -11,7 +11,7 @@
     </env-entry>
     <data-source>
         <name>java:app/jdbc/CargoTrackerDatabase</name>
-        <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
-        <url>jdbc:derby:/tmp/test/cargo-tracker-database;create=true</url>
+        <class-name>org.h2.Driver</class-name>
+        <url>jdbc:h2:/tmp/test/cargo-tracker-database;create=true</url>
     </data-source>
 </web-app>
