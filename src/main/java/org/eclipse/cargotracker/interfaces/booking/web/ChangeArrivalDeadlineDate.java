@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -57,9 +58,9 @@ public class ChangeArrivalDeadlineDate implements Serializable {
 
     public void load() {
         cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z");
         try {
-            arrivalDeadlineDate = LocalDateTime.parse(cargo.getArrivalDeadline());
+            arrivalDeadlineDate = ZonedDateTime.parse(cargo.getArrivalDeadline(), df).toLocalDateTime();
         } catch (DateTimeParseException e) {
             e.printStackTrace();
         }

@@ -4,8 +4,10 @@ import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.application.util.LocationUtil;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +18,8 @@ import java.util.List;
 public class CargoRoute implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final SimpleDateFormat DATE_FORMAT
-            = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+    private static final DateTimeFormatter DATE_FORMAT
+            = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z");
 
     private final String trackingId;
     private final String origin;
@@ -35,7 +37,9 @@ public class CargoRoute implements Serializable {
         this.trackingId = trackingId;
         this.origin = origin;
         this.finalDestination = finalDestination;
-        this.arrivalDeadline = DATE_FORMAT.format(arrivalDeadline);
+        OffsetDateTime odt = OffsetDateTime.now();
+        ZonedDateTime localArrivalDeadline = ZonedDateTime.of(arrivalDeadline, odt.getOffset());
+        this.arrivalDeadline = localArrivalDeadline.format(DATE_FORMAT);
         this.misrouted = misrouted;
         this.claimed = claimed;
         this.lastKnownLocation = lastKnownLocation;
