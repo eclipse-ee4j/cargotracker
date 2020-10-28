@@ -8,6 +8,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +33,7 @@ public class ChangeArrivalDeadlineDate implements Serializable {
     private static final long serialVersionUID = 1L;
     private String trackingId;
     private CargoRoute cargo;
-    private LocalDateTime arrivalDeadlineDate;
+    private LocalDate arrivalDeadlineDate;
     @Inject
     private BookingServiceFacade bookingServiceFacade;
 
@@ -48,11 +49,11 @@ public class ChangeArrivalDeadlineDate implements Serializable {
         return cargo;
     }
 
-    public LocalDateTime getArrivalDeadlineDate() {
+    public LocalDate getArrivalDeadlineDate() {
         return this.arrivalDeadlineDate;
     }
 
-    public void setArrivalDeadlineDate(LocalDateTime arrivalDeadlineDate) {
+    public void setArrivalDeadlineDate(LocalDate arrivalDeadlineDate) {
         this.arrivalDeadlineDate = arrivalDeadlineDate;
     }
 
@@ -60,14 +61,14 @@ public class ChangeArrivalDeadlineDate implements Serializable {
         cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
         DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z");
         try {
-            arrivalDeadlineDate = ZonedDateTime.parse(cargo.getArrivalDeadline(), df).toLocalDateTime();
+            arrivalDeadlineDate = ZonedDateTime.parse(cargo.getArrivalDeadline(), df).toLocalDate();
         } catch (DateTimeParseException e) {
             e.printStackTrace();
         }
     }
 
     public void changeArrivalDeadline() {
-        bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate);
+        bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate.atStartOfDay());
         PrimeFaces.current().dialog().closeDynamic("DONE");
     }
 }
