@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -25,7 +26,6 @@ import java.util.logging.Logger;
 public class EventItemReader extends AbstractItemReader {
 
     private static final String UPLOAD_DIRECTORY = "upload_directory";
-    private static final String ISO_8601_FORMAT = "yyyy-MM-dd HH:mm";
     private static final Logger logger = Logger.getLogger(
             EventItemReader.class.getName());
     @Inject
@@ -103,7 +103,8 @@ public class EventItemReader extends AbstractItemReader {
 
         LocalDateTime completionTime = null;
 
-        completionTime = LocalDateTime.from(DateTimeFormatter.ofPattern(ISO_8601_FORMAT).parse(result[0]));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
+        completionTime = ZonedDateTime.parse(result[0], dtf).toLocalDateTime();
 
         TrackingId trackingId = null;
 

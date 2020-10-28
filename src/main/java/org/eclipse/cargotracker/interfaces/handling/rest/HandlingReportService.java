@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -41,8 +42,8 @@ public class HandlingReportService {
     @Consumes(MediaType.APPLICATION_JSON)
     // TODO Better exception handling.
     public void submitReport(@NotNull @Valid HandlingReport handlingReport) {
-        LocalDateTime completionTime = LocalDateTime.from(DateTimeFormatter.ofPattern(ISO_8601_FORMAT).parse(
-                handlingReport.getCompletionTime()));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(ISO_8601_FORMAT);
+        LocalDateTime completionTime = ZonedDateTime.parse(handlingReport.getCompletionTime(), dtf).toLocalDateTime();
         VoyageNumber voyageNumber = null;
 
         if (handlingReport.getVoyageNumber() != null) {
