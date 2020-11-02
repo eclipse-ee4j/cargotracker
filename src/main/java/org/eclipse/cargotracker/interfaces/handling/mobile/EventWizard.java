@@ -22,6 +22,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class EventWizard implements Serializable {
      * wizard's data
      */
     private String voyageNumber;
-    private LocalDateTime completionDate;
+    private LocalDate completionDate;
     private String eventType;
     private String location;
     private String trackId;
@@ -93,7 +94,7 @@ public class EventWizard implements Serializable {
         }
 
         if ("dateTab".equals(event.getNewStep())) {
-            completionDate = LocalDateTime.now();
+            completionDate = LocalDate.now();
         }
 
         return event.getNewStep();
@@ -171,7 +172,7 @@ public class EventWizard implements Serializable {
         }
 
         HandlingEventRegistrationAttempt attempt
-                = new HandlingEventRegistrationAttempt(registrationTime, completionDate, trackingId, selectedVoyage, type, unLocode);
+                = new HandlingEventRegistrationAttempt(registrationTime, completionDate.atStartOfDay(), trackingId, selectedVoyage, type, unLocode);
 
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
@@ -194,7 +195,7 @@ public class EventWizard implements Serializable {
         this.eventType = eventType;
     }
 
-    public void setCompletionDate(LocalDateTime completionDate) {
+    public void setCompletionDate(LocalDate completionDate) {
         this.completionDate = completionDate;
     }
 
@@ -226,7 +227,7 @@ public class EventWizard implements Serializable {
         return eventType;
     }
 
-    public LocalDateTime getCompletionDate() {
+    public LocalDate getCompletionDate() {
         return completionDate;
     }
 }

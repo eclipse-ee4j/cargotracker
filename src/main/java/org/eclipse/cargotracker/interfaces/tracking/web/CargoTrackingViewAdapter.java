@@ -11,8 +11,10 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +26,8 @@ import static org.eclipse.cargotracker.application.util.LocationUtil.getCoordina
  */
 public class CargoTrackingViewAdapter {
 
-    private static final SimpleDateFormat DATE_FORMAT
-            = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+    private static final DateTimeFormatter DATE_FORMAT
+            = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z");
 
     private final Cargo cargo;
     private final List<HandlingEventViewAdapter> events;
@@ -92,7 +94,9 @@ public class CargoTrackingViewAdapter {
         if (eta == null) {
             return "?";
         } else {
-            return DATE_FORMAT.format(eta);
+            OffsetDateTime odt = OffsetDateTime.now();
+            ZonedDateTime localEta = ZonedDateTime.of(eta, odt.getOffset());
+            return localEta.format(DATE_FORMAT);
         }
     }
 
@@ -182,8 +186,9 @@ public class CargoTrackingViewAdapter {
          * @return the date in the format MM/dd/yyyy hh:mm a z
          */
         public String getTime() {
-            return DATE_FORMAT.format(handlingEvent
-                    .getCompletionTime());
+            OffsetDateTime odt = OffsetDateTime.now();
+            ZonedDateTime localCompletionTime = ZonedDateTime.of(handlingEvent.getCompletionTime(), odt.getOffset());
+            return localCompletionTime.format(DATE_FORMAT);
         }
 
         public String getType() {

@@ -38,7 +38,7 @@ public class DateUtil {
     // compute number of days between today and endDate (both set at midnight)
     public static long computeDuration(LocalDateTime endDate) {
         //SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-        return ChronoUnit.DAYS.between(endDate, LocalDateTime.now());
+        return ChronoUnit.DAYS.between(LocalDateTime.now(), endDate);
     }
 
     public static LocalDateTime trim(LocalDateTime date) { // set time at midnight since we don't deal with time in the day
