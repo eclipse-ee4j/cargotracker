@@ -37,7 +37,7 @@
         <skipTests>true</skipTests>
 
         <!-- Payara server -->
-        <payara.version>5.2020.5</payara.version>
+        <payara.version>5.193.1</payara.version>
         <arquillian-payara.version>2.3.1</arquillian-payara.version>
 
         <!-- Codehaus Cargo plugin properties -->
