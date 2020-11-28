@@ -48,7 +48,6 @@ import java.util.*;
  * Application layer integration test covering a number of otherwise fairly
  * trivial components that largely do not wararnt their own tests.
  *
- * @author Reza
  */
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
