@@ -76,9 +76,10 @@ import org.junit.runner.RunWith;
  * Application layer integration test covering a number of otherwise fairly
  * trivial components that largely do not warrant their own tests.
  * 
- * Ensure a Payara instance is running locally before this test is executed, with the 
- * default user name and password.
+ * Ensure a Payara instance is running locally before this test is executed,
+ * with the default user name and password.
  */
+//TODO Move to the Java Date-Time API for date manipulation. Also avoid hard-coded dates.
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
 
