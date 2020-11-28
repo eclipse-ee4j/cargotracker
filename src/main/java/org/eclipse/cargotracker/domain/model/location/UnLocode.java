@@ -1,11 +1,12 @@
 package org.eclipse.cargotracker.domain.model.location;
 
-import org.apache.commons.lang3.Validate;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
+
+import org.apache.commons.lang3.Validate;
 
 /**
  * United nations location code.
@@ -16,65 +17,64 @@ import java.io.Serializable;
 @Embeddable
 public class UnLocode implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @NotNull
-    // Country code is exactly two letters.
-    // Location code is usually three letters, but may contain the numbers 2-9
-    // as well.
-    @Pattern(regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}")
-    private String unlocode;
-    private static final java.util.regex.Pattern VALID_PATTERN
-            = java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
+	private static final long serialVersionUID = 1L;
 
-    public UnLocode() {
-        // Nothing to initialize.
-    }
+	@NotNull
+	// Country code is exactly two letters.
+	// Location code is usually three letters, but may contain the numbers 2-9
+	// as well.
+	@Pattern(regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}")
+	private String unlocode;
+	private static final java.util.regex.Pattern VALID_PATTERN = java.util.regex.Pattern
+			.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
 
-    /**
-     * @param countryAndLocation Location string.
-     */
-    public UnLocode(String countryAndLocation) {
-        Validate.notNull(countryAndLocation,
-                "Country and location may not be null");
-        Validate.isTrue(VALID_PATTERN.matcher(countryAndLocation).matches(),
-                countryAndLocation
-                        + " is not a valid UN/LOCODE (does not match pattern)");
+	public UnLocode() {
+		// Nothing to initialize.
+	}
 
-        this.unlocode = countryAndLocation.toUpperCase();
-    }
+	/**
+	 * @param countryAndLocation Location string.
+	 */
+	public UnLocode(String countryAndLocation) {
+		Validate.notNull(countryAndLocation, "Country and location may not be null");
+		Validate.isTrue(VALID_PATTERN.matcher(countryAndLocation).matches(),
+				countryAndLocation + " is not a valid UN/LOCODE (does not match pattern)");
 
-    /**
-     * @return country code and location code concatenated, always upper case.
-     */
-    public String getIdString() {
-        return unlocode;
-    }
+		this.unlocode = countryAndLocation.toUpperCase();
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	/**
+	 * @return country code and location code concatenated, always upper case.
+	 */
+	public String getIdString() {
+		return unlocode;
+	}
 
-        UnLocode other = (UnLocode) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        return sameValueAs(other);
-    }
+		UnLocode other = (UnLocode) o;
 
-    @Override
-    public int hashCode() {
-        return unlocode.hashCode();
-    }
+		return sameValueAs(other);
+	}
 
-    boolean sameValueAs(UnLocode other) {
-        return other != null && this.unlocode.equals(other.unlocode);
-    }
+	@Override
+	public int hashCode() {
+		return unlocode.hashCode();
+	}
 
-    @Override
-    public String toString() {
-        return getIdString();
-    }
+	boolean sameValueAs(UnLocode other) {
+		return other != null && this.unlocode.equals(other.unlocode);
+	}
+
+	@Override
+	public String toString() {
+		return getIdString();
+	}
 }
