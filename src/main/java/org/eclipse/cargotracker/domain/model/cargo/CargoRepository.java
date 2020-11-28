@@ -10,7 +10,7 @@ public interface CargoRepository {
 
     void store(Cargo cargo);
 
-    TrackingId nextTrackingId();
+	TrackingId nextTrackingId();
 
     List<TrackingId> getAllTrackingIds();
 
