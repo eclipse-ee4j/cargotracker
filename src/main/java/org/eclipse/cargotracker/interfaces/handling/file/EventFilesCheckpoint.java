@@ -7,37 +7,39 @@ import java.util.List;
 
 public class EventFilesCheckpoint implements Serializable {
 
-    private List<File> files = new LinkedList<>();
-    private int fileIndex = 0;
-    private long filePointer = 0;
+	private static final long serialVersionUID = 1L;
 
-    public void setFiles(List<File> files) {
-        this.files = files;
-    }
+	private List<File> files = new LinkedList<>();
+	private int fileIndex = 0;
+	private long filePointer = 0;
 
-    public long getFilePointer() {
-        return filePointer;
-    }
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
 
-    public void setFilePointer(long filePointer) {
-        this.filePointer = filePointer;
-    }
+	public long getFilePointer() {
+		return filePointer;
+	}
 
-    public File currentFile() {
-        if (files.size() > fileIndex) {
-            return files.get(fileIndex);
-        } else {
-            return null;
-        }
-    }
+	public void setFilePointer(long filePointer) {
+		this.filePointer = filePointer;
+	}
 
-    public File nextFile() {
-        filePointer = 0;
+	public File currentFile() {
+		if (files.size() > fileIndex) {
+			return files.get(fileIndex);
+		} else {
+			return null;
+		}
+	}
 
-        if (files.size() > ++fileIndex) {
-            return files.get(fileIndex);
-        } else {
-            return null;
-        }
-    }
+	public File nextFile() {
+		filePointer = 0;
+
+		if (files.size() > ++fileIndex) {
+			return files.get(fileIndex);
+		} else {
+			return null;
+		}
+	}
 }

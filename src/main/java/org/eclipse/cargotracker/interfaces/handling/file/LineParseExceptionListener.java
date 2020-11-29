@@ -1,10 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
-import javax.batch.api.chunk.listener.SkipReadListener;
-import javax.batch.runtime.context.JobContext;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,36 +7,41 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.batch.api.chunk.listener.SkipReadListener;
+import javax.batch.runtime.context.JobContext;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 @Dependent
 @Named("LineParseExceptionListener")
 public class LineParseExceptionListener implements SkipReadListener {
 
-    private static final String FAILED_DIRECTORY = "failed_directory";
-    private static final Logger logger = Logger.getLogger(
-            LineParseExceptionListener.class.getName());
-    @Inject
-    private JobContext jobContext;
+	private static final String FAILED_DIRECTORY = "failed_directory";
 
-    @Override
-    public void onSkipReadItem(Exception e) throws Exception {
-        File failedDirectory = new File(jobContext.getProperties().getProperty(
-                FAILED_DIRECTORY));
+	private static final Logger logger = Logger.getLogger(LineParseExceptionListener.class.getName());
 
-        if (!failedDirectory.exists()) {
-            failedDirectory.mkdirs();
-        }
+	@Inject
+	private JobContext jobContext;
 
-        EventLineParseException parseException = (EventLineParseException) e;
+	@Override
+	public void onSkipReadItem(Exception e) throws Exception {
+		File failedDirectory = new File(jobContext.getProperties().getProperty(FAILED_DIRECTORY));
 
-        logger.log(Level.WARNING, "Problem parsing event file line",
-                parseException);
+		if (!failedDirectory.exists()) {
+			failedDirectory.mkdirs();
+		}
 
-        try (PrintWriter failed = new PrintWriter(new BufferedWriter(new FileWriter(
-                new File(failedDirectory,
-                        "failed_" + jobContext.getJobName()
-                                + "_" + jobContext.getInstanceId()
-                                + ".csv"), true)))) {
-            failed.println(parseException.getLine());
-        }
-    }
+		EventLineParseException parseException = (EventLineParseException) e;
+
+		logger.log(Level.WARNING, "Problem parsing event file line", parseException);
+
+		try (PrintWriter failed = new PrintWriter(
+				new BufferedWriter(new FileWriter(
+						new File(failedDirectory,
+								"failed_" + jobContext.getJobName() + "_" + jobContext.getInstanceId() + ".csv"),
+						true)))) {
+			failed.println(parseException.getLine());
+		}
+	}
 }
