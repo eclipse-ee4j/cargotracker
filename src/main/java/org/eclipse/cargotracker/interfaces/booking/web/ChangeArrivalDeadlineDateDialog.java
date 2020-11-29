@@ -1,40 +1,45 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import org.primefaces.PrimeFaces;
-import org.primefaces.event.SelectEvent;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
+
+// TODO We should avoid using JSF managed beans.
 @ManagedBean(name = "changeArrivalDeadlineDateDialog")
 @SessionScoped
 public class ChangeArrivalDeadlineDateDialog implements Serializable {
 
-    public void showDialog(String trackingId) {
-        Map<String, Object> options = new HashMap<>();
-        options.put("modal", true);
-        options.put("draggable", true);
-        options.put("resizable", false);
-        options.put("contentWidth", 410);
-        options.put("contentHeight", 280);
+	private static final long serialVersionUID = 1L;
 
-        Map<String, List<String>> params = new HashMap<>();
-        List<String> values = new ArrayList<>();
-        values.add(trackingId);
-        params.put("trackingId", values);
+	public void showDialog(String trackingId) {
+		Map<String, Object> options = new HashMap<>();
+		options.put("modal", true);
+		options.put("draggable", true);
+		options.put("resizable", false);
+		options.put("contentWidth", 410);
+		options.put("contentHeight", 280);
 
-        PrimeFaces.current().dialog().openDynamic("/admin/dialogs/changeArrivalDeadlineDate.xhtml", options, params);
-    }
+		Map<String, List<String>> params = new HashMap<>();
+		List<String> values = new ArrayList<>();
+		values.add(trackingId);
+		params.put("trackingId", values);
 
-    public void handleReturn(SelectEvent event) {  }
+		PrimeFaces.current().dialog().openDynamic("/admin/dialogs/changeArrivalDeadlineDate.xhtml", options, params);
+	}
 
-    public void cancel() {
-        // just kill the dialog
-        PrimeFaces.current().dialog().closeDynamic("");
-    }
+	public void handleReturn(@SuppressWarnings("rawtypes") SelectEvent event) {
+	}
+
+	public void cancel() {
+		// just kill the dialog
+		PrimeFaces.current().dialog().closeDynamic("");
+	}
 }

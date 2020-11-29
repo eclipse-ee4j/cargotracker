@@ -1,48 +1,48 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
+import java.io.Serializable;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-
-/**
- * @author davidd
- */
 @Named
 @ViewScoped
 public class DashboardView implements Serializable {
 
-    private DashboardModel model;
+	private static final long serialVersionUID = 1L;
 
-    private String name = "TestDD";
+	private DashboardModel model;
 
-    public String getName() {
-        return name;
-    }
+	private String name = "TestDD";
 
-    public DashboardView() {
-        // Initialize the dashboard model
-        this.model = new DefaultDashboardModel();
-        DashboardColumn mainColumn = new DefaultDashboardColumn();
+	public String getName() {
+		return name;
+	}
 
-        mainColumn.addWidget("Routed");
-        mainColumn.addWidget("NotRouted");
-        mainColumn.addWidget("Claimed");
+	public DashboardView() {
+		// Initialize the dashboard model
+		this.model = new DefaultDashboardModel();
+		DashboardColumn mainColumn = new DefaultDashboardColumn();
 
-        this.model.addColumn(mainColumn);
+		mainColumn.addWidget("Routed");
+		mainColumn.addWidget("NotRouted");
+		mainColumn.addWidget("Claimed");
 
-    }
+		this.model.addColumn(mainColumn);
 
-    public DashboardModel getModel() {
-        return model;
-    }
+	}
 
-    public void setModel(DashboardModel model) {
-        this.model = model;
-    }
+	public DashboardModel getModel() {
+		return model;
+	}
+
+	public void setModel(DashboardModel model) {
+		this.model = model;
+	}
 
 }
