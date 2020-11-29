@@ -35,6 +35,10 @@ public class EventWizard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	// TODO This facade is actually intended for use with the booking interface. It
+	// will be hard to maintain if it is dual purpose. Since this is a fairly
+	// limited interface, we should probably use the view adapter pattern here
+	// similar to what is done for the tracking interface.
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
 
