@@ -9,70 +9,69 @@ import java.util.Date;
  */
 public class TransitEdge implements Serializable {
 
-    private String voyageNumber;
-    private String fromUnLocode;
-    private String toUnLocode;
-    private Date fromDate;
-    private Date toDate;
+	private static final long serialVersionUID = 1L;
 
-    public TransitEdge() {
-        // Nothing to do.
-    }
+	private String voyageNumber;
+	private String fromUnLocode;
+	private String toUnLocode;
+	private Date fromDate;
+	private Date toDate;
 
-    public TransitEdge(String voyageNumber, String fromUnLocode,
-                       String toUnLocode, Date fromDate, Date toDate) {
-        this.voyageNumber = voyageNumber;
-        this.fromUnLocode = fromUnLocode;
-        this.toUnLocode = toUnLocode;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
-    }
+	public TransitEdge() {
+		// Nothing to do.
+	}
 
-    public String getVoyageNumber() {
-        return voyageNumber;
-    }
+	public TransitEdge(String voyageNumber, String fromUnLocode, String toUnLocode, Date fromDate, Date toDate) {
+		this.voyageNumber = voyageNumber;
+		this.fromUnLocode = fromUnLocode;
+		this.toUnLocode = toUnLocode;
+		this.fromDate = fromDate;
+		this.toDate = toDate;
+	}
 
-    public void setVoyageNumber(String voyageNumber) {
-        this.voyageNumber = voyageNumber;
-    }
+	public String getVoyageNumber() {
+		return voyageNumber;
+	}
 
-    public String getFromUnLocode() {
-        return fromUnLocode;
-    }
+	public void setVoyageNumber(String voyageNumber) {
+		this.voyageNumber = voyageNumber;
+	}
 
-    public void setFromUnLocode(String fromUnLocode) {
-        this.fromUnLocode = fromUnLocode;
-    }
+	public String getFromUnLocode() {
+		return fromUnLocode;
+	}
 
-    public String getToUnLocode() {
-        return toUnLocode;
-    }
+	public void setFromUnLocode(String fromUnLocode) {
+		this.fromUnLocode = fromUnLocode;
+	}
 
-    public void setToUnLocode(String toUnLocode) {
-        this.toUnLocode = toUnLocode;
-    }
+	public String getToUnLocode() {
+		return toUnLocode;
+	}
 
-    public Date getFromDate() {
-        return fromDate;
-    }
+	public void setToUnLocode(String toUnLocode) {
+		this.toUnLocode = toUnLocode;
+	}
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
+	public Date getFromDate() {
+		return fromDate;
+	}
 
-    public Date getToDate() {
-        return toDate;
-    }
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
+	public Date getToDate() {
+		return toDate;
+	}
 
-    @Override
-    public String toString() {
-        return "TransitEdge{" + "voyageNumber=" + voyageNumber
-                + ", fromUnLocode=" + fromUnLocode + ", toUnLocode="
-                + toUnLocode + ", fromDate=" + fromDate
-                + ", toDate=" + toDate + '}';
-    }
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+
+	@Override
+	public String toString() {
+		return "TransitEdge{" + "voyageNumber=" + voyageNumber + ", fromUnLocode=" + fromUnLocode + ", toUnLocode="
+				+ toUnLocode + ", fromDate=" + fromDate + ", toDate=" + toDate + '}';
+	}
 }

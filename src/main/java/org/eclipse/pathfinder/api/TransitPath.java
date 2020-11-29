@@ -1,33 +1,36 @@
 package org.eclipse.pathfinder.api;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 @XmlRootElement
 public class TransitPath implements Serializable {
 
-    private List<TransitEdge> transitEdges;
+	private static final long serialVersionUID = 1L;
 
-    public TransitPath() {
-        this.transitEdges = new ArrayList<>();
-    }
+	private List<TransitEdge> transitEdges;
 
-    public TransitPath(List<TransitEdge> transitEdges) {
-        this.transitEdges = transitEdges;
-    }
+	public TransitPath() {
+		this.transitEdges = new ArrayList<>();
+	}
 
-    public List<TransitEdge> getTransitEdges() {
-        return transitEdges;
-    }
+	public TransitPath(List<TransitEdge> transitEdges) {
+		this.transitEdges = transitEdges;
+	}
 
-    public void setTransitEdges(List<TransitEdge> transitEdges) {
-        this.transitEdges = transitEdges;
-    }
+	public List<TransitEdge> getTransitEdges() {
+		return transitEdges;
+	}
 
-    @Override
-    public String toString() {
-        return "TransitPath{" + "transitEdges=" + transitEdges + '}';
-    }
+	public void setTransitEdges(List<TransitEdge> transitEdges) {
+		this.transitEdges = transitEdges;
+	}
+
+	@Override
+	public String toString() {
+		return "TransitPath{" + "transitEdges=" + transitEdges + '}';
+	}
 }
