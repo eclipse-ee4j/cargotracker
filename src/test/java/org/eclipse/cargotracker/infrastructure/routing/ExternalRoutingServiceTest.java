@@ -1,20 +1,25 @@
 package org.eclipse.cargotracker.infrastructure.routing;
 
-import org.eclipse.cargotracker.domain.model.location.Location;
-import org.eclipse.cargotracker.domain.model.location.SampleLocations;
-import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
-import org.eclipse.cargotracker.domain.model.cargo.*;
-
-import org.junit.Assert;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.cargotracker.domain.model.cargo.Cargo;
+import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
+import org.eclipse.cargotracker.domain.model.cargo.Leg;
+import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
+import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
+import org.eclipse.cargotracker.domain.model.location.Location;
+import org.eclipse.cargotracker.domain.model.location.SampleLocations;
+import org.junit.Assert;
+
 public class ExternalRoutingServiceTest {
 
     private ExternalRoutingService externalRoutingService;
-    private VoyageRepository voyageRepository;
+//    private VoyageRepository voyageRepository;
 
     //    protected void setUp() throws Exception {
 //        externalRoutingService = new ExternalRoutingService();

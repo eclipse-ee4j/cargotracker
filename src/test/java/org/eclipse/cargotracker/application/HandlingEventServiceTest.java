@@ -4,24 +4,20 @@ import java.util.Date;
 
 import org.eclipse.cargotracker.application.internal.DefaultHandlingEventService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
-import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
-import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
-import org.eclipse.cargotracker.domain.model.location.LocationRepository;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
-import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 
 public class HandlingEventServiceTest {
 
 	private DefaultHandlingEventService service;
-	private ApplicationEvents applicationEvents;
-	private CargoRepository cargoRepository;
-	private VoyageRepository voyageRepository;
-	private HandlingEventRepository handlingEventRepository;
-	private LocationRepository locationRepository;
+//	private ApplicationEvents applicationEvents;
+//	private CargoRepository cargoRepository;
+//	private VoyageRepository voyageRepository;
+//	private HandlingEventRepository handlingEventRepository;
+//	private LocationRepository locationRepository;
 	private Cargo cargo = new Cargo(new TrackingId("ABC"),
 			new RouteSpecification(SampleLocations.HAMBURG, SampleLocations.TOKYO, new Date()));
 
