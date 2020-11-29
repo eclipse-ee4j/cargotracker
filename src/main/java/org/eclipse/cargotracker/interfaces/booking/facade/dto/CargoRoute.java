@@ -1,8 +1,5 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
-import org.eclipse.cargotracker.application.util.DateUtil;
-import org.eclipse.cargotracker.application.util.LocationUtil;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,129 +7,126 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.LocationUtil;
+
 /**
  * DTO for registering and routing a cargo.
  */
 public class CargoRoute implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private static final SimpleDateFormat DATE_FORMAT
-            = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+	private static final long serialVersionUID = 1L;
 
-    private final String trackingId;
-    private final String origin;
-    private final String finalDestination;
-    private final String arrivalDeadline;
-    private final boolean misrouted;
-    private final List<Leg> legs;
-    private final boolean claimed;
-    private final String lastKnownLocation;
-    private final String transportStatus;
-    private String nextLocation;
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 
-    public CargoRoute(String trackingId, String origin, String finalDestination,
-                      Date arrivalDeadline, boolean misrouted, boolean claimed, String lastKnownLocation, String transportStatus) {
-        this.trackingId = trackingId;
-        this.origin = origin;
-        this.finalDestination = finalDestination;
-        this.arrivalDeadline = DATE_FORMAT.format(arrivalDeadline);
-        this.misrouted = misrouted;
-        this.claimed = claimed;
-        this.lastKnownLocation = lastKnownLocation;
-        this.transportStatus = transportStatus;
-        this.legs = new ArrayList<>();
-    }
+	private final String trackingId;
+	private final String origin;
+	private final String finalDestination;
+	private final String arrivalDeadline;
+	private final boolean misrouted;
+	private final List<Leg> legs;
+	private final boolean claimed;
+	private final String lastKnownLocation;
+	private final String transportStatus;
+	private String nextLocation;
 
-    public String getTrackingId() {
-        return trackingId;
-    }
+	public CargoRoute(String trackingId, String origin, String finalDestination, Date arrivalDeadline,
+			boolean misrouted, boolean claimed, String lastKnownLocation, String transportStatus) {
+		this.trackingId = trackingId;
+		this.origin = origin;
+		this.finalDestination = finalDestination;
+		this.arrivalDeadline = DATE_FORMAT.format(arrivalDeadline);
+		this.misrouted = misrouted;
+		this.claimed = claimed;
+		this.lastKnownLocation = lastKnownLocation;
+		this.transportStatus = transportStatus;
+		this.legs = new ArrayList<>();
+	}
 
-    public String getOrigin() {
-        return origin;
-    }
+	public String getTrackingId() {
+		return trackingId;
+	}
 
-    public String getOriginName() {
-    	// TODO See if this can be done in a more DDD friendly way.
-        return LocationUtil.getLocationName(origin);
-    }
+	public String getOrigin() {
+		return origin;
+	}
 
-    public String getOriginCode() {
-    	// TODO See if this can be done in a more DDD friendly way.
-        return LocationUtil.getLocationCode(origin);
-    }
+	public String getOriginName() {
+		// TODO See if this can be done in a more DDD friendly way.
+		return LocationUtil.getLocationName(origin);
+	}
 
-    public String getFinalDestination() {
-        return finalDestination;
-    }
+	public String getOriginCode() {
+		// TODO See if this can be done in a more DDD friendly way.
+		return LocationUtil.getLocationCode(origin);
+	}
 
-    public String getFinalDestinationName() {
-    	// TODO See if this can be done in a more DDD friendly way.
-        return LocationUtil.getLocationName(finalDestination);
-    }
+	public String getFinalDestination() {
+		return finalDestination;
+	}
 
-    public String getFinalDestinationCode() {
-    	// TODO See if this can be done in a more DDD friendly way.
-        return LocationUtil.getLocationCode(finalDestination);
-    }
+	public String getFinalDestinationName() {
+		// TODO See if this can be done in a more DDD friendly way.
+		return LocationUtil.getLocationName(finalDestination);
+	}
 
-	// TODO See if this can be done in a more DDD friendly way.    
-    public void addLeg(
-            String voyageNumber,
-            String fromUnLocode, String fromName,
-            String toUnLocode, String toName,
-            Date loadTime, Date unloadTime) {
-        legs.add(new Leg(voyageNumber,
-                fromUnLocode, fromName,
-                toUnLocode, toName,
-                loadTime, unloadTime));
-    }
+	public String getFinalDestinationCode() {
+		// TODO See if this can be done in a more DDD friendly way.
+		return LocationUtil.getLocationCode(finalDestination);
+	}
 
-    public List<Leg> getLegs() {
-        return Collections.unmodifiableList(legs);
-    }
+	// TODO See if this can be done in a more DDD friendly way.
+	public void addLeg(String voyageNumber, String fromUnLocode, String fromName, String toUnLocode, String toName,
+			Date loadTime, Date unloadTime) {
+		legs.add(new Leg(voyageNumber, fromUnLocode, fromName, toUnLocode, toName, loadTime, unloadTime));
+	}
 
-    public boolean isMisrouted() {
-        return misrouted;
-    }
+	public List<Leg> getLegs() {
+		return Collections.unmodifiableList(legs);
+	}
 
-    public boolean isRouted() {
-        return !legs.isEmpty();
-    }
+	public boolean isMisrouted() {
+		return misrouted;
+	}
 
-    public String getArrivalDeadline() {
-        return arrivalDeadline;
-    }
+	public boolean isRouted() {
+		return !legs.isEmpty();
+	}
 
-    public String getArrivalDeadlineDate() {
-        return DateUtil.getDateFromDateTime(arrivalDeadline);
-    }
+	public String getArrivalDeadline() {
+		return arrivalDeadline;
+	}
 
-    public String getArrivalDeadlineTime() {
-        return DateUtil.getTimeFromDateTime(arrivalDeadline);
-    }
+	public String getArrivalDeadlineDate() {
+		return DateUtil.getDateFromDateTime(arrivalDeadline);
+	}
 
-    public boolean isClaimed() {
-        return claimed;
-    }
+	public String getArrivalDeadlineTime() {
+		return DateUtil.getTimeFromDateTime(arrivalDeadline);
+	}
 
-    public String getLastKnownLocation() {
-        return this.lastKnownLocation;
-    }
+	public boolean isClaimed() {
+		return claimed;
+	}
 
-    public String getLastKnownLocationName() {
-        return LocationUtil.getLocationName(lastKnownLocation);
-    }
+	public String getLastKnownLocation() {
+		return this.lastKnownLocation;
+	}
 
-    public String getLastKnownLocationCode() {
-        return LocationUtil.getLocationCode(lastKnownLocation);
-    }
+	public String getLastKnownLocationName() {
+		return LocationUtil.getLocationName(lastKnownLocation);
+	}
 
-    public String getTransportStatus() {
-    	// TODO This needs to be a richer status, with a more readable description.
-        return this.transportStatus;
-    }
+	public String getLastKnownLocationCode() {
+		return LocationUtil.getLocationCode(lastKnownLocation);
+	}
 
-    public String getNextLocation() {
-        return this.nextLocation;
-    }
+	public String getTransportStatus() {
+		// TODO This needs to be a richer status, with a more readable description.
+		return this.transportStatus;
+	}
+
+	public String getNextLocation() {
+		return this.nextLocation;
+	}
 }

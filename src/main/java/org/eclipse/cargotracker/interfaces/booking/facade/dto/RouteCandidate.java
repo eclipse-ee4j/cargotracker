@@ -10,18 +10,20 @@ import java.util.List;
  */
 public class RouteCandidate implements Serializable {
 
-    private List<Leg> legs;
+	private static final long serialVersionUID = 1L;
 
-    public RouteCandidate(List<Leg> legs) {
-        this.legs = legs;
-    }
+	private List<Leg> legs;
 
-    public List<Leg> getLegs() {
-        return Collections.unmodifiableList(legs);
-    }
+	public RouteCandidate(List<Leg> legs) {
+		this.legs = legs;
+	}
 
-    @Override
-    public String toString() {
-        return "RouteCandidate{" + "legs=" + legs + '}';
-    }
+	public List<Leg> getLegs() {
+		return Collections.unmodifiableList(legs);
+	}
+
+	@Override
+	public String toString() {
+		return "RouteCandidate{" + "legs=" + legs + '}';
+	}
 }
