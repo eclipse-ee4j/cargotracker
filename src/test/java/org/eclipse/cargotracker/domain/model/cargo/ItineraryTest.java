@@ -84,7 +84,7 @@ public class ItineraryTest {
 
 	@Test
 	public void testNextExpectedEvent() {
-		// TODO
+		// TODO Complete this test.
 	}
 
 	@Test

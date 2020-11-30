@@ -47,7 +47,7 @@ public class LocationUtil {
 		case "USCHI":
 			return "41.5, -87.38";
 		case "USDAL":
-			return "29.387424, -94.125479"; // TODO: approx USDAL coord!
+			return "32.7767, -96.7970";
 		case "SEGOT":
 			return "57.42, 11.57";
 		case "DEHAM":
@@ -81,7 +81,7 @@ public class LocationUtil {
 			return "USCHI";
 		case "DALLAS":
 			return "USDAL";
-		case "GUTTENBURG": // TODO: spelling ok?
+		case "GOTEBORG":
 			return "SEGOT";
 		case "HAMBURG":
 			return "DEHAM";
@@ -113,7 +113,7 @@ public class LocationUtil {
 		case "USCHI":
 			return new LatLng(41.5, -87.38);
 		case "USDAL":
-			return new LatLng(29.387424, -94.125479); // TODO: approx USDAL coord!
+			return new LatLng(32.7767, -96.7970);
 		case "SEGOT":
 			return new LatLng(57.42, 11.57);
 		case "DEHAM":
