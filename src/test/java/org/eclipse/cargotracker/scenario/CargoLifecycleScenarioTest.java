@@ -193,7 +193,7 @@ public class CargoLifecycleScenarioTest {
 		assertNull(cargo.getDelivery().getNextExpectedActivity());
 
 		// -- Cargo needs to be rerouted --
-		// TODO cleaner reroute from "earliest location from where the new route
+		// TODO [TDD] cleaner reroute from "earliest location from where the new route
 		// originates"
 		// Specify a new route, this time from Tokyo (where it was incorrectly unloaded)
 		// to SampleLocations.STOCKHOLM
@@ -214,7 +214,7 @@ public class CargoLifecycleScenarioTest {
 		// New itinerary should satisfy new route
 		assertEquals(RoutingStatus.ROUTED, cargo.getDelivery().getRoutingStatus());
 
-		// TODO we can't handle the face that after a reroute, the cargo isn't
+		// TODO [TDD] we can't handle the face that after a reroute, the cargo isn't
 		// misdirected anymore
 		// org.junit.Assert.assertFalse(cargo.isMisdirected());
 		// org.junit.Assert.assertEquals(new HandlingActivity(HandlingEvent.Type.LOAD,

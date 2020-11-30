@@ -52,12 +52,12 @@ public class CargoRoute implements Serializable {
 	}
 
 	public String getOriginName() {
-		// TODO See if this can be done in a more DDD friendly way.
+		// TODO [Clean Code] See if this can be done in a more DDD friendly way.
 		return LocationUtil.getLocationName(origin);
 	}
 
 	public String getOriginCode() {
-		// TODO See if this can be done in a more DDD friendly way.
+		// TODO [Clean Code] See if this can be done in a more DDD friendly way.
 		return LocationUtil.getLocationCode(origin);
 	}
 
@@ -66,16 +66,16 @@ public class CargoRoute implements Serializable {
 	}
 
 	public String getFinalDestinationName() {
-		// TODO See if this can be done in a more DDD friendly way.
+		// TODO [Clean Code] See if this can be done in a more DDD friendly way.
 		return LocationUtil.getLocationName(finalDestination);
 	}
 
 	public String getFinalDestinationCode() {
-		// TODO See if this can be done in a more DDD friendly way.
+		// TODO [Clean Code] See if this can be done in a more DDD friendly way.
 		return LocationUtil.getLocationCode(finalDestination);
 	}
 
-	// TODO See if this can be done in a more DDD friendly way.
+	// TODO [Clean Code] See if this can be done in a more DDD friendly way.
 	public void addLeg(String voyageNumber, String fromUnLocode, String fromName, String toUnLocode, String toName,
 			Date loadTime, Date unloadTime) {
 		legs.add(new Leg(voyageNumber, fromUnLocode, fromName, toUnLocode, toName, loadTime, unloadTime));
@@ -122,7 +122,7 @@ public class CargoRoute implements Serializable {
 	}
 
 	public String getTransportStatus() {
-		// TODO This needs to be a richer status, with a more readable description.
+		// TODO [Clean Code] This needs to be a richer status, with a more readable description.
 		return this.transportStatus;
 	}
 

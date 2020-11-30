@@ -24,10 +24,10 @@ public class Itinerary implements Serializable {
 	private static final Date END_OF_DAYS = new Date(Long.MAX_VALUE);
 	// Null object pattern.
 	public static final Itinerary EMPTY_ITINERARY = new Itinerary();
-	// TODO Look into why cascade delete doesn't work.
+	// TODO [Clean Code] Look into why cascade delete doesn't work.
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cargo_id")
-	// TODO Index this is in leg_index
+	// TODO [Clean Code] Index this is in leg_index
 	@OrderBy("loadTime")
 	@PrivateOwned
 	@Size(min = 1)
@@ -56,7 +56,7 @@ public class Itinerary implements Serializable {
 			return true;
 		}
 
-		// TODO Convert this to a switch statement?
+		// TODO [Clean Code] Convert this to a switch statement?
 		if (event.getType() == HandlingEvent.Type.RECEIVE) {
 			// Check that the first leg's origin is the event's location
 			Leg leg = legs.get(0);

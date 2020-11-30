@@ -9,7 +9,7 @@ import javax.ws.rs.ext.Provider;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 
 @Provider
-// TODO See if this can be removed.
+// TODO [Jakarta EE 8] See if this can be removed.
 public class JsonMoxyConfigurationContextResolver implements ContextResolver<MoxyJsonConfig> {
 
 	@Override

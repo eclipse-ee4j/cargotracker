@@ -24,6 +24,6 @@ public class RestConfiguration extends ResourceConfig {
 		property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
 		// Providers - JSON.
 		register(new MoxyJsonFeature());
-		register(new JsonMoxyConfigurationContextResolver()); // TODO See if this can be removed.
+		register(new JsonMoxyConfigurationContextResolver()); // TODO [Jakarta EE 8] See if this can be removed.
 	}
 }

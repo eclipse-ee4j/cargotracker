@@ -12,7 +12,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-//TODO We should avoid using JSF managed beans.
+// TODO [Java EE 7] We should avoid using JSF managed beans.
 @ManagedBean(name = "changeDestinationDialog")
 @SessionScoped
 public class ChangeDestinationDialog implements Serializable {

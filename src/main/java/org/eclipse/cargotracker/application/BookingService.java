@@ -10,7 +10,7 @@ import org.eclipse.cargotracker.domain.model.location.UnLocode;
 /**
  * Cargo booking service.
  */
-// TODO Adopt the Date-Time API.
+// TODO [Jakarta EE 8] Adopt the Date-Time API.
 public interface BookingService {
 
 	/**

@@ -16,7 +16,7 @@ import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 /**
  * Sample carrier movements, for test purposes.
  */
-//TODO Move to the Java Date-Time API for date manipulation. Also avoid hard-coded dates.
+//TODO [Jakarta EE 8] Move to the Java Date-Time API for date manipulation. Also avoid hard-coded dates.
 public class SampleVoyages {
 
 	public static final Voyage CM001 = createVoyage("CM001", SampleLocations.STOCKHOLM, SampleLocations.HAMBURG);

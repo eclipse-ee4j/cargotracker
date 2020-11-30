@@ -36,7 +36,7 @@ import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 @Stateless
 public class ExternalRoutingService implements RoutingService {
 
-	// TODO Use injection instead?
+	// TODO [Clean Code] Use injection instead?
 	private static final Logger log = Logger.getLogger(ExternalRoutingService.class.getName());	
 	
 	@Resource(lookup = "java:app/configuration/GraphTraversalUrl")
