@@ -18,7 +18,7 @@ import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
 
-// TODO This needs to be moved out of the domain layer to the appropriate 
+// TODO [DDD] This needs to be moved out of the domain layer to the appropriate 
 // interface layer for booking. It also needs to use the facade.
 @Named
 @FlowScoped("booking")
@@ -50,7 +50,7 @@ public class BookingBackingBean implements Serializable {
 		List<Location> filteredLocations = new ArrayList<>();
 		String locationToRemove = null;
 
-		// TODO: Use injection instead?
+		// TODO [Jakarta EE 8] Use injection instead?
 		if (FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("destination.xhtml")) {
 			// in Destination menu, Orign can't be selected
 			locationToRemove = originUnlocode;
@@ -135,7 +135,7 @@ public class BookingBackingBean implements Serializable {
 						arrivalDeadline);
 
 			} else {
-				// TODO See if this can be injected.
+				// TODO [Jakarta EE 8] See if this can be injected.
 				FacesContext context = FacesContext.getCurrentInstance();
 				// UI now prevents from selecting same origin/destination
 				FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");

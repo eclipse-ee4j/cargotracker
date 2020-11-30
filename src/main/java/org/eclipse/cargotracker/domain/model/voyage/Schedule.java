@@ -26,10 +26,10 @@ public class Schedule implements Serializable {
 	// Null object pattern.
 	public static final Schedule EMPTY = new Schedule();
 	
-	// TODO Look into why cascade delete doesn't work.
+	// TODO [Clean Code] Look into why cascade delete doesn't work.
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "voyage_id")
-	// TODO Index as cm_index
+	// TODO [Clean Code] Index as cm_index
 	@PrivateOwned
 	@NotNull
 	@Size(min = 1)

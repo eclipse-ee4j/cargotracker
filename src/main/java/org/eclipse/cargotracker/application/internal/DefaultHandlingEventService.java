@@ -16,7 +16,7 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 
-// TODO Adopt the Date-Time API.
+// TODO [Jakarta EE 8] Adopt the Date-Time API.
 @Stateless
 public class DefaultHandlingEventService implements HandlingEventService {
 

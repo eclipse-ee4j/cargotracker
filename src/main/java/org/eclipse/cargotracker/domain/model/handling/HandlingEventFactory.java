@@ -41,7 +41,7 @@ public class HandlingEventFactory implements Serializable {
 	 * @throws UnknownCargoException    if there's no cargo with this tracking id
 	 * @throws UnknownLocationException if there's no location with this UN Locode
 	 */
-	// TODO Look at the exception handling more seriously.
+	// TODO [Clean Code] Look at the exception handling more seriously.
 	public HandlingEvent createHandlingEvent(Date registrationTime, Date completionTime, TrackingId trackingId,
 			VoyageNumber voyageNumber, UnLocode unlocode, HandlingEvent.Type type)
 			throws CannotCreateHandlingEventException {

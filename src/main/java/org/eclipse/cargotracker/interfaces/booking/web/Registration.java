@@ -83,7 +83,7 @@ public class Registration implements Serializable {
 				trackingId = bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode,
 						new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
 			} else {
-				// TODO See if this can be injected.
+				// TODO [Jakarta EE 8] See if this can be injected.
 				FacesContext context = FacesContext.getCurrentInstance();
 				FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);

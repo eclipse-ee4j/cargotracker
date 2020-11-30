@@ -35,7 +35,7 @@ import org.joda.time.LocalDate;
 @Startup
 public class SampleDataGenerator {
 
-	// TODO See if the logger can be injected.
+	// TODO [Clean Code] See if the logger can be injected.
 	private static final Logger logger = Logger.getLogger(SampleDataGenerator.class.getName());
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -60,7 +60,7 @@ public class SampleDataGenerator {
 		// In order to remove handling events, must remove references in cargo.
 		// Dropping cargo first won't work since handling events have references
 		// to it.
-		// TODO See if there is a better way to do this.
+		// TODO [Clean Code] See if there is a better way to do this.
 		List<Cargo> cargos = entityManager.createQuery("Select c from Cargo c", Cargo.class).getResultList();
 		for (Cargo cargo : cargos) {
 			cargo.getDelivery().setLastEvent(null);
@@ -68,7 +68,7 @@ public class SampleDataGenerator {
 		}
 
 		// Delete all entities
-		// TODO See why cascade delete is not working.
+		// TODO [Clean Code] See why cascade delete is not working.
 		entityManager.createQuery("Delete from HandlingEvent").executeUpdate();
 		entityManager.createQuery("Delete from Leg").executeUpdate();
 		entityManager.createQuery("Delete from Cargo").executeUpdate();

@@ -23,7 +23,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.junit.Assert;
 import org.junit.Test;
 
-// TODO Move to the Java Date-Time API for date manipulation. Also avoid hard-coded dates.
+// TODO [Jakarta EE 8] Move to the Java Date-Time API for date manipulation. Also avoid hard-coded dates.
 public class CargoTest {
 
 	private final List<HandlingEvent> events = new ArrayList<>();
@@ -143,7 +143,7 @@ public class CargoTest {
 		assertTrue(cargo.getDelivery().isUnloadedAtDestination());
 	}
 
-	// TODO: Generate test data some better way
+	// TODO [TDD] Generate test data some better way
 	private Cargo populateCargoReceivedStockholm() throws Exception {
 		Cargo cargo = new Cargo(new TrackingId("XYZ"),
 				new RouteSpecification(SampleLocations.STOCKHOLM, SampleLocations.MELBOURNE, new Date()));

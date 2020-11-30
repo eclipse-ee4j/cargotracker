@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * A few utils for working with Date.
  */
-// TODO Make this a CDI singleton?
+// TODO [Clean Code] Make this a CDI singleton?
 public class DateUtil {
 
 	private DateUtil() {

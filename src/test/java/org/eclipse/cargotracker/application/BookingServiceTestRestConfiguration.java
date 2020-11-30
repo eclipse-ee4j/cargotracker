@@ -18,6 +18,6 @@ public class BookingServiceTestRestConfiguration extends ResourceConfig {
         packages(new String[]{GraphTraversalService.class.getPackage().getName()});
         // Providers - JSON.
         register(new MoxyJsonFeature());
-        register(new JsonMoxyConfigurationContextResolver()); // TODO See if this can be removed.
+        register(new JsonMoxyConfigurationContextResolver()); // TODO [Jakarta EE 8] See if this can be removed.
     }
 }

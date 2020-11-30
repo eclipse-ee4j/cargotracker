@@ -1,6 +1,6 @@
 package org.eclipse.cargotracker.domain.shared;
 
-// TODO Make this a CDI singleton?
+// TODO [Clean Code] Make this a CDI singleton?
 public class DomainObjectUtils {
 
 	/**

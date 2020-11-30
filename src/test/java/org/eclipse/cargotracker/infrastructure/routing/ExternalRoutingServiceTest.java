@@ -39,7 +39,7 @@ public class ExternalRoutingServiceTest {
 //        });
 //        externalRoutingService.setGraphTraversalService(graphTraversalService);
 //    }
-    // TODO this test belongs in com.pathfinder
+    // TODO [TDD] this test belongs in com.pathfinder
     public void testCalculatePossibleRoutes() {
         TrackingId trackingId = new TrackingId("ABC");
         RouteSpecification routeSpecification = new RouteSpecification(SampleLocations.HONGKONG, SampleLocations.HELSINKI, new Date());
