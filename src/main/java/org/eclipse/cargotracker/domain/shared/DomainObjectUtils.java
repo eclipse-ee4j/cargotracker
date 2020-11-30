@@ -14,11 +14,6 @@ public class DomainObjectUtils {
 		return actual == null ? safe : actual;
 	}
 
-	// TODO wrappers for some of the commons-lang code:
-	//
-	// EqualsBuilder that uses sameIdentity/sameValue,
-	// better validation (varargs etc)
-
 	/**
 	 * Prevent instantiation.
 	 */

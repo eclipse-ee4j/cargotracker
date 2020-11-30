@@ -18,7 +18,8 @@ import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
 
-// TODO This needs to be moved out of the domain layer to the appropriate interface layer.
+// TODO This needs to be moved out of the domain layer to the appropriate 
+// interface layer for booking. It also needs to use the facade.
 @Named
 @FlowScoped("booking")
 public class BookingBackingBean implements Serializable {
@@ -49,7 +50,7 @@ public class BookingBackingBean implements Serializable {
 		List<Location> filteredLocations = new ArrayList<>();
 		String locationToRemove = null;
 
-		// TODO: there should be a better way to do tihs
+		// TODO: Use injection instead?
 		if (FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("destination.xhtml")) {
 			// in Destination menu, Orign can't be selected
 			locationToRemove = originUnlocode;

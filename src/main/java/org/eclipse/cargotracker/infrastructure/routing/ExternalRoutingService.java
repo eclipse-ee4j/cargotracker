@@ -41,9 +41,10 @@ public class ExternalRoutingService implements RoutingService {
 	
 	@Resource(lookup = "java:app/configuration/GraphTraversalUrl")
 	private String graphTraversalUrl;
-	// TODO Can I use injection?
+	
 	private final Client jaxrsClient = ClientBuilder.newClient();
 	private WebTarget graphTraversalResource;
+	
 	@Inject
 	private LocationRepository locationRepository;
 	@Inject
