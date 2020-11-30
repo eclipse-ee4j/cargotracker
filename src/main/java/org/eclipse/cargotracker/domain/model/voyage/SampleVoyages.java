@@ -1,17 +1,22 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import org.eclipse.cargotracker.domain.model.location.Location;
-import org.eclipse.cargotracker.domain.model.location.SampleLocations;
+import static org.eclipse.cargotracker.application.util.DateUtil.toDate;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.eclipse.cargotracker.application.util.DateUtil.toDate;
+import org.eclipse.cargotracker.domain.model.location.Location;
+import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 
 /**
  * Sample carrier movements, for test purposes.
  */
-@SuppressWarnings("unchecked")
+//TODO [Jakarta EE 8] Move to the Java Date-Time API for date manipulation. Also avoid hard-coded dates.
 public class SampleVoyages {
 
 	public static final Voyage CM001 = createVoyage("CM001", SampleLocations.STOCKHOLM, SampleLocations.HAMBURG);
@@ -114,7 +119,7 @@ public class SampleVoyages {
 	}
 
 	public static List<Voyage> getAll() {
-		return new ArrayList(ALL.values());
+		return new ArrayList<Voyage>(ALL.values());
 	}
 
 	public static Voyage lookup(VoyageNumber voyageNumber) {

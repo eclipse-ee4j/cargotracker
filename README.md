@@ -13,11 +13,13 @@ Hibernate and Jetty whereas the application is built on Jakarta EE.
 The application is an end-to-end system for keeping track of shipping cargo. It 
 has several interfaces described in the following sections.
 
-For further details on the project, please visit: https://github.com/eclipse-ee4j/cargotracker.
+For further details on the project, please visit: https://eclipse-ee4j.github.io/cargotracker/.
+
+![Cargo Tracker cover](cargo_tracker_cover.png)
  
 ## Getting Started
 
-The [project site](https://projects.eclipse.org/projects/ee4j.cargotracker/) has detailed information on how to get started.
+The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed information on how to get started.
 
 The simplest steps are the following (no IDE required):
 
@@ -30,7 +32,7 @@ The simplest steps are the following (no IDE required):
 
 To set up in Eclipse, follow these steps:
 
-* Set up [Java SE 8](https://www.azul.com/downloads/zulu-community/?version=java-8-lts), [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 4.1](https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip)(Payara 5 is not supported yet. Payara 4.1 only supports Java SE 8).
+* Set up [Java SE 8](https://www.azul.com/downloads/zulu-community/?version=java-8-lts), [the 2020-06 release of Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-06/r/eclipse-ide-enterprise-java-developers) (this is the latest Eclipse IDE version that supports Java SE 8) and [Payara 4.1](https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip) (Payara 5 is not supported yet. Payara 4.1 only supports Java SE 8). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
@@ -40,8 +42,7 @@ To set up in Eclipse, follow these steps:
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Jakarta EE (Java EE 7) features including Faces 2.2, CDI, EJB 3.2, 
-Persistence 2.1, REST 2, WebSocket, JSON Processing, Bean Validation 1.1 and Messaging 2.
+number of Jakarta EE (Java EE 7) features including JSF, CDI, EJB, JPA, JAX-RS, WebSocket, JSON Processing, Bean Validation and JMS.
 
 There are several web interfaces, REST interfaces and a file system scanning
 interface. It's probably best to start exploring the interfaces in the rough

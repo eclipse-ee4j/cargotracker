@@ -122,7 +122,8 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Resolvers are needed in the Arquillian tests. This is used for adding all the runtime dependencies inside a testing war. -->
+		<!-- Resolvers are needed in the Arquillian tests. This is used for adding 
+			all the runtime dependencies inside a testing war. -->
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>

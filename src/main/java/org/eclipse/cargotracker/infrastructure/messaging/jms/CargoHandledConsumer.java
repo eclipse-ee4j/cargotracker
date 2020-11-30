@@ -1,7 +1,7 @@
 package org.eclipse.cargotracker.infrastructure.messaging.jms;
 
-import org.eclipse.cargotracker.application.CargoInspectionService;
-import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -10,8 +10,9 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.eclipse.cargotracker.application.CargoInspectionService;
+import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 
 /**
  * Consumes JMS messages and delegates notification of misdirected cargo to the
@@ -21,27 +22,24 @@ import java.util.logging.Logger;
  * inspection message-driven.
  */
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationType",
-                propertyValue = "javax.jms.Queue"),
-        @ActivationConfigProperty(propertyName = "destinationLookup",
-                propertyValue = "java:app/jms/CargoHandledQueue")
-})
+		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:app/jms/CargoHandledQueue") })
 public class CargoHandledConsumer implements MessageListener {
 
-    @Inject
-    private CargoInspectionService cargoInspectionService;
-    private static final Logger logger = Logger.getLogger(
-            CargoHandledConsumer.class.getName());
+	private static final Logger logger = Logger.getLogger(CargoHandledConsumer.class.getName());	
+	
+	@Inject
+	private CargoInspectionService cargoInspectionService;
 
-    @Override
-    public void onMessage(Message message) {
-        try {
-            TextMessage textMessage = (TextMessage) message;
-            String trackingIdString = textMessage.getText();
+	@Override
+	public void onMessage(Message message) {
+		try {
+			TextMessage textMessage = (TextMessage) message;
+			String trackingIdString = textMessage.getText();
 
-            cargoInspectionService.inspectCargo(new TrackingId(trackingIdString));
-        } catch (JMSException e) {
-            logger.log(Level.SEVERE, "Error procesing JMS message", e);
-        }
-    }
+			cargoInspectionService.inspectCargo(new TrackingId(trackingIdString));
+		} catch (JMSException e) {
+			logger.log(Level.SEVERE, "Error procesing JMS message", e);
+		}
+	}
 }

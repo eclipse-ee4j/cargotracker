@@ -18,4 +18,5 @@ public class SampleLocations {
     public static final Location HANGZOU = new Location(new UnLocode("CNHGH"), "Hangzhou");
     public static final Location NEWYORK = new Location(new UnLocode("USNYC"), "New York");
     public static final Location DALLAS = new Location(new UnLocode("USDAL"), "Dallas");
+
 }

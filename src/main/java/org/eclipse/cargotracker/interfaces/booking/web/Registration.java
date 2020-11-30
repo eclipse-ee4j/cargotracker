@@ -1,7 +1,9 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,10 +11,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
+
+import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 
 /**
  * Handles registering cargo. Operates against a dedicated service facade, and
@@ -29,70 +30,70 @@ import java.util.List;
 @ViewScoped
 public class Registration implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private static final String FORMAT = "yyyy-MM-dd";
-    List<Location> locations;
-    private String arrivalDeadline;
-    private String originUnlocode;
-    private String destinationUnlocode;
-    @Inject
-    private BookingServiceFacade bookingServiceFacade;
+	private static final long serialVersionUID = 1L;
 
-    public List<Location> getLocations() {
-        return locations;
-    }
+	private static final String FORMAT = "yyyy-MM-dd";
 
-    public String getArrivalDeadline() {
-        return arrivalDeadline;
-    }
+	List<Location> locations;
+	private String arrivalDeadline;
+	private String originUnlocode;
+	private String destinationUnlocode;
 
-    public void setArrivalDeadline(String arrivalDeadline) {
-        this.arrivalDeadline = arrivalDeadline;
-    }
+	@Inject
+	private BookingServiceFacade bookingServiceFacade;
 
-    public String getOriginUnlocode() {
-        return originUnlocode;
-    }
+	public List<Location> getLocations() {
+		return locations;
+	}
 
-    public void setOriginUnlocode(String originUnlocode) {
-        this.originUnlocode = originUnlocode;
-    }
+	public String getArrivalDeadline() {
+		return arrivalDeadline;
+	}
 
-    public String getDestinationUnlocode() {
-        return destinationUnlocode;
-    }
+	public void setArrivalDeadline(String arrivalDeadline) {
+		this.arrivalDeadline = arrivalDeadline;
+	}
 
-    public void setDestinationUnlocode(String destinationUnlocode) {
-        this.destinationUnlocode = destinationUnlocode;
-    }
+	public String getOriginUnlocode() {
+		return originUnlocode;
+	}
 
-    @PostConstruct
-    public void init() {
-        locations = bookingServiceFacade.listShippingLocations();
-    }
+	public void setOriginUnlocode(String originUnlocode) {
+		this.originUnlocode = originUnlocode;
+	}
 
-    public String register() {
-        String trackingId = null;
+	public String getDestinationUnlocode() {
+		return destinationUnlocode;
+	}
 
-        try {
-            if (!originUnlocode.equals(destinationUnlocode)) {
-                trackingId = bookingServiceFacade.bookNewCargo(
-                        originUnlocode,
-                        destinationUnlocode,
-                        new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
-            } else {
-                // TODO See if this can be injected.
-                FacesContext context = FacesContext.getCurrentInstance();
-                FacesMessage message = new FacesMessage(
-                        "Origin and destination cannot be the same.");
-                message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                context.addMessage(null, message);
-                return null;
-            }
-        } catch (ParseException e) {
-            throw new RuntimeException("Error parsing date", e);
-        }
+	public void setDestinationUnlocode(String destinationUnlocode) {
+		this.destinationUnlocode = destinationUnlocode;
+	}
 
-        return "show.xhtml?faces-redirect=true&trackingId=" + trackingId;
-    }
+	@PostConstruct
+	public void init() {
+		locations = bookingServiceFacade.listShippingLocations();
+	}
+
+	public String register() {
+		String trackingId = null;
+
+		try {
+			if (!originUnlocode.equals(destinationUnlocode)) {
+				trackingId = bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode,
+						new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
+			} else {
+				// TODO [Jakarta EE 8] See if this can be injected.
+				FacesContext context = FacesContext.getCurrentInstance();
+				FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
+				message.setSeverity(FacesMessage.SEVERITY_ERROR);
+				context.addMessage(null, message);
+				return null;
+			}
+		} catch (ParseException e) {
+			throw new RuntimeException("Error parsing date", e);
+		}
+
+		return "show.xhtml?faces-redirect=true&trackingId=" + trackingId;
+	}
 }

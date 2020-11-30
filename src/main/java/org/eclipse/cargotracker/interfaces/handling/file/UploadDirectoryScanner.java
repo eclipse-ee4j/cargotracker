@@ -15,9 +15,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class UploadDirectoryScanner {
 
-    @Schedule(minute = "*/2", hour = "*") // Runs every fifteen minutes
-    public void processFiles() {
-        JobOperator jobOperator = BatchRuntime.getJobOperator();
-        jobOperator.start("EventFilesProcessorJob", null);
-    }
+	@Schedule(minute = "*/2", hour = "*") // Runs every fifteen minutes
+	public void processFiles() {
+		JobOperator jobOperator = BatchRuntime.getJobOperator();
+		jobOperator.start("EventFilesProcessorJob", null);
+	}
 }
