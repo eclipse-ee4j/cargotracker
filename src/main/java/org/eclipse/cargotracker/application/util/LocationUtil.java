@@ -84,7 +84,7 @@ public class LocationUtil {
                 return "USCHI";
             case "DALLAS":
                 return "USDAL";
-            case "GUTTENBURG": // TODO: spelling ok?
+            case "GOTHENBURG":
                 return "SEGOT";
             case "HAMBURG":
                 return "DEHAM";
