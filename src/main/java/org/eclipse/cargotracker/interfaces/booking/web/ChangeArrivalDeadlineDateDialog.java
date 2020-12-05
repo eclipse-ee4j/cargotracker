@@ -12,7 +12,6 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-// TODO [Java EE 7] We should avoid using JSF managed beans.
 @Named("changeArrivalDeadlineDateDialog")
 @SessionScoped
 public class ChangeArrivalDeadlineDateDialog implements Serializable {
