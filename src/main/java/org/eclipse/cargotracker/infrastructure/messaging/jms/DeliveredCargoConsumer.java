@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -14,7 +15,8 @@ import javax.jms.MessageListener;
 		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:app/jms/DeliveredCargoQueue") })
 public class DeliveredCargoConsumer implements MessageListener {
 
-	private static final Logger logger = Logger.getLogger(DeliveredCargoConsumer.class.getName());
+    @Inject
+    private Logger logger;
 
 	@Override
 	public void onMessage(Message message) {

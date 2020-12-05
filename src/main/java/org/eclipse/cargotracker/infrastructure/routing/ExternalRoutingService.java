@@ -36,8 +36,8 @@ import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 @Stateless
 public class ExternalRoutingService implements RoutingService {
 
-	// TODO [Clean Code] Use injection instead?
-	private static final Logger log = Logger.getLogger(ExternalRoutingService.class.getName());	
+	@Inject
+	private Logger logger;
 	
 	@Resource(lookup = "java:app/configuration/GraphTraversalUrl")
 	private String graphTraversalUrl;
@@ -76,7 +76,7 @@ public class ExternalRoutingService implements RoutingService {
 			if (routeSpecification.isSatisfiedBy(itinerary)) {
 				itineraries.add(itinerary);
 			} else {
-				log.log(Level.FINE, "Received itinerary that did not satisfy the route specification");
+				logger.log(Level.FINE, "Received itinerary that did not satisfy the route specification");
 			}
 		}
 

@@ -29,7 +29,8 @@ public class EventItemReader extends AbstractItemReader {
 	private static final String UPLOAD_DIRECTORY = "upload_directory";
 	private static final String ISO_8601_FORMAT = "yyyy-MM-dd HH:mm";
 
-	private static final Logger logger = Logger.getLogger(EventItemReader.class.getName());
+    @Inject
+    private Logger logger;
 
 	@Inject
 	private JobContext jobContext;
@@ -154,4 +155,5 @@ public class EventItemReader extends AbstractItemReader {
 	public Serializable checkpointInfo() throws Exception {
 		return this.checkpoint;
 	}
+
 }

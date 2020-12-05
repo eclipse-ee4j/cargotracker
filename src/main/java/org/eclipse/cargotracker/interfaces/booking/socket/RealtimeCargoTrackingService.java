@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javax.ejb.Singleton;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import javax.websocket.OnClose;
@@ -27,7 +28,8 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 @ServerEndpoint("/tracking")
 public class RealtimeCargoTrackingService {
 
-	private static final Logger logger = Logger.getLogger(RealtimeCargoTrackingService.class.getName());
+    @Inject
+    private Logger logger;
 
 	private final Set<Session> sessions = new HashSet<>();
 

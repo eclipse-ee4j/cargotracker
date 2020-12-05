@@ -19,7 +19,8 @@ public class LineParseExceptionListener implements SkipReadListener {
 
 	private static final String FAILED_DIRECTORY = "failed_directory";
 
-	private static final Logger logger = Logger.getLogger(LineParseExceptionListener.class.getName());
+	@Inject
+	private Logger logger;
 
 	@Inject
 	private JobContext jobContext;
@@ -44,4 +45,5 @@ public class LineParseExceptionListener implements SkipReadListener {
 			failed.println(parseException.getLine());
 		}
 	}
+
 }

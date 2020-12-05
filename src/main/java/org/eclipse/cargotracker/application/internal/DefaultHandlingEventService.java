@@ -26,7 +26,8 @@ public class DefaultHandlingEventService implements HandlingEventService {
 	private HandlingEventRepository handlingEventRepository;
 	@Inject
 	private HandlingEventFactory handlingEventFactory;
-	private static final Logger logger = Logger.getLogger(DefaultHandlingEventService.class.getName());
+	@Inject
+	private Logger logger;
 
 	@Override
 	public void registerHandlingEvent(Date completionTime, TrackingId trackingId, VoyageNumber voyageNumber,
@@ -53,4 +54,5 @@ public class DefaultHandlingEventService implements HandlingEventService {
 
 		logger.info("Registered handling event");
 	}
+
 }

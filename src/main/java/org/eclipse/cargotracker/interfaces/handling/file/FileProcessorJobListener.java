@@ -1,18 +1,19 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
+import javax.batch.api.listener.JobListener;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.batch.api.listener.JobListener;
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
 
 @Dependent
 @Named("FileProcessorJobListener")
 public class FileProcessorJobListener implements JobListener {
 
-	private static final Logger logger = Logger.getLogger(FileProcessorJobListener.class.getName());
+    @Inject
+    private Logger logger;
 
 	@Override
 	public void beforeJob() throws Exception {

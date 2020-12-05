@@ -30,7 +30,8 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
 	private Destination deliveredCargoQueue;
 	@Resource(lookup = "java:app/jms/HandlingEventRegistrationAttemptQueue")
 	private Destination handlingEventQueue;
-	private static final Logger logger = Logger.getLogger(JmsApplicationEvents.class.getName());
+	@Inject
+	private Logger logger;
 
 	@Override
 	public void cargoWasHandled(HandlingEvent event) {
@@ -60,4 +61,5 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
 		jmsContext.createProducer().setPriority(LOW_PRIORITY).setDisableMessageID(true).setDisableMessageTimestamp(true)
 				.setTimeToLive(1000).send(handlingEventQueue, attempt);
 	}
+
 }

@@ -35,8 +35,9 @@ import org.joda.time.LocalDate;
 @Startup
 public class SampleDataGenerator {
 
-	// TODO [Clean Code] See if the logger can be injected.
-	private static final Logger logger = Logger.getLogger(SampleDataGenerator.class.getName());
+	@Inject
+	private Logger logger;
+
 	@PersistenceContext
 	private EntityManager entityManager;
 	@Inject
