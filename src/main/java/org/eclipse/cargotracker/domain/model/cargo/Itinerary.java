@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEventFactory;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.persistence.annotations.PrivateOwned;
 
@@ -56,48 +57,52 @@ public class Itinerary implements Serializable {
 			return true;
 		}
 
-		// TODO [Clean Code] Convert this to a switch statement?
-		if (event.getType() == HandlingEvent.Type.RECEIVE) {
-			// Check that the first leg's origin is the event's location
-			Leg leg = legs.get(0);
-			return (leg.getLoadLocation().equals(event.getLocation()));
-		}
-
-		if (event.getType() == HandlingEvent.Type.LOAD) {
-			// Check that the there is one leg with same load location and
-			// voyage
-			for (Leg leg : legs) {
-				if (leg.getLoadLocation().sameIdentityAs(event.getLocation())
-						&& leg.getVoyage().sameIdentityAs(event.getVoyage())) {
-					return true;
-				}
+		switch(event.getType()) {
+			case RECEIVE: {
+				// Check that the first leg's origin is the event's location
+				Leg leg = legs.get(0);
+				return (leg.getLoadLocation().equals(event.getLocation()));
 			}
 
-			return false;
-		}
-
-		if (event.getType() == HandlingEvent.Type.UNLOAD) {
-			// Check that the there is one leg with same unload location and
-			// voyage
-			for (Leg leg : legs) {
-				if (leg.getUnloadLocation().equals(event.getLocation()) && leg.getVoyage().equals(event.getVoyage())) {
-					return true;
+			case LOAD: {
+				for (Leg leg : legs) {
+					if (leg.getLoadLocation().equals(event.getLocation())
+							&& leg.getVoyage().equals(event.getVoyage())) {
+						return true;
+					}
 				}
+
+				return false;
 			}
 
-			return false;
+			case UNLOAD: {
+				// Check that the there is one leg with same unload location and
+				// voyage
+				for (Leg leg : legs) {
+					if (leg.getUnloadLocation().equals(event.getLocation())
+							&& leg.getVoyage().equals(event.getVoyage())) {
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			case CLAIM: {
+				// Check that the last leg's destination is from the event's
+				// location
+				Leg leg = getLastLeg();
+
+				return (leg.getUnloadLocation().equals(event.getLocation()));
+			}
+
+			case CUSTOMS: {
+				return true;
+			}
+
+			default:
+				throw new RuntimeException("Event case is not handled");
 		}
-
-		if (event.getType() == HandlingEvent.Type.CLAIM) {
-			// Check that the last leg's destination is from the event's
-			// location
-			Leg leg = getLastLeg();
-
-			return (leg.getUnloadLocation().equals(event.getLocation()));
-		}
-
-		// HandlingEvent.Type.CUSTOMS;
-		return true;
 	}
 
 	Location getInitialDepartureLocation() {
