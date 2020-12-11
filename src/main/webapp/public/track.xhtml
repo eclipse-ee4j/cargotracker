@@ -17,25 +17,19 @@
                     <h:form id="trackingForm">
                         <h:panelGrid columns="3" cellpadding="15">
                             <p>Enter your tracking ID:</p>
-                            <p:autoComplete id="trackingIdInput"
-                                            value="#{track.trackingId}"
-                                            required="true"
-                                            forceSelection="true"
-                                            placeholder="XYZ789"
-                                            title="Valid tracking ID"
-                                            completeMethod="#{track.getTrackingIds}"/>
+                            <p:inputText id="trackingIdInput"
+                                         value="#{track.trackingId}"
+                                         required="true"
+                                         placeholder="XYZ789"
+                                         title="Valid tracking ID" />
                             <h:commandButton value="Track!"
                                              action="#{track.onTrackById()}"/>
                         </h:panelGrid>
                     </h:form>
                 </div>
-
-                <div class="ui-g-12"><p:separator/></div>
             </div>
 
-            <br/>
-            <p:separator/>
-            <br/>
+            <div class="ui-g-12"><p:separator/></div>
 
             <div class="ui-g-12">
                 <h:panelGroup rendered="#{not empty track.cargo}">
