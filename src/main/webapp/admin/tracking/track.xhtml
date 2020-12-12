@@ -6,7 +6,6 @@
 <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
     <ui:define name="title">Track Cargo</ui:define>
     <ui:define name="content">
-        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
         <div class="ui-grid-col-2" id="leftCol"></div>
         <div class="ui-grid-col-8" id="mainCol">
@@ -29,19 +28,22 @@
                         </h:panelGrid>
                     </h:form>
                 </div>
-
-                <div class="ui-g-12"><p:separator/></div>
             </div>
 
-            <br/>
-            <p:separator/>
-            <br/>
+            <div class="ui-g-12"><p:separator/></div>
 
             <div class="ui-g-12">
                 <h:panelGroup rendered="#{not empty track.cargo}">
                     <div id="result">
-                        <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently
-                            <strong>#{track.cargo.statusText}</strong></p>
+
+                        <p>Cargo <strong><h:link value="#{track.cargo.trackingId}" id="trackingId"
+                                                 outcome="/admin/show.xhtml?faces-redirect=true"
+                                                 style="text-decoration: none;color: black;">
+                            <f:param name="trackingId" value="#{track.cargo.trackingId}" />
+                        </h:link></strong> is currently <strong>#{track.cargo.statusText}</strong></p>
+
+                        <p:tooltip id="toolTipFade" for="trackingId"
+                                   value="Click to see itinerary's details." />
 
                         <p>Estimated time of arrival in
                             <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>

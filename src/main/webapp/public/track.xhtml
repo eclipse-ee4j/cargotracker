@@ -6,7 +6,6 @@
 <ui:composition template="/WEB-INF/templates/common/public.xhtml">
     <ui:define name="title">Track Cargo</ui:define>
     <ui:define name="content">
-        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
         <div class="ui-grid-col-2" id="leftCol"></div>
         <div class="ui-grid-col-8" id="mainCol">
@@ -17,25 +16,19 @@
                     <h:form id="trackingForm">
                         <h:panelGrid columns="3" cellpadding="15">
                             <p>Enter your tracking ID:</p>
-                            <p:autoComplete id="trackingIdInput"
-                                            value="#{track.trackingId}"
-                                            required="true"
-                                            forceSelection="true"
-                                            placeholder="XYZ789"
-                                            title="Valid tracking ID"
-                                            completeMethod="#{track.getTrackingIds}"/>
+                            <p:inputText id="trackingIdInput"
+                                         value="#{track.trackingId}"
+                                         required="true"
+                                         placeholder="XYZ789"
+                                         title="Valid tracking ID" />
                             <h:commandButton value="Track!"
                                              action="#{track.onTrackById()}"/>
                         </h:panelGrid>
                     </h:form>
                 </div>
-
-                <div class="ui-g-12"><p:separator/></div>
             </div>
 
-            <br/>
-            <p:separator/>
-            <br/>
+            <div class="ui-g-12"><p:separator/></div>
 
             <div class="ui-g-12">
                 <h:panelGroup rendered="#{not empty track.cargo}">
