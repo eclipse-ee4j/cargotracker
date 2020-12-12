@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
-import org.eclipse.cargotracker.domain.model.handling.HandlingEventFactory;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.persistence.annotations.PrivateOwned;
 
@@ -22,9 +21,11 @@ import org.eclipse.persistence.annotations.PrivateOwned;
 public class Itinerary implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private static final Date END_OF_DAYS = new Date(Long.MAX_VALUE);
 	// Null object pattern.
 	public static final Itinerary EMPTY_ITINERARY = new Itinerary();
+
 	// TODO [Clean Code] Look into why cascade delete doesn't work.
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cargo_id")
@@ -57,51 +58,49 @@ public class Itinerary implements Serializable {
 			return true;
 		}
 
-		switch(event.getType()) {
-			case RECEIVE: {
-				// Check that the first leg's origin is the event's location
-				Leg leg = legs.get(0);
-				return (leg.getLoadLocation().equals(event.getLocation()));
-			}
+		switch (event.getType()) {
+		case RECEIVE: {
+			// Check that the first leg's origin is the event's location
+			Leg leg = legs.get(0);
+			return (leg.getLoadLocation().equals(event.getLocation()));
+		}
 
-			case LOAD: {
-				for (Leg leg : legs) {
-					if (leg.getLoadLocation().equals(event.getLocation())
-							&& leg.getVoyage().equals(event.getVoyage())) {
-						return true;
-					}
+		case LOAD: {
+			for (Leg leg : legs) {
+				if (leg.getLoadLocation().equals(event.getLocation()) && leg.getVoyage().equals(event.getVoyage())) {
+					return true;
 				}
-
-				return false;
 			}
 
-			case UNLOAD: {
-				// Check that the there is one leg with same unload location and
-				// voyage
-				for (Leg leg : legs) {
-					if (leg.getUnloadLocation().equals(event.getLocation())
-							&& leg.getVoyage().equals(event.getVoyage())) {
-						return true;
-					}
+			return false;
+		}
+
+		case UNLOAD: {
+			// Check that the there is one leg with same unload location and
+			// voyage
+			for (Leg leg : legs) {
+				if (leg.getUnloadLocation().equals(event.getLocation()) && leg.getVoyage().equals(event.getVoyage())) {
+					return true;
 				}
-
-				return false;
 			}
 
-			case CLAIM: {
-				// Check that the last leg's destination is from the event's
-				// location
-				Leg leg = getLastLeg();
+			return false;
+		}
 
-				return (leg.getUnloadLocation().equals(event.getLocation()));
-			}
+		case CLAIM: {
+			// Check that the last leg's destination is from the event's
+			// location
+			Leg leg = getLastLeg();
 
-			case CUSTOMS: {
-				return true;
-			}
+			return (leg.getUnloadLocation().equals(event.getLocation()));
+		}
 
-			default:
-				throw new RuntimeException("Event case is not handled");
+		case CUSTOMS: {
+			return true;
+		}
+
+		default:
+			throw new RuntimeException("Event case is not handled");
 		}
 	}
 
