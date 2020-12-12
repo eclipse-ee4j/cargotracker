@@ -31,7 +31,8 @@ public class DefaultCargoInspectionService implements CargoInspectionService {
 	@CargoInspected
 	private Event<Cargo> cargoInspected;
 
-	private static final Logger logger = Logger.getLogger(DefaultCargoInspectionService.class.getName());
+	@Inject
+	private Logger logger;
 
 	@Override
 	public void inspectCargo(TrackingId trackingId) {

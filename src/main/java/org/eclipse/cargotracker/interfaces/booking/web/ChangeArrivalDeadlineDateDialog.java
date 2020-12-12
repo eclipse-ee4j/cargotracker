@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-// TODO [Java EE 7] We should avoid using JSF managed beans.
-@ManagedBean(name = "changeArrivalDeadlineDateDialog")
+@Named("changeArrivalDeadlineDateDialog")
 @SessionScoped
 public class ChangeArrivalDeadlineDateDialog implements Serializable {
 

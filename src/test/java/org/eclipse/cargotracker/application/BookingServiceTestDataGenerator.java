@@ -8,6 +8,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -22,8 +23,8 @@ import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
 @Startup
 public class BookingServiceTestDataGenerator {
 
-	// TODO [Clean Code] See if the logger can be injected.
-	private static final Logger logger = Logger.getLogger(BookingServiceTestDataGenerator.class.getName());
+	@Inject
+	private Logger logger;
 	@PersistenceContext
 	private EntityManager entityManager;
 

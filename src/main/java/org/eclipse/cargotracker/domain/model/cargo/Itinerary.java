@@ -21,9 +21,11 @@ import org.eclipse.persistence.annotations.PrivateOwned;
 public class Itinerary implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private static final Date END_OF_DAYS = new Date(Long.MAX_VALUE);
 	// Null object pattern.
 	public static final Itinerary EMPTY_ITINERARY = new Itinerary();
+
 	// TODO [Clean Code] Look into why cascade delete doesn't work.
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cargo_id")
@@ -56,19 +58,16 @@ public class Itinerary implements Serializable {
 			return true;
 		}
 
-		// TODO [Clean Code] Convert this to a switch statement?
-		if (event.getType() == HandlingEvent.Type.RECEIVE) {
+		switch (event.getType()) {
+		case RECEIVE: {
 			// Check that the first leg's origin is the event's location
 			Leg leg = legs.get(0);
 			return (leg.getLoadLocation().equals(event.getLocation()));
 		}
 
-		if (event.getType() == HandlingEvent.Type.LOAD) {
-			// Check that the there is one leg with same load location and
-			// voyage
+		case LOAD: {
 			for (Leg leg : legs) {
-				if (leg.getLoadLocation().sameIdentityAs(event.getLocation())
-						&& leg.getVoyage().sameIdentityAs(event.getVoyage())) {
+				if (leg.getLoadLocation().equals(event.getLocation()) && leg.getVoyage().equals(event.getVoyage())) {
 					return true;
 				}
 			}
@@ -76,7 +75,7 @@ public class Itinerary implements Serializable {
 			return false;
 		}
 
-		if (event.getType() == HandlingEvent.Type.UNLOAD) {
+		case UNLOAD: {
 			// Check that the there is one leg with same unload location and
 			// voyage
 			for (Leg leg : legs) {
@@ -88,7 +87,7 @@ public class Itinerary implements Serializable {
 			return false;
 		}
 
-		if (event.getType() == HandlingEvent.Type.CLAIM) {
+		case CLAIM: {
 			// Check that the last leg's destination is from the event's
 			// location
 			Leg leg = getLastLeg();
@@ -96,8 +95,13 @@ public class Itinerary implements Serializable {
 			return (leg.getUnloadLocation().equals(event.getLocation()));
 		}
 
-		// HandlingEvent.Type.CUSTOMS;
-		return true;
+		case CUSTOMS: {
+			return true;
+		}
+
+		default:
+			throw new RuntimeException("Event case is not handled");
+		}
 	}
 
 	Location getInitialDepartureLocation() {
