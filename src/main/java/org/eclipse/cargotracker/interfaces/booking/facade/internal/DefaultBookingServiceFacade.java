@@ -93,6 +93,11 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 	}
 
 	@Override
+	public List<TrackingId> listAllTrackingIds() {
+		return cargoRepository.getAllTrackingIds();
+	}
+
+	@Override
 	public List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId) {
 		List<Itinerary> itineraries = bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 

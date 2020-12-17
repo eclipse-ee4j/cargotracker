@@ -6,14 +6,22 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.cargotracker.domain.model.cargo.Cargo;
+import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
+import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
+import org.eclipse.cargotracker.interfaces.tracking.web.CargoTrackingViewAdapter;
 
 /**
  * Handles cargo booking and routing. Operates against a dedicated service
@@ -39,8 +47,13 @@ public class CargoAdmin {
 	private String destinationUnlocode;
 	private String trackingId;
 	private List<Leg> legs;
+	private CargoTrackingViewAdapter cargoTrack;
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
+	@Inject
+	private CargoRepository cargoRepository;
+	@Inject
+	private HandlingEventRepository handlingEventRepository;
 
 	public List<Location> getLocations() {
 		return locations;
@@ -130,5 +143,27 @@ public class CargoAdmin {
 		bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
 
 		return "show.html?trackingId=" + trackingId;
+	}
+
+	public CargoTrackingViewAdapter getCargoTrack() { return this.cargoTrack; }
+
+	public void setCargoTrack(CargoTrackingViewAdapter cargoTrack) {
+		this.cargoTrack = cargoTrack;
+	}
+
+	public void onTrackById() {
+		TrackingId trackingId = new TrackingId(this.trackingId);
+		Cargo cargo = cargoRepository.find(trackingId);
+
+		if (cargo != null) {
+			List<HandlingEvent> handlingEvents = handlingEventRepository
+					.lookupHandlingHistoryOfCargo(trackingId).getDistinctEventsByCompletionTime();
+			cargoTrack = new CargoTrackingViewAdapter(cargo, handlingEvents);
+		} else {
+			FacesContext context = FacesContext.getCurrentInstance();
+			FacesMessage message = new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, message);
+		}
 	}
 }

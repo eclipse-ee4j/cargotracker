@@ -3,6 +3,7 @@ package org.eclipse.cargotracker.interfaces.booking.facade;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
@@ -28,4 +29,6 @@ public interface BookingServiceFacade {
 	List<Location> listShippingLocations();
 
 	List<CargoRoute> listAllCargos();
+
+	List<TrackingId> listAllTrackingIds();
 }

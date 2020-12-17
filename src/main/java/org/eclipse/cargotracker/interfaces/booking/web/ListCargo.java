@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 
@@ -88,4 +89,12 @@ public class ListCargo {
 		return notRoutedCargos;
 	}
 
+	public List<TrackingId> getTrackingIds(String query) {
+		List<TrackingId> trackingIds = new ArrayList<>();
+
+		for (TrackingId trackId : bookingServiceFacade.listAllTrackingIds())
+			trackingIds.add(trackId);
+
+		return trackingIds;
+	}
 }
