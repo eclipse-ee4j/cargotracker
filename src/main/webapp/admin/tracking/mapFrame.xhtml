@@ -16,8 +16,6 @@
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin="" />
 
-    <script src="http://code.jquery.com/jquery-3.4.1.min.js" />
-
     <script type="text/javascript">
         const locationName = [];
 
@@ -161,8 +159,10 @@
         };
     </script>
     <script type="text/javascript">
-        $(function () {
-            $.getJSON('/cargo-tracker/rest/cargo', data => {
+        function init () {
+            fetch('/cargo-tracker/rest/cargo')
+                .then(response => response.json())
+                .then(data => {
                 const coordinates = [];
 
                 for (const i in data) {
@@ -218,35 +218,40 @@
                         .on('click', () => {
                             const applicationPath = window.location.pathname.split('/')[1];
                             const trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + coord.trackingId;
-                            const winHeight = $(window).height();
-                            const winWidth = $(window).width();
+                            const winHeight = window.innerHeight;
+                            const winWidth = window.innerWidth;
                             const winDimensions = "height=" + winHeight + ",width=" + winWidth;
                             window.open(trackingUri, "winMap", winDimensions);
                         });
                 });
-            });
-        });
+            })
+            .catch(e => console.error("cannot fetch cargos", e));
+        }
 
     </script>
     <script type="text/javascript">
-        $(function () {
+        window.onload = function () {
             const applicationPath = window.location.pathname.split('/')[1];
             const socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
             const socket = new WebSocket(socketUri);
 
+            const status = document.getElementById("status");
+
             socket.onopen = function (event) {
-                document.getElementById("status").innerHTML = "online";
+                status.innerHTML = "online";
             }
 
             socket.onmessage = function (event) {
-                document.getElementById("status").innerHTML = "mesage";
+                status.innerHTML = "mesage";
                 location.reload(true);
             };
 
             socket.onclose = function (event) {
-                document.getElementById("status").innerHTML = "offline";
+                status.innerHTML = "offline";
             };
-        });
+
+            init();
+        }
     </script>
 </body>
 </html>
