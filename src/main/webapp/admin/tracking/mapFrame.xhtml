@@ -164,11 +164,10 @@
         function init () {
             fetch('/cargo-tracker/rest/cargo')
                 .then(response => response.json())
-                .then(data => {
+                .then(cargos => {
                 const coordinates = [];
 
-                for (const i in data) {
-                    const cargo = data[i];
+                for (const cargo of cargos) {
                     const locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
 
                     let statusCode = 'NOT_RECEIVED';
@@ -205,24 +204,26 @@
                 // show the scale bar on the lower left corner
                 L.control.scale().addTo(map);
 
+                const applicationPath = window.location.pathname.split('/')[1];
+                const trackingBaseUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=";
+                const winHeight = window.innerHeight;
+                const winWidth = window.innerWidth;
+                const winDimensions = "height=" + winHeight + ",width=" + winWidth;
+
                 coordinates.forEach((coord, index) => {
-                    const popupContent =  'Tracking ID: ' + data[index].trackingId + '&lt;br/>' +
-                        'Routing Status: ' + routingStatusName[data[index].routingStatus] + '&lt;br/>' +
-                        'Misdirected: ' + (data[index].misdirected ? "Yes" : "No") + '&lt;br/>' +
-                        'Transport Status: ' + transportStatusName[data[index].transportStatus] + '&lt;br/>' +
-                        'At Destination: ' + (data[index].atDestination ? "Yes" : "No") + '&lt;br/>' +
-                        'Origin: ' + locationName[data[index].origin] + '&lt;br/>' +
-                        'Last known location: ' + locationName[data[index].lastKnownLocation];
+                    const popupContent =  'Tracking ID: ' + cargos[index].trackingId + '&lt;br/>' +
+                        'Routing Status: ' + routingStatusName[cargos[index].routingStatus] + '&lt;br/>' +
+                        'Misdirected: ' + (cargos[index].misdirected ? "Yes" : "No") + '&lt;br/>' +
+                        'Transport Status: ' + transportStatusName[cargos[index].transportStatus] + '&lt;br/>' +
+                        'At Destination: ' + (cargos[index].atDestination ? "Yes" : "No") + '&lt;br/>' +
+                        'Origin: ' + locationName[cargos[index].origin] + '&lt;br/>' +
+                        'Last known location: ' + locationName[cargos[index].lastKnownLocation];
 
                     L.marker(coord['position'], {icon: coord.style})
                         .bindTooltip(popupContent)
                         .addTo(map)
                         .on('click', () => {
-                            const applicationPath = window.location.pathname.split('/')[1];
-                            const trackingUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=" + coord.trackingId;
-                            const winHeight = window.innerHeight;
-                            const winWidth = window.innerWidth;
-                            const winDimensions = "height=" + winHeight + ",width=" + winWidth;
+                            const trackingUri = trackingBaseUri + coord.trackingId;
                             window.open(trackingUri, "winMap", winDimensions);
                         });
                 });
