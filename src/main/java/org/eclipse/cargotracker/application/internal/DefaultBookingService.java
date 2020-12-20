@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import org.eclipse.cargotracker.application.BookingService;
@@ -19,9 +19,11 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.LocationRepository;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.service.RoutingService;
+import org.eclipse.cargotracker.infrastructure.CargoTransactional;
 
 // TODO [Jakarta EE 8] Adopt the Date-Time API.
-@Stateless
+@RequestScoped
+@CargoTransactional
 public class DefaultBookingService implements BookingService {
 
 	@Inject

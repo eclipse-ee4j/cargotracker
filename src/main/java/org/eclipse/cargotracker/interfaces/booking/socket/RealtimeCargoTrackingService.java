@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -24,7 +24,7 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 /**
  * WebSocket service for tracking all cargoes in real time.
  */
-@Singleton
+@ApplicationScoped
 @ServerEndpoint("/tracking")
 public class RealtimeCargoTrackingService {
 

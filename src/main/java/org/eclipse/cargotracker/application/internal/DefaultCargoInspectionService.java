@@ -2,11 +2,9 @@ package org.eclipse.cargotracker.application.internal;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.CargoInspectionService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
@@ -14,10 +12,12 @@ import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
+import org.eclipse.cargotracker.infrastructure.CargoTransactional;
 import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 
 //TODO [Jakarta EE 8] Adopt the Date-Time API.
-@Stateless
+@RequestScoped
+@CargoTransactional
 public class DefaultCargoInspectionService implements CargoInspectionService {
 
 	@Inject

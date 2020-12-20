@@ -4,16 +4,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -26,13 +22,14 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
+import org.eclipse.cargotracker.infrastructure.CargoTransactional;
 import org.joda.time.LocalDate;
 
 /**
  * Loads sample data for demo.
  */
-@Singleton
-@Startup
+@ApplicationScoped
+@CargoTransactional
 public class SampleDataGenerator {
 
 	@Inject
@@ -45,9 +42,7 @@ public class SampleDataGenerator {
 	@Inject
 	private HandlingEventRepository handlingEventRepository;
 
-	@PostConstruct
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void loadSampleData() {
+	public void loadSampleData(@Observes @Initialized(ApplicationScoped.class) Object init) {
 		logger.info("Loading sample data.");
 		unLoadAll(); // Fail-safe in case of application restart that does not trigger a JPA schema
 						// drop.

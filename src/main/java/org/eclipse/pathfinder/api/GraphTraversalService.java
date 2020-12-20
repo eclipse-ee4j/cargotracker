@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,7 +17,7 @@ import javax.ws.rs.QueryParam;
 
 import org.eclipse.pathfinder.internal.GraphDao;
 
-@Stateless
+@RequestScoped
 @Path("/graph-traversal")
 public class GraphTraversalService {
 

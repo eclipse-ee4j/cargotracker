@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAtt
  * asynchronous message with the information to the handling event registration
  * system for proper registration.
  */
-@Stateless
+@RequestScoped
 @Path("/handling")
 public class HandlingReportService {
 
