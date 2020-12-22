@@ -17,10 +17,7 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.*;
 import org.eclipse.cargotracker.interfaces.tracking.web.CargoTrackingViewAdapter;
 
 /**
@@ -47,7 +44,7 @@ public class CargoAdmin {
 	private String destinationUnlocode;
 	private String trackingId;
 	private List<Leg> legs;
-	private CargoTrackingViewAdapter cargoTrack;
+	private CargoTracking cargoTrack;
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
 	@Inject
@@ -145,21 +142,12 @@ public class CargoAdmin {
 		return "show.html?trackingId=" + trackingId;
 	}
 
-	public CargoTrackingViewAdapter getCargoTrack() { return this.cargoTrack; }
-
-	public void setCargoTrack(CargoTrackingViewAdapter cargoTrack) {
-		this.cargoTrack = cargoTrack;
-	}
+	public CargoTracking getCargoTrack() { return this.cargoTrack; }
 
 	public void onTrackById() {
-		TrackingId trackingId = new TrackingId(this.trackingId);
-		Cargo cargo = cargoRepository.find(trackingId);
+		cargoTrack = bookingServiceFacade.loadCargoForTracking(this.trackingId);
 
-		if (cargo != null) {
-			List<HandlingEvent> handlingEvents = handlingEventRepository
-					.lookupHandlingHistoryOfCargo(trackingId).getDistinctEventsByCompletionTime();
-			cargoTrack = new CargoTrackingViewAdapter(cargo, handlingEvents);
-		} else {
+		if (cargoTrack == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			FacesMessage message = new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
