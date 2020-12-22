@@ -151,6 +151,7 @@
         <div id='connected' class='status'>
             <p id='status' class='status_constent'>Offline</p>
         </div>
+
     </div>
 
     <script type="text/javascript">
@@ -161,8 +162,12 @@
         };
     </script>
     <script type="text/javascript">
-        function init () {
-            fetch('/cargo-tracker/rest/cargo')
+        window.onload = function init () {
+            const trackingId = window.location.search.split('=')[1];
+            if (!trackingId) {
+                return;
+            }
+            fetch('/cargo-tracker/rest/cargo/' + trackingId)
                 .then(response => response.json())
                 .then(cargos => {
                 const coordinates = [];
@@ -204,12 +209,6 @@
                 // show the scale bar on the lower left corner
                 L.control.scale().addTo(map);
 
-                const applicationPath = window.location.pathname.split('/')[1];
-                const trackingBaseUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=";
-                const winHeight = window.innerHeight;
-                const winWidth = window.innerWidth;
-                const winDimensions = "height=" + winHeight + ",width=" + winWidth;
-
                 coordinates.forEach((coord, index) => {
                     const popupContent =  'Tracking ID: ' + cargos[index].trackingId + '&lt;br/>' +
                         'Routing Status: ' + routingStatusName[cargos[index].routingStatus] + '&lt;br/>' +
@@ -221,40 +220,12 @@
 
                     L.marker(coord['position'], {icon: coord.style})
                         .bindTooltip(popupContent)
-                        .addTo(map)
-                        .on('click', () => {
-                            const trackingUri = trackingBaseUri + coord.trackingId;
-                            window.open(trackingUri, "winMap", winDimensions);
-                        });
+                        .addTo(map);
                 });
             })
             .catch(e => console.error("cannot fetch cargos", e));
         }
 
-    </script>
-    <script type="text/javascript">
-        window.onload = function () {
-            const applicationPath = window.location.pathname.split('/')[1];
-            const socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
-            const socket = new WebSocket(socketUri);
-
-            const status = document.getElementById("status");
-
-            socket.onopen = function (event) {
-                status.innerHTML = "online";
-            }
-
-            socket.onmessage = function (event) {
-                status.innerHTML = "mesage";
-                location.reload(true);
-            };
-
-            socket.onclose = function (event) {
-                status.innerHTML = "offline";
-            };
-
-            init();
-        }
     </script>
 </body>
 </html>
