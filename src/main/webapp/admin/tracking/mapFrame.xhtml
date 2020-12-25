@@ -162,6 +162,8 @@
     </script>
     <script type="text/javascript">
         function init () {
+        	// TODO [DDD] This extra invocation really isn't necessary. We should get all the
+        	// necessary data from the Cargo view adapter.
             fetch('/cargo-tracker/rest/cargo')
                 .then(response => response.json())
                 .then(cargos => {
