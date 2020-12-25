@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -44,18 +45,14 @@ public class CargoMonitoringService {
 	@GET
 	@Path("{trackingId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonArray getCargo(@PathParam("trackingId") String trackingId) {
+	public JsonObject getCargo(@PathParam("trackingId") String trackingId) {
 		Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 
 		if (cargo == null) {
-			return Json.createArrayBuilder().build();
+			return Json.createObjectBuilder().build();
 		}
 
-		JsonArrayBuilder builder = Json.createArrayBuilder();
-
-		builder.add(cargoToJson(cargo));
-
-		return builder.build();
+		return cargoToJson(cargo).build();
 	}
 
 	private JsonObjectBuilder cargoToJson(Cargo cargo) {
