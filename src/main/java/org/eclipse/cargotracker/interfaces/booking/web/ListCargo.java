@@ -1,6 +1,7 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -89,12 +90,7 @@ public class ListCargo {
 		return notRoutedCargos;
 	}
 
-	public List<TrackingId> getTrackingIds(String query) {
-		List<TrackingId> trackingIds = new ArrayList<>();
-
-		for (TrackingId trackId : bookingServiceFacade.listAllTrackingIds())
-			trackingIds.add(trackId);
-
-		return trackingIds;
+	public List<String> getTrackingIds(String query) {
+		return bookingServiceFacade.listAllTrackingIds();
 	}
 }

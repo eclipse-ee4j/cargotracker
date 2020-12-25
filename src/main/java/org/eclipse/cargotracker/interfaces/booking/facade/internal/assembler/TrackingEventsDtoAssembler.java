@@ -3,19 +3,19 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.HandlingTrackingEvents;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 
 import java.text.SimpleDateFormat;
 
-public class HandlingTrackingEventsDtoAssembler {
+public class TrackingEventsDtoAssembler {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 
-    public HandlingTrackingEvents toDto(Cargo cargo, HandlingEvent handlingEvent) {
+    public TrackingEvents toDto(Cargo cargo, HandlingEvent handlingEvent) {
         String location = locationFrom(handlingEvent);
         HandlingEvent.Type type = handlingEvent.getType();
         String voyageNumber = voyageNumberFrom(handlingEvent);
-        return new HandlingTrackingEvents(
+        return new TrackingEvents(
                 location,
                 timeFrom(handlingEvent),
                 handlingEvent.getType().toString(),

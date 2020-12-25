@@ -1,6 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
-public class HandlingTrackingEvents {
+public class TrackingEvents {
 
     private final String location;
     private final String time;
@@ -9,7 +9,7 @@ public class HandlingTrackingEvents {
     private final boolean expected;
     private final String description;
 
-    public HandlingTrackingEvents(String location, String time, String type, String voyageNumber, boolean expected, String description) {
+    public TrackingEvents(String location, String time, String type, String voyageNumber, boolean expected, String description) {
         this.location = location;
         this.time = time;
         this.type = type;

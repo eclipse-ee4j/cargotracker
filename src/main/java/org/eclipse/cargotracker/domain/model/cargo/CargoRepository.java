@@ -12,5 +12,4 @@ public interface CargoRepository {
 
 	TrackingId nextTrackingId();
 
-	List<TrackingId> getAllTrackingIds();
 }

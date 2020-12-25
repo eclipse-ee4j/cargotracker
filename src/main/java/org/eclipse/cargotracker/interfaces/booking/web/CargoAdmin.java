@@ -11,14 +11,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
-import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
-import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.*;
-import org.eclipse.cargotracker.interfaces.tracking.web.CargoTrackingViewAdapter;
 
 /**
  * Handles cargo booking and routing. Operates against a dedicated service
@@ -44,13 +40,9 @@ public class CargoAdmin {
 	private String destinationUnlocode;
 	private String trackingId;
 	private List<Leg> legs;
-	private CargoTracking cargoTrack;
+	private CargoStatus cargoTrack;
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
-	@Inject
-	private CargoRepository cargoRepository;
-	@Inject
-	private HandlingEventRepository handlingEventRepository;
 
 	public List<Location> getLocations() {
 		return locations;
@@ -142,7 +134,7 @@ public class CargoAdmin {
 		return "show.html?trackingId=" + trackingId;
 	}
 
-	public CargoTracking getCargoTrack() { return this.cargoTrack; }
+	public CargoStatus getCargoTrack() { return this.cargoTrack; }
 
 	public void onTrackById() {
 		cargoTrack = bookingServiceFacade.loadCargoForTracking(this.trackingId);

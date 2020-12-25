@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.eclipse.cargotracker.application.BookingService;
@@ -23,13 +21,12 @@ import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoTracking;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.CargoRouteDtoAssembler;
-import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.CargoTrackingDtoAssembler;
+import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.CargoStatusDtoAssembler;
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.ItineraryCandidateDtoAssembler;
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.LocationDtoAssembler;
-import org.eclipse.cargotracker.interfaces.tracking.web.CargoTrackingViewAdapter;
 
 @ApplicationScoped
 public class DefaultBookingServiceFacade implements BookingServiceFacade, Serializable {
@@ -102,12 +99,17 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 	}
 
 	@Override
-	public List<TrackingId> listAllTrackingIds() {
-		return cargoRepository.getAllTrackingIds();
+	public List<String> listAllTrackingIds() {
+		List<String> trackingIds = new ArrayList<>();
+
+		for (Cargo cargo : cargoRepository.findAll())
+			trackingIds.add(cargo.getTrackingId().getIdString());
+
+		return trackingIds;
 	}
 
 	@Override
-	public CargoTracking loadCargoForTracking(String trackingId) {
+	public CargoStatus loadCargoForTracking(String trackingId) {
 		TrackingId tid = new TrackingId(trackingId);
 		Cargo cargo = cargoRepository.find(tid);
 
@@ -115,12 +117,12 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 			return null;
 		}
 
-		CargoTrackingDtoAssembler assembler = new CargoTrackingDtoAssembler();
+		CargoStatusDtoAssembler assembler = new CargoStatusDtoAssembler();
 
 		List<HandlingEvent> handlingEvents = handlingEventRepository
 				.lookupHandlingHistoryOfCargo(tid).getDistinctEventsByCompletionTime();
 
-		return assembler.toDto(tid, cargo, handlingEvents);
+		return assembler.toDto(cargo, handlingEvents);
 	}
 
 	@Override

@@ -1,60 +1,44 @@
-package org.eclipse.cargotracker.interfaces.booking.facade.dto;
+package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
 import org.eclipse.cargotracker.domain.model.cargo.HandlingActivity;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
-import org.eclipse.cargotracker.domain.model.location.Location;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class CargoTracking {
+public class CargoStatusDtoAssembler {
+
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 
-    private final Cargo cargo;
-    private final List<HandlingTrackingEvents> events;
+    public CargoStatus toDto(Cargo cargo, List<HandlingEvent> handlingEvents) {
+        List<TrackingEvents> trackingEvents = new ArrayList<>(handlingEvents.size());
 
-    public CargoTracking(Cargo cargo, List<HandlingTrackingEvents> handlingEvents) {
-        this.cargo = cargo;
-        this.events = new ArrayList<>(handlingEvents.size());
+        TrackingEventsDtoAssembler assembler = new TrackingEventsDtoAssembler();
 
-        for (HandlingTrackingEvents handlingEvent : handlingEvents) {
-            events.add(handlingEvent);
+        for (HandlingEvent handlingEvent : handlingEvents) {
+            trackingEvents.add(assembler.toDto(cargo, handlingEvent));
         }
+
+        return new CargoStatus(
+                cargo.getOrigin().getName(), cargo.getTrackingId().getIdString(),
+                cargo.getRouteSpecification().getDestination().getName(), getCargoStatusText(cargo),
+                cargo.getDelivery().isMisdirected(), getEta(cargo),
+                getNextExpectedActivity(cargo), trackingEvents
+        );
     }
 
-    public String getTrackingId() {
-        return cargo.getTrackingId().getIdString();
-    }
-
-    public String getOrigin() {
-        return getDisplayText(cargo.getOrigin());
-    }
-
-    public String getDestination() {
-        return getDisplayText(cargo.getRouteSpecification().getDestination());
-    }
-
-    /**
-     * @return A formatted string for displaying the location.
-     */
-    private String getDisplayText(Location location) {
-        return location.getName();
-    }
-
-    /**
-     * @return A readable string describing the cargo status.
-     */
-    public String getStatusText() {
+    private String getCargoStatusText(Cargo cargo) {
         Delivery delivery = cargo.getDelivery();
 
         switch (delivery.getTransportStatus()) {
             case IN_PORT:
-                return "In port " + getDisplayText(delivery.getLastKnownLocation());
+                return "In port " + delivery.getLastKnownLocation().getName();
             case ONBOARD_CARRIER:
                 return "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
             case CLAIMED:
@@ -68,11 +52,7 @@ public class CargoTracking {
         }
     }
 
-    public boolean isMisdirected() {
-        return cargo.getDelivery().isMisdirected();
-    }
-
-    public String getEta() {
+    private String getEta(Cargo cargo) {
         Date eta = cargo.getDelivery().getEstimatedTimeOfArrival();
 
         if (eta == null) {
@@ -82,7 +62,7 @@ public class CargoTracking {
         }
     }
 
-    public String getNextExpectedActivity() {
+    private String getNextExpectedActivity(Cargo cargo) {
         HandlingActivity activity = cargo.getDelivery().getNextExpectedActivity();
 
         if ((activity == null) || (activity.isEmpty())) {
@@ -102,12 +82,4 @@ public class CargoTracking {
             return text + type.name().toLowerCase() + " cargo in " + activity.getLocation().getName();
         }
     }
-
-    /**
-     * @return An unmodifiable list of handling event view adapters.
-     */
-    public List<HandlingTrackingEvents> getEvents() {
-        return Collections.unmodifiableList(events);
-    }
-
 }
