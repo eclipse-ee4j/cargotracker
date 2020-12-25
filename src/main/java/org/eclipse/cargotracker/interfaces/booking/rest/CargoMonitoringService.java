@@ -1,6 +1,5 @@
 package org.eclipse.cargotracker.interfaces.booking.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -24,11 +23,9 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 public class CargoMonitoringService {
 
 	public static final String ISO_8601_FORMAT = "yyyy-MM-dd HH:mm";
+
 	@Inject
 	private CargoRepository cargoRepository;
-
-	public CargoMonitoringService() {
-	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -47,10 +44,12 @@ public class CargoMonitoringService {
 	@GET
 	@Path("{trackingId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonArray getAllCargo(@PathParam("trackingId") String trackingId) {
+	public JsonArray getCargo(@PathParam("trackingId") String trackingId) {
 		Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
-		if (cargo == null)
+
+		if (cargo == null) {
 			return Json.createArrayBuilder().build();
+		}
 
 		JsonArrayBuilder builder = Json.createArrayBuilder();
 
@@ -70,5 +69,4 @@ public class CargoMonitoringService {
 								? "Unknown"
 								: cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString());
 	}
-
 }
