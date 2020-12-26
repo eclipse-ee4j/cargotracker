@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +8,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 
@@ -88,9 +86,5 @@ public class ListCargo {
 				notRoutedCargos.add(route);
 
 		return notRoutedCargos;
-	}
-
-	public List<String> getTrackingIds(String query) {
-		return bookingServiceFacade.listAllTrackingIds();
 	}
 }

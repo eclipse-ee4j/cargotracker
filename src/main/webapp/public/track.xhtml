@@ -17,12 +17,12 @@
                         <h:panelGrid columns="3" cellpadding="15">
                             <p>Enter your tracking ID:</p>
                             <p:inputText id="trackingIdInput"
-                                         value="#{track.trackingId}"
+                                         value="#{public.track.trackingId}"
                                          required="true"
                                          placeholder="XYZ789"
                                          title="Valid tracking ID" />
                             <h:commandButton value="Track!"
-                                             action="#{track.onTrackById()}"/>
+                                             action="#{public.track.onTrackById()}"/>
                         </h:panelGrid>
                     </h:form>
                 </div>
@@ -31,17 +31,17 @@
             <div class="ui-g-12"><p:separator/></div>
 
             <div class="ui-g-12">
-                <h:panelGroup rendered="#{not empty track.cargo}">
+                <h:panelGroup rendered="#{not empty public.track.cargo}">
                     <div id="result">
-                        <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently
-                            <strong>#{track.cargo.statusText}</strong></p>
+                        <p>Cargo <strong>#{public.track.cargo.trackingId}</strong> is currently
+                            <strong>#{public.track.cargo.statusText}</strong></p>
 
                         <p>Estimated time of arrival in
-                            <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
-                        <ui:fragment rendered="#{not empty track.cargo.nextExpectedActivity}">
-                            <p>#{track.cargo.nextExpectedActivity}</p></ui:fragment>
+                            <strong>#{public.track.cargo.destination}</strong>: #{public.track.cargo.eta}</p>
+                        <ui:fragment rendered="#{not empty public.track.cargo.nextExpectedActivity}">
+                            <p>#{public.track.cargo.nextExpectedActivity}</p></ui:fragment>
 
-                        <h:panelGroup rendered="#{track.cargo.misdirected}">
+                        <h:panelGroup rendered="#{public.track.cargo.misdirected}">
                             <p><i class="fa fa-exclamation-triangle"
                                   style="color: #9b2332"></i> Cargo is misdirected.</p>
                         </h:panelGroup>
@@ -60,11 +60,11 @@
                     <br/><br/>
                 </div>
 
-                <h:outputLabel value="There are no events recorded for the tracking #{track.cargo.trackingId}."
-                               rendered="#{empty track.cargo.events}"/>
+                <h:outputLabel value="There are no events recorded for the tracking #{public.track.cargo.trackingId}."
+                               rendered="#{empty public.track.cargo.events}"/>
 
                 <div class="ui-g-12">
-                    <ui:repeat value="#{track.cargo.events}" var="leg">
+                    <ui:repeat value="#{public.track.cargo.events}" var="leg">
                         <ui:fragment rendered="#{leg.expected}">
                             &#160;&#160;<i class="fa fa-check"
                                            style="color: green"/>&#160;#{leg.description}<br/>
@@ -77,10 +77,10 @@
                 </div>
             </div>
 
-            <h:panelGroup rendered="#{not empty track.cargo}">
+            <h:panelGroup rendered="#{not empty public.track.cargo}">
                 <div id="map" class="ui-g-12">
                     <iframe class="mapFrame" width="100%" height="960" frameBorder="0"
-                            src="#{request.contextPath}/public/mapFrame.xhtml?trackingId=#{track.trackingId}"/>
+                            src="#{request.contextPath}/public/mapFrame.xhtml?trackingId=#{public.track.trackingId}"/>
                 </div>
             </h:panelGroup>
 

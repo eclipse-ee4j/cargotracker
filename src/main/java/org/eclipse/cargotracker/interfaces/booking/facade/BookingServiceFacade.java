@@ -18,6 +18,8 @@ public interface BookingServiceFacade {
 
 	CargoRoute loadCargoForRouting(String trackingId);
 
+	CargoStatus loadCargoForTracking(String trackingId);
+
 	void assignCargoToRoute(String trackingId, RouteCandidate route);
 
 	void changeDestination(String trackingId, String destinationUnLocode);
@@ -28,9 +30,8 @@ public interface BookingServiceFacade {
 
 	List<Location> listShippingLocations();
 
+	// TODO [DDD] Is this the right DTO here?
 	List<CargoRoute> listAllCargos();
 
 	List<String> listAllTrackingIds();
-
-	CargoStatus loadCargoForTracking(String trackingId);
 }
