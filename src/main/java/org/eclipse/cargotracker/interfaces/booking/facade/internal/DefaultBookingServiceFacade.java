@@ -35,12 +35,16 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 
 	@Inject
 	private BookingService bookingService;
+
 	@Inject
 	private LocationRepository locationRepository;
+
 	@Inject
 	private CargoRepository cargoRepository;
+
 	@Inject
 	private VoyageRepository voyageRepository;
+
 	@Inject
 	private HandlingEventRepository handlingEventRepository;
 
@@ -85,6 +89,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 	}
 
 	@Override
+	// TODO [DDD] Is this the correct DTO here?
 	public List<CargoRoute> listAllCargos() {
 		List<Cargo> cargos = cargoRepository.findAll();
 		List<CargoRoute> routes = new ArrayList<>(cargos.size());
@@ -109,9 +114,9 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 	}
 
 	@Override
-	public CargoStatus loadCargoForTracking(String trackingId) {
-		TrackingId tid = new TrackingId(trackingId);
-		Cargo cargo = cargoRepository.find(tid);
+	public CargoStatus loadCargoForTracking(String trackingIdValue) {
+		TrackingId trackingId = new TrackingId(trackingIdValue);
+		Cargo cargo = cargoRepository.find(trackingId);
 
 		if (cargo == null) {
 			return null;
@@ -119,8 +124,8 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 
 		CargoStatusDtoAssembler assembler = new CargoStatusDtoAssembler();
 
-		List<HandlingEvent> handlingEvents = handlingEventRepository
-				.lookupHandlingHistoryOfCargo(tid).getDistinctEventsByCompletionTime();
+		List<HandlingEvent> handlingEvents = handlingEventRepository.lookupHandlingHistoryOfCargo(trackingId)
+				.getDistinctEventsByCompletionTime();
 
 		return assembler.toDto(cargo, handlingEvents);
 	}
@@ -132,7 +137,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 		List<RouteCandidate> routeCandidates = new ArrayList<>(itineraries.size());
 		ItineraryCandidateDtoAssembler dtoAssembler = new ItineraryCandidateDtoAssembler();
 		for (Itinerary itinerary : itineraries) {
-			routeCandidates.add(dtoAssembler.toDTO(itinerary));
+			routeCandidates.add(dtoAssembler.toDto(itinerary));
 		}
 
 		return routeCandidates;

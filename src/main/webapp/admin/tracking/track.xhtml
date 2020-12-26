@@ -79,18 +79,18 @@
 				</div>
 
 				<h:outputLabel
-					value="There are no events recorded for the tracking #{admin.track.trackingId}."
+					value="There are no events recorded for the tracking ID #{admin.track.trackingId}."
 					rendered="#{empty admin.track.cargo.events}" />
 
 				<div class="ui-g-12">
-					<ui:repeat value="#{admin.track.cargo.events}" var="leg">
-						<ui:fragment rendered="#{leg.expected}">
+					<ui:repeat value="#{admin.track.cargo.events}" var="event">
+						<ui:fragment rendered="#{event.expected}">
                             &#160;&#160;<i class="fa fa-check"
-								style="color: green" />&#160;#{leg.description}<br />
+								style="color: green" />&#160;#{event.description}<br />
 						</ui:fragment>
-						<ui:fragment rendered="#{!leg.expected}">
+						<ui:fragment rendered="#{!event.expected}">
                             &#160;&#160;<em class="fa fa-flag"
-								style="color: #9b2332" />&#160;#{leg.description}<br />
+								style="color: #9b2332" />&#160;#{event.description}<br />
 						</ui:fragment>
 					</ui:repeat>
 				</div>
