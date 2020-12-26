@@ -62,14 +62,6 @@ public class Track implements Serializable {
 		this.cargo = cargo;
 	}
 
-	/**
-	 * @param query The query parameter is required by PrimeFaces but we don't use
-	 *              it.
-	 */
-	public List<TrackingId> getTrackingIds(String query) {
-		return cargoRepository.getAllTrackingIds();
-	}
-
 	public void onTrackById() {
 		Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 

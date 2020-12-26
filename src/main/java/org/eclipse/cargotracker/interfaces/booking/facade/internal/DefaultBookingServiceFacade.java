@@ -13,14 +13,18 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.LocationRepository;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.CargoRouteDtoAssembler;
+import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.CargoStatusDtoAssembler;
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.ItineraryCandidateDtoAssembler;
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.LocationDtoAssembler;
 
@@ -37,6 +41,8 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 	private CargoRepository cargoRepository;
 	@Inject
 	private VoyageRepository voyageRepository;
+	@Inject
+	private HandlingEventRepository handlingEventRepository;
 
 	@Override
 	public List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Location> listShippingLocations() {
@@ -90,6 +96,33 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 		}
 
 		return routes;
+	}
+
+	@Override
+	public List<String> listAllTrackingIds() {
+		List<String> trackingIds = new ArrayList<>();
+
+		for (Cargo cargo : cargoRepository.findAll())
+			trackingIds.add(cargo.getTrackingId().getIdString());
+
+		return trackingIds;
+	}
+
+	@Override
+	public CargoStatus loadCargoForTracking(String trackingId) {
+		TrackingId tid = new TrackingId(trackingId);
+		Cargo cargo = cargoRepository.find(tid);
+
+		if (cargo == null) {
+			return null;
+		}
+
+		CargoStatusDtoAssembler assembler = new CargoStatusDtoAssembler();
+
+		List<HandlingEvent> handlingEvents = handlingEventRepository
+				.lookupHandlingHistoryOfCargo(tid).getDistinctEventsByCompletionTime();
+
+		return assembler.toDto(cargo, handlingEvents);
 	}
 
 	@Override

@@ -6,14 +6,15 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.*;
 
 /**
  * Handles cargo booking and routing. Operates against a dedicated service
@@ -39,6 +40,7 @@ public class CargoAdmin {
 	private String destinationUnlocode;
 	private String trackingId;
 	private List<Leg> legs;
+	private CargoStatus cargoTrack;
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
 
@@ -130,5 +132,18 @@ public class CargoAdmin {
 		bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
 
 		return "show.html?trackingId=" + trackingId;
+	}
+
+	public CargoStatus getCargoTrack() { return this.cargoTrack; }
+
+	public void onTrackById() {
+		cargoTrack = bookingServiceFacade.loadCargoForTracking(this.trackingId);
+
+		if (cargoTrack == null) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			FacesMessage message = new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, message);
+		}
 	}
 }
