@@ -15,11 +15,12 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 
+//TODO [Clean Code] Could this be a CDI singleton?
 public class ItineraryCandidateDtoAssembler {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 
-	public RouteCandidate toDTO(Itinerary itinerary) {
+	public RouteCandidate toDto(Itinerary itinerary) {
 		List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs = new ArrayList<>(
 				itinerary.getLegs().size());
 		for (Leg leg : itinerary.getLegs()) {

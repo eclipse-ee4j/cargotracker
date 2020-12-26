@@ -87,5 +87,4 @@ public class ListCargo {
 
 		return notRoutedCargos;
 	}
-
 }

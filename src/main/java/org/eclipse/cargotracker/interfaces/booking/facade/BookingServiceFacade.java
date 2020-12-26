@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
+import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 
@@ -17,6 +18,8 @@ public interface BookingServiceFacade {
 
 	CargoRoute loadCargoForRouting(String trackingId);
 
+	CargoStatus loadCargoForTracking(String trackingId);
+
 	void assignCargoToRoute(String trackingId, RouteCandidate route);
 
 	void changeDestination(String trackingId, String destinationUnLocode);
@@ -27,5 +30,8 @@ public interface BookingServiceFacade {
 
 	List<Location> listShippingLocations();
 
+	// TODO [DDD] Is this the right DTO here?
 	List<CargoRoute> listAllCargos();
+
+	List<String> listAllTrackingIds();
 }

@@ -28,7 +28,7 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
  * <p/>
  * In some very simplistic cases, it is fine to not use even an adapter.
  */
-@Named
+@Named("public.track")
 @ViewScoped
 public class Track implements Serializable {
 
@@ -60,14 +60,6 @@ public class Track implements Serializable {
 
 	public void setCargo(CargoTrackingViewAdapter cargo) {
 		this.cargo = cargo;
-	}
-
-	/**
-	 * @param query The query parameter is required by PrimeFaces but we don't use
-	 *              it.
-	 */
-	public List<TrackingId> getTrackingIds(String query) {
-		return cargoRepository.getAllTrackingIds();
 	}
 
 	public void onTrackById() {

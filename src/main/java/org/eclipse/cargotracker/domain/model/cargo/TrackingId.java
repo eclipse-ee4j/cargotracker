@@ -15,6 +15,7 @@ import org.apache.commons.lang3.Validate;
 public class TrackingId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "tracking_id", unique = true, updatable = false)
 	private String id;
 
