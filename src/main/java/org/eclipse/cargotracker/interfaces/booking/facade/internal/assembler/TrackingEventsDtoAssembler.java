@@ -5,14 +5,22 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 
+import java.text.SimpleDateFormat;
+
 public class TrackingEventsDtoAssembler {
+
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 
 	public TrackingEvents toDto(Cargo cargo, HandlingEvent handlingEvent) {
 		String location = locationFrom(handlingEvent);
 		HandlingEvent.Type type = handlingEvent.getType();
 		String voyageNumber = voyageNumberFrom(handlingEvent);
 		return new TrackingEvents(cargo.getItinerary().isExpected(handlingEvent),
-				descriptionFrom(type, location, voyageNumber));
+				descriptionFrom(type, location, voyageNumber), timeFrom(handlingEvent));
+	}
+
+	private String timeFrom(HandlingEvent event) {
+		return DATE_FORMAT.format(event.getCompletionTime());
 	}
 
 	private String descriptionFrom(HandlingEvent.Type type, String location, String voyageNumber) {
