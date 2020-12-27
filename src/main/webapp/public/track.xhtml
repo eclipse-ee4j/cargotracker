@@ -65,14 +65,17 @@
 
                 <div class="ui-g-12">
                     <ui:repeat value="#{public.track.cargo.events}" var="leg">
-                        <ui:fragment rendered="#{leg.expected}">
-                            &#160;&#160;<i class="fa fa-check"
-                                           style="color: green"/>&#160;#{leg.description}<br/>
-                        </ui:fragment>
-                        <ui:fragment rendered="#{!leg.expected}">
-                            &#160;&#160;<em class="fa fa-flag"
-                                            style="color: #9b2332"/>&#160;#{leg.description}<br/>
-                        </ui:fragment>
+                        <div>
+                            <ui:fragment rendered="#{leg.expected}">
+                                &#160;&#160;<i class="fa fa-check"
+                                               style="color: green"/>&#160;#{leg.description}
+                            </ui:fragment>
+                            <ui:fragment rendered="#{!leg.expected}">
+                                &#160;&#160;<em class="fa fa-flag"
+                                                style="color: #9b2332"/>&#160;#{leg.description}
+                            </ui:fragment>
+                            <ui:fragment>, at #{leg.time}</ui:fragment>
+                        </div>
                     </ui:repeat>
                 </div>
             </div>
