@@ -1,4 +1,4 @@
-package org.eclipse.cargotracker.domain.model.cargo;
+package org.eclipse.cargotracker.interfaces.booking.web;
 
 import static org.eclipse.cargotracker.application.util.DateUtil.computeDuration;
 
@@ -18,11 +18,9 @@ import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
 
-// TODO [DDD][Reza working on this.] This needs to be moved out of the domain layer to the appropriate 
-// interface layer for booking. It also needs to use the facade.
 @Named
 @FlowScoped("booking")
-public class BookingBackingBean implements Serializable {
+public class Booking implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	List<Location> locations;
@@ -151,7 +149,7 @@ public class BookingBackingBean implements Serializable {
 	}
 
 	public String getReturnValue() {
-		return "/admin/track";
+		return "/admin/tracking/track";
 	}
 
 	public void deadlineUpdated() {

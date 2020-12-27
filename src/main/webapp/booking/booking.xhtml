@@ -12,11 +12,9 @@
 			<h:form>
 				<p:outputLabel value="1. Choose the origin of the new cargo" />
 				<hr />
-				<p:selectOneMenu id="origin"
-					value="#{bookingBackingBean.originUnlocode}">
-					<f:selectItems value="#{bookingBackingBean.locations}"
-						var="location" itemLabel="#{location.name}"
-						itemValue="#{location.unLocode}" />
+				<p:selectOneMenu id="origin" value="#{booking.originUnlocode}">
+					<f:selectItems value="#{booking.locations}" var="location"
+						itemLabel="#{location.name}" itemValue="#{location.unLocode}" />
 				</p:selectOneMenu>
 				<hr />
 				<h:panelGrid columns="2" style="margin: 0 auto;">
