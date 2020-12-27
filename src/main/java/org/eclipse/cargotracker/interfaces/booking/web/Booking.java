@@ -1,7 +1,5 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import static org.eclipse.cargotracker.application.util.DateUtil.computeDuration;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +14,9 @@ import javax.inject.Named;
 
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.Interval;
+import org.joda.time.LocalDate;
 import org.primefaces.PrimeFaces;
 
 @Named
@@ -23,71 +24,69 @@ import org.primefaces.PrimeFaces;
 public class Booking implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	List<Location> locations;
-	private Date arrivalDeadline;
+
+	private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
+	private static final long GRACE_PERIOD = DateTimeConstants.MILLIS_PER_HOUR * 4;
+
+	private Date today = null;
+	private List<Location> locations;
+
 	private String originUnlocode;
 	private String originName;
 	private String destinationName;
 	private String destinationUnlocode;
-	private String newTrackingId = null;
-	private Date today = new Date();
+	private Date arrivalDeadline;
+
 	private boolean bookable = false;
 	private long duration = -1;
-	private final long MIN_JOURNEY_DURATION = 1; // journey should be 1 day min.
 
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
 
 	@PostConstruct
 	public void init() {
+		today = LocalDate.now().toDate();
 		locations = bookingServiceFacade.listShippingLocations();
 	}
 
 	public List<Location> getLocations() {
-
 		List<Location> filteredLocations = new ArrayList<>();
 		String locationToRemove = null;
 
 		// TODO [Jakarta EE 8] Use injection instead?
 		if (FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("destination.xhtml")) {
-			// in Destination menu, Orign can't be selected
+			// In the destination menu, origin can't be selected.
 			locationToRemove = originUnlocode;
-		} else // and vice-versa
-		if (destinationUnlocode != null) {
-			locationToRemove = destinationUnlocode;
-		}
-
-		for (Location loc : locations) {
-			if (!loc.getUnLocode().equalsIgnoreCase(locationToRemove)) {
-				filteredLocations.add(loc);
+		} else { // Vice-versa.
+			if (destinationUnlocode != null) {
+				locationToRemove = destinationUnlocode;
 			}
 		}
-		return filteredLocations;
-	}
 
-	public Date getArrivalDeadline() {
-		return arrivalDeadline;
+		for (Location location : locations) {
+			if (!location.getUnLocode().equalsIgnoreCase(locationToRemove)) {
+				filteredLocations.add(location);
+			}
+		}
+
+		return filteredLocations;
 	}
 
 	public String getOriginUnlocode() {
 		return originUnlocode;
 	}
 
-	public String getOriginName() {
-		return originName;
-	}
-
-	public String getDestinationName() {
-		return destinationName;
-	}
-
 	public void setOriginUnlocode(String originUnlocode) {
 		this.originUnlocode = originUnlocode;
-		for (Location loc : locations) {
-			if (loc.getUnLocode().equalsIgnoreCase(originUnlocode)) {
-				this.originName = loc.getNameOnly();
+		for (Location location : locations) {
+			if (location.getUnLocode().equalsIgnoreCase(originUnlocode)) {
+				this.originName = location.getNameOnly();
 			}
 		}
+	}
+
+	public String getOriginName() {
+		return originName;
 	}
 
 	public String getDestinationUnlocode() {
@@ -96,11 +95,23 @@ public class Booking implements Serializable {
 
 	public void setDestinationUnlocode(String destinationUnlocode) {
 		this.destinationUnlocode = destinationUnlocode;
-		for (Location loc : locations) {
-			if (loc.getUnLocode().equalsIgnoreCase(destinationUnlocode)) {
-				destinationName = loc.getNameOnly();
+		for (Location location : locations) {
+			if (location.getUnLocode().equalsIgnoreCase(destinationUnlocode)) {
+				destinationName = location.getNameOnly();
 			}
 		}
+	}
+
+	public String getDestinationName() {
+		return destinationName;
+	}
+
+	public Date getArrivalDeadline() {
+		return arrivalDeadline;
+	}
+
+	public void setArrivalDeadline(Date arrivalDeadline) {
+		this.arrivalDeadline = arrivalDeadline;
 	}
 
 	public Date getToday() {
@@ -111,60 +122,42 @@ public class Booking implements Serializable {
 		return duration;
 	}
 
-	public void setArrivalDeadline(Date arrivalDeadline) {
-		this.arrivalDeadline = arrivalDeadline;
-	}
-
-	public String getNewTrackingId() {
-		return newTrackingId;
-	}
-
 	public boolean isBookable() {
 		return bookable;
 	}
 
-	public String register() {
-		try {
-			if (!originUnlocode.equals(destinationUnlocode)) {
-				bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode,
-						// new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
-						// new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(arrivalDeadline));
-						// // davidd
-						arrivalDeadline);
-
-			} else {
-				// TODO [Jakarta EE 8] See if this can be injected.
-				FacesContext context = FacesContext.getCurrentInstance();
-				// UI now prevents from selecting same origin/destination
-				FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
-				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-				context.addMessage(null, message);
-				return null;
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("Error parsing date", e); // todo, not parsing anymore
-		}
-		// return "show_original.xhtml?faces-redirect=true&trackingId=" + trackingId;
-		return "/admin/dashboard.xhtml";
-	}
-
-	public String getReturnValue() {
-		return "/admin/tracking/track";
-	}
-
 	public void deadlineUpdated() {
-		duration = computeDuration(arrivalDeadline);
+		// TODO [Jakarta EE 8] Use Date-Time API instead.
+		duration = new Interval(today.getTime(), arrivalDeadline.getTime() + GRACE_PERIOD).toDuration()
+				.getStandardDays();
+
 		if (duration >= MIN_JOURNEY_DURATION) {
 			bookable = true;
 		} else {
 			bookable = false;
 		}
-		// PF.current().ajax().update("dateForm:durationPanel");
-		// PF.current().ajax().update("dateForm:bookBtn");
+
 		PrimeFaces.current().ajax().update("dateForm:durationPanel");
 		PrimeFaces.current().ajax().update("dateForm:bookBtn");
-		// RequestContext.getCurrentInstance().update("dateForm:durationPanel");
-		// RequestContext.getCurrentInstance().update("dateForm:bookBtn");
 	}
 
+	public String register() {
+		if (!originUnlocode.equals(destinationUnlocode)) {
+			bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode, arrivalDeadline);
+		} else {
+			// TODO [Jakarta EE 8] See if this can be injected.
+			FacesContext context = FacesContext.getCurrentInstance();
+			// UI now prevents from selecting same origin/destination
+			FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, message);
+			return null;
+		}
+
+		return "/admin/dashboard.xhtml";
+	}
+
+	public String getReturnValue() {
+		return "/admin/dashboard.xhtml";
+	}
 }
