@@ -1,7 +1,5 @@
 package org.eclipse.cargotracker.interfaces.tracking.web;
 
-import static org.eclipse.cargotracker.application.util.LocationUtil.getCoordinatesForLocation;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,11 +11,6 @@ import org.eclipse.cargotracker.domain.model.cargo.Delivery;
 import org.eclipse.cargotracker.domain.model.cargo.HandlingActivity;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.Location;
-import org.eclipse.cargotracker.domain.model.voyage.Voyage;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 /**
  * View adapter for displaying a cargo in a tracking context.
@@ -40,10 +33,6 @@ public class CargoTrackingViewAdapter {
 
 	public String getTrackingId() {
 		return cargo.getTrackingId().getIdString();
-	}
-
-	public String getOrigin() {
-		return getDisplayText(cargo.getOrigin());
 	}
 
 	public String getDestination() {
@@ -122,41 +111,6 @@ public class CargoTrackingViewAdapter {
 	}
 
 	/**
-	 * @return The model for Google maps showing origin, destination and last known
-	 *         location.
-	 */
-	public MapModel getMapModel() {
-		MapModel mapModel = new DefaultMapModel();
-
-		String origin = cargo.getOrigin().getUnLocode().getIdString();
-		String destination = cargo.getRouteSpecification().getDestination().getUnLocode().getIdString();
-		String lastKnownLocation = cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString();
-
-		if (origin != null && !origin.isEmpty()) {
-			mapModel.addOverlay(new Marker(getCoordinatesForLocation(origin), "Origin: " + getOrigin()));
-		}
-
-		if (destination != null && !destination.isEmpty()) {
-			mapModel.addOverlay(
-					new Marker(getCoordinatesForLocation(destination), "Final destination: " + getDestination()));
-		}
-
-		if (lastKnownLocation != null && !lastKnownLocation.isEmpty()
-				&& !lastKnownLocation.toUpperCase().contains("XXXX")) {
-			mapModel.addOverlay(new Marker(getCoordinatesForLocation(lastKnownLocation),
-					"Last known location: " + getDisplayText(cargo.getDelivery().getLastKnownLocation())));
-		}
-
-		return mapModel;
-	}
-
-	public String getDestinationCoordinates() {
-		LatLng coordinates = getCoordinatesForLocation(
-				cargo.getRouteSpecification().getDestination().getUnLocode().getIdString());
-		return "" + coordinates.getLat() + "," + coordinates.getLng();
-	}
-
-	/**
 	 * Handling event view adapter component.
 	 */
 	public class HandlingEventViewAdapter {
@@ -167,25 +121,11 @@ public class CargoTrackingViewAdapter {
 			this.handlingEvent = handlingEvent;
 		}
 
-		public String getLocation() {
-			return handlingEvent.getLocation().getName();
-		}
-
 		/**
-		 *
 		 * @return the date in the format MM/dd/yyyy hh:mm a z
 		 */
 		public String getTime() {
 			return DATE_FORMAT.format(handlingEvent.getCompletionTime());
-		}
-
-		public String getType() {
-			return handlingEvent.getType().toString();
-		}
-
-		public String getVoyageNumber() {
-			Voyage voyage = handlingEvent.getVoyage();
-			return voyage.getVoyageNumber().getIdString();
 		}
 
 		public boolean isExpected() {

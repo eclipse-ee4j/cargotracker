@@ -87,13 +87,12 @@
 						<div>
 							<ui:fragment rendered="#{event.expected}">
 								&#160;&#160;<i class="fa fa-check"
-									style="color: green" />&#160;#{event.description}
+									style="color: green" />&#160;#{event.description}, at #{event.time}
 							</ui:fragment>
 							<ui:fragment rendered="#{!event.expected}">
 								&#160;&#160;<em class="fa fa-flag"
-									style="color: #9b2332" />&#160;#{event.description}
+									style="color: #9b2332" />&#160;#{event.description}, at #{event.time}
 							</ui:fragment>
-							<ui:fragment>, at #{event.time}</ui:fragment>
 						</div>
 					</ui:repeat>
 				</div>
