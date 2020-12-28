@@ -53,6 +53,7 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 import org.eclipse.cargotracker.domain.shared.NotSpecification;
 import org.eclipse.cargotracker.domain.shared.OrSpecification;
 import org.eclipse.cargotracker.domain.shared.Specification;
+import org.eclipse.cargotracker.infrastructure.logging.LoggerProducer;
 import org.eclipse.cargotracker.infrastructure.persistence.jpa.JpaCargoRepository;
 import org.eclipse.cargotracker.infrastructure.persistence.jpa.JpaHandlingEventRepository;
 import org.eclipse.cargotracker.infrastructure.persistence.jpa.JpaLocationRepository;
@@ -116,7 +117,8 @@ public class BookingServiceTest {
 				// Infrastructure layer components.
 				.addClass(JpaCargoRepository.class).addClass(JpaVoyageRepository.class)
 				.addClass(JpaHandlingEventRepository.class).addClass(JpaLocationRepository.class)
-				.addClass(ExternalRoutingService.class).addClass(JsonMoxyConfigurationContextResolver.class)
+				.addClass(ExternalRoutingService.class).addClass(LoggerProducer.class)
+				.addClass(JsonMoxyConfigurationContextResolver.class)
 				// Interface components
 				.addClass(TransitPath.class).addClass(TransitEdge.class)
 				// Third-party system simulator
