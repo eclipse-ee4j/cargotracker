@@ -30,12 +30,12 @@ import org.primefaces.event.FlowEvent;
 
 @Named
 @ViewScoped
-// TODO [DDD] Rename this to something more meaningful to the domain.
+// TODO [DDD - Reza fixing this] Rename this to something more meaningful to the domain.
 public class EventWizard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// TODO [DDD] This facade is actually intended for use with the booking interface. It
+	// TODO [DDD - Reza fixing this] This facade is actually intended for use with the booking interface. It
 	// will be hard to maintain if it is dual purpose. Since this is a fairly
 	// limited interface, we should probably use the view adapter pattern here
 	// similar to what is done for the tracking interface.
