@@ -30,15 +30,10 @@ import org.primefaces.event.FlowEvent;
 
 @Named
 @ViewScoped
-// TODO [DDD - Reza fixing this] Rename this to something more meaningful to the domain.
-public class EventWizard implements Serializable {
+public class EventLogger implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// TODO [DDD - Reza fixing this] This facade is actually intended for use with the booking interface. It
-	// will be hard to maintain if it is dual purpose. Since this is a fairly
-	// limited interface, we should probably use the view adapter pattern here
-	// similar to what is done for the tracking interface.
 	@Inject
 	private BookingServiceFacade bookingServiceFacade;
 
@@ -48,29 +43,78 @@ public class EventWizard implements Serializable {
 	@Inject
 	private VoyageRepository voyageRepository;
 
-	private List<SelectItem> trackIds;
+	private List<SelectItem> trackingIds;
 	private List<SelectItem> locations;
 	private List<SelectItem> voyages;
 
-	/**
-	 * wizard's data
-	 */
+	private String trackingIdValue;
+	private String location;
+	private String eventType;
 	private String voyageNumber;
 	private Date completionDate;
-	private String eventType;
-	private String location;
-	private String trackId;
+
+	public void setTrackingId(String trackingId) {
+		this.trackingIdValue = trackingId;
+	}
+
+	public String getTrackingId() {
+		return trackingIdValue;
+	}
+
+	public List<SelectItem> getTrackingIds() {
+		return trackingIds;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public List<SelectItem> getLocations() {
+		return locations;
+	}
+
+	public void setVoyageNumber(String voyageNumber) {
+		this.voyageNumber = voyageNumber;
+	}
+
+	public String getEventType() {
+		return eventType;
+	}
+
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
+
+	public void setCompletionDate(Date completionDate) {
+		this.completionDate = completionDate;
+	}
+
+	public String getVoyageNumber() {
+		return voyageNumber;
+	}
+
+	public List<SelectItem> getVoyages() {
+		return voyages;
+	}
+
+	public Date getCompletionDate() {
+		return completionDate;
+	}
 
 	@PostConstruct
 	public void init() {
 		List<CargoRoute> cargos = bookingServiceFacade.listAllCargos();
 
 		// fill the TrackingId dropdown list
-		trackIds = new ArrayList<>();
+		trackingIds = new ArrayList<>();
 		for (CargoRoute route : cargos) {
 			if (route.isRouted() && !route.isClaimed()) { // we just need getRoutedUnclaimedCargos
 				String routedUnclaimedId = route.getTrackingId();
-				trackIds.add(new SelectItem(routedUnclaimedId, routedUnclaimedId));
+				trackingIds.add(new SelectItem(routedUnclaimedId, routedUnclaimedId));
 			}
 		}
 
@@ -108,7 +152,7 @@ public class EventWizard implements Serializable {
 	}
 
 	private boolean validate(final String step) {
-		CargoRoute cargoRoute = bookingServiceFacade.loadCargoForRouting(trackId);
+		CargoRoute cargoRoute = bookingServiceFacade.loadCargoForRouting(trackingIdValue);
 
 		if ("eventTab".equals(step) && "RECEIVE".equals(eventType) && !isOriginLocation(cargoRoute)) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -152,11 +196,11 @@ public class EventWizard implements Serializable {
 		return cargoRoute.getFinalDestinationCode().equals(location);
 	}
 
-	public void save() {
+	public void submit() {
 		VoyageNumber selectedVoyage;
 
 		Date registrationTime = new Date();
-		TrackingId trackingId = new TrackingId(trackId);
+		TrackingId trackingId = new TrackingId(trackingIdValue);
 		UnLocode unLocode = new UnLocode(this.location);
 		HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
 
@@ -173,57 +217,5 @@ public class EventWizard implements Serializable {
 		applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Event submitted", ""));
-	}
-
-	public void setTrackId(String trackId) {
-		this.trackId = trackId;
-	}
-
-	public void setVoyageNumber(String voyageNumber) {
-		this.voyageNumber = voyageNumber;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public void setEventType(String eventType) {
-		this.eventType = eventType;
-	}
-
-	public void setCompletionDate(Date completionDate) {
-		this.completionDate = completionDate;
-	}
-
-	public String getTrackId() {
-		return trackId;
-	}
-
-	public List<SelectItem> getTrackIds() {
-		return trackIds;
-	}
-
-	public String getVoyageNumber() {
-		return voyageNumber;
-	}
-
-	public List<SelectItem> getVoyages() {
-		return voyages;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public List<SelectItem> getLocations() {
-		return locations;
-	}
-
-	public String getEventType() {
-		return eventType;
-	}
-
-	public Date getCompletionDate() {
-		return completionDate;
 	}
 }

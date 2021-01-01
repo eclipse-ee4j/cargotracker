@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Event Logger</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<h:outputStylesheet name="css/app.css" />
+	<link rel="stylesheet"
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="growl" sticky="true" showDetail="true" />
+		<p:wizard flowListener="#{eventLogger.onFlowProcess}"
+			onnext="hideBackButton()" widgetVar="eventLogger">
+
+			<p:tab id="trackingIdTab" title="Tracking ID">
+				<p:panel header="Tracking ID">
+					<p:messages />
+					<h:panelGrid columns="1">
+						<p:selectOneMenu id="trackingId" value="#{eventLogger.trackingId}"
+							required="true" requiredMessage="Tracking ID missing">
+							<f:selectItem itemLabel="Tracking ID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{eventLogger.trackingIds}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="locationTab" title="Location">
+				<p:panel header="Location">
+					<p:messages />
+					<h:panelGrid columns="1">
+						<p:selectOneMenu id="locationId" value="#{eventLogger.location}"
+							required="true" requiredMessage="Location missing">
+							<f:selectItem itemLabel="Location" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{eventLogger.locations}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="eventTypeTab" title="Event Type">
+				<p:panel header="Event Type">
+					<p:messages />
+					<h:panelGrid columns="1">
+						<p:selectOneMenu id="eventType" value="#{eventLogger.eventType}"
+							requiredMessage="Event type missing" required="true">
+							<f:selectItem itemLabel="Event Type" itemValue=""
+								noSelectionOption="true" />
+							<!-- TODO [DDD] This should be retrieved from the domain model. -->
+							<f:selectItem itemLabel="RECEIVE" itemValue="RECEIVE" />
+							<f:selectItem itemLabel="LOAD" itemValue="LOAD" />
+							<f:selectItem itemLabel="UNLOAD" itemValue="UNLOAD" />
+							<f:selectItem itemLabel="CUSTOMS" itemValue="CUSTOMS" />
+							<f:selectItem itemLabel="CLAIM" itemValue="CLAIM" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="voyageTab" title="Voyage">
+				<p:panel header="Voyage">
+					<p:messages />
+					<h:panelGrid columns="1">
+						<p:selectOneMenu id="voyage" value="#{eventLogger.voyageNumber}"
+							required="false">
+							<f:selectItem itemLabel="Voyage" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{eventLogger.voyages}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="dateTab" title="Completion Date">
+				<p:panel header="Completion Date">
+					<p:messages />
+					<h:panelGrid columns="1">
+						<p:calendar id="completionDate"
+							value="#{eventLogger.completionDate}"
+							requiredMessage="A date is needed" required="false"
+							pattern="MM-dd-yyyy">
+						</p:calendar>
+					</h:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="confirm" title="Confirmation">
+				<p:panel header="Confirmation">
+					<h:panelGrid id="confirmation" columns="3"
+						columnClasses="grid,grid,grid">
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Tracking ID: " />
+							<h:outputText value="#{eventLogger.trackingId}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Location: " />
+							<h:outputText value="#{eventLogger.location}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Event type: " />
+							<h:outputText value="#{eventLogger.eventType}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Voyage number: " />
+							<h:outputText value="#{eventLogger.voyageNumber}"
+								styleClass="outputLabel" />
+
+							<h:outputText value="Date: " />
+							<h:outputText value="#{eventLogger.completionDate}"
+								styleClass="outputLabel" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<p:commandButton value="Submit" action="#{eventLogger.submit}"
+						update="growl" process="@this"
+						oncomplete="PF('eventLogger').loadStep('trackingIdTab', true)" />
+				</p:panel>
+			</p:tab>
+		</p:wizard>
+	</h:form>
+
+	<div class="ui-g ui-g-12">
+		<div class="ui-g-offset-5 ui-g-1">
+			<h:graphicImage value="#{resource['/images/CTlogobadge128.png']}"
+				height="68" />
+		</div>
+	</div>
+
+	<script>
+		function hideBackButton() {
+			$("div.ui-wizard-navbar>button.ui-wizard-nav-back").css("display",
+					"none");
+		}
+	</script>
+</h:body>
+</html>
