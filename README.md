@@ -62,7 +62,7 @@ also change the destination for cargo if needed or track cargo.
 
 The Incident Logging interface is intended for port personnel registering what 
 happened to cargo. The interface is primarily intended for mobile devices, but
-you can use it via a desktop browser. The interface is accessible at this URL: http://localhost:8080/cargo-tracker/eventLogger/eventLogger.xhtml. For convenience, you
+you can use it via a desktop browser. The interface is accessible at this URL: http://localhost:8080/cargo-tracker/event-logger/index.xhtml. For convenience, you
 could use a mobile emulator instead of an actual mobile device. Generally speaking cargo
 goes through these events:
 
