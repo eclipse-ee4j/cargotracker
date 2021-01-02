@@ -42,7 +42,7 @@ public class Location implements Serializable {
 
 	/**
 	 * @param unLocode UN Locode
-	 * @param name Location name
+	 * @param name     Location name
 	 * @throws IllegalArgumentException if the UN Locode or name is null
 	 */
 	public Location(UnLocode unLocode, String name) {

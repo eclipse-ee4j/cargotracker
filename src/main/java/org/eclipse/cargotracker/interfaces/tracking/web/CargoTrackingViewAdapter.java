@@ -10,7 +10,6 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
 import org.eclipse.cargotracker.domain.model.cargo.HandlingActivity;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
-import org.eclipse.cargotracker.domain.model.location.Location;
 
 /**
  * View adapter for displaying a cargo in a tracking context.
@@ -35,15 +34,45 @@ public class CargoTrackingViewAdapter {
 		return cargo.getTrackingId().getIdString();
 	}
 
-	public String getDestination() {
-		return getDisplayText(cargo.getRouteSpecification().getDestination());
+	public String getOriginName() {
+		return cargo.getRouteSpecification().getOrigin().getName();
 	}
 
-	/**
-	 * @return A formatted string for displaying the location.
-	 */
-	private String getDisplayText(Location location) {
-		return location.getName();
+	public String getOriginCode() {
+		return cargo.getRouteSpecification().getOrigin().getUnLocode().getIdString();
+	}
+
+	public String getDestinationName() {
+		return cargo.getRouteSpecification().getDestination().getName();
+	}
+
+	public String getDestinationCode() {
+		return cargo.getRouteSpecification().getDestination().getUnLocode().getIdString();
+	}
+
+	public String getLastKnownLocationName() {
+		return cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString().equals("XXXXX") ? "Unknown"
+				: cargo.getDelivery().getLastKnownLocation().getName();
+	}
+
+	public String getLastKnownLocationCode() {
+		return cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString();
+	}
+
+	public String getStatusCode() {
+		if (cargo.getItinerary().getLegs().isEmpty()) {
+			return "NOT_ROUTED";
+		}
+
+		if (cargo.getDelivery().isUnloadedAtDestination()) {
+			return "AT_DESTINATION";
+		}
+
+		if (cargo.getDelivery().isMisdirected()) {
+			return "MISDIRECTED";
+		}
+
+		return cargo.getDelivery().getTransportStatus().name();
 	}
 
 	/**
@@ -54,7 +83,7 @@ public class CargoTrackingViewAdapter {
 
 		switch (delivery.getTransportStatus()) {
 		case IN_PORT:
-			return "In port " + getDisplayText(delivery.getLastKnownLocation());
+			return "In port " + cargo.getRouteSpecification().getDestination().getName();
 		case ONBOARD_CARRIER:
 			return "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
 		case CLAIMED:

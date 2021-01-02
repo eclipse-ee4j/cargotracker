@@ -19,130 +19,116 @@
 	crossorigin="" />
 
 <script type="text/javascript">
-        const locationName = {
-            "CNHKG": "Hong Kong",
-            "AUMEL": "Melbourne",
-            "SESTO": "Stockholm",
-            "FIHEL": "Helsinki",
-            "USCHI": "Chicago",
-            "JNTKO": "Tokyo",
-            "DEHAM": "Hamburg",
-            "CNSHA": "Shanghai",
-            "NLRTM": "Rotterdam",
-            "SEGOT": "Gothenburg",
-            "CNHGH": "Hangzhou",
-            "USNYC": "New York",
-            "USDAL": "Dallas"
-        };
+	//<![CDATA[
+	function getUrlParameter(name) {
+		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+		var results = regex.exec(location.search);
+		return results === null ? '' : decodeURIComponent(results[1].replace(
+				/\+/g, ' '));
+	};
+	//]]>
+</script>
+<script type="text/javascript">
+	// TODO See if there is a service to get the latitude/longitude
+	// data from.
+	const latitude = {
+		"XXXXX" : 38.4667,
+		"CNHKG" : 22,
+		"AUMEL" : -38,
+		"SESTO" : 59,
+		"FIHEL" : 60,
+		"USCHI" : 42,
+		"JNTKO" : 36,
+		"DEHAM" : 54,
+		"CNSHA" : 31,
+		"NLRTM" : 52,
+		"SEGOT" : 58,
+		"CNHGH" : 30,
+		"USNYC" : 41,
+		"USDAL" : 33
+	};
 
-        const routingStatusName = {
-            "NOT_ROUTED": "Not routed",
-            "ROUTED": "Routed",
-            "MISROUTED": "Misrouted"
-        };
+	const longitude = {
+		"XXXXX" : -28.4,
+		"CNHKG" : 114,
+		"AUMEL" : 145,
+		"SESTO" : 18,
+		"FIHEL" : 25,
+		"USCHI" : -88,
+		"JNTKO" : 140,
+		"DEHAM" : 10,
+		"CNSHA" : 121,
+		"NLRTM" : 5,
+		"SEGOT" : 12,
+		"CNHGH" : 120,
+		"USNYC" : -74,
+		"USDAL" : -97
+	};
 
-        const transportStatusName = {
-            "NOT_RECEIVED": "Not received",
-            "IN_PORT": " In port",
-            "ONBOARD_CARRIER": "Onboard carrier",
-            "CLAIMED": "Claimed",
-            "UNKNOWN": "Unknown"
-        };
+	//  load the icons for the map
+	const greenIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
 
-        // TODO See if there is a service to get the latitude/longitude
-        // data from.
-        const latitude = {
-            "CNHKG": 22,
-            "AUMEL": -38,
-            "SESTO": 59,
-            "FIHEL": 60,
-            "USCHI": 42,
-            "JNTKO": 36,
-            "DEHAM": 54,
-            "CNSHA": 31,
-            "NLRTM": 52,
-            "SEGOT": 58,
-            "CNHGH": 30,
-            "USNYC": 41,
-            "USDAL": 33
-        };
+	const greyIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
 
-        const longitude = {
-            "CNHKG": 114,
-            "AUMEL": 145,
-            "SESTO": 18,
-            "FIHEL": 25,
-            "USCHI": -88,
-            "JNTKO": 140,
-            "DEHAM": 10,
-            "CNSHA": 121,
-            "NLRTM": 5,
-            "SEGOT": 12,
-            "CNHGH": 120,
-            "USNYC": -74,
-            "USDAL": -97
-        };
+	const redIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
 
-        //  load the icons for the map
-        const greenIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
+	const blackIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
 
-        const greyIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
+	const goldIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
 
-        const redIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-        const blackIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-        const goldIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-        const colorCodes = {
-            "NOT_ROUTED": greyIcon,
-            "MISROUTED": redIcon,
-            "NOT_RECEIVED": goldIcon,
-            "IN_PORT": greenIcon,
-            "ONBOARD_CARRIER": greenIcon,
-            "MISDIRECTED": redIcon,
-            "AT_DESTINATION": blackIcon,
-            "CLAIMED": blackIcon,
-            "UNKNOWN": redIcon
-        };
-    </script>
+	const colorCodes = {
+		"NOT_ROUTED" : greyIcon,
+		"NOT_RECEIVED" : goldIcon,
+		"IN_PORT" : greenIcon,
+		"ONBOARD_CARRIER" : greenIcon,
+		"MISDIRECTED" : redIcon,
+		"AT_DESTINATION" : blackIcon,
+		"CLAIMED" : blackIcon,
+		"UNKNOWN" : redIcon
+	};
+</script>
 </head>
-
 <body style="background-color: white">
 	<div>
 		<div id="map"
@@ -151,62 +137,75 @@
 	</div>
 
 	<script type="text/javascript">
-        window.onload = function init () {
-            const trackingId = window.location.search.split('=')[1];
-            
-            if (!trackingId) {
-                return;
-            }
-            
-            fetch('/cargo-tracker/rest/cargo/' + trackingId)
-                .then(response => response.json())
-                .then(cargo => {
+		window.onload = function init() {
+			var statusCode = getUrlParameter('statusCode');
+			var originCode = getUrlParameter('originCode');
+			var originName = getUrlParameter('originName');
+			var destinationCode = getUrlParameter('destinationCode');
+			var destinationName = getUrlParameter('destinationName');
+			var lastKnownLocationCode = getUrlParameter('lastKnownLocationCode');
+			var lastKnownLocationName = getUrlParameter('lastKnownLocationName');
 
-                const locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
+			const originCoordinate = {
+				position : {
+					lon : longitude[originCode]
+							+ (Math.floor((Math.random() * 3) - 3)),
+					lat : latitude[originCode]
+							+ (Math.floor((Math.random() * 3) - 3))
+				},
+				style : blackIcon
+			};
 
-                let statusCode = 'NOT_RECEIVED';
-                
-                if ((cargo.routingStatus === 'NOT_ROUTED') || (cargo.routingStatus === 'MISROUTED')) {
-                    statusCode = cargo.routingStatus;
-                } else if (cargo.misdirected === true) {
-                    statusCode = 'MISDIRECTED';
-                } else if (cargo.atDestination === true) {
-                    statusCode = 'AT_DESTINATION';
-                } else {
-                    statusCode = cargo.transportStatus;
-                }
-                
-                const coordinate = {
-                    position: {
-                        lon: longitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
-                        lat: latitude[locationCode] + (Math.floor((Math.random() * 3) - 3))},
-                    style: colorCodes[statusCode]};
+			const destinationCoordinate = {
+				position : {
+					lon : longitude[destinationCode]
+							+ (Math.floor((Math.random() * 3) - 3)),
+					lat : latitude[destinationCode]
+							+ (Math.floor((Math.random() * 3) - 3))
+				},
+				style : blackIcon
+			};
 
-                const map = L.map('map').setView({lon: 0, lat: 0}, 2);
+			const lastKnownCoordinate = {
+				position : {
+					lon : longitude[lastKnownLocationCode]
+							+ (Math.floor((Math.random() * 3) - 3)),
+					lat : latitude[lastKnownLocationCode]
+							+ (Math.floor((Math.random() * 3) - 3))
+				},
+				style : colorCodes[statusCode]
+			};
 
-                // add the OpenStreetMap tiles
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
-                }).addTo(map);
+			const map = L.map('map').setView({
+				lon : 0,
+				lat : 0
+			}, 2);
 
-                // show the scale bar on the lower left corner
-                L.control.scale().addTo(map);
+			// add the OpenStreetMap tiles
+			L
+					.tileLayer(
+							'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+							{
+								maxZoom : 19,
+								attribution : '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
+							}).addTo(map);
 
-                const popupContent =  'Tracking ID: ' + cargo.trackingId + '&lt;br/>' +
-                                      'Routing Status: ' + routingStatusName[cargo.routingStatus] + '&lt;br/>' +
-                                      'Misdirected: ' + (cargo.misdirected ? "Yes" : "No") + '&lt;br/>' +
-                                      'Transport Status: ' + transportStatusName[cargo.transportStatus] + '&lt;br/>' +
-                                      'At Destination: ' + (cargo.atDestination ? "Yes" : "No") + '&lt;br/>' +
-                                      'Origin: ' + locationName[cargo.origin] + '&lt;br/>' +
-                                      'Last known location: ' + locationName[cargo.lastKnownLocation];
+			// show the scale bar on the lower left corner
+			L.control.scale().addTo(map);
 
-                L.marker(coordinate['position'], {icon: coordinate.style})
-                        .bindTooltip(popupContent)
-                        .addTo(map);
-            })
-            .catch(e => console.error("cannot fetch cargos", e));
-        }
-    </script>
+			L.marker(originCoordinate['position'], {
+				icon : originCoordinate.style
+			}).bindTooltip('Origin: ' + originName).addTo(map);
+			
+			L.marker(destinationCoordinate['position'], {
+				icon : destinationCoordinate.style
+			}).bindTooltip('Destination: ' + destinationName).addTo(map);			
+
+			L.marker(lastKnownCoordinate['position'], {
+				icon : lastKnownCoordinate.style
+			}).bindTooltip('Last known location: ' + lastKnownLocationName)
+					.addTo(map);
+		}
+	</script>
 </body>
 </html>
