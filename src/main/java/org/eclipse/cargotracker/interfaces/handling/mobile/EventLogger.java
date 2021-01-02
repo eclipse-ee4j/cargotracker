@@ -13,18 +13,20 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.eclipse.cargotracker.application.ApplicationEvents;
-import org.eclipse.cargotracker.application.util.LocationUtil;
+import org.eclipse.cargotracker.domain.model.cargo.Cargo;
+import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
+import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.Location;
+import org.eclipse.cargotracker.domain.model.location.LocationRepository;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
-import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
-import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 import org.primefaces.event.FlowEvent;
 
@@ -35,30 +37,33 @@ public class EventLogger implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private BookingServiceFacade bookingServiceFacade;
+	private CargoRepository cargoRepository;
 
 	@Inject
-	private ApplicationEvents applicationEvents;
+	private LocationRepository locationRepository;
 
 	@Inject
 	private VoyageRepository voyageRepository;
+
+	@Inject
+	private ApplicationEvents applicationEvents;
 
 	private List<SelectItem> trackingIds;
 	private List<SelectItem> locations;
 	private List<SelectItem> voyages;
 
-	private String trackingIdValue;
+	private String trackingId;
 	private String location;
 	private String eventType;
 	private String voyageNumber;
 	private Date completionDate;
 
 	public void setTrackingId(String trackingId) {
-		this.trackingIdValue = trackingId;
+		this.trackingId = trackingId;
 	}
 
 	public String getTrackingId() {
-		return trackingIdValue;
+		return trackingId;
 	}
 
 	public List<SelectItem> getTrackingIds() {
@@ -77,10 +82,6 @@ public class EventLogger implements Serializable {
 		return locations;
 	}
 
-	public void setVoyageNumber(String voyageNumber) {
-		this.voyageNumber = voyageNumber;
-	}
-
 	public String getEventType() {
 		return eventType;
 	}
@@ -89,8 +90,8 @@ public class EventLogger implements Serializable {
 		this.eventType = eventType;
 	}
 
-	public void setCompletionDate(Date completionDate) {
-		this.completionDate = completionDate;
+	public void setVoyageNumber(String voyageNumber) {
+		this.voyageNumber = voyageNumber;
 	}
 
 	public String getVoyageNumber() {
@@ -101,45 +102,48 @@ public class EventLogger implements Serializable {
 		return voyages;
 	}
 
+	public void setCompletionDate(Date completionDate) {
+		this.completionDate = completionDate;
+	}
+
 	public Date getCompletionDate() {
 		return completionDate;
 	}
 
 	@PostConstruct
+	@Transactional
 	public void init() {
-		List<CargoRoute> cargos = bookingServiceFacade.listAllCargos();
+		List<Cargo> cargos = cargoRepository.findAll();
 
-		// fill the TrackingId dropdown list
-		trackingIds = new ArrayList<>();
-		for (CargoRoute route : cargos) {
-			if (route.isRouted() && !route.isClaimed()) { // we just need getRoutedUnclaimedCargos
-				String routedUnclaimedId = route.getTrackingId();
-				trackingIds.add(new SelectItem(routedUnclaimedId, routedUnclaimedId));
+		trackingIds = new ArrayList<>(cargos.size());
+		for (Cargo cargo : cargos) {
+			// List only routed cargo that is not claimed yet.
+			if (!cargo.getItinerary().getLegs().isEmpty()
+					&& !(cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED))) {
+				String trackingId = cargo.getTrackingId().getIdString();
+				trackingIds.add(new SelectItem(trackingId, trackingId));
 			}
 		}
 
-		// fill the Port dropdown list
-		locations = new ArrayList<>();
-		List<Location> allLocations = LocationUtil.getLocationsCode();
-		for (Location tempLoc : allLocations) {
-			String code = tempLoc.getUnLocode().getIdString();
-			locations.add(new SelectItem(code, tempLoc.getName() + " (" + code + ")"));
+		List<Location> locations = locationRepository.findAll();
+
+		this.locations = new ArrayList<>(locations.size());
+		for (Location location : locations) {
+			String locationCode = location.getUnLocode().getIdString();
+			this.locations.add(new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
 		}
 
-		// fill the Voyage dropdown list (only needed for LOAD & UNLOAD events)
-		List<Voyage> allVoyages = voyageRepository.findAll();
-		List<SelectItem> allVoyagesModel = new ArrayList<>(allVoyages.size());
+		List<Voyage> voyages = voyageRepository.findAll();
 
-		for (Voyage voyage : allVoyages) {
-			allVoyagesModel.add(
+		this.voyages = new ArrayList<>(voyages.size());
+		for (Voyage voyage : voyages) {
+			this.voyages.add(
 					new SelectItem(voyage.getVoyageNumber().getIdString(), voyage.getVoyageNumber().getIdString()));
 		}
 
-		this.voyages = allVoyagesModel;
 	}
 
 	public String onFlowProcess(FlowEvent event) {
-		// here we can customize the flow of the wizard
 		if (!validate(event.getOldStep())) {
 			return event.getOldStep();
 		}
@@ -152,22 +156,6 @@ public class EventLogger implements Serializable {
 	}
 
 	private boolean validate(final String step) {
-		CargoRoute cargoRoute = bookingServiceFacade.loadCargoForRouting(trackingIdValue);
-
-		if ("eventTab".equals(step) && "RECEIVE".equals(eventType) && !isOriginLocation(cargoRoute)) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"A cargo can be RECEIVEd only in his origin port, please fix the errors to continue.", "");
-			FacesContext.getCurrentInstance().addMessage(null, message);
-			return false;
-		}
-
-		if ("eventTab".equals(step) && "CLAIM".equals(eventType) && !isDestination(cargoRoute)) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"A cargo can be CLAIMed only in his destination port, please fix errors to continue.", "");
-			FacesContext.getCurrentInstance().addMessage(null, message);
-			return false;
-		}
-
 		if ("voyageTab".equals(step) && ("LOAD".equals(eventType) || "UNLOAD".equals(eventType))
 				&& voyageNumber == null) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -180,39 +168,23 @@ public class EventLogger implements Serializable {
 		return true;
 	}
 
-	public boolean isOriginLocation(CargoRoute cargoRoute) {
-		if (cargoRoute == null || location == null) {
-			return true;
-		}
-
-		return cargoRoute.getOriginCode().equals(location);
-	}
-
-	public boolean isDestination(CargoRoute cargoRoute) {
-		if (cargoRoute == null || location == null) {
-			return true;
-		}
-
-		return cargoRoute.getFinalDestinationCode().equals(location);
-	}
-
 	public void submit() {
-		VoyageNumber selectedVoyage;
+		VoyageNumber voyage;
 
 		Date registrationTime = new Date();
-		TrackingId trackingId = new TrackingId(trackingIdValue);
-		UnLocode unLocode = new UnLocode(this.location);
+		TrackingId trackingId = new TrackingId(this.trackingId);
+		UnLocode location = new UnLocode(this.location);
 		HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
 
 		// Only Load & Unload could have a Voyage set
 		if ("LOAD".equals(eventType) || "UNLOAD".equals(eventType)) {
-			selectedVoyage = new VoyageNumber(voyageNumber);
+			voyage = new VoyageNumber(voyageNumber);
 		} else {
-			selectedVoyage = null;
+			voyage = null;
 		}
 
 		HandlingEventRegistrationAttempt attempt = new HandlingEventRegistrationAttempt(registrationTime,
-				completionDate, trackingId, selectedVoyage, type, unLocode);
+				completionDate, trackingId, voyage, type, location);
 
 		applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
