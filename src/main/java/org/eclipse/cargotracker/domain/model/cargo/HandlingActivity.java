@@ -17,93 +17,102 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 
 /**
- * A handling activity represents how and where a cargo can be handled, and can
- * be used to express predictions about what is expected to happen to a cargo in
- * the future.
+ * A handling activity represents how and where a cargo can be handled, and can be used to express
+ * predictions about what is expected to happen to a cargo in the future.
  */
 @Embeddable
 public class HandlingActivity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Enumerated(EnumType.STRING)
-	@Column(name = "next_expected_handling_event_type")
-	private HandlingEvent.Type type;
-	@ManyToOne
-	@JoinColumn(name = "next_expected_location_id")
-	private Location location;
-	@ManyToOne
-	@JoinColumn(name = "next_expected_voyage_id")
-	private Voyage voyage;
+  private static final long serialVersionUID = 1L;
 
-	public HandlingActivity() {
-	}
+  @Enumerated(EnumType.STRING)
+  @Column(name = "next_expected_handling_event_type")
+  private HandlingEvent.Type type;
 
-	public HandlingActivity(HandlingEvent.Type type, Location location) {
-		Validate.notNull(type, "Handling event type is required");
-		Validate.notNull(location, "Location is required");
+  @ManyToOne
+  @JoinColumn(name = "next_expected_location_id")
+  private Location location;
 
-		this.type = type;
-		this.location = location;
-	}
+  @ManyToOne
+  @JoinColumn(name = "next_expected_voyage_id")
+  private Voyage voyage;
 
-	public HandlingActivity(HandlingEvent.Type type, Location location, Voyage voyage) {
-		Validate.notNull(type, "Handling event type is required");
-		Validate.notNull(location, "Location is required");
-		Validate.notNull(voyage, "Voyage is required");
+  public HandlingActivity() {}
 
-		this.type = type;
-		this.location = location;
-		this.voyage = voyage;
-	}
+  public HandlingActivity(HandlingEvent.Type type, Location location) {
+    Validate.notNull(type, "Handling event type is required");
+    Validate.notNull(location, "Location is required");
 
-	public HandlingEvent.Type getType() {
-		return type;
-	}
+    this.type = type;
+    this.location = location;
+  }
 
-	public Location getLocation() {
-		return location;
-	}
+  public HandlingActivity(HandlingEvent.Type type, Location location, Voyage voyage) {
+    Validate.notNull(type, "Handling event type is required");
+    Validate.notNull(location, "Location is required");
+    Validate.notNull(voyage, "Voyage is required");
 
-	public Voyage getVoyage() {
-		return voyage;
-	}
+    this.type = type;
+    this.location = location;
+    this.voyage = voyage;
+  }
 
-	private boolean sameValueAs(HandlingActivity other) {
-		return other != null && new EqualsBuilder().append(this.type, other.type).append(this.location, other.location)
-				.append(this.voyage, other.voyage).isEquals();
-	}
+  public HandlingEvent.Type getType() {
+    return type;
+  }
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(this.type).append(this.location).append(this.voyage).toHashCode();
-	}
+  public Location getLocation() {
+    return location;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (obj.getClass() != this.getClass()) {
-			return false;
-		}
+  public Voyage getVoyage() {
+    return voyage;
+  }
 
-		HandlingActivity other = (HandlingActivity) obj;
+  private boolean sameValueAs(HandlingActivity other) {
+    return other != null
+        && new EqualsBuilder()
+            .append(this.type, other.type)
+            .append(this.location, other.location)
+            .append(this.voyage, other.voyage)
+            .isEquals();
+  }
 
-		return sameValueAs(other);
-	}
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder()
+        .append(this.type)
+        .append(this.location)
+        .append(this.voyage)
+        .toHashCode();
+  }
 
-	public boolean isEmpty() {
-		if (type != null) {
-			return false;
-		}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (obj.getClass() != this.getClass()) {
+      return false;
+    }
 
-		if (location != null) {
-			return false;
-		}
+    HandlingActivity other = (HandlingActivity) obj;
 
-		return voyage == null;
-	}
+    return sameValueAs(other);
+  }
+
+  public boolean isEmpty() {
+    if (type != null) {
+      return false;
+    }
+
+    if (location != null) {
+      return false;
+    }
+
+    return voyage == null;
+  }
 }
