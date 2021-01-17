@@ -11,6 +11,5 @@ import javax.inject.Qualifier;
 
 @Qualifier
 @Retention(RUNTIME)
-@Target({ FIELD, PARAMETER })
-public @interface CargoInspected {
-}
+@Target({FIELD, PARAMETER})
+public @interface CargoInspected {}
