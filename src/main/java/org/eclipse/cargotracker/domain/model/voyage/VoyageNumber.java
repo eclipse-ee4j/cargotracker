@@ -11,54 +11,54 @@ import org.apache.commons.lang3.Validate;
 @Embeddable
 public class VoyageNumber implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "voyage_number")
-	@NotNull
-	private String number;
+  private static final long serialVersionUID = 1L;
 
-	public VoyageNumber() {
-		// Nothing to initialize.
-	}
+  @Column(name = "voyage_number")
+  @NotNull
+  private String number;
 
-	public VoyageNumber(String number) {
-		Validate.notNull(number);
+  public VoyageNumber() {
+    // Nothing to initialize.
+  }
 
-		this.number = number;
-	}
+  public VoyageNumber(String number) {
+    Validate.notNull(number);
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null) {
-			return false;
-		}
-		if (!(o instanceof VoyageNumber)) {
-			return false;
-		}
+    this.number = number;
+  }
 
-		VoyageNumber other = (VoyageNumber) o;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null) {
+      return false;
+    }
+    if (!(o instanceof VoyageNumber)) {
+      return false;
+    }
 
-		return sameValueAs(other);
-	}
+    VoyageNumber other = (VoyageNumber) o;
 
-	@Override
-	public int hashCode() {
-		return number.hashCode();
-	}
+    return sameValueAs(other);
+  }
 
-	boolean sameValueAs(VoyageNumber other) {
-		return other != null && this.number.equals(other.number);
-	}
+  @Override
+  public int hashCode() {
+    return number.hashCode();
+  }
 
-	@Override
-	public String toString() {
-		return number;
-	}
+  boolean sameValueAs(VoyageNumber other) {
+    return other != null && this.number.equals(other.number);
+  }
 
-	public String getIdString() {
-		return number;
-	}
+  @Override
+  public String toString() {
+    return number;
+  }
+
+  public String getIdString() {
+    return number;
+  }
 }
