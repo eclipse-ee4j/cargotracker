@@ -9,29 +9,29 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 
 /**
- * This facade shields the domain layer - model, services, repositories - from
- * concerns about such things as the user interface and remote communication.
+ * This facade shields the domain layer - model, services, repositories - from concerns about such
+ * things as the user interface and remote communication.
  */
 public interface BookingServiceFacade {
 
-	String bookNewCargo(String origin, String destination, Date arrivalDeadline);
+  String bookNewCargo(String origin, String destination, Date arrivalDeadline);
 
-	CargoRoute loadCargoForRouting(String trackingId);
+  CargoRoute loadCargoForRouting(String trackingId);
 
-	CargoStatus loadCargoForTracking(String trackingId);
+  CargoStatus loadCargoForTracking(String trackingId);
 
-	void assignCargoToRoute(String trackingId, RouteCandidate route);
+  void assignCargoToRoute(String trackingId, RouteCandidate route);
 
-	void changeDestination(String trackingId, String destinationUnLocode);
+  void changeDestination(String trackingId, String destinationUnLocode);
 
-	void changeDeadline(String trackingId, Date arrivalDeadline);
+  void changeDeadline(String trackingId, Date arrivalDeadline);
 
-	List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId);
+  List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId);
 
-	List<Location> listShippingLocations();
+  List<Location> listShippingLocations();
 
-	// TODO [DDD] Is this the right DTO here?
-	List<CargoRoute> listAllCargos();
+  // TODO [DDD] Is this the right DTO here?
+  List<CargoRoute> listAllCargos();
 
-	List<String> listAllTrackingIds();
+  List<String> listAllTrackingIds();
 }
