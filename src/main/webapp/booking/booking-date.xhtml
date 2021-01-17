@@ -15,12 +15,9 @@
 				<hr />
 				<h:panelGrid columns="2" styleClass="registrationPanelGrid"
 					style="margin: 0 auto;">
-					<p:calendar id="deadline"
-						value="#{booking.arrivalDeadline}"
-						mindate="#{booking.today}" mode="inline"
-						pattern="yyyy-MM-dd">
-						<p:ajax event="dateSelect"
-							listener="#{booking.deadlineUpdated}" />
+					<p:calendar id="deadline" value="#{booking.arrivalDeadline}"
+						mindate="#{booking.today}" mode="inline" pattern="yyyy-MM-dd">
+						<p:ajax event="dateSelect" listener="#{booking.deadlineUpdated}" />
 					</p:calendar>
 				</h:panelGrid>
 				<h:panelGrid columns="2" id="durationPanel"
@@ -39,8 +36,7 @@
 					<p:commandButton value="Back" action="booking-destination" />
 					<p:commandButton value="Cancel" action="/admin/dashboard" />
 					<p:commandButton value="Book Cargo" id="bookBtn"
-						action="#{booking.register()}"
-						disabled="#{!booking.bookable}" />
+						action="#{booking.register()}" disabled="#{!booking.bookable}" />
 				</h:panelGrid>
 			</h:form>
 		</div>

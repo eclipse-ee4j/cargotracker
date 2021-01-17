@@ -74,8 +74,7 @@
 
 				<div class="ui-g-12">
 					<p:separator />
-					<br />
-					<br />
+					<br /> <br />
 				</div>
 
 				<h:outputLabel
@@ -86,12 +85,10 @@
 					<ui:repeat value="#{admin.track.cargo.events}" var="event">
 						<div>
 							<ui:fragment rendered="#{event.expected}">
-								&#160;&#160;<i class="fa fa-check"
-									style="color: green" />&#160;#{event.description}, at #{event.time}
+								&#160;&#160;<i class="fa fa-check" style="color: green" />&#160;#{event.description}, at #{event.time}
 							</ui:fragment>
 							<ui:fragment rendered="#{!event.expected}">
-								&#160;&#160;<em class="fa fa-flag"
-									style="color: #9b2332" />&#160;#{event.description}, at #{event.time}
+								&#160;&#160;<em class="fa fa-flag" style="color: #9b2332" />&#160;#{event.description}, at #{event.time}
 							</ui:fragment>
 						</div>
 					</ui:repeat>
