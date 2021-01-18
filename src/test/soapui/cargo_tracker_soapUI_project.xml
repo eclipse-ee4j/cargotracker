@@ -89,7 +89,7 @@
 				</con:representation>
 				<con:representation type="RESPONSE"><con:mediaType>application/xml</con:mediaType><con:status>200</con:status><con:params/><con:element>transitPaths</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>400</con:status><con:params/><con:element>Fault</con:element></con:representation><con:request name="GET" mediaType="application/xml" id="a239cfc6-0a69-49fb-b310-107ef6738212">
 					<con:settings>
-						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
+						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting>
 					</con:settings>
 					<con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
 					<con:request/>
@@ -164,7 +164,7 @@
 				</con:request>
 			</con:method>
 		</con:resource>
-	</con:interface>
+	<con:resource name="cargo" path="/cargo" id="ff197822-b73c-432a-ada2-c5424119d4cb"><con:settings/><con:parameters/><con:method name="Get All Cargo" id="5023518d-e2d5-4914-abe0-b55c6d86d57c" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/html</con:mediaType><con:status>406</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:request name="GET" id="646611ac-0f32-4385-9365-6e3d818bd0b1" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint><con:request/><con:originalUri>http://localhost/cargo-tracker/rest/cargo</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface>
 	<con:properties/>
 	<con:wssContainer/>
 	<con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/>
