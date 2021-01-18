@@ -31,9 +31,26 @@ public class GraphTraversalService {
   @Path("/shortest-path")
   @Produces({"application/json", "application/xml; qs=.75"})
   public List<TransitPath> findShortestPath(
-      @NotNull @Size(min = 5, max = 5) @QueryParam("origin") String originUnLocode,
-      @NotNull @Size(min = 5, max = 5) @QueryParam("destination") String destinationUnLocode,
-      @QueryParam("deadline") String deadline) {
+      // TODO [Jakarta EE 8] Use not blank instead.
+      @NotNull(message = "Missing origin UN location code.")
+          @Size(
+              min = 5,
+              max = 5,
+              message = "Origin UN location code value must be five characters long.")
+          @QueryParam("origin")
+          String originUnLocode,
+      // TODO [Jakarta EE 8] Use not blank instead.
+      @NotNull(message = "Missing destination UN location code.")
+          @Size(
+              min = 5,
+              max = 5,
+              message = "Destination UN location code value must be five characters long.")
+          @QueryParam("destination")
+          String destinationUnLocode,
+      // TODO [DDD] Apply regular expression validation.
+      @Size(min = 8, max = 8, message = "Deadline value must be eight characters long.")
+          @QueryParam("deadline")
+          String deadline) {
     Date date = nextDate(new Date());
 
     List<String> allVertices = dao.listLocations();

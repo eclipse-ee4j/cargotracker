@@ -87,7 +87,7 @@
 					<con:params/>
 					<con:element>data</con:element>
 				</con:representation>
-				<con:representation type="RESPONSE"><con:mediaType>application/xml</con:mediaType><con:status>200</con:status><con:params/><con:element>transitPaths</con:element></con:representation><con:request name="GET" mediaType="application/xml" id="a239cfc6-0a69-49fb-b310-107ef6738212">
+				<con:representation type="RESPONSE"><con:mediaType>application/xml</con:mediaType><con:status>200</con:status><con:params/><con:element>transitPaths</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>400</con:status><con:params/><con:element>Fault</con:element></con:representation><con:request name="GET" mediaType="application/xml" id="a239cfc6-0a69-49fb-b310-107ef6738212">
 					<con:settings>
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
 					</con:settings>
@@ -98,11 +98,7 @@
 					</con:credentials>
 					<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 					<con:jmsPropertyConfig/>
-					<con:parameters>
-  <con:entry key="origin" value="CNHKG"/>
-  <con:entry key="destination" value="USNYC"/>
-  <con:entry key="deadline" value="10102021"/>
-</con:parameters>
+					<con:parameters><entry key="origin" value="CNHKG" xmlns="http://eviware.com/soapui/config"/></con:parameters>
 				</con:request>
 			</con:method>
 		</con:resource>
@@ -114,7 +110,7 @@
 				<con:parameters/>
 				<con:representation type="FAULT">
 					<con:mediaType>text/html</con:mediaType>
-					<con:status>404 400</con:status>
+					<con:status>404 400 500</con:status>
 					<con:params/>
 					<con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element>
 				</con:representation>
@@ -147,7 +143,7 @@
 					<con:params/>
 					<con:element>data</con:element>
 				</con:representation>
-				<con:request name="POST" mediaType="application/json" postQueryString="false" accept="" id="3b620cce-e06c-4919-810a-af9794fe10e7">
+				<con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>400</con:status><con:params/><con:element>Fault</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="POST" mediaType="application/json" postQueryString="false" accept="" id="3b620cce-e06c-4919-810a-af9794fe10e7">
 					<con:settings>
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
 					</con:settings>
@@ -158,8 +154,7 @@
   "eventType": "LOAD",
   "unLocode": "USNYC",
   "voyageNumber": "0200T"
-}
-					</con:request>
+}		</con:request>
 					<con:originalUri>http://localhost/cargo-tracker/rest/handling/reports</con:originalUri><con:credentials>
 						<con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
 					</con:credentials>

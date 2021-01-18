@@ -38,7 +38,8 @@ public class HandlingReportService {
   @POST
   @Path("/reports")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void submitReport(@NotNull @Valid HandlingReport handlingReport) {
+  public void submitReport(
+      @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
     try {
       Date completionTime =
           new SimpleDateFormat(ISO_8601_FORMAT).parse(handlingReport.getCompletionTime());
