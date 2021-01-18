@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
 
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -37,7 +36,7 @@ public class HandlingReportService {
 
   @POST
   @Path("/reports")
-  @Consumes(MediaType.APPLICATION_JSON)
+  @Consumes({"application/json", "application/xml"})
   public void submitReport(
       @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
     try {
