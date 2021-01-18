@@ -106,7 +106,7 @@
 				</con:request>
 			</con:method>
 		</con:resource>
-		<con:resource name="handling-reports" path="/cargo-tracker/rest/handling/reports" id="48f88e9d-4bf4-4aae-b599-7e3083d5b7e1">
+		<con:resource name="handling-reports" path="/handling/reports" id="48f88e9d-4bf4-4aae-b599-7e3083d5b7e1">
 			<con:settings/>
 			<con:parameters/>
 			<con:method name="Submit Report" method="POST" id="dc3389b3-6b4d-410a-8b0d-8a1083e7b687">
@@ -151,16 +151,17 @@
 					<con:settings>
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
 					</con:settings>
-					<con:endpoint>http://localhost:8080</con:endpoint>
+					<con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
 					<con:request>{
-						"completionTime": "2013-08-28 09:30",
-						"trackingId": "3B071792",
-						"eventType": "RECEIVE",
-						"unLocode": "CNHKG"
-						}
+  "completionTime": "2021-01-19 09:30",
+  "trackingId": "ABC123",
+  "eventType": "LOAD",
+  "unLocode": "USNYC",
+  "voyageNumber": "0200T"
+}
 					</con:request>
-					<con:credentials>
-						<con:authType>Global HTTP Settings</con:authType>
+					<con:originalUri>http://localhost/cargo-tracker/rest/handling/reports</con:originalUri><con:credentials>
+						<con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
 					</con:credentials>
 					<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 					<con:jmsPropertyConfig/>
