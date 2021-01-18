@@ -5,9 +5,9 @@
 		<con:settings/>
 		
 		<con:definitionCache type="TEXT" rootPart=""/><con:endpoints>
-			<con:endpoint>http://localhost:8080</con:endpoint>
+			<con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
 		</con:endpoints>
-		<con:resource name="shortest-path" path="/cargo-tracker/rest/graph-traversal/shortest-path" id="7435d226-84d4-4ba0-b23f-b27398ce9efa">
+		<con:resource name="shortest-path" path="/graph-traversal/shortest-path" id="7435d226-84d4-4ba0-b23f-b27398ce9efa">
 			<con:settings/>
 			<con:parameters>
 				<con:parameter>
@@ -43,28 +43,28 @@
 				<con:parameters>
 					<con:parameter>
 						<con:name>origin</con:name>
-						<con:value/>
+						<con:value>CNHKG</con:value>
 						<con:style>QUERY</con:style>
 						<con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
-						<con:default/>
+						<con:default>CNHKG</con:default>
 						<con:path xsi:nil="true"/>
 						<con:description xsi:nil="true"/>
 					</con:parameter>
 					<con:parameter>
 						<con:name>destination</con:name>
-						<con:value/>
+						<con:value>USNYC</con:value>
 						<con:style>QUERY</con:style>
 						<con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
-						<con:default/>
+						<con:default>USNYC</con:default>
 						<con:path xsi:nil="true"/>
 						<con:description xsi:nil="true"/>
 					</con:parameter>
 					<con:parameter>
 						<con:name>deadline</con:name>
-						<con:value/>
+						<con:value>10102021</con:value>
 						<con:style>QUERY</con:style>
 						<con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type>
-						<con:default/>
+						<con:default>10102021</con:default>
 						<con:path xsi:nil="true"/>
 						<con:description xsi:nil="true"/>
 					</con:parameter>
@@ -91,7 +91,7 @@
 					<con:settings>
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
 					</con:settings>
-					<con:endpoint>http://localhost:8080</con:endpoint>
+					<con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
 					<con:request/>
 					<con:originalUri>http://localhost/cargo-tracker/rest/graph-traversal/shortest-path</con:originalUri><con:credentials>
 						<con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
