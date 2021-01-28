@@ -33,7 +33,7 @@
 		<javaee_api.version>7.0</javaee_api.version>
 
 		<!-- Arquillian properties -->
-		<arquillian.core.version>1.4.1.Final</arquillian.core.version>
+		<arquillian.core.version>1.6.0.Final</arquillian.core.version>
 		<skipTests>true</skipTests>
 
 		<!-- Codehaus Cargo plugin properties -->
