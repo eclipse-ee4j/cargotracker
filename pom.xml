@@ -30,7 +30,7 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 
-		<javaee_api.version>7.0</javaee_api.version>
+		<javaee_api.version>8.0.1</javaee_api.version>
 
 		<!-- Arquillian properties -->
 		<arquillian.core.version>1.4.1.Final</arquillian.core.version>
