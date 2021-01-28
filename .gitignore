@@ -1,5 +1,12 @@
 target
 .settings
 .metadata
-/.classpath
-/.project
+.factorypath
+.classpath
+.project
+*.iml
+.idea/
+nb-*
+bin/
+*.log
+*.log-*
