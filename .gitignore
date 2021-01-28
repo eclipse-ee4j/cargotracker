@@ -10,3 +10,4 @@ nb-*
 bin/
 *.log
 *.log-*
+data
