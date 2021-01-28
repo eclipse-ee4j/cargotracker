@@ -11,54 +11,54 @@ import org.apache.commons.lang3.Validate;
 @Embeddable
 public class VoyageNumber implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Column(name = "voyage_number")
-  @NotNull
-  private String number;
+    @Column(name = "voyage_number")
+    @NotNull
+    private String number;
 
-  public VoyageNumber() {
-    // Nothing to initialize.
-  }
-
-  public VoyageNumber(String number) {
-    Validate.notNull(number);
-
-    this.number = number;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null) {
-      return false;
-    }
-    if (!(o instanceof VoyageNumber)) {
-      return false;
+    public VoyageNumber() {
+        // Nothing to initialize.
     }
 
-    VoyageNumber other = (VoyageNumber) o;
+    public VoyageNumber(String number) {
+        Validate.notNull(number);
 
-    return sameValueAs(other);
-  }
+        this.number = number;
+    }
 
-  @Override
-  public int hashCode() {
-    return number.hashCode();
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (!(o instanceof VoyageNumber)) {
+            return false;
+        }
 
-  boolean sameValueAs(VoyageNumber other) {
-    return other != null && this.number.equals(other.number);
-  }
+        VoyageNumber other = (VoyageNumber) o;
 
-  @Override
-  public String toString() {
-    return number;
-  }
+        return sameValueAs(other);
+    }
 
-  public String getIdString() {
-    return number;
-  }
+    @Override
+    public int hashCode() {
+        return number.hashCode();
+    }
+
+    boolean sameValueAs(VoyageNumber other) {
+        return other != null && this.number.equals(other.number);
+    }
+
+    @Override
+    public String toString() {
+        return number;
+    }
+
+    public String getIdString() {
+        return number;
+    }
 }

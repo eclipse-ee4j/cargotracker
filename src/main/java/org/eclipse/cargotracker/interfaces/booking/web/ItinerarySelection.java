@@ -25,43 +25,43 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 @ViewScoped
 public class ItinerarySelection implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  private String trackingId;
-  private CargoRoute cargo;
-  List<RouteCandidate> routeCandidates;
+    private String trackingId;
+    private CargoRoute cargo;
+    List<RouteCandidate> routeCandidates;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+    @Inject private BookingServiceFacade bookingServiceFacade;
 
-  public List<RouteCandidate> getRouteCandidates() {
-    return routeCandidates;
-  }
+    public List<RouteCandidate> getRouteCandidates() {
+        return routeCandidates;
+    }
 
-  public String getTrackingId() {
-    return trackingId;
-  }
+    public String getTrackingId() {
+        return trackingId;
+    }
 
-  public void setTrackingId(String trackingId) {
-    this.trackingId = trackingId;
-  }
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
+    }
 
-  public CargoRoute getCargo() {
-    return cargo;
-  }
+    public CargoRoute getCargo() {
+        return cargo;
+    }
 
-  public List<RouteCandidate> getRouteCanditates() {
-    return routeCandidates;
-  }
+    public List<RouteCandidate> getRouteCanditates() {
+        return routeCandidates;
+    }
 
-  public void load() {
-    cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-    routeCandidates = bookingServiceFacade.requestPossibleRoutesForCargo(trackingId);
-  }
+    public void load() {
+        cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
+        routeCandidates = bookingServiceFacade.requestPossibleRoutesForCargo(trackingId);
+    }
 
-  public String assignItinerary(int routeIndex) {
-    RouteCandidate route = routeCandidates.get(routeIndex);
-    bookingServiceFacade.assignCargoToRoute(trackingId, route);
+    public String assignItinerary(int routeIndex) {
+        RouteCandidate route = routeCandidates.get(routeIndex);
+        bookingServiceFacade.assignCargoToRoute(trackingId, route);
 
-    return "show.html?faces-redirect=true&trackingId=" + trackingId;
-  }
+        return "show.html?faces-redirect=true&trackingId=" + trackingId;
+    }
 }

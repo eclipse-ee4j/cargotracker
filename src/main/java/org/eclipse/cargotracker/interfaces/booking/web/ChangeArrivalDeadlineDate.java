@@ -28,46 +28,46 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeArrivalDeadlineDate implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  private String trackingId;
-  private CargoRoute cargo;
-  private Date arrivalDeadlineDate;
+    private String trackingId;
+    private CargoRoute cargo;
+    private Date arrivalDeadlineDate;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+    @Inject private BookingServiceFacade bookingServiceFacade;
 
-  public String getTrackingId() {
-    return trackingId;
-  }
-
-  public void setTrackingId(String trackingId) {
-    this.trackingId = trackingId;
-  }
-
-  public CargoRoute getCargo() {
-    return cargo;
-  }
-
-  public Date getArrivalDeadlineDate() {
-    return this.arrivalDeadlineDate;
-  }
-
-  public void setArrivalDeadlineDate(Date arrivalDeadlineDate) {
-    this.arrivalDeadlineDate = arrivalDeadlineDate;
-  }
-
-  public void load() {
-    cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-    try {
-      arrivalDeadlineDate = df.parse(cargo.getArrivalDeadline());
-    } catch (ParseException e) {
-      e.printStackTrace();
+    public String getTrackingId() {
+        return trackingId;
     }
-  }
 
-  public void changeArrivalDeadline() {
-    bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate);
-    PrimeFaces.current().dialog().closeDynamic("DONE");
-  }
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
+    }
+
+    public CargoRoute getCargo() {
+        return cargo;
+    }
+
+    public Date getArrivalDeadlineDate() {
+        return this.arrivalDeadlineDate;
+    }
+
+    public void setArrivalDeadlineDate(Date arrivalDeadlineDate) {
+        this.arrivalDeadlineDate = arrivalDeadlineDate;
+    }
+
+    public void load() {
+        cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            arrivalDeadlineDate = df.parse(cargo.getArrivalDeadline());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeArrivalDeadline() {
+        bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate);
+        PrimeFaces.current().dialog().closeDynamic("DONE");
+    }
 }

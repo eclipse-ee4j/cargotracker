@@ -20,38 +20,38 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 @Stateless
 public class DefaultCargoInspectionService implements CargoInspectionService {
 
-  @Inject private ApplicationEvents applicationEvents;
-  @Inject private CargoRepository cargoRepository;
-  @Inject private HandlingEventRepository handlingEventRepository;
+    @Inject private ApplicationEvents applicationEvents;
+    @Inject private CargoRepository cargoRepository;
+    @Inject private HandlingEventRepository handlingEventRepository;
 
-  @Inject @CargoInspected private Event<Cargo> cargoInspected;
+    @Inject @CargoInspected private Event<Cargo> cargoInspected;
 
-  @Inject private Logger logger;
+    @Inject private Logger logger;
 
-  @Override
-  public void inspectCargo(TrackingId trackingId) {
-    Cargo cargo = cargoRepository.find(trackingId);
+    @Override
+    public void inspectCargo(TrackingId trackingId) {
+        Cargo cargo = cargoRepository.find(trackingId);
 
-    if (cargo == null) {
-      logger.log(Level.WARNING, "Can't inspect non-existing cargo {0}", trackingId);
-      return;
+        if (cargo == null) {
+            logger.log(Level.WARNING, "Can't inspect non-existing cargo {0}", trackingId);
+            return;
+        }
+
+        HandlingHistory handlingHistory =
+                handlingEventRepository.lookupHandlingHistoryOfCargo(trackingId);
+
+        cargo.deriveDeliveryProgress(handlingHistory);
+
+        if (cargo.getDelivery().isMisdirected()) {
+            applicationEvents.cargoWasMisdirected(cargo);
+        }
+
+        if (cargo.getDelivery().isUnloadedAtDestination()) {
+            applicationEvents.cargoHasArrived(cargo);
+        }
+
+        cargoRepository.store(cargo);
+
+        cargoInspected.fire(cargo);
     }
-
-    HandlingHistory handlingHistory =
-        handlingEventRepository.lookupHandlingHistoryOfCargo(trackingId);
-
-    cargo.deriveDeliveryProgress(handlingHistory);
-
-    if (cargo.getDelivery().isMisdirected()) {
-      applicationEvents.cargoWasMisdirected(cargo);
-    }
-
-    if (cargo.getDelivery().isUnloadedAtDestination()) {
-      applicationEvents.cargoHasArrived(cargo);
-    }
-
-    cargoRepository.store(cargo);
-
-    cargoInspected.fire(cargo);
-  }
 }

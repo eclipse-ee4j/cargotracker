@@ -1,7 +1,7 @@
 <handlingReport>
-  <completionTime>2021-01-19 09:30</completionTime>
-  <trackingId>ABC123</trackingId>
-  <eventType>LOAD</eventType>
-  <unLocode>USNYC</unLocode>
-  <voyageNumber>0200T</voyageNumber>
+    <completionTime>2021-01-19 09:30</completionTime>
+    <trackingId>ABC123</trackingId>
+    <eventType>LOAD</eventType>
+    <unLocode>USNYC</unLocode>
+    <voyageNumber>0200T</voyageNumber>
 </handlingReport>

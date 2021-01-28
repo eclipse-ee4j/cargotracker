@@ -29,72 +29,73 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 @ViewScoped
 public class Registration implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  private static final String FORMAT = "yyyy-MM-dd";
+    private static final String FORMAT = "yyyy-MM-dd";
 
-  List<Location> locations;
-  private String arrivalDeadline;
-  private String originUnlocode;
-  private String destinationUnlocode;
+    List<Location> locations;
+    private String arrivalDeadline;
+    private String originUnlocode;
+    private String destinationUnlocode;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+    @Inject private BookingServiceFacade bookingServiceFacade;
 
-  public List<Location> getLocations() {
-    return locations;
-  }
-
-  public String getArrivalDeadline() {
-    return arrivalDeadline;
-  }
-
-  public void setArrivalDeadline(String arrivalDeadline) {
-    this.arrivalDeadline = arrivalDeadline;
-  }
-
-  public String getOriginUnlocode() {
-    return originUnlocode;
-  }
-
-  public void setOriginUnlocode(String originUnlocode) {
-    this.originUnlocode = originUnlocode;
-  }
-
-  public String getDestinationUnlocode() {
-    return destinationUnlocode;
-  }
-
-  public void setDestinationUnlocode(String destinationUnlocode) {
-    this.destinationUnlocode = destinationUnlocode;
-  }
-
-  @PostConstruct
-  public void init() {
-    locations = bookingServiceFacade.listShippingLocations();
-  }
-
-  public String register() {
-    String trackingId = null;
-
-    try {
-      if (!originUnlocode.equals(destinationUnlocode)) {
-        trackingId =
-            bookingServiceFacade.bookNewCargo(
-                originUnlocode,
-                destinationUnlocode,
-                new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
-      } else {
-        // TODO [Jakarta EE 8] See if this can be injected.
-        FacesContext context = FacesContext.getCurrentInstance();
-        FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
-        message.setSeverity(FacesMessage.SEVERITY_ERROR);
-        context.addMessage(null, message);
-        return null;
-      }
-    } catch (ParseException e) {
-      throw new RuntimeException("Error parsing date", e);
+    public List<Location> getLocations() {
+        return locations;
     }
 
-    return "show.xhtml?faces-redirect=true&trackingId=" + trackingId;
-  }
+    public String getArrivalDeadline() {
+        return arrivalDeadline;
+    }
+
+    public void setArrivalDeadline(String arrivalDeadline) {
+        this.arrivalDeadline = arrivalDeadline;
+    }
+
+    public String getOriginUnlocode() {
+        return originUnlocode;
+    }
+
+    public void setOriginUnlocode(String originUnlocode) {
+        this.originUnlocode = originUnlocode;
+    }
+
+    public String getDestinationUnlocode() {
+        return destinationUnlocode;
+    }
+
+    public void setDestinationUnlocode(String destinationUnlocode) {
+        this.destinationUnlocode = destinationUnlocode;
+    }
+
+    @PostConstruct
+    public void init() {
+        locations = bookingServiceFacade.listShippingLocations();
+    }
+
+    public String register() {
+        String trackingId = null;
+
+        try {
+            if (!originUnlocode.equals(destinationUnlocode)) {
+                trackingId =
+                        bookingServiceFacade.bookNewCargo(
+                                originUnlocode,
+                                destinationUnlocode,
+                                new SimpleDateFormat(FORMAT).parse(arrivalDeadline));
+            } else {
+                // TODO [Jakarta EE 8] See if this can be injected.
+                FacesContext context = FacesContext.getCurrentInstance();
+                FacesMessage message =
+                        new FacesMessage("Origin and destination cannot be the same.");
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                context.addMessage(null, message);
+                return null;
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException("Error parsing date", e);
+        }
+
+        return "show.xhtml?faces-redirect=true&trackingId=" + trackingId;
+    }
 }

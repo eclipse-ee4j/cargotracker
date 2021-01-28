@@ -27,44 +27,44 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 @ViewScoped
 public class Track implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+    @Inject private BookingServiceFacade bookingServiceFacade;
 
-  private List<String> trackingIds;
-  private String trackingId;
-  private CargoStatus cargo;
+    private List<String> trackingIds;
+    private String trackingId;
+    private CargoStatus cargo;
 
-  public List<String> getTrackingIds(String query) {
-    return trackingIds;
-  }
-
-  public String getTrackingId() {
-    return trackingId;
-  }
-
-  public void setTrackingId(String trackingId) {
-    this.trackingId = trackingId;
-  }
-
-  public CargoStatus getCargo() {
-    return this.cargo;
-  }
-
-  @PostConstruct
-  public void init() {
-    trackingIds = bookingServiceFacade.listAllTrackingIds();
-  }
-
-  public void onTrackById() {
-    cargo = bookingServiceFacade.loadCargoForTracking(this.trackingId);
-
-    if (cargo == null) {
-      FacesContext context = FacesContext.getCurrentInstance();
-      FacesMessage message =
-          new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
-      message.setSeverity(FacesMessage.SEVERITY_ERROR);
-      context.addMessage(null, message);
+    public List<String> getTrackingIds(String query) {
+        return trackingIds;
     }
-  }
+
+    public String getTrackingId() {
+        return trackingId;
+    }
+
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
+    }
+
+    public CargoStatus getCargo() {
+        return this.cargo;
+    }
+
+    @PostConstruct
+    public void init() {
+        trackingIds = bookingServiceFacade.listAllTrackingIds();
+    }
+
+    public void onTrackById() {
+        cargo = bookingServiceFacade.loadCargoForTracking(this.trackingId);
+
+        if (cargo == null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesMessage message =
+                    new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            context.addMessage(null, message);
+        }
+    }
 }

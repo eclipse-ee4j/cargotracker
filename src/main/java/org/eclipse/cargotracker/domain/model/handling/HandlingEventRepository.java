@@ -4,7 +4,7 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 
 public interface HandlingEventRepository {
 
-  void store(HandlingEvent event);
+    void store(HandlingEvent event);
 
-  HandlingHistory lookupHandlingHistoryOfCargo(TrackingId trackingId);
+    HandlingHistory lookupHandlingHistoryOfCargo(TrackingId trackingId);
 }

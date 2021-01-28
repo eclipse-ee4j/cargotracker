@@ -24,95 +24,98 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  // Null object pattern
-  public static final CarrierMovement NONE =
-      new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, new Date(0), new Date(0));
+    // Null object pattern
+    public static final CarrierMovement NONE =
+            new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, new Date(0), new Date(0));
 
-  @Id @GeneratedValue private Long id;
+    @Id @GeneratedValue private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "departure_location_id")
-  @NotNull
-  private Location departureLocation;
+    @ManyToOne
+    @JoinColumn(name = "departure_location_id")
+    @NotNull
+    private Location departureLocation;
 
-  @ManyToOne
-  @JoinColumn(name = "arrival_location_id")
-  @NotNull
-  private Location arrivalLocation;
+    @ManyToOne
+    @JoinColumn(name = "arrival_location_id")
+    @NotNull
+    private Location arrivalLocation;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "departure_time")
-  @NotNull
-  private Date departureTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "departure_time")
+    @NotNull
+    private Date departureTime;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "arrival_time")
-  @NotNull
-  private Date arrivalTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "arrival_time")
+    @NotNull
+    private Date arrivalTime;
 
-  public CarrierMovement() {
-    // Nothing to initialize.
-  }
-
-  public CarrierMovement(
-      Location departureLocation, Location arrivalLocation, Date departureTime, Date arrivalTime) {
-    Validate.noNullElements(
-        new Object[] {departureLocation, arrivalLocation, departureTime, arrivalTime});
-    this.departureTime = departureTime;
-    this.arrivalTime = arrivalTime;
-    this.departureLocation = departureLocation;
-    this.arrivalLocation = arrivalLocation;
-  }
-
-  public Location getDepartureLocation() {
-    return departureLocation;
-  }
-
-  public Location getArrivalLocation() {
-    return arrivalLocation;
-  }
-
-  public Date getDepartureTime() {
-    return new Date(departureTime.getTime());
-  }
-
-  public Date getArrivalTime() {
-    return new Date(arrivalTime.getTime());
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public CarrierMovement() {
+        // Nothing to initialize.
     }
 
-    CarrierMovement that = (CarrierMovement) o;
+    public CarrierMovement(
+            Location departureLocation,
+            Location arrivalLocation,
+            Date departureTime,
+            Date arrivalTime) {
+        Validate.noNullElements(
+                new Object[] {departureLocation, arrivalLocation, departureTime, arrivalTime});
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.departureLocation = departureLocation;
+        this.arrivalLocation = arrivalLocation;
+    }
 
-    return sameValueAs(that);
-  }
+    public Location getDepartureLocation() {
+        return departureLocation;
+    }
 
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder()
-        .append(this.departureLocation)
-        .append(this.departureTime)
-        .append(this.arrivalLocation)
-        .append(this.arrivalTime)
-        .toHashCode();
-  }
+    public Location getArrivalLocation() {
+        return arrivalLocation;
+    }
 
-  private boolean sameValueAs(CarrierMovement other) {
-    return other != null
-        && new EqualsBuilder()
-            .append(this.departureLocation, other.departureLocation)
-            .append(this.departureTime, other.departureTime)
-            .append(this.arrivalLocation, other.arrivalLocation)
-            .append(this.arrivalTime, other.arrivalTime)
-            .isEquals();
-  }
+    public Date getDepartureTime() {
+        return new Date(departureTime.getTime());
+    }
+
+    public Date getArrivalTime() {
+        return new Date(arrivalTime.getTime());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        CarrierMovement that = (CarrierMovement) o;
+
+        return sameValueAs(that);
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(this.departureLocation)
+                .append(this.departureTime)
+                .append(this.arrivalLocation)
+                .append(this.arrivalTime)
+                .toHashCode();
+    }
+
+    private boolean sameValueAs(CarrierMovement other) {
+        return other != null
+                && new EqualsBuilder()
+                        .append(this.departureLocation, other.departureLocation)
+                        .append(this.departureTime, other.departureTime)
+                        .append(this.arrivalLocation, other.arrivalLocation)
+                        .append(this.arrivalTime, other.arrivalTime)
+                        .isEquals();
+    }
 }

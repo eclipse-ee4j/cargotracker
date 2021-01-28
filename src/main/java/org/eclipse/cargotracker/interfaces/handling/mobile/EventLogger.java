@@ -34,161 +34,164 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class EventLogger implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Inject private CargoRepository cargoRepository;
+    @Inject private CargoRepository cargoRepository;
 
-  @Inject private LocationRepository locationRepository;
+    @Inject private LocationRepository locationRepository;
 
-  @Inject private VoyageRepository voyageRepository;
+    @Inject private VoyageRepository voyageRepository;
 
-  @Inject private ApplicationEvents applicationEvents;
+    @Inject private ApplicationEvents applicationEvents;
 
-  private List<SelectItem> trackingIds;
-  private List<SelectItem> locations;
-  private List<SelectItem> voyages;
+    private List<SelectItem> trackingIds;
+    private List<SelectItem> locations;
+    private List<SelectItem> voyages;
 
-  private String trackingId;
-  private String location;
-  private String eventType;
-  private String voyageNumber;
-  private Date completionDate;
+    private String trackingId;
+    private String location;
+    private String eventType;
+    private String voyageNumber;
+    private Date completionDate;
 
-  public void setTrackingId(String trackingId) {
-    this.trackingId = trackingId;
-  }
-
-  public String getTrackingId() {
-    return trackingId;
-  }
-
-  public List<SelectItem> getTrackingIds() {
-    return trackingIds;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public List<SelectItem> getLocations() {
-    return locations;
-  }
-
-  public String getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(String eventType) {
-    this.eventType = eventType;
-  }
-
-  public void setVoyageNumber(String voyageNumber) {
-    this.voyageNumber = voyageNumber;
-  }
-
-  public String getVoyageNumber() {
-    return voyageNumber;
-  }
-
-  public List<SelectItem> getVoyages() {
-    return voyages;
-  }
-
-  public void setCompletionDate(Date completionDate) {
-    this.completionDate = completionDate;
-  }
-
-  public Date getCompletionDate() {
-    return completionDate;
-  }
-
-  @PostConstruct
-  @Transactional
-  public void init() {
-    List<Cargo> cargos = cargoRepository.findAll();
-
-    trackingIds = new ArrayList<>(cargos.size());
-    for (Cargo cargo : cargos) {
-      // List only routed cargo that is not claimed yet.
-      if (!cargo.getItinerary().getLegs().isEmpty()
-          && !(cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED))) {
-        String trackingId = cargo.getTrackingId().getIdString();
-        trackingIds.add(new SelectItem(trackingId, trackingId));
-      }
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
     }
 
-    List<Location> locations = locationRepository.findAll();
-
-    this.locations = new ArrayList<>(locations.size());
-    for (Location location : locations) {
-      String locationCode = location.getUnLocode().getIdString();
-      this.locations.add(
-          new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
+    public String getTrackingId() {
+        return trackingId;
     }
 
-    List<Voyage> voyages = voyageRepository.findAll();
-
-    this.voyages = new ArrayList<>(voyages.size());
-    for (Voyage voyage : voyages) {
-      this.voyages.add(
-          new SelectItem(
-              voyage.getVoyageNumber().getIdString(), voyage.getVoyageNumber().getIdString()));
-    }
-  }
-
-  public String onFlowProcess(FlowEvent event) {
-    if (!validate(event.getOldStep())) {
-      return event.getOldStep();
+    public List<SelectItem> getTrackingIds() {
+        return trackingIds;
     }
 
-    if ("dateTab".equals(event.getNewStep())) {
-      completionDate = Calendar.getInstance().getTime();
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    return event.getNewStep();
-  }
-
-  private boolean validate(final String step) {
-    if ("voyageTab".equals(step)
-        && ("LOAD".equals(eventType) || "UNLOAD".equals(eventType))
-        && voyageNumber == null) {
-      FacesMessage message =
-          new FacesMessage(
-              FacesMessage.SEVERITY_ERROR,
-              "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
-              "");
-      FacesContext.getCurrentInstance().addMessage(null, message);
-      return false;
+    public String getLocation() {
+        return location;
     }
 
-    return true;
-  }
-
-  public void submit() {
-    VoyageNumber voyage;
-
-    Date registrationTime = new Date();
-    TrackingId trackingId = new TrackingId(this.trackingId);
-    UnLocode location = new UnLocode(this.location);
-    HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
-
-    // Only Load & Unload could have a Voyage set
-    if ("LOAD".equals(eventType) || "UNLOAD".equals(eventType)) {
-      voyage = new VoyageNumber(voyageNumber);
-    } else {
-      voyage = null;
+    public List<SelectItem> getLocations() {
+        return locations;
     }
 
-    HandlingEventRegistrationAttempt attempt =
-        new HandlingEventRegistrationAttempt(
-            registrationTime, completionDate, trackingId, voyage, type, location);
+    public String getEventType() {
+        return eventType;
+    }
 
-    applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
 
-    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Event submitted", ""));
-  }
+    public void setVoyageNumber(String voyageNumber) {
+        this.voyageNumber = voyageNumber;
+    }
+
+    public String getVoyageNumber() {
+        return voyageNumber;
+    }
+
+    public List<SelectItem> getVoyages() {
+        return voyages;
+    }
+
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public Date getCompletionDate() {
+        return completionDate;
+    }
+
+    @PostConstruct
+    @Transactional
+    public void init() {
+        List<Cargo> cargos = cargoRepository.findAll();
+
+        trackingIds = new ArrayList<>(cargos.size());
+        for (Cargo cargo : cargos) {
+            // List only routed cargo that is not claimed yet.
+            if (!cargo.getItinerary().getLegs().isEmpty()
+                    && !(cargo.getDelivery()
+                            .getTransportStatus()
+                            .sameValueAs(TransportStatus.CLAIMED))) {
+                String trackingId = cargo.getTrackingId().getIdString();
+                trackingIds.add(new SelectItem(trackingId, trackingId));
+            }
+        }
+
+        List<Location> locations = locationRepository.findAll();
+
+        this.locations = new ArrayList<>(locations.size());
+        for (Location location : locations) {
+            String locationCode = location.getUnLocode().getIdString();
+            this.locations.add(
+                    new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
+        }
+
+        List<Voyage> voyages = voyageRepository.findAll();
+
+        this.voyages = new ArrayList<>(voyages.size());
+        for (Voyage voyage : voyages) {
+            this.voyages.add(
+                    new SelectItem(
+                            voyage.getVoyageNumber().getIdString(),
+                            voyage.getVoyageNumber().getIdString()));
+        }
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        if (!validate(event.getOldStep())) {
+            return event.getOldStep();
+        }
+
+        if ("dateTab".equals(event.getNewStep())) {
+            completionDate = Calendar.getInstance().getTime();
+        }
+
+        return event.getNewStep();
+    }
+
+    private boolean validate(final String step) {
+        if ("voyageTab".equals(step)
+                && ("LOAD".equals(eventType) || "UNLOAD".equals(eventType))
+                && voyageNumber == null) {
+            FacesMessage message =
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
+                            "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        return true;
+    }
+
+    public void submit() {
+        VoyageNumber voyage;
+
+        Date registrationTime = new Date();
+        TrackingId trackingId = new TrackingId(this.trackingId);
+        UnLocode location = new UnLocode(this.location);
+        HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
+
+        // Only Load & Unload could have a Voyage set
+        if ("LOAD".equals(eventType) || "UNLOAD".equals(eventType)) {
+            voyage = new VoyageNumber(voyageNumber);
+        } else {
+            voyage = null;
+        }
+
+        HandlingEventRegistrationAttempt attempt =
+                new HandlingEventRegistrationAttempt(
+                        registrationTime, completionDate, trackingId, voyage, type, location);
+
+        applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Event submitted", ""));
+    }
 }

@@ -11,13 +11,13 @@ import javax.ejb.ApplicationException;
 @ApplicationException(rollback = true)
 public class CannotCreateHandlingEventException extends Exception {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public CannotCreateHandlingEventException(Exception e) {
-    super(e);
-  }
+    public CannotCreateHandlingEventException(Exception e) {
+        super(e);
+    }
 
-  public CannotCreateHandlingEventException() {
-    super();
-  }
+    public CannotCreateHandlingEventException() {
+        super();
+    }
 }

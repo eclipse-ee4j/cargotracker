@@ -160,9 +160,9 @@ body {
 .ui-datepicker .ui-datepicker-header,
 .ui-datepicker .ui-timepicker-div > .ui-widget-header {
     background: var(--background-panel-main-color);
-    background: -webkit-linear-gradient(top,var(--background-panel-main-color) 0, #474a4b 100%);
+    background: -webkit-linear-gradient(top, var(--background-panel-main-color) 0, #474a4b 100%);
 
-    box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset;
     border-radius: 0;
 }
 
@@ -173,9 +173,9 @@ body {
 .ui-datepicker th {
     color: #e8e9ea !important;
 
-    background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#474a4b),color-stop(100%,#5b5e5e));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #474a4b), color-stop(100%, #5b5e5e));
 
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
     border: none !important;
 }
 
@@ -250,7 +250,7 @@ body {
     z-index: -100;
 }
 
-.ui-wizard-step-title::before{
+.ui-wizard-step-title::before {
     content: '';
     display: inline-block;
     width: 15px;

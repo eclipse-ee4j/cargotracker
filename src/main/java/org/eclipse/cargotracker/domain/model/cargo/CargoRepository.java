@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface CargoRepository {
 
-  Cargo find(TrackingId trackingId);
+    Cargo find(TrackingId trackingId);
 
-  List<Cargo> findAll();
+    List<Cargo> findAll();
 
-  void store(Cargo cargo);
+    void store(Cargo cargo);
 
-  TrackingId nextTrackingId();
+    TrackingId nextTrackingId();
 }

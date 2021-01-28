@@ -20,36 +20,43 @@ import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 @Path("/cargo")
 public class CargoMonitoringService {
 
-  public static final String ISO_8601_FORMAT = "yyyy-MM-dd HH:mm";
+    public static final String ISO_8601_FORMAT = "yyyy-MM-dd HH:mm";
 
-  @Inject private CargoRepository cargoRepository;
+    @Inject private CargoRepository cargoRepository;
 
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public JsonArray getAllCargo() {
-    List<Cargo> cargos = cargoRepository.findAll();
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonArray getAllCargo() {
+        List<Cargo> cargos = cargoRepository.findAll();
 
-    JsonArrayBuilder builder = Json.createArrayBuilder();
+        JsonArrayBuilder builder = Json.createArrayBuilder();
 
-    for (Cargo cargo : cargos) {
-      builder.add(cargoToJson(cargo));
+        for (Cargo cargo : cargos) {
+            builder.add(cargoToJson(cargo));
+        }
+
+        return builder.build();
     }
 
-    return builder.build();
-  }
-
-  private JsonObjectBuilder cargoToJson(Cargo cargo) {
-    return Json.createObjectBuilder()
-        .add("trackingId", cargo.getTrackingId().getIdString())
-        .add("routingStatus", cargo.getDelivery().getRoutingStatus().toString())
-        .add("misdirected", cargo.getDelivery().isMisdirected())
-        .add("transportStatus", cargo.getDelivery().getTransportStatus().toString())
-        .add("atDestination", cargo.getDelivery().isUnloadedAtDestination())
-        .add("origin", cargo.getOrigin().getUnLocode().getIdString())
-        .add(
-            "lastKnownLocation",
-            cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString().equals("XXXXX")
-                ? "Unknown"
-                : cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString());
-  }
+    private JsonObjectBuilder cargoToJson(Cargo cargo) {
+        return Json.createObjectBuilder()
+                .add("trackingId", cargo.getTrackingId().getIdString())
+                .add("routingStatus", cargo.getDelivery().getRoutingStatus().toString())
+                .add("misdirected", cargo.getDelivery().isMisdirected())
+                .add("transportStatus", cargo.getDelivery().getTransportStatus().toString())
+                .add("atDestination", cargo.getDelivery().isUnloadedAtDestination())
+                .add("origin", cargo.getOrigin().getUnLocode().getIdString())
+                .add(
+                        "lastKnownLocation",
+                        cargo.getDelivery()
+                                        .getLastKnownLocation()
+                                        .getUnLocode()
+                                        .getIdString()
+                                        .equals("XXXXX")
+                                ? "Unknown"
+                                : cargo.getDelivery()
+                                        .getLastKnownLocation()
+                                        .getUnLocode()
+                                        .getIdString());
+    }
 }

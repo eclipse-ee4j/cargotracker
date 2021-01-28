@@ -13,15 +13,17 @@ import javax.inject.Named;
 @Named("FileProcessorJobListener")
 public class FileProcessorJobListener implements JobListener {
 
-  @Inject private Logger logger;
+    @Inject private Logger logger;
 
-  @Override
-  public void beforeJob() throws Exception {
-    logger.log(Level.INFO, "Handling event file processor batch job starting at {0}", new Date());
-  }
+    @Override
+    public void beforeJob() throws Exception {
+        logger.log(
+                Level.INFO, "Handling event file processor batch job starting at {0}", new Date());
+    }
 
-  @Override
-  public void afterJob() throws Exception {
-    logger.log(Level.INFO, "Handling event file processor batch job completed at {0}", new Date());
-  }
+    @Override
+    public void afterJob() throws Exception {
+        logger.log(
+                Level.INFO, "Handling event file processor batch job completed at {0}", new Date());
+    }
 }

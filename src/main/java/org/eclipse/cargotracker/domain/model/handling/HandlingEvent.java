@@ -43,256 +43,256 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
  */
 @Entity
 @NamedQuery(
-    name = "HandlingEvent.findByTrackingId",
-    query = "Select e from HandlingEvent e where e.cargo.trackingId = :trackingId")
+        name = "HandlingEvent.findByTrackingId",
+        query = "Select e from HandlingEvent e where e.cargo.trackingId = :trackingId")
 public class HandlingEvent implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-  @Id @GeneratedValue private Long id;
+    private static final long serialVersionUID = 1L;
+    @Id @GeneratedValue private Long id;
 
-  @Enumerated(EnumType.STRING)
-  @NotNull
-  private Type type;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Type type;
 
-  @ManyToOne
-  @JoinColumn(name = "voyage_id")
-  private Voyage voyage;
+    @ManyToOne
+    @JoinColumn(name = "voyage_id")
+    private Voyage voyage;
 
-  @ManyToOne
-  @JoinColumn(name = "location_id")
-  @NotNull
-  private Location location;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    @NotNull
+    private Location location;
 
-  @Temporal(TemporalType.DATE)
-  @NotNull
-  @Column(name = "completionTime")
-  private Date completionTime;
+    @Temporal(TemporalType.DATE)
+    @NotNull
+    @Column(name = "completionTime")
+    private Date completionTime;
 
-  @Temporal(TemporalType.DATE)
-  @NotNull
-  @Column(name = "registration")
-  private Date registrationTime;
+    @Temporal(TemporalType.DATE)
+    @NotNull
+    @Column(name = "registration")
+    private Date registrationTime;
 
-  @ManyToOne
-  @JoinColumn(name = "cargo_id")
-  @NotNull
-  private Cargo cargo;
+    @ManyToOne
+    @JoinColumn(name = "cargo_id")
+    @NotNull
+    private Cargo cargo;
 
-  @Transient private String summary;
-
-  /**
-   * Handling event type. Either requires or prohibits a carrier movement association, it's never
-   * optional.
-   */
-  public enum Type {
-
-    // Loaded onto voyage from port location.
-    LOAD(true),
-    // Unloaded from voyage to port location
-    UNLOAD(true),
-    // Received by carrier
-    RECEIVE(false),
-    // Cargo claimed by recepient
-    CLAIM(false),
-    // Cargo went through customs
-    CUSTOMS(false);
-
-    private final boolean voyageRequired;
+    @Transient private String summary;
 
     /**
-     * Private enum constructor.
-     *
-     * @param voyageRequired whether or not a voyage is associated with this event type
+     * Handling event type. Either requires or prohibits a carrier movement association, it's never
+     * optional.
      */
-    private Type(boolean voyageRequired) {
-      this.voyageRequired = voyageRequired;
+    public enum Type {
+
+        // Loaded onto voyage from port location.
+        LOAD(true),
+        // Unloaded from voyage to port location
+        UNLOAD(true),
+        // Received by carrier
+        RECEIVE(false),
+        // Cargo claimed by recepient
+        CLAIM(false),
+        // Cargo went through customs
+        CUSTOMS(false);
+
+        private final boolean voyageRequired;
+
+        /**
+         * Private enum constructor.
+         *
+         * @param voyageRequired whether or not a voyage is associated with this event type
+         */
+        private Type(boolean voyageRequired) {
+            this.voyageRequired = voyageRequired;
+        }
+
+        /** @return True if a voyage association is required for this event type. */
+        public boolean requiresVoyage() {
+            return voyageRequired;
+        }
+
+        /** @return True if a voyage association is prohibited for this event type. */
+        public boolean prohibitsVoyage() {
+            return !requiresVoyage();
+        }
+
+        public boolean sameValueAs(Type other) {
+            return other != null && this.equals(other);
+        }
     }
 
-    /** @return True if a voyage association is required for this event type. */
-    public boolean requiresVoyage() {
-      return voyageRequired;
+    public HandlingEvent() {
+        // Nothing to initialize.
     }
 
-    /** @return True if a voyage association is prohibited for this event type. */
-    public boolean prohibitsVoyage() {
-      return !requiresVoyage();
+    /**
+     * @param cargo The cargo
+     * @param completionTime completion time, the reported time that the event actually happened
+     *     (e.g. the receive took place).
+     * @param registrationTime registration time, the time the message is received
+     * @param type type of event
+     * @param location where the event took place
+     * @param voyage the voyage
+     */
+    public HandlingEvent(
+            Cargo cargo,
+            Date completionTime,
+            Date registrationTime,
+            Type type,
+            Location location,
+            Voyage voyage) {
+        Validate.notNull(cargo, "Cargo is required");
+        Validate.notNull(completionTime, "Completion time is required");
+        Validate.notNull(registrationTime, "Registration time is required");
+        Validate.notNull(type, "Handling event type is required");
+        Validate.notNull(location, "Location is required");
+        Validate.notNull(voyage, "Voyage is required");
+
+        if (type.prohibitsVoyage()) {
+            throw new IllegalArgumentException("Voyage is not allowed with event type " + type);
+        }
+
+        this.voyage = voyage;
+        this.completionTime = (Date) completionTime.clone();
+        this.registrationTime = (Date) registrationTime.clone();
+        this.type = type;
+        this.location = location;
+        this.cargo = cargo;
     }
 
-    public boolean sameValueAs(Type other) {
-      return other != null && this.equals(other);
-    }
-  }
+    /**
+     * @param cargo cargo
+     * @param completionTime completion time, the reported time that the event actually happened
+     *     (e.g. the receive took place).
+     * @param registrationTime registration time, the time the message is received
+     * @param type type of event
+     * @param location where the event took place
+     */
+    public HandlingEvent(
+            Cargo cargo, Date completionTime, Date registrationTime, Type type, Location location) {
+        Validate.notNull(cargo, "Cargo is required");
+        Validate.notNull(completionTime, "Completion time is required");
+        Validate.notNull(registrationTime, "Registration time is required");
+        Validate.notNull(type, "Handling event type is required");
+        Validate.notNull(location, "Location is required");
 
-  public HandlingEvent() {
-    // Nothing to initialize.
-  }
+        if (type.requiresVoyage()) {
+            throw new IllegalArgumentException("Voyage is required for event type " + type);
+        }
 
-  /**
-   * @param cargo The cargo
-   * @param completionTime completion time, the reported time that the event actually happened (e.g.
-   *     the receive took place).
-   * @param registrationTime registration time, the time the message is received
-   * @param type type of event
-   * @param location where the event took place
-   * @param voyage the voyage
-   */
-  public HandlingEvent(
-      Cargo cargo,
-      Date completionTime,
-      Date registrationTime,
-      Type type,
-      Location location,
-      Voyage voyage) {
-    Validate.notNull(cargo, "Cargo is required");
-    Validate.notNull(completionTime, "Completion time is required");
-    Validate.notNull(registrationTime, "Registration time is required");
-    Validate.notNull(type, "Handling event type is required");
-    Validate.notNull(location, "Location is required");
-    Validate.notNull(voyage, "Voyage is required");
-
-    if (type.prohibitsVoyage()) {
-      throw new IllegalArgumentException("Voyage is not allowed with event type " + type);
+        this.completionTime = (Date) completionTime.clone();
+        this.registrationTime = (Date) registrationTime.clone();
+        this.type = type;
+        this.location = location;
+        this.cargo = cargo;
+        this.voyage = null;
     }
 
-    this.voyage = voyage;
-    this.completionTime = (Date) completionTime.clone();
-    this.registrationTime = (Date) registrationTime.clone();
-    this.type = type;
-    this.location = location;
-    this.cargo = cargo;
-  }
-
-  /**
-   * @param cargo cargo
-   * @param completionTime completion time, the reported time that the event actually happened (e.g.
-   *     the receive took place).
-   * @param registrationTime registration time, the time the message is received
-   * @param type type of event
-   * @param location where the event took place
-   */
-  public HandlingEvent(
-      Cargo cargo, Date completionTime, Date registrationTime, Type type, Location location) {
-    Validate.notNull(cargo, "Cargo is required");
-    Validate.notNull(completionTime, "Completion time is required");
-    Validate.notNull(registrationTime, "Registration time is required");
-    Validate.notNull(type, "Handling event type is required");
-    Validate.notNull(location, "Location is required");
-
-    if (type.requiresVoyage()) {
-      throw new IllegalArgumentException("Voyage is required for event type " + type);
+    public Type getType() {
+        return this.type;
     }
 
-    this.completionTime = (Date) completionTime.clone();
-    this.registrationTime = (Date) registrationTime.clone();
-    this.type = type;
-    this.location = location;
-    this.cargo = cargo;
-    this.voyage = null;
-  }
-
-  public Type getType() {
-    return this.type;
-  }
-
-  public Voyage getVoyage() {
-    return DomainObjectUtils.nullSafe(this.voyage, Voyage.NONE);
-  }
-
-  public Date getCompletionTime() {
-    return new Date(this.completionTime.getTime());
-  }
-
-  public Date getRegistrationTime() {
-    return new Date(this.registrationTime.getTime());
-  }
-
-  public Location getLocation() {
-    return this.location;
-  }
-
-  public Cargo getCargo() {
-    return this.cargo;
-  }
-
-  public String getSummary() {
-    StringBuilder builder =
-        new StringBuilder(location.getName())
-            .append("\n")
-            .append(completionTime)
-            .append("\n")
-            .append("Type: ")
-            .append(type)
-            .append("\n")
-            .append("Reg.: ")
-            .append(registrationTime)
-            .append("\n");
-
-    if (voyage != null) {
-      builder.append("Voyage: ").append(voyage.getVoyageNumber());
-    }
-    return builder.toString();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public Voyage getVoyage() {
+        return DomainObjectUtils.nullSafe(this.voyage, Voyage.NONE);
     }
 
-    HandlingEvent event = (HandlingEvent) o;
-
-    return sameEventAs(event);
-  }
-
-  private boolean sameEventAs(HandlingEvent other) {
-    return other != null
-        && new EqualsBuilder()
-            .append(this.cargo, other.cargo)
-            .append(this.voyage, other.voyage)
-            .append(this.completionTime, other.completionTime)
-            .append(this.location, other.location)
-            .append(this.type, other.type)
-            .isEquals();
-  }
-
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder()
-        .append(cargo)
-        .append(voyage)
-        .append(completionTime)
-        .append(location)
-        .append(type)
-        .toHashCode();
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder builder =
-        new StringBuilder("\n--- Handling event ---\n")
-            .append("Cargo: ")
-            .append(cargo.getTrackingId())
-            .append("\n")
-            .append("Type: ")
-            .append(type)
-            .append("\n")
-            .append("Location: ")
-            .append(location.getName())
-            .append("\n")
-            .append("Completed on: ")
-            .append(completionTime)
-            .append("\n")
-            .append("Registered on: ")
-            .append(registrationTime)
-            .append("\n");
-
-    if (voyage != null) {
-      builder.append("Voyage: ").append(voyage.getVoyageNumber()).append("\n");
+    public Date getCompletionTime() {
+        return new Date(this.completionTime.getTime());
     }
 
-    return builder.toString();
-  }
+    public Date getRegistrationTime() {
+        return new Date(this.registrationTime.getTime());
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public Cargo getCargo() {
+        return this.cargo;
+    }
+
+    public String getSummary() {
+        StringBuilder builder =
+                new StringBuilder(location.getName())
+                        .append("\n")
+                        .append(completionTime)
+                        .append("\n")
+                        .append("Type: ")
+                        .append(type)
+                        .append("\n")
+                        .append("Reg.: ")
+                        .append(registrationTime)
+                        .append("\n");
+
+        if (voyage != null) {
+            builder.append("Voyage: ").append(voyage.getVoyageNumber());
+        }
+        return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        HandlingEvent event = (HandlingEvent) o;
+
+        return sameEventAs(event);
+    }
+
+    private boolean sameEventAs(HandlingEvent other) {
+        return other != null
+                && new EqualsBuilder()
+                        .append(this.cargo, other.cargo)
+                        .append(this.voyage, other.voyage)
+                        .append(this.completionTime, other.completionTime)
+                        .append(this.location, other.location)
+                        .append(this.type, other.type)
+                        .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(cargo)
+                .append(voyage)
+                .append(completionTime)
+                .append(location)
+                .append(type)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder =
+                new StringBuilder("\n--- Handling event ---\n")
+                        .append("Cargo: ")
+                        .append(cargo.getTrackingId())
+                        .append("\n")
+                        .append("Type: ")
+                        .append(type)
+                        .append("\n")
+                        .append("Location: ")
+                        .append(location.getName())
+                        .append("\n")
+                        .append("Completed on: ")
+                        .append(completionTime)
+                        .append("\n")
+                        .append("Registered on: ")
+                        .append(registrationTime)
+                        .append("\n");
+
+        if (voyage != null) {
+            builder.append("Voyage: ").append(voyage.getVoyageNumber()).append("\n");
+        }
+
+        return builder.toString();
+    }
 }
