@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.time.DateUtils;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateUtil;
-import org.eclipse.cargotracker.application.util.JsonMoxyConfigurationContextResolver;
+import org.eclipse.cargotracker.application.util.RestConfiguration;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
@@ -142,7 +142,6 @@ public class BookingServiceTest {
                         .addClass(JpaLocationRepository.class)
                         .addClass(ExternalRoutingService.class)
                         .addClass(LoggerProducer.class)
-                        .addClass(JsonMoxyConfigurationContextResolver.class)
                         // Interface components
                         .addClass(TransitPath.class)
                         .addClass(TransitEdge.class)
@@ -154,7 +153,7 @@ public class BookingServiceTest {
                         .addClass(SampleLocations.class)
                         .addClass(SampleVoyages.class)
                         .addClass(DateUtil.class)
-                        .addClass(BookingServiceTestRestConfiguration.class)
+                        .addClass(RestConfiguration.class)
                         .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
 
         war.addAsWebInfResource("test-web.xml", "web.xml");
