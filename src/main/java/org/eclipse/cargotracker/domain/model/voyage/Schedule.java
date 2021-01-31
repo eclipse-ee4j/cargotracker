@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.eclipse.persistence.annotations.PrivateOwned;
 
 /** A voyage schedule. */
 @Embeddable
@@ -28,7 +27,6 @@ public class Schedule implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "voyage_id")
     // TODO [Clean Code] Index as cm_index
-    @PrivateOwned
     @NotNull
     @Size(min = 1)
     private List<CarrierMovement> carrierMovements = Collections.emptyList();

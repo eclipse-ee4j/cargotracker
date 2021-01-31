@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2 # v2 minimum required
       - uses: axel-op/googlejavaformat-action@v3
         with:
-          args: "--aosp --dry-run --set-exit-if-changed"
+          args: "--aosp --skip-reflowing-long-strings --skip-sorting-imports --dry-run --set-exit-if-changed"
           # Recommended if you use MacOS:
           # githubToken: ${{ secrets.GITHUB_TOKEN }}
           # set dry-run and will not commit by default

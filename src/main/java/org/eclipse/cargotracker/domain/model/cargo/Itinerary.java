@@ -1,9 +1,8 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import org.apache.commons.lang3.Validate;
+import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
+import org.eclipse.cargotracker.domain.model.location.Location;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -11,11 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
-
-import org.apache.commons.lang3.Validate;
-import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
-import org.eclipse.cargotracker.domain.model.location.Location;
-import org.eclipse.persistence.annotations.PrivateOwned;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 @Embeddable
 public class Itinerary implements Serializable {
@@ -31,7 +29,6 @@ public class Itinerary implements Serializable {
     @JoinColumn(name = "cargo_id")
     // TODO [Clean Code] Index this is in leg_index
     @OrderBy("loadTime")
-    @PrivateOwned
     @Size(min = 1)
     private List<Leg> legs = Collections.emptyList();
 
