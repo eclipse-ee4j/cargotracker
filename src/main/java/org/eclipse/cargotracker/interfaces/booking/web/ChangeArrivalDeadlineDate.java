@@ -2,14 +2,12 @@ package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import org.primefaces.PrimeFaces;
@@ -28,11 +26,11 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeArrivalDeadlineDate implements Serializable {
 
+    public static final String DATE_PATTERN = "MM/dd/yyyy";
     private static final long serialVersionUID = 1L;
-
     private String trackingId;
     private CargoRoute cargo;
-    private Date arrivalDeadlineDate;
+    private LocalDate arrivalDeadlineDate;
 
     @Inject private BookingServiceFacade bookingServiceFacade;
 
@@ -48,22 +46,20 @@ public class ChangeArrivalDeadlineDate implements Serializable {
         return cargo;
     }
 
-    public Date getArrivalDeadlineDate() {
-        return this.arrivalDeadlineDate;
+    public LocalDate getArrivalDeadlineDate() {
+        return arrivalDeadlineDate;
     }
 
-    public void setArrivalDeadlineDate(Date arrivalDeadlineDate) {
+    public void setArrivalDeadlineDate(LocalDate arrivalDeadlineDate) {
         this.arrivalDeadlineDate = arrivalDeadlineDate;
     }
 
     public void load() {
         cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        try {
-            arrivalDeadlineDate = df.parse(cargo.getArrivalDeadline());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        DateFormat df = new SimpleDateFormat(DATE_PATTERN);
+        arrivalDeadlineDate =
+                LocalDate.parse(
+                        cargo.getArrivalDeadline(), DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 
     public void changeArrivalDeadline() {

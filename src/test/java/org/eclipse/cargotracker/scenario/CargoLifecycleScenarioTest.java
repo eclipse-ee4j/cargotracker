@@ -4,10 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.application.CargoInspectionService;
@@ -85,7 +84,7 @@ public class CargoLifecycleScenarioTest {
          */
         Location origin = SampleLocations.HONGKONG;
         Location destination = SampleLocations.STOCKHOLM;
-        Date arrivalDeadline = DateUtil.toDate("2009-03-18");
+        LocalDate arrivalDeadline = DateUtil.toDate("2009-03-18");
 
         /*
          * Use case 1: booking
@@ -150,7 +149,7 @@ public class CargoLifecycleScenarioTest {
          * Handling begins: cargo is received in Hongkong.
          */
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-01"),
+                DateUtil.toDateTime("2009-03-01"),
                 trackingId,
                 null,
                 SampleLocations.HONGKONG.getUnLocode(),
@@ -161,7 +160,7 @@ public class CargoLifecycleScenarioTest {
 
         // Next event: Load onto voyage SampleVoyages.CM003 in Hongkong
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-03"),
+                DateUtil.toDateTime("2009-03-03"),
                 trackingId,
                 SampleVoyages.v100.getVoyageNumber(),
                 SampleLocations.HONGKONG.getUnLocode(),
@@ -189,7 +188,7 @@ public class CargoLifecycleScenarioTest {
         UnLocode noSuchUnLocode = new UnLocode("ZZZZZ");
         try {
             handlingEventService.registerHandlingEvent(
-                    DateUtil.toDate("2009-03-05"),
+                    DateUtil.toDateTime("2009-03-05", "00:00"),
                     trackingId,
                     noSuchVoyageNumber,
                     noSuchUnLocode,
@@ -201,7 +200,7 @@ public class CargoLifecycleScenarioTest {
 
         // Cargo is now (incorrectly) unloaded in Tokyo
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-05"),
+                DateUtil.toDateTime("2009-03-05", "00:00"),
                 trackingId,
                 SampleVoyages.v100.getVoyageNumber(),
                 SampleLocations.TOKYO.getUnLocode(),
@@ -246,7 +245,7 @@ public class CargoLifecycleScenarioTest {
         // -- Cargo has been rerouted, shipping continues --
         // Load in Tokyo
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-08"),
+                DateUtil.toDateTime("2009-03-08", "00:00"),
                 trackingId,
                 SampleVoyages.v300.getVoyageNumber(),
                 SampleLocations.TOKYO.getUnLocode(),
@@ -264,7 +263,7 @@ public class CargoLifecycleScenarioTest {
 
         // Unload in Hamburg
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-12"),
+                DateUtil.toDateTime("2009-03-12", "00:00"),
                 trackingId,
                 SampleVoyages.v300.getVoyageNumber(),
                 SampleLocations.HAMBURG.getUnLocode(),
@@ -282,7 +281,7 @@ public class CargoLifecycleScenarioTest {
 
         // Load in Hamburg
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-14"),
+                DateUtil.toDateTime("2009-03-14", "00:00"),
                 trackingId,
                 SampleVoyages.v400.getVoyageNumber(),
                 SampleLocations.HAMBURG.getUnLocode(),
@@ -300,7 +299,7 @@ public class CargoLifecycleScenarioTest {
 
         // Unload in SampleLocations.STOCKHOLM
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-15"),
+                DateUtil.toDateTime("2009-03-15", "00:00"),
                 trackingId,
                 SampleVoyages.v400.getVoyageNumber(),
                 SampleLocations.STOCKHOLM.getUnLocode(),
@@ -318,7 +317,7 @@ public class CargoLifecycleScenarioTest {
         // Finally, cargo is claimed in SampleLocations.STOCKHOLM. This ends the cargo
         // lifecycle from our perspective.
         handlingEventService.registerHandlingEvent(
-                DateUtil.toDate("2009-03-16"),
+                DateUtil.toDateTime("2009-03-16", "00:00"),
                 trackingId,
                 null,
                 SampleLocations.STOCKHOLM.getUnLocode(),
@@ -341,52 +340,49 @@ public class CargoLifecycleScenarioTest {
 
     protected void setUp() throws Exception {
         routingService =
-                new RoutingService() {
-                    public List<Itinerary> fetchRoutesForSpecification(
-                            RouteSpecification routeSpecification) {
-                        if (routeSpecification.getOrigin().equals(SampleLocations.HONGKONG)) {
-                            // Hongkong - NYC - Chicago - SampleLocations.STOCKHOLM, initial routing
-                            return Arrays.asList(
-                                    new Itinerary(
-                                            Arrays.asList(
-                                                    new Leg(
-                                                            SampleVoyages.v100,
-                                                            SampleLocations.HONGKONG,
-                                                            SampleLocations.NEWYORK,
-                                                            DateUtil.toDate("2009-03-03"),
-                                                            DateUtil.toDate("2009-03-09")),
-                                                    new Leg(
-                                                            SampleVoyages.v200,
-                                                            SampleLocations.NEWYORK,
-                                                            SampleLocations.CHICAGO,
-                                                            DateUtil.toDate("2009-03-10"),
-                                                            DateUtil.toDate("2009-03-14")),
-                                                    new Leg(
-                                                            SampleVoyages.v200,
-                                                            SampleLocations.CHICAGO,
-                                                            SampleLocations.STOCKHOLM,
-                                                            DateUtil.toDate("2009-03-07"),
-                                                            DateUtil.toDate("2009-03-11")))));
-                        } else {
-                            // Tokyo - Hamburg - SampleLocations.STOCKHOLM, rerouting misdirected
-                            // cargo from
-                            // Tokyo
-                            return Arrays.asList(
-                                    new Itinerary(
-                                            Arrays.asList(
-                                                    new Leg(
-                                                            SampleVoyages.v300,
-                                                            SampleLocations.TOKYO,
-                                                            SampleLocations.HAMBURG,
-                                                            DateUtil.toDate("2009-03-08"),
-                                                            DateUtil.toDate("2009-03-12")),
-                                                    new Leg(
-                                                            SampleVoyages.v400,
-                                                            SampleLocations.HAMBURG,
-                                                            SampleLocations.STOCKHOLM,
-                                                            DateUtil.toDate("2009-03-14"),
-                                                            DateUtil.toDate("2009-03-15")))));
-                        }
+                routeSpecification -> {
+                    if (routeSpecification.getOrigin().equals(SampleLocations.HONGKONG)) {
+                        // Hongkong - NYC - Chicago - SampleLocations.STOCKHOLM, initial routing
+                        return Arrays.asList(
+                                new Itinerary(
+                                        Arrays.asList(
+                                                new Leg(
+                                                        SampleVoyages.v100,
+                                                        SampleLocations.HONGKONG,
+                                                        SampleLocations.NEWYORK,
+                                                        DateUtil.toDateTime("2009-03-03"),
+                                                        DateUtil.toDateTime("2009-03-09")),
+                                                new Leg(
+                                                        SampleVoyages.v200,
+                                                        SampleLocations.NEWYORK,
+                                                        SampleLocations.CHICAGO,
+                                                        DateUtil.toDateTime("2009-03-10"),
+                                                        DateUtil.toDateTime("2009-03-14")),
+                                                new Leg(
+                                                        SampleVoyages.v200,
+                                                        SampleLocations.CHICAGO,
+                                                        SampleLocations.STOCKHOLM,
+                                                        DateUtil.toDateTime("2009-03-07"),
+                                                        DateUtil.toDateTime("2009-03-11")))));
+                    } else {
+                        // Tokyo - Hamburg - SampleLocations.STOCKHOLM, rerouting misdirected cargo
+                        // from
+                        // Tokyo
+                        return Arrays.asList(
+                                new Itinerary(
+                                        Arrays.asList(
+                                                new Leg(
+                                                        SampleVoyages.v300,
+                                                        SampleLocations.TOKYO,
+                                                        SampleLocations.HAMBURG,
+                                                        DateUtil.toDateTime("2009-03-08"),
+                                                        DateUtil.toDateTime("2009-03-12")),
+                                                new Leg(
+                                                        SampleVoyages.v400,
+                                                        SampleLocations.HAMBURG,
+                                                        SampleLocations.STOCKHOLM,
+                                                        DateUtil.toDateTime("2009-03-14"),
+                                                        DateUtil.toDateTime("2009-03-15")))));
                     }
                 };
 

@@ -1,11 +1,11 @@
 package org.eclipse.pathfinder.api;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -14,7 +14,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
 import org.eclipse.pathfinder.internal.GraphDao;
 
 @Stateless
@@ -23,36 +22,17 @@ public class GraphTraversalService {
 
     private static final long ONE_MIN_MS = 1000 * 60;
     private static final long ONE_DAY_MS = ONE_MIN_MS * 60 * 24;
-
-    @Inject private GraphDao dao;
     private final Random random = new Random();
+    @Inject private GraphDao dao;
 
     @GET
     @Path("/shortest-path")
     @Produces({"application/json", "application/xml; qs=.75"})
     public List<TransitPath> findShortestPath(
-            // TODO [Jakarta EE 8] Use not blank instead.
-            @NotNull(message = "Missing origin UN location code.")
-                    @Size(
-                            min = 5,
-                            max = 5,
-                            message = "Origin UN location code value must be five characters long.")
-                    @QueryParam("origin")
-                    String originUnLocode,
-            // TODO [Jakarta EE 8] Use not blank instead.
-            @NotNull(message = "Missing destination UN location code.")
-                    @Size(
-                            min = 5,
-                            max = 5,
-                            message =
-                                    "Destination UN location code value must be five characters long.")
-                    @QueryParam("destination")
-                    String destinationUnLocode,
-            // TODO [DDD] Apply regular expression validation.
-            @Size(min = 8, max = 8, message = "Deadline value must be eight characters long.")
-                    @QueryParam("deadline")
-                    String deadline) {
-        Date date = nextDate(new Date());
+            @NotNull @Size(min = 5, max = 5) @QueryParam("origin") String originUnLocode,
+            @NotNull @Size(min = 5, max = 5) @QueryParam("destination") String destinationUnLocode,
+            @QueryParam("deadline") String deadline) {
+        LocalDateTime date = nextDate(LocalDateTime.now());
 
         List<String> allVertices = dao.listLocations();
         allVertices.remove(originUnLocode);
@@ -66,8 +46,8 @@ public class GraphTraversalService {
             List<TransitEdge> transitEdges = new ArrayList<>(allVertices.size() - 1);
             String firstLegTo = allVertices.get(0);
 
-            Date fromDate = nextDate(date);
-            Date toDate = nextDate(fromDate);
+            LocalDateTime fromDate = nextDate(date);
+            LocalDateTime toDate = nextDate(fromDate);
             date = nextDate(toDate);
 
             transitEdges.add(
@@ -110,8 +90,8 @@ public class GraphTraversalService {
         return candidates;
     }
 
-    private Date nextDate(Date date) {
-        return new Date(date.getTime() + ONE_DAY_MS + (random.nextInt(1000) - 500) * ONE_MIN_MS);
+    private LocalDateTime nextDate(LocalDateTime date) {
+        return date.plus(ONE_DAY_MS + (random.nextInt(1000) - 500) * ONE_MIN_MS, ChronoUnit.MILLIS);
     }
 
     private int getRandomNumberOfCandidates() {

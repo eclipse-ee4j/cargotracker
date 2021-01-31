@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1"
+<web-app version="4.0"
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <env-entry>
         <env-entry-name>java:app/configuration/GraphTraversalUrl</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
@@ -10,7 +10,7 @@
     </env-entry>
     <data-source>
         <name>java:app/jdbc/CargoTrackerDatabase</name>
-        <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
-        <url>jdbc:derby:/tmp/test/cargo-tracker-database;create=true</url>
+        <class-name>org.h2.Driver</class-name>
+        <url>jdbc:h2:file:${webapp.databaseTempDir}/cargo-tracker-database;create=true</url>
     </data-source>
 </web-app>

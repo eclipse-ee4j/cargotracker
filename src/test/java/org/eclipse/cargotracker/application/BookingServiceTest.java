@@ -4,17 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.apache.commons.lang3.time.DateUtils;
+import org.eclipse.cargotracker.IntegrationTests;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -71,6 +70,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 /**
@@ -83,18 +83,27 @@ import org.junit.runner.RunWith;
 // TODO [Jakarta EE 8] Move to the Java Date-Time API for date manipulation. Also avoid hard-coded
 // dates.
 @RunWith(Arquillian.class)
+@Category(IntegrationTests.class)
 public class BookingServiceTest {
-
+    private static final Logger LOGGER = Logger.getLogger(BookingServiceTest.class.getName());
+    private static TrackingId trackingId;
+    private static List<Itinerary> candidates;
+    private static LocalDate deadline;
+    private static Itinerary assigned;
     @Inject private BookingService bookingService;
     @PersistenceContext private EntityManager entityManager;
 
-    private static TrackingId trackingId;
-    private static List<Itinerary> candidates;
-    private static Date deadline;
-    private static Itinerary assigned;
-
     @Deployment
     public static WebArchive createDeployment() {
+        File[] extraJars =
+                Maven.resolver()
+                        .loadPomFromFile("pom.xml")
+                        .resolve("org.apache.commons:commons-lang3", "org.postgresql:postgresql")
+                        .withTransitivity()
+                        .asFile();
+
+        LOGGER.log(Level.INFO, "Adding extra jars: {0}", new Object[] {extraJars});
+
         WebArchive war =
                 ShrinkWrap.create(WebArchive.class, "cargo-tracker-test.war")
                         // Application layer component directly under test.
@@ -142,6 +151,7 @@ public class BookingServiceTest {
                         .addClass(JpaLocationRepository.class)
                         .addClass(ExternalRoutingService.class)
                         .addClass(LoggerProducer.class)
+                        // .addClass(JsonMoxyConfigurationContextResolver.class)
                         // Interface components
                         .addClass(TransitPath.class)
                         .addClass(TransitEdge.class)
@@ -154,16 +164,17 @@ public class BookingServiceTest {
                         .addClass(SampleVoyages.class)
                         .addClass(DateUtil.class)
                         .addClass(RestConfiguration.class)
-                        .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml");
 
-        war.addAsWebInfResource("test-web.xml", "web.xml");
+                        // add persistence unit descriptor
+                        .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
 
-        war.addAsLibraries(
-                Maven.resolver()
-                        .loadPomFromFile("pom.xml")
-                        .resolve("org.apache.commons:commons-lang3")
-                        .withTransitivity()
-                        .asFile());
+                        // add web xml
+                        .addAsWebInfResource("test-web.xml", "web.xml")
+
+                        // add extra jars.
+                        .addAsLibraries(extraJars);
+
+        LOGGER.log(Level.INFO, "War deployment: {0}", war.toString(true));
 
         return war;
     }
@@ -174,11 +185,7 @@ public class BookingServiceTest {
         UnLocode fromUnlocode = new UnLocode("USCHI");
         UnLocode toUnlocode = new UnLocode("SESTO");
 
-        deadline = new Date();
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(deadline);
-        calendar.add(Calendar.MONTH, 6); // Six months ahead.
-        deadline.setTime(calendar.getTime().getTime());
+        deadline = LocalDate.now().plusMonths(6);
 
         trackingId = bookingService.bookNewCargo(fromUnlocode, toUnlocode, deadline);
 
@@ -190,8 +197,7 @@ public class BookingServiceTest {
 
         assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
         assertEquals(SampleLocations.STOCKHOLM, cargo.getRouteSpecification().getDestination());
-        assertTrue(
-                DateUtils.isSameDay(deadline, cargo.getRouteSpecification().getArrivalDeadline()));
+        assertTrue(deadline.isEqual(cargo.getRouteSpecification().getArrivalDeadline()));
         assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery().getTransportStatus());
         assertEquals(Location.UNKNOWN, cargo.getDelivery().getLastKnownLocation());
         assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
@@ -229,7 +235,8 @@ public class BookingServiceTest {
         assertEquals(Location.UNKNOWN, cargo.getDelivery().getLastKnownLocation());
         assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
         assertFalse(cargo.getDelivery().isMisdirected());
-        assertTrue(cargo.getDelivery().getEstimatedTimeOfArrival().before(deadline));
+        assertTrue(
+                cargo.getDelivery().getEstimatedTimeOfArrival().isBefore(deadline.atStartOfDay()));
         Assert.assertEquals(
                 HandlingEvent.Type.RECEIVE,
                 cargo.getDelivery().getNextExpectedActivity().getType());
@@ -254,8 +261,7 @@ public class BookingServiceTest {
 
         assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
         assertEquals(SampleLocations.HELSINKI, cargo.getRouteSpecification().getDestination());
-        assertTrue(
-                DateUtils.isSameDay(deadline, cargo.getRouteSpecification().getArrivalDeadline()));
+        assertTrue(deadline.isEqual(cargo.getRouteSpecification().getArrivalDeadline()));
         assertEquals(assigned, cargo.getItinerary());
         assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery().getTransportStatus());
         assertEquals(Location.UNKNOWN, cargo.getDelivery().getLastKnownLocation());
@@ -270,10 +276,7 @@ public class BookingServiceTest {
     @Test
     @InSequence(5)
     public void testChangeDeadline() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(deadline);
-        cal.add(Calendar.MONTH, 1); // Change the deadline one month ahead of the original
-        Date newDeadline = cal.getTime();
+        LocalDate newDeadline = deadline.plusMonths(1);
         bookingService.changeDeadline(trackingId, newDeadline);
 
         Cargo cargo =
@@ -284,9 +287,7 @@ public class BookingServiceTest {
 
         assertEquals(SampleLocations.CHICAGO, cargo.getOrigin());
         assertEquals(SampleLocations.HELSINKI, cargo.getRouteSpecification().getDestination());
-        assertTrue(
-                DateUtils.isSameDay(
-                        newDeadline, cargo.getRouteSpecification().getArrivalDeadline()));
+        assertTrue(newDeadline.isEqual(cargo.getRouteSpecification().getArrivalDeadline()));
         assertEquals(assigned, cargo.getItinerary());
         assertEquals(TransportStatus.NOT_RECEIVED, cargo.getDelivery().getTransportStatus());
         assertEquals(Location.UNKNOWN, cargo.getDelivery().getLastKnownLocation());

@@ -10,9 +10,8 @@ import static org.eclipse.cargotracker.domain.model.cargo.TransportStatus.ONBOAR
 import static org.eclipse.cargotracker.domain.model.cargo.TransportStatus.UNKNOWN;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Iterator;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -20,10 +19,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -40,11 +36,11 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 @Embeddable
 public class Delivery implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     // Null object pattern.
-    public static final Date ETA_UNKOWN = null;
+    public static final LocalDateTime ETA_UNKOWN = null;
     // Null object pattern
     public static final HandlingActivity NO_ACTIVITY = new HandlingActivity();
+    private static final long serialVersionUID = 1L;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "transport_status")
@@ -61,8 +57,8 @@ public class Delivery implements Serializable {
 
     @NotNull private boolean misdirected;
 
-    @Temporal(TemporalType.DATE)
-    private Date eta;
+    // @Temporal(TemporalType.DATE)
+    private LocalDateTime eta;
 
     @Embedded private HandlingActivity nextExpectedActivity;
 
@@ -75,10 +71,10 @@ public class Delivery implements Serializable {
     @NotNull
     private RoutingStatus routingStatus;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "calculated_at")
     @NotNull
-    private Date calculatedAt;
+    private LocalDateTime calculatedAt;
 
     @ManyToOne
     @JoinColumn(name = "last_event_id")
@@ -90,7 +86,7 @@ public class Delivery implements Serializable {
 
     public Delivery(
             HandlingEvent lastEvent, Itinerary itinerary, RouteSpecification routeSpecification) {
-        this.calculatedAt = new Date();
+        this.calculatedAt = LocalDateTime.now();
         this.lastEvent = lastEvent;
 
         this.misdirected = calculateMisdirectionStatus(itinerary);
@@ -101,17 +97,6 @@ public class Delivery implements Serializable {
         this.eta = calculateEta(itinerary);
         this.nextExpectedActivity = calculateNextExpectedActivity(routeSpecification, itinerary);
         this.isUnloadedAtDestination = calculateUnloadedAtDestination(routeSpecification);
-    }
-
-    /**
-     * Creates a new delivery snapshot to reflect changes in routing, i.e. when the route
-     * specification or the itinerary has changed but no additional handling of the cargo has been
-     * performed.
-     */
-    Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
-        Validate.notNull(routeSpecification, "Route specification is required");
-
-        return new Delivery(this.lastEvent, itinerary, routeSpecification);
     }
 
     /**
@@ -133,6 +118,17 @@ public class Delivery implements Serializable {
         HandlingEvent lastEvent = handlingHistory.getMostRecentlyCompletedEvent();
 
         return new Delivery(lastEvent, itinerary, routeSpecification);
+    }
+
+    /**
+     * Creates a new delivery snapshot to reflect changes in routing, i.e. when the route
+     * specification or the itinerary has changed but no additional handling of the cargo has been
+     * performed.
+     */
+    Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
+        Validate.notNull(routeSpecification, "Route specification is required");
+
+        return new Delivery(this.lastEvent, itinerary, routeSpecification);
     }
 
     public TransportStatus getTransportStatus() {
@@ -180,12 +176,8 @@ public class Delivery implements Serializable {
         this.misdirected = misdirected;
     }
 
-    public Date getEstimatedTimeOfArrival() {
-        if (eta != ETA_UNKOWN) {
-            return new Date(eta.getTime());
-        } else {
-            return ETA_UNKOWN;
-        }
+    public LocalDateTime getEstimatedTimeOfArrival() {
+        return eta != ETA_UNKOWN ? eta : ETA_UNKOWN;
     }
 
     public HandlingActivity getNextExpectedActivity() {
@@ -209,12 +201,11 @@ public class Delivery implements Serializable {
         this.routingStatus = routingStatus;
     }
 
-    /** @return When this delivery was calculated. */
-    public Date getCalculatedAt() {
-        return new Date(calculatedAt.getTime());
+    public LocalDateTime getCalculatedAt() {
+        return calculatedAt;
     }
 
-    public void setCalculatedAt(Date calculatedAt) {
+    public void setCalculatedAt(LocalDateTime calculatedAt) {
         this.calculatedAt = calculatedAt;
     }
 
@@ -261,7 +252,7 @@ public class Delivery implements Serializable {
         }
     }
 
-    private Date calculateEta(Itinerary itinerary) {
+    private LocalDateTime calculateEta(Itinerary itinerary) {
         if (onTrack()) {
             return itinerary.getFinalArrivalDate();
         } else {

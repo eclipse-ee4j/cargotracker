@@ -1,10 +1,10 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
 import org.eclipse.cargotracker.domain.model.location.Location;
@@ -18,15 +18,12 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 // TODO [Clean Code] Could this be a CDI singleton?
 public class ItineraryCandidateDtoAssembler {
 
-    private static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+    public static final String DT_PATTERN = "MM/dd/yyyy hh:mm a z";
+    // private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(DT_PATTERN);
 
     public RouteCandidate toDto(Itinerary itinerary) {
         List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs =
-                new ArrayList<>(itinerary.getLegs().size());
-        for (Leg leg : itinerary.getLegs()) {
-            legDTOs.add(toLegDTO(leg));
-        }
+                itinerary.getLegs().stream().map(this::toLegDTO).collect(Collectors.toList());
         return new RouteCandidate(legDTOs);
     }
 
@@ -55,17 +52,16 @@ public class ItineraryCandidateDtoAssembler {
             Location from = locationRepository.find(new UnLocode(legDTO.getFromUnLocode()));
             Location to = locationRepository.find(new UnLocode(legDTO.getToUnLocode()));
 
-            try {
-                legs.add(
-                        new Leg(
-                                voyage,
-                                from,
-                                to,
-                                DATE_FORMAT.parse(legDTO.getLoadTime()),
-                                DATE_FORMAT.parse(legDTO.getUnloadTime())));
-            } catch (ParseException ex) {
-                throw new RuntimeException("Could not parse date", ex);
-            }
+            legs.add(
+                    new Leg(
+                            voyage,
+                            from,
+                            to,
+                            LocalDateTime.parse(
+                                    legDTO.getLoadTime(), DateTimeFormatter.ofPattern(DT_PATTERN)),
+                            LocalDateTime.parse(
+                                    legDTO.getUnloadTime(),
+                                    DateTimeFormatter.ofPattern(DT_PATTERN))));
         }
 
         return new Itinerary(legs);

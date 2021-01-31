@@ -3,19 +3,16 @@ package org.eclipse.cargotracker.interfaces.handling.file;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.batch.runtime.context.JobContext;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
-
+import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
@@ -104,11 +101,11 @@ public class EventItemReader extends AbstractItemReader {
             throw new EventLineParseException("Wrong number of data elements", line);
         }
 
-        Date completionTime = null;
+        LocalDateTime completionTime = null;
 
         try {
-            completionTime = new SimpleDateFormat(ISO_8601_FORMAT).parse(result[0]);
-        } catch (ParseException e) {
+            completionTime = DateUtil.toDateTime(result[0]);
+        } catch (Exception e) {
             throw new EventLineParseException("Cannot parse completion time", e, line);
         }
 
@@ -148,7 +145,12 @@ public class EventItemReader extends AbstractItemReader {
 
         HandlingEventRegistrationAttempt attempt =
                 new HandlingEventRegistrationAttempt(
-                        new Date(), completionTime, trackingId, voyageNumber, eventType, unLocode);
+                        LocalDateTime.now(),
+                        completionTime,
+                        trackingId,
+                        voyageNumber,
+                        eventType,
+                        unLocode);
 
         return attempt;
     }

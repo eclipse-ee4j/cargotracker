@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
 import java.text.SimpleDateFormat;
-
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;

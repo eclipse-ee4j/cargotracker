@@ -1,10 +1,9 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
 import org.eclipse.cargotracker.domain.model.cargo.HandlingActivity;
@@ -15,17 +14,18 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 // TODO [Clean Code] Could this be a CDI singleton?
 public class CargoStatusDtoAssembler {
 
-    private static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+    public static final String DT_PATTERN = "MM/dd/yyyy hh:mm a z";
+    // private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(DT_PATTERN);
 
     public CargoStatus toDto(Cargo cargo, List<HandlingEvent> handlingEvents) {
-        List<TrackingEvents> trackingEvents = new ArrayList<>(handlingEvents.size());
+        List<TrackingEvents> trackingEvents;
 
         TrackingEventsDtoAssembler assembler = new TrackingEventsDtoAssembler();
 
-        for (HandlingEvent handlingEvent : handlingEvents) {
-            trackingEvents.add(assembler.toDto(cargo, handlingEvent));
-        }
+        trackingEvents =
+                handlingEvents.stream()
+                        .map(handlingEvent -> assembler.toDto(cargo, handlingEvent))
+                        .collect(Collectors.toList());
 
         return new CargoStatus(
                 cargo.getRouteSpecification().getDestination().getName(),
@@ -57,12 +57,12 @@ public class CargoStatusDtoAssembler {
     }
 
     private String getEta(Cargo cargo) {
-        Date eta = cargo.getDelivery().getEstimatedTimeOfArrival();
+        LocalDateTime eta = cargo.getDelivery().getEstimatedTimeOfArrival();
 
         if (eta == null) {
             return "?";
         } else {
-            return DATE_FORMAT.format(eta);
+            return eta.format(DateTimeFormatter.ofPattern(DT_PATTERN));
         }
     }
 

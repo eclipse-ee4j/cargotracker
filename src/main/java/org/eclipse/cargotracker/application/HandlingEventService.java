@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.application;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.CannotCreateHandlingEventException;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
@@ -15,7 +14,7 @@ public interface HandlingEventService {
      * been handled.
      */
     void registerHandlingEvent(
-            Date completionTime,
+            LocalDateTime completionTime,
             TrackingId trackingId,
             VoyageNumber voyageNumber,
             UnLocode unLocode,

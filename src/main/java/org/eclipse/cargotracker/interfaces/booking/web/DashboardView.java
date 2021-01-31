@@ -1,10 +1,8 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
@@ -20,10 +18,6 @@ public class DashboardView implements Serializable {
 
     private String name = "TestDD";
 
-    public String getName() {
-        return name;
-    }
-
     public DashboardView() {
         // Initialize the dashboard model
         this.model = new DefaultDashboardModel();
@@ -34,6 +28,10 @@ public class DashboardView implements Serializable {
         mainColumn.addWidget("Claimed");
 
         this.model.addColumn(mainColumn);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public DashboardModel getModel() {

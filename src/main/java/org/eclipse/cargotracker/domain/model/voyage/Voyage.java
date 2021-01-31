@@ -1,35 +1,28 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
 @Entity
-@NamedQueries({
-    @NamedQuery(
-            name = "Voyage.findByVoyageNumber",
-            query = "Select v from Voyage v where v.voyageNumber = :voyageNumber"),
-    @NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")
-})
+@NamedQuery(
+        name = "Voyage.findByVoyageNumber",
+        query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
+@NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")
 public class Voyage implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     // Null object pattern
     public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
-
+    private static final long serialVersionUID = 1L;
     @Id @GeneratedValue private Long id;
 
     @Embedded @NotNull private VoyageNumber voyageNumber;
@@ -105,7 +98,8 @@ public class Voyage implements Serializable {
             this.departureLocation = departureLocation;
         }
 
-        public Builder addMovement(Location arrivalLocation, Date departureTime, Date arrivalTime) {
+        public Builder addMovement(
+                Location arrivalLocation, LocalDateTime departureTime, LocalDateTime arrivalTime) {
             carrierMovements.add(
                     new CarrierMovement(
                             departureLocation, arrivalLocation, departureTime, arrivalTime));
