@@ -148,5 +148,5 @@ In addition, for all XML, XHTML and HTML files we use a column/line width of 100
 * Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the H2 database that 
   the application uses get's corrupted, resulting in strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
-  can do this by simply removing .\cargo-tracker-database from the file 
-  system and restarting the application.
+  can do this by simply removing ./cargo-tracker-database from the file 
+  system and restarting the application. This directory will typically be under $your_payara-installation/glassfish/domains/domain1/config.
