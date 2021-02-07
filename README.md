@@ -140,13 +140,13 @@ This project complies with the [Google Java Style Guide](https://google.github.i
 In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
 
 ## Known Issues
-* If you are running older versions of Payara, you will get a log message stating that SSL certificates have expired. This won't get in the way of functionality, but it will
+* You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
   explained [here](https://github.com/payara/Payara/issues/3038).
 * If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
   Just re-run the application (make sure to completely shut down Payara first).
-* Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the Derby database that 
+* Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the H2 database that 
   the application uses get's corrupted, resulting in strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
-  can do this by simply removing \tmp\cargo-tracker-database from the file 
+  can do this by simply removing .\cargo-tracker-database from the file 
   system and restarting the application.
