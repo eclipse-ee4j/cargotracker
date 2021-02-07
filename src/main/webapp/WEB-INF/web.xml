@@ -71,6 +71,8 @@
         <name>java:app/jdbc/CargoTrackerDatabase</name>
         <class-name>org.h2.Driver</class-name>
         <url>jdbc:h2:file:${webapp.databaseTempDir}/cargo-tracker-database;create=true</url>
+        <max-pool-size>32</max-pool-size>
+        <min-pool-size>2</min-pool-size>
     </data-source>
     <jms-destination>
         <name>java:app/jms/CargoHandledQueue</name>
