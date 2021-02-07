@@ -38,7 +38,7 @@
         <maven-surefire-report-plugin.version>3.0.0-M5</maven-surefire-report-plugin.version>
 
         <!-- Cargo maven plugin -->
-        <cargo-maven2-plugin.version>1.8.4</cargo-maven2-plugin.version>
+        <cargo-maven2-plugin.version>1.8.5</cargo-maven2-plugin.version>
 
         <!-- Jakarta EE API -->
         <jakartaee-api.version>8.0.0</jakartaee-api.version>
@@ -120,7 +120,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.6</version>
+            <version>2.10.9</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
