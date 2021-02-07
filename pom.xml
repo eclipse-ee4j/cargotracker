@@ -116,6 +116,14 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
 
+        <!-- Required by Java 9+ -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- The third-party dependencies this application has -->
         <dependency>
             <groupId>joda-time</groupId>
