@@ -61,7 +61,7 @@
         <!-- Application properties -->
         <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified path name 
             (it should include driver name under Windows). -->
-        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
+        <webapp.databaseTempDir>./cargo-tracker-data</webapp.databaseTempDir>
         <webapp.graphTraversalUrl>
             http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
         </webapp.graphTraversalUrl>
@@ -114,14 +114,6 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-        </dependency>
-
-        <!-- H2 database -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-            <scope>runtime</scope>
         </dependency>
 
         <!-- The third-party dependencies this application has -->
