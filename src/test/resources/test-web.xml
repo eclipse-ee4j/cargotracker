@@ -11,6 +11,6 @@
     <data-source>
         <name>java:app/jdbc/CargoTrackerDatabase</name>
         <class-name>org.h2.Driver</class-name>
-        <url>jdbc:h2:file:./cargo-tracker-test/cargo-tracker-database;create=true</url>    
+        <url>jdbc:h2:file:./cargo-tracker-test-data/cargo-tracker-database;create=true</url>    
     </data-source>
 </web-app>
