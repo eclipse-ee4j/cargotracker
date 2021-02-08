@@ -28,9 +28,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
 
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
@@ -171,7 +168,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -214,11 +210,6 @@
                                     <version>${payara.version}</version>
                                 </artifactInstaller>
                             </container>
-                            <configuration>
-                                <properties>
-                                    <cargo.remote.password></cargo.remote.password>
-                                </properties>
-                            </configuration>
                         </configuration>
                     </plugin>
                 </plugins>
