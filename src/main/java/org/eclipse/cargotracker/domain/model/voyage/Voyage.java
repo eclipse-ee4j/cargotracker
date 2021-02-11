@@ -27,7 +27,7 @@ public class Voyage implements Serializable {
 
     @Embedded @NotNull private VoyageNumber voyageNumber;
 
-    @Embedded @NotNull private Schedule schedule;
+    @Embedded private Schedule schedule;
 
     public Voyage() {
         // Nothing to initialize

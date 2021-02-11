@@ -1,6 +1,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.eclipse.ee4j</groupId>
@@ -10,10 +10,9 @@
     <name>Eclipse Cargo Tracker</name>
     <description>
         The project demonstrates how you can develop applications with the Jakarta EE platform using
-        widely
-        adopted architectural best practices like Domain-Driven Design (DDD).
+        widely adopted architectural best practices like Domain-Driven Design (DDD).
     </description>
-    <url>https://projects.eclipse.org/projects/ee4j.cargotracker/</url>
+    <url>https://eclipse-ee4j.github.io/cargotracker/</url>
 
     <organization>
         <name>Eclipse Foundation</name>
@@ -26,44 +25,27 @@
     </issueManagement>
 
     <properties>
-        <!-- Global Maven settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
 
-        <!-- build for Java 11+ -->
-        <!--<maven.compiler.release>11</maven.compiler.release>-->
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 
-        <!-- Official Maven Plugins -->
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
-        <maven-surefire-report-plugin.version>3.0.0-M5</maven-surefire-report-plugin.version>
-
-        <!-- Cargo maven plugin -->
-        <cargo-maven2-plugin.version>1.8.4</cargo-maven2-plugin.version>
-
-        <!-- Jakarta EE API -->
         <jakartaee-api.version>8.0.0</jakartaee-api.version>
 
-        <!-- Arquillian BOM -->
         <arquillian-bom.version>1.6.0.Final</arquillian-bom.version>
+
         <!-- Test Utilities -->
         <junit.version>4.13.1</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.18.1</assertj.version>
-        <!-- By default, skip tests -->
+
         <skipTests>true</skipTests>
 
-        <!-- Payara server -->
-        <payara.version>5.2020.7</payara.version>
-        <arquillian-payara.version>2.3.1</arquillian-payara.version>
-
         <!-- Application properties -->
-        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified path name
-        (it should include driver name under Windows). -->
-        <webapp.databaseTempDir>./data</webapp.databaseTempDir>
+        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified path name 
+            (it should include driver name under Windows). -->
+        <webapp.databaseTempDir>./cargo-tracker-data</webapp.databaseTempDir>
         <webapp.graphTraversalUrl>
             http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
         </webapp.graphTraversalUrl>
@@ -71,7 +53,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Jakarta EE API -->
             <dependency>
                 <groupId>jakarta.platform</groupId>
                 <artifactId>jakarta.jakartaee-api</artifactId>
@@ -79,9 +60,8 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- Arquillian Bill Of Management used to reduce collision between testing
-                dependencies. Using a dependency manager we don't need to specify the version
-                of each Arquillian dependency. -->
+            <!-- Arquillian Bill Of Management used to reduce collision between testing dependencies. 
+                Using a dependency manager we don't need to specify the version of each Arquillian dependency. -->
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
@@ -96,14 +76,12 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest</artifactId>
                 <version>${hamcrest.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
@@ -114,29 +92,12 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
 
-        <!-- H2 database -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- if you are using Postgres database, add Postgres jdbc driver-->
-        <!--<dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.18</version>
-            <scope>runtime</scope>
-        </dependency>-->
-
-        <!-- Required by Java 9+ -->
+        <!-- Required by Java SE 9+ -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
@@ -148,7 +109,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -163,14 +123,11 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -184,11 +141,18 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Resolvers are needed in the Arquillian tests. This is used for adding
-            all the runtime dependencies inside a testing war. -->
+        <!-- Resolvers are needed in the Arquillian tests. This is used for adding all the runtime dependencies 
+            inside a testing war. -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Needed for Arquillian to log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -198,78 +162,40 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <skipTests>${skipTests}</skipTests>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <excludedGroups>org.eclipse.cargotracker.IntegrationTests</excludedGroups>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven-failsafe-plugin.version}</version>
-                <configuration>
-                    <skipITs>${skipTests}</skipITs>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <groups>org.eclipse.cargotracker.IntegrationTests</groups>
-                    <excludedGroups></excludedGroups>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <profiles>
+        <!-- The currently supported application servers are represented as profiles -->
         <profile>
-            <id>default</id>
+            <id>payara</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <payara.version>5.2020.7</payara.version>
+            </properties>
+            <!-- Arquillian tests can be run by invoking: mvn clean verify -Dmaven.test.skip=false -->
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-remote</artifactId>
+                    <version>2.3.1</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
+                    <!-- The application can be run without an IDE by invoking: mvn clean package cargo:run -->
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo-maven2-plugin.version}</version>
+                        <version>1.8.5</version>
                         <configuration>
                             <container>
                                 <containerId>payara</containerId>
@@ -279,213 +205,7 @@
                                     <version>${payara.version}</version>
                                 </artifactInstaller>
                             </container>
-                            <configuration>
-                                <properties>
-                                    <cargo.remote.password></cargo.remote.password>
-                                </properties>
-                            </configuration>
                         </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>arq-payara-managed</id>
-            <properties>
-                <skipTests>false</skipTests>
-            </properties>
-            <dependencies>
-
-                <!-- https://mvnrepository.com/artifact/fish.payara.arquillian/payara-client-ee8 -->
-                <!--<dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
-                    <version>${arquillian-payara-server.version}</version>
-                    <scope>test</scope>
-                </dependency>-->
-
-                <!-- Payara Server Container adaptor -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-managed</artifactId>
-                    <version>${arquillian-payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>${maven-dependency-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>fish.payara.distributions</groupId>
-                                            <artifactId>payara</artifactId>
-                                            <version>${payara.version}</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
-                        <configuration>
-                            <environmentVariables>
-                                <GLASSFISH_HOME>${project.build.directory}/payara5</GLASSFISH_HOME>
-                            </environmentVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>arq-payara-remote</id>
-            <properties>
-                <skipTests>false</skipTests>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-remote</artifactId>
-                    <version>${arquillian-payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
-                        <configuration>
-                            <!-- This needs tuning -->
-                            <!--<systemPropertyVariables>
-                                <arquillian.launch>glassfish-remote</arquillian.launch>
-                            </systemPropertyVariables>-->
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>arq-payara-micro</id>
-            <properties>
-                <skipTests>false</skipTests>
-            </properties>
-            <dependencies>
-
-                <!-- https://mvnrepository.com/artifact/fish.payara.arquillian/payara-client-ee8 -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
-                    <version>${arquillian-payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-
-                <!-- Payara Micro Managed Container Adaptor -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>${arquillian-payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>${maven-dependency-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>fish.payara.extras</groupId>
-                                            <artifactId>payara-micro</artifactId>
-                                            <version>${payara.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                            <destFileName>payara-micro.jar</destFileName>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
-                        <configuration>
-                            <environmentVariables>
-                                <MICRO_JAR>${project.build.directory}/payara-micro.jar</MICRO_JAR>
-                            </environmentVariables>
-                            <systemPropertyVariables>
-                                <!--<payara.microJar>${project.build.directory}/payara-micro.jar</payara.microJar>-->
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>payara-remote</id>
-            <build>
-                <plugins>
-                    <!-- To deploying to a running Payara server. -->
-                    <!-- run: mvn package cargo:deploy -->
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo-maven2-plugin.version}</version>
-                        <configuration>
-                            <container>
-                                <containerId>payara</containerId>
-                                <type>remote</type>
-                            </container>
-                            <configuration>
-                                <type>runtime</type>
-                                <properties>
-                                    <cargo.remote.password></cargo.remote.password>
-                                </properties>
-                            </configuration>
-                        </configuration>
-                        <!-- provides JSR88 client API to deploy on Glassfish/Payara Server -->
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.glassfish.main.deployment</groupId>
-                                <artifactId>deployment-client</artifactId>
-                                <version>5.1.0</version>
-                            </dependency>
-                            <!-- jaxb is required when using Java 11 with cargo maven plugin -->
-                            <dependency>
-                                <groupId>org.glassfish.jaxb</groupId>
-                                <artifactId>jaxb-runtime</artifactId>
-                                <version>2.3.3</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
