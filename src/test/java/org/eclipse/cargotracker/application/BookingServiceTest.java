@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eclipse.cargotracker.IntegrationTests;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -70,7 +69,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 /**
@@ -83,7 +81,6 @@ import org.junit.runner.RunWith;
 // TODO [Jakarta EE 8] Move to the Java Date-Time API for date manipulation. Also avoid hard-coded
 // dates.
 @RunWith(Arquillian.class)
-@Category(IntegrationTests.class)
 public class BookingServiceTest {
     private static final Logger LOGGER = Logger.getLogger(BookingServiceTest.class.getName());
     private static TrackingId trackingId;
