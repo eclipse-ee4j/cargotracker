@@ -24,25 +24,25 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
-* Ensure you are running Java SE 8. The project by default uses Payara 4.1, which supports Java SE 8.
+* Ensure you are running Java SE 8 or Java SE 11.
 * Make sure JAVA_HOME is set.
 * As long as you have Maven set up properly, navigate to the project source root and 
-  type: `mvn package cargo:run`
+  type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
 To set up in Eclipse, follow these steps:
 
-* Set up [Java SE 8](https://www.azul.com/downloads/zulu-community/?version=java-8-lts), [the 2020-06 release of Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-06/r/eclipse-ide-enterprise-java-developers) (this is the latest Eclipse IDE version that supports Java SE 8) and [Payara 4.1](https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip) (Payara 5 is not supported yet. Payara 4.1 only supports Java SE 8). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
+* Set up Java SE 8 or Java SE 11, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.194/payara-5.194.zip) (any version up to and including 5.194 will work reliably. Later Payara 5 versions have known issues noted below). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
-  Maven downloads dependencies), simply run it via Payara 4.
+  Maven downloads dependencies), simply run it via Payara 5.
 
 ## Exploring the Application
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Jakarta EE (Java EE 7) features including JSF, CDI, EJB, JPA, JAX-RS, WebSocket, JSON Processing, Bean Validation and JMS.
+number of Jakarta EE features including Faces, CDI, Enterprise Beans, Persistence, REST, Batch, JSON Processing, Bean Validation and Messaging.
 
 There are several web interfaces, REST interfaces and a file system scanning
 interface. It's probably best to start exploring the interfaces in the rough
@@ -60,20 +60,19 @@ the system will determine routes that might work for the cargo. Once you select
 a route, the cargo will be ready to process handling events at the port. You can
 also change the destination for cargo if needed or track cargo.
 
-The Incident Logging interface is intended for port personnel registering what 
+The Handling Event Logging interface is intended for port personnel registering what 
 happened to cargo. The interface is primarily intended for mobile devices, but
 you can use it via a desktop browser. The interface is accessible at this URL: http://localhost:8080/cargo-tracker/event-logger/index.xhtml. For convenience, you
 could use a mobile emulator instead of an actual mobile device. Generally speaking cargo
 goes through these events:
 
-* It's received at the origin port.
+* It's received at the origin location.
 * It's loaded and unloaded onto voyages on it's itinerary.
-* It's claimed at it's destination port.
+* It's claimed at it's destination location.
 * It may go through customs at arbitrary points.
 
 While filling out the event registration form, it's best to have the itinerary 
-handy. You can access the itinerary for registered cargo via the admin interface. The cargo handling is done via Messaging for scalability. While using the incident logger, note that only the load 
-and unload events require as associated voyage.
+handy. You can access the itinerary for registered cargo via the admin interface. The cargo handling is done via Messaging for scalability. While using the event logger, note that only the load and unload events require as associated voyage.
 
 You should also explore the file system based bulk event registration interface. 
 It reads files under /tmp/uploads. The files are just CSV files. A sample CSV
@@ -116,22 +115,22 @@ by simply digging into the code to see how things are implemented.
 ## Exploring the Tests
 
 Cargo Tracker's testing is done using JUnit and Arquillian. The Arquillian configuration
-uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 4.1). Therefore, to perform a test you will need to make sure
+uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 5). Therefore, to perform a test you will need to make sure
 to have a container running. 
 
 ## Testing Locally with Payara
-For testing locally you will first need to run a Payara 4.1 server.
+For testing locally you will first need to run a Payara 5 server.
 
 You can do that with the following script:
 ```shell script
-wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/4.1.2.181/payara-4.1.2.181.zip
-unzip payara-4.1.2.181.zip && cd payara41/bin
+wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.194/payara-5.194.zip
+unzip payara-5.194.zip && cd payara5/bin
 ./asadmin start-domain
 ```
 
 Now for running the tests: 
 ```shell script
-mvn -Ppayara -DskipTests=false test
+mvn clean verify -DskipTests=false
 ```
 
 ## Contributing
@@ -140,6 +139,7 @@ This project complies with the [Google Java Style Guide](https://google.github.i
 In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
 
 ## Known Issues
+* If you use a Payara version greater than 5.194, the batch process will not execute reliably. This is due to the fact that newer Payara vesions use H2 instead of Derby and the shift has caused the Jakarta Batch functionality to stop working reliably. This is a known issue that is [being looked at](https://groups.google.com/g/payara-forum/c/GT3e_hsPJM8).
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
   explained [here](https://github.com/payara/Payara/issues/3038).

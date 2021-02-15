@@ -95,7 +95,7 @@ public class BookingServiceTest {
         File[] extraJars =
                 Maven.resolver()
                         .loadPomFromFile("pom.xml")
-                        .resolve("org.apache.commons:commons-lang3", "org.postgresql:postgresql")
+                        .resolve("org.apache.commons:commons-lang3", "com.h2database:h2")
                         .withTransitivity()
                         .asFile();
 

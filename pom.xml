@@ -43,9 +43,6 @@
         <skipTests>true</skipTests>
 
         <!-- Application properties -->
-        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified path name 
-            (it should include driver name under Windows). -->
-        <webapp.databaseTempDir>./cargo-tracker-data</webapp.databaseTempDir>
         <webapp.graphTraversalUrl>
             http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
         </webapp.graphTraversalUrl>
@@ -178,10 +175,22 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.version>5.2020.7</payara.version>
+                <payara.version>5.194</payara.version>
+                <db.driverClass>org.h2.Driver</db.driverClass>
+                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
+                    path name (it should include driver name under Windows). -->                
+                <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
             </properties>
-            <!-- Arquillian tests can be run by invoking: mvn clean verify -Dmaven.test.skip=false -->
+
             <dependencies>
+                <!-- Embedding the JDBC driver in the WAR works in Payara -->
+                <!-- This can be removed for later versions of Payara > 5.194 -->
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.200</version>
+                    <scope>runtime</scope>
+                </dependency>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-remote</artifactId>
@@ -191,7 +200,6 @@
             </dependencies>
             <build>
                 <plugins>
-                    <!-- The application can be run without an IDE by invoking: mvn clean package cargo:run -->
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
