@@ -131,7 +131,7 @@ public class Booking implements Serializable {
 
     public void deadlineUpdated() {
         duration = Duration.between(today.toInstant(),
-                arrivalDeadline.toInstant().plus(GRACE_PERIOD, ChronoUnit.HOURS) ).toDays();
+                arrivalDeadline.toInstant().plus(GRACE_PERIOD, ChronoUnit.HOURS)).toDays();
 
         if (duration >= MIN_JOURNEY_DURATION) {
             bookable = true;
