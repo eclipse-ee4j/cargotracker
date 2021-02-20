@@ -13,21 +13,8 @@ on:
       - reopened
 
 jobs:
-  formatting:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2 # v2 minimum required
-      - uses: axel-op/googlejavaformat-action@v3
-        with:
-          args: "--aosp --skip-reflowing-long-strings --skip-sorting-imports --dry-run --set-exit-if-changed"
-          # Recommended if you use MacOS:
-          # githubToken: ${{ secrets.GITHUB_TOKEN }}
-          # set dry-run and will not commit by default
-          # skipCommit: false
-        
   build:
     runs-on: ubuntu-latest
-    needs: [formatting]
     strategy:
       matrix:
         java: [1.8, 11, 15]
