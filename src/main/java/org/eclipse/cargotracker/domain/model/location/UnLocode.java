@@ -1,11 +1,9 @@
 package org.eclipse.cargotracker.domain.model.location;
 
 import java.io.Serializable;
-
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -18,6 +16,8 @@ import org.apache.commons.lang3.Validate;
 public class UnLocode implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final java.util.regex.Pattern VALID_PATTERN =
+            java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
 
     @NotNull
     // Country code is exactly two letters.
@@ -25,9 +25,6 @@ public class UnLocode implements Serializable {
     // as well.
     @Pattern(regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}")
     private String unlocode;
-
-    private static final java.util.regex.Pattern VALID_PATTERN =
-            java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
 
     public UnLocode() {
         // Nothing to initialize.

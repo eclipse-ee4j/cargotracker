@@ -27,9 +27,7 @@ public class CargoStatus {
         this.nextExpectedActivity = nextExpectedActivity;
         this.events = new ArrayList<>(handlingEvents.size());
 
-        for (TrackingEvents handlingEvent : handlingEvents) {
-            events.add(handlingEvent);
-        }
+        events.addAll(handlingEvents);
     }
 
     public String getDestination() {

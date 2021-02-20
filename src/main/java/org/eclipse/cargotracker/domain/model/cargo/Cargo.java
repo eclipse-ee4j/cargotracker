@@ -1,16 +1,13 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
 import java.io.Serializable;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
@@ -53,13 +50,10 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
  * captured in this aggregate.
  */
 @Entity
-// TODO [Jakarta EE 8] Apply repeatable annotations.
-@NamedQueries({
-    @NamedQuery(name = "Cargo.findAll", query = "Select c from Cargo c"),
-    @NamedQuery(
-            name = "Cargo.findByTrackingId",
-            query = "Select c from Cargo c where c.trackingId = :trackingId")
-})
+@NamedQuery(name = "Cargo.findAll", query = "Select c from Cargo c")
+@NamedQuery(
+        name = "Cargo.findByTrackingId",
+        query = "Select c from Cargo c where c.trackingId = :trackingId")
 public class Cargo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -100,12 +94,12 @@ public class Cargo implements Serializable {
         return trackingId;
     }
 
-    public void setOrigin(Location origin) {
-        this.origin = origin;
-    }
-
     public Location getOrigin() {
         return origin;
+    }
+
+    public void setOrigin(Location origin) {
+        this.origin = origin;
     }
 
     public RouteSpecification getRouteSpecification() {
@@ -168,7 +162,6 @@ public class Cargo implements Serializable {
         if (this == object) {
             return true;
         }
-
         if (object == null || getClass() != object.getClass()) {
             return false;
         }

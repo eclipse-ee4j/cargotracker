@@ -1,11 +1,9 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -20,7 +18,6 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 public class HandlingEventFactory implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Inject private CargoRepository cargoRepository;
     @Inject private VoyageRepository voyageRepository;
     @Inject private LocationRepository locationRepository;
@@ -39,8 +36,8 @@ public class HandlingEventFactory implements Serializable {
      */
     // TODO [Clean Code] Look at the exception handling more seriously.
     public HandlingEvent createHandlingEvent(
-            Date registrationTime,
-            Date completionTime,
+            LocalDateTime registrationTime,
+            LocalDateTime completionTime,
             TrackingId trackingId,
             VoyageNumber voyageNumber,
             UnLocode unlocode,

@@ -1,25 +1,33 @@
 package org.eclipse.cargotracker.application.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /** A few utils for working with Date. */
 // TODO [Clean Code] Make this a CDI singleton?
 public class DateUtil {
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
+    public static final String DT_PATTERN = "yyyy-MM-dd HH:mm";
+
+    public static final String DT_FORMAT = "MM/dd/yyyy hh:mm a z";
 
     private DateUtil() {}
 
-    public static Date toDate(String date) {
-        return toDate(date, "00:00.00.000");
+    public static LocalDate toDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 
-    public static Date toDate(String date, String time) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date + " " + time);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+    public static LocalDateTime toDateTime(String datetime) {
+        return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern(DT_PATTERN));
+    }
+
+    public static LocalDateTime toDateTime(String date, String time) {
+        return toDateTime(date + " " + time);
+    }
+
+    public static String toString(LocalDateTime dt) {
+        return dt.format(DateTimeFormatter.ofPattern(DT_FORMAT));
     }
 
     public static String getDateFromDateTime(String dateTime) {

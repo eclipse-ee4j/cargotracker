@@ -3,11 +3,9 @@ package org.eclipse.cargotracker.interfaces.booking.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
@@ -54,16 +52,14 @@ public class ChangeDestination implements Serializable {
 
     public List<Location> getPotentialDestinations() {
         // Potential destination = All Locations - Origin - Current Destination
-        List<Location> destinationsToRemove = new ArrayList<Location>();
+        List<Location> destinationsToRemove = new ArrayList<>();
         for (Location loc : locations) {
             if (loc.getName().equalsIgnoreCase(cargo.getOrigin())
                     || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
                 destinationsToRemove.add(loc);
             }
         }
-
         locations.removeAll(destinationsToRemove);
-
         return locations;
     }
 

@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
-import org.eclipse.cargotracker.domain.model.cargo.Leg;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
@@ -24,7 +23,7 @@ public class CargoRouteDtoAssembler {
                                         .getUnLocode()
                                         .getIdString()
                                 + ")",
-                        cargo.getRouteSpecification().getArrivalDeadline(),
+                        cargo.getRouteSpecification().getArrivalDeadline().atStartOfDay(),
                         cargo.getDelivery().getRoutingStatus().sameValueAs(RoutingStatus.MISROUTED),
                         cargo.getDelivery()
                                 .getTransportStatus()
@@ -38,16 +37,18 @@ public class CargoRouteDtoAssembler {
                                 + ")",
                         cargo.getDelivery().getTransportStatus().name());
 
-        for (Leg leg : cargo.getItinerary().getLegs()) {
-            dto.addLeg(
-                    leg.getVoyage().getVoyageNumber().getIdString(),
-                    leg.getLoadLocation().getUnLocode().getIdString(),
-                    leg.getLoadLocation().getName(),
-                    leg.getUnloadLocation().getUnLocode().getIdString(),
-                    leg.getUnloadLocation().getName(),
-                    leg.getLoadTime(),
-                    leg.getUnloadTime());
-        }
+        cargo.getItinerary()
+                .getLegs()
+                .forEach(
+                        leg ->
+                                dto.addLeg(
+                                        leg.getVoyage().getVoyageNumber().getIdString(),
+                                        leg.getLoadLocation().getUnLocode().getIdString(),
+                                        leg.getLoadLocation().getName(),
+                                        leg.getUnloadLocation().getUnLocode().getIdString(),
+                                        leg.getUnloadLocation().getName(),
+                                        leg.getLoadTime(),
+                                        leg.getUnloadTime()));
 
         return dto;
     }

@@ -1,13 +1,12 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -52,7 +51,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     }
 
     @Override
-    public String bookNewCargo(String origin, String destination, Date arrivalDeadline) {
+    public String bookNewCargo(String origin, String destination, LocalDate arrivalDeadline) {
         TrackingId trackingId =
                 bookingService.bookNewCargo(
                         new UnLocode(origin), new UnLocode(destination), arrivalDeadline);
@@ -83,7 +82,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     }
 
     @Override
-    public void changeDeadline(String trackingId, Date arrivalDeadline) {
+    public void changeDeadline(String trackingId, LocalDate arrivalDeadline) {
         bookingService.changeDeadline(new TrackingId(trackingId), arrivalDeadline);
     }
 
@@ -91,13 +90,11 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     // TODO [DDD] Is this the correct DTO here?
     public List<CargoRoute> listAllCargos() {
         List<Cargo> cargos = cargoRepository.findAll();
-        List<CargoRoute> routes = new ArrayList<>(cargos.size());
+        List<CargoRoute> routes;
 
         CargoRouteDtoAssembler assembler = new CargoRouteDtoAssembler();
 
-        for (Cargo cargo : cargos) {
-            routes.add(assembler.toDto(cargo));
-        }
+        routes = cargos.stream().map(assembler::toDto).collect(Collectors.toList());
 
         return routes;
     }
@@ -105,9 +102,9 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     @Override
     public List<String> listAllTrackingIds() {
         List<String> trackingIds = new ArrayList<>();
-
-        for (Cargo cargo : cargoRepository.findAll())
-            trackingIds.add(cargo.getTrackingId().getIdString());
+        cargoRepository
+                .findAll()
+                .forEach(cargo -> trackingIds.add(cargo.getTrackingId().getIdString()));
 
         return trackingIds;
     }
@@ -136,11 +133,10 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
         List<Itinerary> itineraries =
                 bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 
-        List<RouteCandidate> routeCandidates = new ArrayList<>(itineraries.size());
+        List<RouteCandidate> routeCandidates;
         ItineraryCandidateDtoAssembler dtoAssembler = new ItineraryCandidateDtoAssembler();
-        for (Itinerary itinerary : itineraries) {
-            routeCandidates.add(dtoAssembler.toDto(itinerary));
-        }
+        routeCandidates =
+                itineraries.stream().map(dtoAssembler::toDto).collect(Collectors.toList());
 
         return routeCandidates;
     }

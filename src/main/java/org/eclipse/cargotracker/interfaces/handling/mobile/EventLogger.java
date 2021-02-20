@@ -1,11 +1,9 @@
 package org.eclipse.cargotracker.interfaces.handling.mobile;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -14,7 +12,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
-
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -52,26 +49,26 @@ public class EventLogger implements Serializable {
     private String location;
     private String eventType;
     private String voyageNumber;
-    private Date completionDate;
-
-    public void setTrackingId(String trackingId) {
-        this.trackingId = trackingId;
-    }
+    private LocalDateTime completionDate;
 
     public String getTrackingId() {
         return trackingId;
+    }
+
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
     }
 
     public List<SelectItem> getTrackingIds() {
         return trackingIds;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getLocation() {
         return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public List<SelectItem> getLocations() {
@@ -86,24 +83,24 @@ public class EventLogger implements Serializable {
         this.eventType = eventType;
     }
 
-    public void setVoyageNumber(String voyageNumber) {
-        this.voyageNumber = voyageNumber;
-    }
-
     public String getVoyageNumber() {
         return voyageNumber;
+    }
+
+    public void setVoyageNumber(String voyageNumber) {
+        this.voyageNumber = voyageNumber;
     }
 
     public List<SelectItem> getVoyages() {
         return voyages;
     }
 
-    public void setCompletionDate(Date completionDate) {
-        this.completionDate = completionDate;
+    public LocalDateTime getCompletionDate() {
+        return completionDate;
     }
 
-    public Date getCompletionDate() {
-        return completionDate;
+    public void setCompletionDate(LocalDateTime completionDate) {
+        this.completionDate = completionDate;
     }
 
     @PostConstruct
@@ -149,7 +146,7 @@ public class EventLogger implements Serializable {
         }
 
         if ("dateTab".equals(event.getNewStep())) {
-            completionDate = Calendar.getInstance().getTime();
+            completionDate = LocalDateTime.now();
         }
 
         return event.getNewStep();
@@ -174,7 +171,6 @@ public class EventLogger implements Serializable {
     public void submit() {
         VoyageNumber voyage;
 
-        Date registrationTime = new Date();
         TrackingId trackingId = new TrackingId(this.trackingId);
         UnLocode location = new UnLocode(this.location);
         HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
@@ -188,7 +184,7 @@ public class EventLogger implements Serializable {
 
         HandlingEventRegistrationAttempt attempt =
                 new HandlingEventRegistrationAttempt(
-                        registrationTime, completionDate, trackingId, voyage, type, location);
+                        LocalDateTime.now(), completionDate, trackingId, voyage, type, location);
 
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 

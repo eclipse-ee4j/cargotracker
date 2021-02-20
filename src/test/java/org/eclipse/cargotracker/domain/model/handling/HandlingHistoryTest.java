@@ -2,9 +2,8 @@ package org.eclipse.cargotracker.domain.model.handling;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
-
 import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
@@ -26,30 +25,30 @@ public class HandlingHistoryTest {
                             DateUtil.toDate("2009-04-01")));
     Voyage voyage =
             new Voyage.Builder(new VoyageNumber("X25"), SampleLocations.HONGKONG)
-                    .addMovement(SampleLocations.SHANGHAI, new Date(), new Date())
-                    .addMovement(SampleLocations.DALLAS, new Date(), new Date())
+                    .addMovement(SampleLocations.SHANGHAI, LocalDateTime.now(), LocalDateTime.now())
+                    .addMovement(SampleLocations.DALLAS, LocalDateTime.now(), LocalDateTime.now())
                     .build();
     HandlingEvent event1 =
             new HandlingEvent(
                     cargo,
-                    DateUtil.toDate("2009-03-05"),
-                    new Date(100),
+                    DateUtil.toDateTime("2009-03-05", "00:00"),
+                    LocalDateTime.now().plusDays(100),
                     HandlingEvent.Type.LOAD,
                     SampleLocations.SHANGHAI,
                     voyage);
     HandlingEvent event1duplicate =
             new HandlingEvent(
                     cargo,
-                    DateUtil.toDate("2009-03-05"),
-                    new Date(200),
+                    DateUtil.toDateTime("2009-03-05", "00:00"),
+                    LocalDateTime.now().plusDays(200),
                     HandlingEvent.Type.LOAD,
                     SampleLocations.SHANGHAI,
                     voyage);
     HandlingEvent event2 =
             new HandlingEvent(
                     cargo,
-                    DateUtil.toDate("2009-03-10"),
-                    new Date(150),
+                    DateUtil.toDateTime("2009-03-10", "00:00"),
+                    LocalDateTime.now().plusDays(150),
                     HandlingEvent.Type.UNLOAD,
                     SampleLocations.DALLAS,
                     voyage);

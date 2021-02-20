@@ -1,8 +1,7 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,12 +20,11 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     // Null object pattern
     public static final CarrierMovement NONE =
-            new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, new Date(0), new Date(0));
-
+            new CarrierMovement(
+                    Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
+    private static final long serialVersionUID = 1L;
     @Id @GeneratedValue private Long id;
 
     @ManyToOne
@@ -42,15 +37,15 @@ public class CarrierMovement implements Serializable {
     @NotNull
     private Location arrivalLocation;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "departure_time")
     @NotNull
-    private Date departureTime;
+    private LocalDateTime departureTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "arrival_time")
     @NotNull
-    private Date arrivalTime;
+    private LocalDateTime arrivalTime;
 
     public CarrierMovement() {
         // Nothing to initialize.
@@ -59,8 +54,8 @@ public class CarrierMovement implements Serializable {
     public CarrierMovement(
             Location departureLocation,
             Location arrivalLocation,
-            Date departureTime,
-            Date arrivalTime) {
+            LocalDateTime departureTime,
+            LocalDateTime arrivalTime) {
         Validate.noNullElements(
                 new Object[] {departureLocation, arrivalLocation, departureTime, arrivalTime});
         this.departureTime = departureTime;
@@ -77,12 +72,12 @@ public class CarrierMovement implements Serializable {
         return arrivalLocation;
     }
 
-    public Date getDepartureTime() {
-        return new Date(departureTime.getTime());
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public Date getArrivalTime() {
-        return new Date(arrivalTime.getTime());
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
     @Override

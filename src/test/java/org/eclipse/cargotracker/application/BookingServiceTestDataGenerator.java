@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.application;
 
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -11,7 +10,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
@@ -43,10 +41,11 @@ public class BookingServiceTestDataGenerator {
         // TODO [Clean Code] See if there is a better way to do this.
         List<Cargo> cargos =
                 entityManager.createQuery("Select c from Cargo c", Cargo.class).getResultList();
-        for (Cargo cargo : cargos) {
-            cargo.getDelivery().setLastEvent(null);
-            entityManager.merge(cargo);
-        }
+        cargos.forEach(
+                cargo -> {
+                    cargo.getDelivery().setLastEvent(null);
+                    entityManager.merge(cargo);
+                });
 
         // Delete all entities
         // TODO [Clean Code] See why cascade delete is not working.

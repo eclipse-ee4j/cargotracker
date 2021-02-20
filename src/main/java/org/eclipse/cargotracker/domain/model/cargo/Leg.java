@@ -1,18 +1,14 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -23,6 +19,7 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 public class Leg implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id @GeneratedValue private Long id;
 
     @ManyToOne
@@ -40,15 +37,15 @@ public class Leg implements Serializable {
     @NotNull
     private Location unloadLocation;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "load_time")
     @NotNull
-    private Date loadTime;
+    private LocalDateTime loadTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "unload_time")
     @NotNull
-    private Date unloadTime;
+    private LocalDateTime unloadTime;
 
     public Leg() {
         // Nothing to initialize.
@@ -58,8 +55,8 @@ public class Leg implements Serializable {
             Voyage voyage,
             Location loadLocation,
             Location unloadLocation,
-            Date loadTime,
-            Date unloadTime) {
+            LocalDateTime loadTime,
+            LocalDateTime unloadTime) {
         Validate.noNullElements(
                 new Object[] {voyage, loadLocation, unloadLocation, loadTime, unloadTime});
 
@@ -82,12 +79,12 @@ public class Leg implements Serializable {
         return unloadLocation;
     }
 
-    public Date getLoadTime() {
-        return new Date(loadTime.getTime());
+    public LocalDateTime getLoadTime() {
+        return this.loadTime;
     }
 
-    public Date getUnloadTime() {
-        return new Date(unloadTime.getTime());
+    public LocalDateTime getUnloadTime() {
+        return this.unloadTime;
     }
 
     private boolean sameValueAs(Leg other) {
