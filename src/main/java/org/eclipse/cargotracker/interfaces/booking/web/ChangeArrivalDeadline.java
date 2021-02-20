@@ -24,12 +24,12 @@ import org.primefaces.PrimeFaces;
  */
 @Named
 @ViewScoped
-public class ChangeArrivalDeadlineDate implements Serializable {
+public class ChangeArrivalDeadline implements Serializable {
 
   private static final long serialVersionUID = 1L;
   private String trackingId;
   private CargoRoute cargo;
-  private LocalDate arrivalDeadlineDate;
+  private LocalDate arrivalDeadline;
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 
@@ -45,21 +45,21 @@ public class ChangeArrivalDeadlineDate implements Serializable {
     return cargo;
   }
 
-  public LocalDate getArrivalDeadlineDate() {
-    return arrivalDeadlineDate;
+  public LocalDate getArrivalDeadline() {
+    return arrivalDeadline;
   }
 
-  public void setArrivalDeadlineDate(LocalDate arrivalDeadlineDate) {
-    this.arrivalDeadlineDate = arrivalDeadlineDate;
+  public void setArrivalDeadline(LocalDate arrivalDeadline) {
+    this.arrivalDeadline = arrivalDeadline;
   }
 
   public void load() {
     cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-    arrivalDeadlineDate = DateUtil.toDate(cargo.getArrivalDeadline());
+    arrivalDeadline = DateUtil.toDate(cargo.getArrivalDeadline());
   }
 
   public void changeArrivalDeadline() {
-    bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate);
+    bookingServiceFacade.changeDeadline(trackingId, arrivalDeadline);
     PrimeFaces.current().dialog().closeDynamic("DONE");
   }
 }

@@ -12,7 +12,7 @@ import org.primefaces.event.SelectEvent;
 
 @Named
 @SessionScoped
-public class ChangeDestinationDialog implements Serializable {
+public class ChangeArrivalDeadlineDialog implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class ChangeDestinationDialog implements Serializable {
 
     PrimeFaces.current()
         .dialog()
-        .openDynamic("/admin/dialogs/change_destination.xhtml", options, params);
+        .openDynamic("/admin/dialogs/change_arrival_deadline.xhtml", options, params);
   }
 
   public void handleReturn(@SuppressWarnings("rawtypes") SelectEvent event) {}
