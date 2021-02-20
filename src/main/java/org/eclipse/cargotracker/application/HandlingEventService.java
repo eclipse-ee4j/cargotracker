@@ -9,15 +9,15 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 
 public interface HandlingEventService {
 
-    /**
-     * Registers a handling event in the system, and notifies interested parties that a cargo has
-     * been handled.
-     */
-    void registerHandlingEvent(
-            LocalDateTime completionTime,
-            TrackingId trackingId,
-            VoyageNumber voyageNumber,
-            UnLocode unLocode,
-            HandlingEvent.Type type)
-            throws CannotCreateHandlingEventException;
+  /**
+   * Registers a handling event in the system, and notifies interested parties that a cargo has been
+   * handled.
+   */
+  void registerHandlingEvent(
+      LocalDateTime completionTime,
+      TrackingId trackingId,
+      VoyageNumber voyageNumber,
+      UnLocode unLocode,
+      HandlingEvent.Type type)
+      throws CannotCreateHandlingEventException;
 }

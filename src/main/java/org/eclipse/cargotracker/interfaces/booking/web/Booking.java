@@ -19,145 +19,140 @@ import org.primefaces.PrimeFaces;
 @FlowScoped("booking")
 public class Booking implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
-    private static final long SECONDS_PER_HOUR = 3600;
-    private static final long GRACE_PERIOD = SECONDS_PER_HOUR * 4;
+  private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
+  private static final long SECONDS_PER_HOUR = 3600;
+  private static final long GRACE_PERIOD = SECONDS_PER_HOUR * 4;
 
-    private LocalDate today = null;
-    private List<Location> locations;
+  private LocalDate today = null;
+  private List<Location> locations;
 
-    private String originUnlocode;
-    private String originName;
-    private String destinationName;
-    private String destinationUnlocode;
-    private LocalDate arrivalDeadline;
+  private String originUnlocode;
+  private String originName;
+  private String destinationName;
+  private String destinationUnlocode;
+  private LocalDate arrivalDeadline;
 
-    private boolean bookable = false;
-    private long duration = -1;
+  private boolean bookable = false;
+  private long duration = -1;
 
-    @Inject private BookingServiceFacade bookingServiceFacade;
+  @Inject private BookingServiceFacade bookingServiceFacade;
 
-    @PostConstruct
-    public void init() {
-        today = LocalDate.now();
-        locations = bookingServiceFacade.listShippingLocations();
+  @PostConstruct
+  public void init() {
+    today = LocalDate.now();
+    locations = bookingServiceFacade.listShippingLocations();
+  }
+
+  public List<Location> getLocations() {
+    List<Location> filteredLocations = new ArrayList<>();
+    String locationToRemove = null;
+
+    // TODO [Jakarta EE 8] Use injection instead?
+    if (FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("destination.xhtml")) {
+      // In the destination menu, origin can't be selected.
+      locationToRemove = originUnlocode;
+    } else { // Vice-versa.
+      if (destinationUnlocode != null) {
+        locationToRemove = destinationUnlocode;
+      }
     }
 
-    public List<Location> getLocations() {
-        List<Location> filteredLocations = new ArrayList<>();
-        String locationToRemove = null;
-
-        // TODO [Jakarta EE 8] Use injection instead?
-        if (FacesContext.getCurrentInstance()
-                .getViewRoot()
-                .getViewId()
-                .endsWith("destination.xhtml")) {
-            // In the destination menu, origin can't be selected.
-            locationToRemove = originUnlocode;
-        } else { // Vice-versa.
-            if (destinationUnlocode != null) {
-                locationToRemove = destinationUnlocode;
-            }
-        }
-
-        for (Location location : locations) {
-            if (!location.getUnLocode().equalsIgnoreCase(locationToRemove)) {
-                filteredLocations.add(location);
-            }
-        }
-
-        return filteredLocations;
+    for (Location location : locations) {
+      if (!location.getUnLocode().equalsIgnoreCase(locationToRemove)) {
+        filteredLocations.add(location);
+      }
     }
 
-    public String getOriginUnlocode() {
-        return originUnlocode;
+    return filteredLocations;
+  }
+
+  public String getOriginUnlocode() {
+    return originUnlocode;
+  }
+
+  public void setOriginUnlocode(String originUnlocode) {
+    this.originUnlocode = originUnlocode;
+    for (Location location : locations) {
+      if (location.getUnLocode().equalsIgnoreCase(originUnlocode)) {
+        this.originName = location.getNameOnly();
+      }
+    }
+  }
+
+  public String getOriginName() {
+    return originName;
+  }
+
+  public String getDestinationUnlocode() {
+    return destinationUnlocode;
+  }
+
+  public void setDestinationUnlocode(String destinationUnlocode) {
+    this.destinationUnlocode = destinationUnlocode;
+    for (Location location : locations) {
+      if (location.getUnLocode().equalsIgnoreCase(destinationUnlocode)) {
+        destinationName = location.getNameOnly();
+      }
+    }
+  }
+
+  public String getDestinationName() {
+    return destinationName;
+  }
+
+  public LocalDate getToday() {
+    return today;
+  }
+
+  public LocalDate getArrivalDeadline() {
+    return arrivalDeadline;
+  }
+
+  public void setArrivalDeadline(LocalDate arrivalDeadline) {
+    this.arrivalDeadline = arrivalDeadline;
+  }
+
+  public long getDuration() {
+    return duration;
+  }
+
+  public boolean isBookable() {
+    return bookable;
+  }
+
+  public void deadlineUpdated() {
+    duration =
+        Duration.between(today, arrivalDeadline.atStartOfDay().plusSeconds(GRACE_PERIOD)).toDays();
+
+    if (duration >= MIN_JOURNEY_DURATION) {
+      bookable = true;
+    } else {
+      bookable = false;
     }
 
-    public void setOriginUnlocode(String originUnlocode) {
-        this.originUnlocode = originUnlocode;
-        for (Location location : locations) {
-            if (location.getUnLocode().equalsIgnoreCase(originUnlocode)) {
-                this.originName = location.getNameOnly();
-            }
-        }
+    PrimeFaces.current().ajax().update("dateForm:durationPanel");
+    PrimeFaces.current().ajax().update("dateForm:bookBtn");
+  }
+
+  public String register() {
+    if (!originUnlocode.equals(destinationUnlocode)) {
+      bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode, arrivalDeadline);
+    } else {
+      // TODO [Jakarta EE 8] See if this can be injected.
+      FacesContext context = FacesContext.getCurrentInstance();
+      // UI now prevents from selecting same origin/destination
+      FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
+      message.setSeverity(FacesMessage.SEVERITY_ERROR);
+      context.addMessage(null, message);
+      return null;
     }
 
-    public String getOriginName() {
-        return originName;
-    }
+    return "/admin/dashboard.xhtml";
+  }
 
-    public String getDestinationUnlocode() {
-        return destinationUnlocode;
-    }
-
-    public void setDestinationUnlocode(String destinationUnlocode) {
-        this.destinationUnlocode = destinationUnlocode;
-        for (Location location : locations) {
-            if (location.getUnLocode().equalsIgnoreCase(destinationUnlocode)) {
-                destinationName = location.getNameOnly();
-            }
-        }
-    }
-
-    public String getDestinationName() {
-        return destinationName;
-    }
-
-    public LocalDate getToday() {
-        return today;
-    }
-
-    public LocalDate getArrivalDeadline() {
-        return arrivalDeadline;
-    }
-
-    public void setArrivalDeadline(LocalDate arrivalDeadline) {
-        this.arrivalDeadline = arrivalDeadline;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public boolean isBookable() {
-        return bookable;
-    }
-
-    public void deadlineUpdated() {
-        // TODO [Jakarta EE 8] Use Date-Time API instead.
-        duration =
-                Duration.between(today, arrivalDeadline.atStartOfDay().plusSeconds(GRACE_PERIOD))
-                        .toDays();
-
-        if (duration >= MIN_JOURNEY_DURATION) {
-            bookable = true;
-        } else {
-            bookable = false;
-        }
-
-        PrimeFaces.current().ajax().update("dateForm:durationPanel");
-        PrimeFaces.current().ajax().update("dateForm:bookBtn");
-    }
-
-    public String register() {
-        if (!originUnlocode.equals(destinationUnlocode)) {
-            bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode, arrivalDeadline);
-        } else {
-            // TODO [Jakarta EE 8] See if this can be injected.
-            FacesContext context = FacesContext.getCurrentInstance();
-            // UI now prevents from selecting same origin/destination
-            FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            context.addMessage(null, message);
-            return null;
-        }
-
-        return "/admin/dashboard.xhtml";
-    }
-
-    public String getReturnValue() {
-        return "/admin/dashboard.xhtml";
-    }
+  public String getReturnValue() {
+    return "/admin/dashboard.xhtml";
+  }
 }

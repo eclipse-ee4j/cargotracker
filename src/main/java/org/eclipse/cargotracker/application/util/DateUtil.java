@@ -8,28 +8,28 @@ import java.time.format.DateTimeFormatter;
 /** A few utils for working with Date. */
 // TODO [Clean Code] Make this a CDI singleton?
 public class DateUtil {
-  public static final String DATE_PATTERN = "yyyy-MM-dd";
-  public static final String DT_PATTERN = "yyyy-MM-dd HH:mm";
+  private static final DateTimeFormatter DATE_FORMAT =
+      DateTimeFormatter.ofPattern("MM/dd/yyyy").withZone(ZoneId.systemDefault());
 
-  public static final DateTimeFormatter DATE_TIME_FORMAT =
-      DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a z").withZone(ZoneId.systemDefault());
+  private static final DateTimeFormatter DATE_TIME_FORMAT =
+      DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a").withZone(ZoneId.systemDefault());
 
   private DateUtil() {}
 
   public static LocalDate toDate(String date) {
-    return LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
+    return LocalDate.parse(date, DATE_FORMAT);
   }
 
   public static LocalDateTime toDateTime(String datetime) {
-    return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern(DT_PATTERN));
-  }
-
-  public static LocalDateTime toDateTime(String date, String time) {
-    return toDateTime(date + " " + time);
+    return LocalDateTime.parse(datetime, DATE_TIME_FORMAT);
   }
 
   public static String toString(LocalDateTime dateTime) {
     return dateTime.format(DATE_TIME_FORMAT);
+  }
+
+  public static String toString(LocalDate date) {
+    return date.format(DATE_FORMAT);
   }
 
   public static String getDateFromDateTime(String dateTime) {

@@ -18,92 +18,85 @@ import org.eclipse.cargotracker.domain.model.location.LocationRepository;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.service.RoutingService;
 
-// TODO [Jakarta EE 8] Adopt the Date-Time API.
 @Stateless
 public class DefaultBookingService implements BookingService {
 
-    @Inject private CargoRepository cargoRepository;
-    @Inject private LocationRepository locationRepository;
-    @Inject private RoutingService routingService;
-    @Inject private Logger logger;
+  @Inject private CargoRepository cargoRepository;
+  @Inject private LocationRepository locationRepository;
+  @Inject private RoutingService routingService;
+  @Inject private Logger logger;
 
-    @Override
-    public TrackingId bookNewCargo(
-            UnLocode originUnLocode, UnLocode destinationUnLocode, LocalDate arrivalDeadline) {
-        TrackingId trackingId = cargoRepository.nextTrackingId();
-        Location origin = locationRepository.find(originUnLocode);
-        Location destination = locationRepository.find(destinationUnLocode);
-        RouteSpecification routeSpecification =
-                new RouteSpecification(origin, destination, arrivalDeadline);
+  @Override
+  public TrackingId bookNewCargo(
+      UnLocode originUnLocode, UnLocode destinationUnLocode, LocalDate arrivalDeadline) {
+    TrackingId trackingId = cargoRepository.nextTrackingId();
+    Location origin = locationRepository.find(originUnLocode);
+    Location destination = locationRepository.find(destinationUnLocode);
+    RouteSpecification routeSpecification =
+        new RouteSpecification(origin, destination, arrivalDeadline);
 
-        Cargo cargo = new Cargo(trackingId, routeSpecification);
+    Cargo cargo = new Cargo(trackingId, routeSpecification);
 
-        cargoRepository.store(cargo);
-        logger.log(
-                Level.INFO,
-                "Booked new cargo with tracking ID {0}",
-                cargo.getTrackingId().getIdString());
+    cargoRepository.store(cargo);
+    logger.log(
+        Level.INFO, "Booked new cargo with tracking ID {0}", cargo.getTrackingId().getIdString());
 
-        return cargo.getTrackingId();
+    return cargo.getTrackingId();
+  }
+
+  @Override
+  public List<Itinerary> requestPossibleRoutesForCargo(TrackingId trackingId) {
+    Cargo cargo = cargoRepository.find(trackingId);
+
+    if (cargo == null) {
+      return Collections.emptyList();
     }
 
-    @Override
-    public List<Itinerary> requestPossibleRoutesForCargo(TrackingId trackingId) {
-        Cargo cargo = cargoRepository.find(trackingId);
+    return routingService.fetchRoutesForSpecification(cargo.getRouteSpecification());
+  }
 
-        if (cargo == null) {
-            return Collections.emptyList();
-        }
+  @Override
+  public void assignCargoToRoute(Itinerary itinerary, TrackingId trackingId) {
+    Cargo cargo = cargoRepository.find(trackingId);
 
-        return routingService.fetchRoutesForSpecification(cargo.getRouteSpecification());
-    }
+    cargo.assignToRoute(itinerary);
+    cargoRepository.store(cargo);
 
-    @Override
-    public void assignCargoToRoute(Itinerary itinerary, TrackingId trackingId) {
-        Cargo cargo = cargoRepository.find(trackingId);
+    logger.log(Level.INFO, "Assigned cargo {0} to new route", trackingId);
+  }
 
-        cargo.assignToRoute(itinerary);
-        cargoRepository.store(cargo);
+  @Override
+  public void changeDestination(TrackingId trackingId, UnLocode unLocode) {
+    Cargo cargo = cargoRepository.find(trackingId);
+    Location newDestination = locationRepository.find(unLocode);
 
-        logger.log(Level.INFO, "Assigned cargo {0} to new route", trackingId);
-    }
+    RouteSpecification routeSpecification =
+        new RouteSpecification(
+            cargo.getOrigin(), newDestination, cargo.getRouteSpecification().getArrivalDeadline());
+    cargo.specifyNewRoute(routeSpecification);
 
-    @Override
-    public void changeDestination(TrackingId trackingId, UnLocode unLocode) {
-        Cargo cargo = cargoRepository.find(trackingId);
-        Location newDestination = locationRepository.find(unLocode);
+    cargoRepository.store(cargo);
 
-        RouteSpecification routeSpecification =
-                new RouteSpecification(
-                        cargo.getOrigin(),
-                        newDestination,
-                        cargo.getRouteSpecification().getArrivalDeadline());
-        cargo.specifyNewRoute(routeSpecification);
+    logger.log(
+        Level.INFO,
+        "Changed destination for cargo {0} to {1}",
+        new Object[] {trackingId, routeSpecification.getDestination()});
+  }
 
-        cargoRepository.store(cargo);
+  @Override
+  public void changeDeadline(TrackingId trackingId, LocalDate newDeadline) {
+    Cargo cargo = cargoRepository.find(trackingId);
 
-        logger.log(
-                Level.INFO,
-                "Changed destination for cargo {0} to {1}",
-                new Object[] {trackingId, routeSpecification.getDestination()});
-    }
+    RouteSpecification routeSpecification =
+        new RouteSpecification(
+            cargo.getOrigin(), cargo.getRouteSpecification().getDestination(), newDeadline);
+    cargo.specifyNewRoute(routeSpecification);
 
-    @Override
-    public void changeDeadline(TrackingId trackingId, LocalDate newDeadline) {
-        Cargo cargo = cargoRepository.find(trackingId);
+    cargoRepository.store(cargo);
 
-        RouteSpecification routeSpecification =
-                new RouteSpecification(
-                        cargo.getOrigin(),
-                        cargo.getRouteSpecification().getDestination(),
-                        newDeadline);
-        cargo.specifyNewRoute(routeSpecification);
-
-        cargoRepository.store(cargo);
-
-        logger.log(
-                Level.INFO,
-                "Changed deadline for cargo {0} to {1}",
-                new Object[] {trackingId, newDeadline});
-    }
+    logger.log(
+        Level.INFO,
+        "Changed deadline for cargo {0} to {1}",
+        new Object[] {trackingId, newDeadline});
+  }
 }
