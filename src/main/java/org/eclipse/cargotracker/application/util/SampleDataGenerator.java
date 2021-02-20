@@ -1,5 +1,7 @@
 package org.eclipse.cargotracker.application.util;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +28,6 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
-import org.joda.time.LocalDate;
 
 /** Loads sample data for demo. */
 @Singleton
@@ -111,7 +112,7 @@ public class SampleDataGenerator {
                 new RouteSpecification(
                         SampleLocations.HONGKONG,
                         SampleLocations.HELSINKI,
-                        LocalDate.now().plusDays(15).toDate());
+                        Date.from(Instant.from(LocalDate.now().plusDays(15))));
         Cargo abc123 = new Cargo(trackingId1, routeSpecification1);
 
         Itinerary itinerary1 =
@@ -121,20 +122,20 @@ public class SampleDataGenerator {
                                         SampleVoyages.HONGKONG_TO_NEW_YORK,
                                         SampleLocations.HONGKONG,
                                         SampleLocations.NEWYORK,
-                                        LocalDate.now().minusDays(7).toDate(),
-                                        LocalDate.now().minusDays(1).toDate()),
+                                        Date.from(Instant.from(LocalDate.now().minusDays(7))),
+                                        Date.from(Instant.from(LocalDate.now().minusDays(1)))),
                                 new Leg(
                                         SampleVoyages.NEW_YORK_TO_DALLAS,
                                         SampleLocations.NEWYORK,
                                         SampleLocations.DALLAS,
-                                        LocalDate.now().plusDays(2).toDate(),
-                                        LocalDate.now().plusDays(6).toDate()),
+                                        Date.from(Instant.from(LocalDate.now().plusDays(2))),
+                                        Date.from(Instant.from(LocalDate.now().plusDays(6)))),
                                 new Leg(
                                         SampleVoyages.DALLAS_TO_HELSINKI,
                                         SampleLocations.DALLAS,
                                         SampleLocations.HELSINKI,
-                                        LocalDate.now().plusDays(8).toDate(),
-                                        LocalDate.now().plusDays(14).toDate())));
+                                        Date.from(Instant.from(LocalDate.now().plusDays(8))),
+                                        Date.from(Instant.from(LocalDate.now().plusDays(14))))));
         abc123.assignToRoute(itinerary1);
 
         entityManager.persist(abc123);
@@ -143,7 +144,7 @@ public class SampleDataGenerator {
             HandlingEvent event1 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(10).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(10))),
                             trackingId1,
                             null,
                             SampleLocations.HONGKONG.getUnLocode(),
@@ -153,7 +154,7 @@ public class SampleDataGenerator {
             HandlingEvent event2 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(7).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(7))),
                             trackingId1,
                             SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                             SampleLocations.HONGKONG.getUnLocode(),
@@ -163,7 +164,7 @@ public class SampleDataGenerator {
             HandlingEvent event3 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(1).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(1))),
                             trackingId1,
                             SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                             SampleLocations.NEWYORK.getUnLocode(),
@@ -186,7 +187,7 @@ public class SampleDataGenerator {
                 new RouteSpecification(
                         SampleLocations.HANGZOU,
                         SampleLocations.STOCKHOLM,
-                        LocalDate.now().plusDays(18).toDate());
+                        Date.from(Instant.from(LocalDate.now().plusDays(18))));
         Cargo jkl567 = new Cargo(trackingId2, routeSpecification2);
 
         Itinerary itinerary2 =
@@ -196,20 +197,20 @@ public class SampleDataGenerator {
                                         SampleVoyages.HONGKONG_TO_NEW_YORK,
                                         SampleLocations.HANGZOU,
                                         SampleLocations.NEWYORK,
-                                        LocalDate.now().minusDays(10).toDate(),
-                                        LocalDate.now().minusDays(3).toDate()),
+                                        Date.from(Instant.from(LocalDate.now().minusDays(10))),
+                                        Date.from(Instant.from(LocalDate.now().minusDays(3)))),
                                 new Leg(
                                         SampleVoyages.NEW_YORK_TO_DALLAS,
                                         SampleLocations.NEWYORK,
                                         SampleLocations.DALLAS,
-                                        LocalDate.now().minusDays(2).toDate(),
-                                        LocalDate.now().plusDays(2).toDate()),
+                                        Date.from(Instant.from(LocalDate.now().minusDays(2))),
+                                        Date.from(Instant.from(LocalDate.now().plusDays(2)))),
                                 new Leg(
                                         SampleVoyages.DALLAS_TO_HELSINKI,
                                         SampleLocations.DALLAS,
                                         SampleLocations.STOCKHOLM,
-                                        LocalDate.now().plusDays(6).toDate(),
-                                        LocalDate.now().plusDays(15).toDate())));
+                                        Date.from(Instant.from(LocalDate.now().plusDays(6))),
+                                        Date.from(Instant.from(LocalDate.now().plusDays(15))))));
         jkl567.assignToRoute(itinerary2);
 
         entityManager.persist(jkl567);
@@ -218,7 +219,7 @@ public class SampleDataGenerator {
             HandlingEvent event1 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(15).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(15))),
                             trackingId2,
                             null,
                             SampleLocations.HANGZOU.getUnLocode(),
@@ -228,7 +229,7 @@ public class SampleDataGenerator {
             HandlingEvent event2 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(10).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(10))),
                             trackingId2,
                             SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                             SampleLocations.HANGZOU.getUnLocode(),
@@ -238,7 +239,7 @@ public class SampleDataGenerator {
             HandlingEvent event3 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(3).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(3))),
                             trackingId2,
                             SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                             SampleLocations.NEWYORK.getUnLocode(),
@@ -249,7 +250,7 @@ public class SampleDataGenerator {
             HandlingEvent event4 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(2).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(2))),
                             trackingId2,
                             SampleVoyages.HONGKONG_TO_NEW_YORK.getVoyageNumber(),
                             SampleLocations.NEWYORK.getUnLocode(),
@@ -272,7 +273,7 @@ public class SampleDataGenerator {
                 new RouteSpecification(
                         SampleLocations.HONGKONG,
                         SampleLocations.MELBOURNE,
-                        LocalDate.now().plusMonths(2).toDate());
+                        Date.from(Instant.from(LocalDate.now().plusMonths(2))));
 
         Cargo def789 = new Cargo(trackingId3, routeSpecification3);
         entityManager.persist(def789);
@@ -283,7 +284,7 @@ public class SampleDataGenerator {
                 new RouteSpecification(
                         SampleLocations.NEWYORK,
                         SampleLocations.DALLAS,
-                        LocalDate.now().minusDays(24).toDate());
+                        Date.from(Instant.from(LocalDate.now().minusDays(24))));
 
         Cargo mno456 = new Cargo(trackingId4, routeSpecification4);
 
@@ -294,8 +295,8 @@ public class SampleDataGenerator {
                                         SampleVoyages.NEW_YORK_TO_DALLAS,
                                         SampleLocations.NEWYORK,
                                         SampleLocations.DALLAS,
-                                        LocalDate.now().minusDays(34).toDate(),
-                                        LocalDate.now().minusDays(28).toDate())));
+                                        Date.from(Instant.from(LocalDate.now().minusDays(34))),
+                                        Date.from(Instant.from(LocalDate.now().minusDays(28))))));
 
         mno456.assignToRoute(itinerary4);
         entityManager.persist(mno456);
@@ -304,7 +305,7 @@ public class SampleDataGenerator {
             HandlingEvent event1 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(37).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(37))),
                             trackingId4,
                             null,
                             SampleLocations.NEWYORK.getUnLocode(),
@@ -315,7 +316,7 @@ public class SampleDataGenerator {
             HandlingEvent event2 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(34).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(34))),
                             trackingId4,
                             SampleVoyages.NEW_YORK_TO_DALLAS.getVoyageNumber(),
                             SampleLocations.NEWYORK.getUnLocode(),
@@ -326,7 +327,7 @@ public class SampleDataGenerator {
             HandlingEvent event3 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(28).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(28))),
                             trackingId4,
                             SampleVoyages.NEW_YORK_TO_DALLAS.getVoyageNumber(),
                             SampleLocations.DALLAS.getUnLocode(),
@@ -337,7 +338,7 @@ public class SampleDataGenerator {
             HandlingEvent event4 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(27).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(27))),
                             trackingId4,
                             null,
                             SampleLocations.DALLAS.getUnLocode(),
@@ -348,7 +349,7 @@ public class SampleDataGenerator {
             HandlingEvent event5 =
                     handlingEventFactory.createHandlingEvent(
                             new Date(),
-                            LocalDate.now().minusDays(26).toDate(),
+                            Date.from(Instant.from(LocalDate.now().minusDays(26))),
                             trackingId4,
                             null,
                             SampleLocations.DALLAS.getUnLocode(),

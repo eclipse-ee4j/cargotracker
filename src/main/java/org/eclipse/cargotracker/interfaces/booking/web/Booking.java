@@ -1,6 +1,10 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +18,6 @@ import javax.inject.Named;
 
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
-import org.joda.time.DateTimeConstants;
-import org.joda.time.Interval;
-import org.joda.time.LocalDate;
 import org.primefaces.PrimeFaces;
 
 @Named
@@ -26,7 +27,7 @@ public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
-    private static final long GRACE_PERIOD = DateTimeConstants.MILLIS_PER_HOUR * 4;
+    private static final long GRACE_PERIOD = 4; // in hours
 
     private Date today = null;
     private List<Location> locations;
@@ -44,7 +45,7 @@ public class Booking implements Serializable {
 
     @PostConstruct
     public void init() {
-        today = LocalDate.now().toDate();
+        today = Date.from(Instant.from(LocalDate.now()));
         locations = bookingServiceFacade.listShippingLocations();
     }
 
@@ -129,11 +130,8 @@ public class Booking implements Serializable {
     }
 
     public void deadlineUpdated() {
-        // TODO [Jakarta EE 8] Use Date-Time API instead.
-        duration =
-                new Interval(today.getTime(), arrivalDeadline.getTime() + GRACE_PERIOD)
-                        .toDuration()
-                        .getStandardDays();
+        duration = Duration.between(today.toInstant(),
+                arrivalDeadline.toInstant().plus(GRACE_PERIOD, ChronoUnit.HOURS) ).toDays();
 
         if (duration >= MIN_JOURNEY_DURATION) {
             bookable = true;
