@@ -1,6 +1,6 @@
 package org.eclipse.cargotracker.interfaces.handling.rest;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -8,8 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class HandlingReport {
 
-  // TODO [Jakarta EE 8] Use not blank instead.
-  @NotNull(message = "Missing completion time.")
+  @NotBlank(message = "Missing completion time.")
   @Size(
       min = 15,
       max = 19,
@@ -17,13 +16,11 @@ public class HandlingReport {
   // TODO [DDD] Apply regular expression validation.
   private String completionTime;
 
-  // TODO [Jakarta EE 8] Use not blank instead.
-  @NotNull(message = "Missing tracking ID.")
+  @NotBlank(message = "Missing tracking ID.")
   @Size(min = 4, message = "Tracking ID must be at least four characters.")
   private String trackingId;
 
-  // TODO [Jakarta EE 8] Use not blank instead.
-  @NotNull(message = "Missing event type.")
+  @NotBlank(message = "Missing event type.")
   @Size(
       min = 4,
       max = 7,
@@ -31,8 +28,7 @@ public class HandlingReport {
   // TODO [DDD] Apply regular expression validation.
   private String eventType;
 
-  // TODO [Jakarta EE 8] Use not blank instead.
-  @NotNull(message = "UN location code missing.")
+  @NotBlank(message = "UN location code missing.")
   @Size(min = 5, max = 5, message = "UN location code must be five characters long.")
   private String unLocode;
 

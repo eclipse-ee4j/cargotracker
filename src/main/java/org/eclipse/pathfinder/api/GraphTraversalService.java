@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,16 +28,15 @@ public class GraphTraversalService {
   @GET
   @Path("/shortest-path")
   @Produces({"application/json", "application/xml; qs=.75"})
-  public List<TransitPath> findShortestPath( // TODO [Jakarta EE 8] Use not blank instead.
-      @NotNull(message = "Missing origin UN location code.")
+  public List<TransitPath> findShortestPath(
+      @NotBlank(message = "Missing origin UN location code.")
           @Size(
               min = 5,
               max = 5,
               message = "Origin UN location code value must be five characters long.")
           @QueryParam("origin")
           String originUnLocode,
-      // TODO [Jakarta EE 8] Use not blank instead.
-      @NotNull(message = "Missing destination UN location code.")
+      @NotBlank(message = "Missing destination UN location code.")
           @Size(
               min = 5,
               max = 5,
