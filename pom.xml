@@ -176,7 +176,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.version>5.194</payara.version>
+                <payara.version>5.2021.1</payara.version>
                 <db.driverClass>org.h2.Driver</db.driverClass>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
                     path name (it should include driver name under Windows). -->                
@@ -185,7 +185,6 @@
 
             <dependencies>
                 <!-- Embedding the JDBC driver in the WAR works in Payara -->
-                <!-- This can be removed for later versions of Payara > 5.194 -->
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
