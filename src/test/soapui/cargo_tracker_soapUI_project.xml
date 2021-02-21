@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="CargoTracker" resourceRoot="" soapui-version="5.6.0"
-                    abortOnError="false" runType="SEQUENTIAL" id="fac1520d-f4f5-4832-847b-c60d43c68dc7"
-                    xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="CargoTracker" resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" id="fac1520d-f4f5-4832-847b-c60d43c68dc7" xmlns:con="http://eviware.com/soapui/config">
     <con:settings/>
-    <con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="CargoTracker"
-                   type="rest" basePath="" id="616fc1f6-9dac-40b7-85cb-4004006ed9a0"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="CargoTracker" type="rest" basePath="" id="616fc1f6-9dac-40b7-85cb-4004006ed9a0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <con:settings/>
 
 
-        <con:definitionCache type="TEXT" rootPart=""/>
-        <con:endpoints>
+        
+        <con:definitionCache type="TEXT" rootPart=""/><con:endpoints>
             <con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
         </con:endpoints>
-        <con:resource name="shortest-path" path="/graph-traversal/shortest-path"
-                      id="7435d226-84d4-4ba0-b23f-b27398ce9efa">
+        <con:resource name="shortest-path" path="/graph-traversal/shortest-path" id="7435d226-84d4-4ba0-b23f-b27398ce9efa">
             <con:settings/>
             <con:parameters>
                 <con:parameter>
@@ -106,11 +101,9 @@
                     <con:params/>
                     <con:element>Fault</con:element>
                 </con:representation>
-                <con:request name="GET" mediaType="application/xml" id="a239cfc6-0a69-49fb-b310-107ef6738212">
+                <con:representation type="RESPONSE"><con:mediaType>application/xml;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>transitPaths</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="GET" mediaType="application/xml" id="a239cfc6-0a69-49fb-b310-107ef6738212">
                     <con:settings>
-                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry
-                            key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/>
-                        </con:setting>
+                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
                     </con:settings>
                     <con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
                     <con:request/>
@@ -313,20 +306,18 @@
                     <con:params/>
                     <con:element>data</con:element>
                 </con:representation>
-                <con:request name="POST" mediaType="application/xml" postQueryString="false" accept=""
-                             id="3b620cce-e06c-4919-810a-af9794fe10e7">
+                <con:representation type="FAULT"><con:mediaType>text/html;charset=UTF-8</con:mediaType><con:status>500 400</con:status><con:params/><con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/plain;charset=UTF-8</con:mediaType><con:status>400</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="POST" mediaType="application/json" postQueryString="false" accept="" id="3b620cce-e06c-4919-810a-af9794fe10e7">
                     <con:settings>
-                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
-                        </con:setting>
+                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                     </con:settings>
                     <con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
-                    <con:request><![CDATA[<handlingReport>
-  <completionTime>2021-01-19 09:30</completionTime>
-  <trackingId>ABC123</trackingId>
-  <eventType>LOAD</eventType>
-  <unLocode>USNYC</unLocode>
-  <voyageNumber>0200T</voyageNumber>
-</handlingReport>]]></con:request>
+                    <con:request>{
+  "completionTime": "3/1/2021 9:30 AM",
+  "trackingId": "ABC123",
+  "eventType": "LOAD",
+  "unLocode": "USNYC",
+  "voyageNumber": "0200T"
+}</con:request>
                     <con:originalUri>http://localhost/cargo-tracker/rest/handling/reports
                     </con:originalUri>
                     <con:credentials>
@@ -359,11 +350,9 @@
                     <con:params/>
                     <con:element xmlns:xht="http://www.w3.org/1999/xhtml">xht:html</con:element>
                 </con:representation>
-                <con:request name="GET" id="646611ac-0f32-4385-9365-6e3d818bd0b1" mediaType="application/json">
+                <con:representation type="RESPONSE"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="GET" id="646611ac-0f32-4385-9365-6e3d818bd0b1" mediaType="application/json">
                     <con:settings>
-                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry
-                            key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/>
-                        </con:setting>
+                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
                     </con:settings>
                     <con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
                     <con:request/>

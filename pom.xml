@@ -179,12 +179,19 @@
                 <payara.version>5.2021.1</payara.version>
                 <db.driverClass>org.h2.Driver</db.driverClass>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
-                    path name (it should include driver name under Windows). -->                
+                    path name (it should include driver name under Windows). -->
                 <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
             </properties>
 
             <dependencies>
-                <!-- Embedding the JDBC driver in the WAR works in Payara -->
+                <!-- We need a Jersey specific dependency -->
+                <dependency>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-server</artifactId>
+                    <version>3.0.1</version>
+                    <scope>provided</scope>
+                </dependency>
+               <!-- Embedding the JDBC driver in the WAR works in Payara -->
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
