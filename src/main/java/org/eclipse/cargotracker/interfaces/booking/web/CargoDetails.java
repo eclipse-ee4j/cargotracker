@@ -20,23 +20,23 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 @RequestScoped
 public class CargoDetails {
 
-    private String trackingId;
-    private CargoRoute cargo;
-    @Inject private BookingServiceFacade bookingServiceFacade;
+  private String trackingId;
+  private CargoRoute cargo;
+  @Inject private BookingServiceFacade bookingServiceFacade;
 
-    public String getTrackingId() {
-        return trackingId;
-    }
+  public String getTrackingId() {
+    return trackingId;
+  }
 
-    public void setTrackingId(String trackingId) {
-        this.trackingId = trackingId;
-    }
+  public void setTrackingId(String trackingId) {
+    this.trackingId = trackingId;
+  }
 
-    public CargoRoute getCargo() {
-        return cargo;
-    }
+  public CargoRoute getCargo() {
+    return cargo;
+  }
 
-    public void load() {
-        cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-    }
+  public void load() {
+    cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
+  }
 }

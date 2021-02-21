@@ -7,11 +7,9 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -129,7 +127,7 @@ public class BookingServiceTest {
         // Application layer components
         .addClass(DefaultBookingService.class)
         .addClass(DateUtil.class)
-        .addClass(RestConfiguration.class)        
+        .addClass(RestConfiguration.class)
         // Infrastructure layer components.
         .addClass(JpaCargoRepository.class)
         .addClass(JpaVoyageRepository.class)

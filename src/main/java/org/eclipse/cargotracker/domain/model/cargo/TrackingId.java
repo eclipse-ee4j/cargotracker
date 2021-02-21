@@ -9,47 +9,47 @@ import org.apache.commons.lang3.Validate;
 @Embeddable
 public class TrackingId implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Column(name = "tracking_id", unique = true, updatable = false)
-    private String id;
+  @Column(name = "tracking_id", unique = true, updatable = false)
+  private String id;
 
-    public TrackingId() {}
+  public TrackingId() {}
 
-    public TrackingId(String id) {
-        Validate.notNull(id);
-        this.id = id;
+  public TrackingId(String id) {
+    Validate.notNull(id);
+    this.id = id;
+  }
+
+  public String getIdString() {
+    return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
 
-    public String getIdString() {
-        return id;
-    }
+    TrackingId other = (TrackingId) o;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+    return sameValueAs(other);
+  }
 
-        TrackingId other = (TrackingId) o;
+  @Override
+  public int hashCode() {
+    return id.hashCode();
+  }
 
-        return sameValueAs(other);
-    }
+  boolean sameValueAs(TrackingId other) {
+    return other != null && this.id.equals(other.id);
+  }
 
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
-    boolean sameValueAs(TrackingId other) {
-        return other != null && this.id.equals(other.id);
-    }
-
-    @Override
-    public String toString() {
-        return id;
-    }
+  @Override
+  public String toString() {
+    return id;
+  }
 }

@@ -25,61 +25,61 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeDestination implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private String trackingId;
-    private CargoRoute cargo;
-    private List<Location> locations;
-    private String destinationUnlocode;
+  private String trackingId;
+  private CargoRoute cargo;
+  private List<Location> locations;
+  private String destinationUnlocode;
 
-    @Inject private BookingServiceFacade bookingServiceFacade;
+  @Inject private BookingServiceFacade bookingServiceFacade;
 
-    public String getTrackingId() {
-        return trackingId;
+  public String getTrackingId() {
+    return trackingId;
+  }
+
+  public void setTrackingId(String trackingId) {
+    this.trackingId = trackingId;
+  }
+
+  public CargoRoute getCargo() {
+    return cargo;
+  }
+
+  public List<Location> getLocations() {
+    return locations;
+  }
+
+  public List<Location> getPotentialDestinations() {
+    // Potential destination = All Locations - Origin - Current Destination
+    List<Location> destinationsToRemove = new ArrayList<>();
+    for (Location loc : locations) {
+      if (loc.getName().equalsIgnoreCase(cargo.getOrigin())
+          || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
+        destinationsToRemove.add(loc);
+      }
     }
+    locations.removeAll(destinationsToRemove);
+    return locations;
+  }
 
-    public void setTrackingId(String trackingId) {
-        this.trackingId = trackingId;
-    }
+  public String getDestinationUnlocode() {
+    return destinationUnlocode;
+  }
 
-    public CargoRoute getCargo() {
-        return cargo;
-    }
+  public void setDestinationUnlocode(String destinationUnlocode) {
+    this.destinationUnlocode = destinationUnlocode;
+  }
 
-    public List<Location> getLocations() {
-        return locations;
-    }
+  public void load() {
+    locations = bookingServiceFacade.listShippingLocations();
+    cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
+  }
 
-    public List<Location> getPotentialDestinations() {
-        // Potential destination = All Locations - Origin - Current Destination
-        List<Location> destinationsToRemove = new ArrayList<>();
-        for (Location loc : locations) {
-            if (loc.getName().equalsIgnoreCase(cargo.getOrigin())
-                    || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
-                destinationsToRemove.add(loc);
-            }
-        }
-        locations.removeAll(destinationsToRemove);
-        return locations;
-    }
-
-    public String getDestinationUnlocode() {
-        return destinationUnlocode;
-    }
-
-    public void setDestinationUnlocode(String destinationUnlocode) {
-        this.destinationUnlocode = destinationUnlocode;
-    }
-
-    public void load() {
-        locations = bookingServiceFacade.listShippingLocations();
-        cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-    }
-
-    public void changeDestination() {
-        bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
-        // PF.current().dialog().closeDynamic("DONE");
-        PrimeFaces.current().dialog().closeDynamic("DONE");
-        // RequestContext.getCurrentInstance().closeDialog("DONE");
-    }
+  public void changeDestination() {
+    bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
+    // PF.current().dialog().closeDynamic("DONE");
+    PrimeFaces.current().dialog().closeDynamic("DONE");
+    // RequestContext.getCurrentInstance().closeDialog("DONE");
+  }
 }

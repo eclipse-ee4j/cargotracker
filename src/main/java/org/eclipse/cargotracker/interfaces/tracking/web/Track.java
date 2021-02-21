@@ -28,50 +28,50 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 @ViewScoped
 public class Track implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Inject private CargoRepository cargoRepository;
-    @Inject private HandlingEventRepository handlingEventRepository;
+  @Inject private CargoRepository cargoRepository;
+  @Inject private HandlingEventRepository handlingEventRepository;
 
-    private String trackingId;
-    private CargoTrackingViewAdapter cargo;
+  private String trackingId;
+  private CargoTrackingViewAdapter cargo;
 
-    public String getTrackingId() {
-        return trackingId;
+  public String getTrackingId() {
+    return trackingId;
+  }
+
+  public void setTrackingId(String trackingId) {
+    if (trackingId != null) {
+      trackingId = trackingId.trim();
     }
 
-    public void setTrackingId(String trackingId) {
-        if (trackingId != null) {
-            trackingId = trackingId.trim();
-        }
+    this.trackingId = trackingId;
+  }
 
-        this.trackingId = trackingId;
+  public CargoTrackingViewAdapter getCargo() {
+    return cargo;
+  }
+
+  public void setCargo(CargoTrackingViewAdapter cargo) {
+    this.cargo = cargo;
+  }
+
+  public void onTrackById() {
+    Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
+
+    if (cargo != null) {
+      List<HandlingEvent> handlingEvents =
+          handlingEventRepository
+              .lookupHandlingHistoryOfCargo(new TrackingId(trackingId))
+              .getDistinctEventsByCompletionTime();
+      this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
+    } else {
+      FacesContext context = FacesContext.getCurrentInstance();
+      FacesMessage message =
+          new FacesMessage("Cargo with tracking ID: " + trackingId + " not found.");
+      message.setSeverity(FacesMessage.SEVERITY_ERROR);
+      context.addMessage(null, message);
+      this.cargo = null;
     }
-
-    public CargoTrackingViewAdapter getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(CargoTrackingViewAdapter cargo) {
-        this.cargo = cargo;
-    }
-
-    public void onTrackById() {
-        Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
-
-        if (cargo != null) {
-            List<HandlingEvent> handlingEvents =
-                    handlingEventRepository
-                            .lookupHandlingHistoryOfCargo(new TrackingId(trackingId))
-                            .getDistinctEventsByCompletionTime();
-            this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
-        } else {
-            FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage message =
-                    new FacesMessage("Cargo with tracking ID: " + trackingId + " not found.");
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            context.addMessage(null, message);
-            this.cargo = null;
-        }
-    }
+  }
 }

@@ -19,29 +19,29 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
  * message-driven.
  */
 @MessageDriven(
-        activationConfig = {
-            @ActivationConfigProperty(
-                    propertyName = "destinationType",
-                    propertyValue = "javax.jms.Queue"),
-            @ActivationConfigProperty(
-                    propertyName = "destinationLookup",
-                    propertyValue = "java:app/jms/CargoHandledQueue")
-        })
+    activationConfig = {
+      @ActivationConfigProperty(
+          propertyName = "destinationType",
+          propertyValue = "javax.jms.Queue"),
+      @ActivationConfigProperty(
+          propertyName = "destinationLookup",
+          propertyValue = "java:app/jms/CargoHandledQueue")
+    })
 public class CargoHandledConsumer implements MessageListener {
 
-    @Inject private Logger logger;
+  @Inject private Logger logger;
 
-    @Inject private CargoInspectionService cargoInspectionService;
+  @Inject private CargoInspectionService cargoInspectionService;
 
-    @Override
-    public void onMessage(Message message) {
-        try {
-            TextMessage textMessage = (TextMessage) message;
-            String trackingIdString = textMessage.getText();
+  @Override
+  public void onMessage(Message message) {
+    try {
+      TextMessage textMessage = (TextMessage) message;
+      String trackingIdString = textMessage.getText();
 
-            cargoInspectionService.inspectCargo(new TrackingId(trackingIdString));
-        } catch (JMSException e) {
-            logger.log(Level.SEVERE, "Error procesing JMS message", e);
-        }
+      cargoInspectionService.inspectCargo(new TrackingId(trackingIdString));
+    } catch (JMSException e) {
+      logger.log(Level.SEVERE, "Error procesing JMS message", e);
     }
+  }
 }

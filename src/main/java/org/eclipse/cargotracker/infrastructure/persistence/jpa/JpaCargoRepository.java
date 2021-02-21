@@ -18,49 +18,49 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 @ApplicationScoped
 public class JpaCargoRepository implements CargoRepository, Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Inject private Logger logger;
+  @Inject private Logger logger;
 
-    @PersistenceContext private EntityManager entityManager;
+  @PersistenceContext private EntityManager entityManager;
 
-    @Override
-    public Cargo find(TrackingId trackingId) {
-        Cargo cargo;
+  @Override
+  public Cargo find(TrackingId trackingId) {
+    Cargo cargo;
 
-        try {
-            cargo =
-                    entityManager
-                            .createNamedQuery("Cargo.findByTrackingId", Cargo.class)
-                            .setParameter("trackingId", trackingId)
-                            .getSingleResult();
-        } catch (NoResultException e) {
-            logger.log(Level.FINE, "Find called on non-existant tracking ID.", e);
-            cargo = null;
-        }
-
-        return cargo;
+    try {
+      cargo =
+          entityManager
+              .createNamedQuery("Cargo.findByTrackingId", Cargo.class)
+              .setParameter("trackingId", trackingId)
+              .getSingleResult();
+    } catch (NoResultException e) {
+      logger.log(Level.FINE, "Find called on non-existant tracking ID.", e);
+      cargo = null;
     }
 
-    @Override
-    public void store(Cargo cargo) {
-        // TODO [Clean Code] See why cascade is not working correctly for legs.
-        for (Leg leg : cargo.getItinerary().getLegs()) {
-            entityManager.persist(leg);
-        }
+    return cargo;
+  }
 
-        entityManager.persist(cargo);
+  @Override
+  public void store(Cargo cargo) {
+    // TODO [Clean Code] See why cascade is not working correctly for legs.
+    for (Leg leg : cargo.getItinerary().getLegs()) {
+      entityManager.persist(leg);
     }
 
-    @Override
-    public TrackingId nextTrackingId() {
-        String random = UUID.randomUUID().toString().toUpperCase();
+    entityManager.persist(cargo);
+  }
 
-        return new TrackingId(random.substring(0, random.indexOf("-")));
-    }
+  @Override
+  public TrackingId nextTrackingId() {
+    String random = UUID.randomUUID().toString().toUpperCase();
 
-    @Override
-    public List<Cargo> findAll() {
-        return entityManager.createNamedQuery("Cargo.findAll", Cargo.class).getResultList();
-    }
+    return new TrackingId(random.substring(0, random.indexOf("-")));
+  }
+
+  @Override
+  public List<Cargo> findAll() {
+    return entityManager.createNamedQuery("Cargo.findAll", Cargo.class).getResultList();
+  }
 }

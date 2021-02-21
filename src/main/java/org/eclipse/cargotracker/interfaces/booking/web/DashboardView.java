@@ -12,33 +12,33 @@ import org.primefaces.model.DefaultDashboardModel;
 @ViewScoped
 public class DashboardView implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private DashboardModel model;
+  private DashboardModel model;
 
-    private String name = "TestDD";
+  private String name = "TestDD";
 
-    public DashboardView() {
-        // Initialize the dashboard model
-        this.model = new DefaultDashboardModel();
-        DashboardColumn mainColumn = new DefaultDashboardColumn();
+  public DashboardView() {
+    // Initialize the dashboard model
+    this.model = new DefaultDashboardModel();
+    DashboardColumn mainColumn = new DefaultDashboardColumn();
 
-        mainColumn.addWidget("Routed");
-        mainColumn.addWidget("NotRouted");
-        mainColumn.addWidget("Claimed");
+    mainColumn.addWidget("Routed");
+    mainColumn.addWidget("NotRouted");
+    mainColumn.addWidget("Claimed");
 
-        this.model.addColumn(mainColumn);
-    }
+    this.model.addColumn(mainColumn);
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public DashboardModel getModel() {
-        return model;
-    }
+  public DashboardModel getModel() {
+    return model;
+  }
 
-    public void setModel(DashboardModel model) {
-        this.model = model;
-    }
+  public void setModel(DashboardModel model) {
+    this.model = model;
+  }
 }

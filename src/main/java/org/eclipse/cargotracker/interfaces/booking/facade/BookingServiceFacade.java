@@ -13,24 +13,24 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
  */
 public interface BookingServiceFacade {
 
-    String bookNewCargo(String origin, String destination, LocalDate arrivalDeadline);
+  String bookNewCargo(String origin, String destination, LocalDate arrivalDeadline);
 
-    CargoRoute loadCargoForRouting(String trackingId);
+  CargoRoute loadCargoForRouting(String trackingId);
 
-    CargoStatus loadCargoForTracking(String trackingId);
+  CargoStatus loadCargoForTracking(String trackingId);
 
-    void assignCargoToRoute(String trackingId, RouteCandidate route);
+  void assignCargoToRoute(String trackingId, RouteCandidate route);
 
-    void changeDestination(String trackingId, String destinationUnLocode);
+  void changeDestination(String trackingId, String destinationUnLocode);
 
-    void changeDeadline(String trackingId, LocalDate arrivalDeadline);
+  void changeDeadline(String trackingId, LocalDate arrivalDeadline);
 
-    List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId);
+  List<RouteCandidate> requestPossibleRoutesForCargo(String trackingId);
 
-    List<Location> listShippingLocations();
+  List<Location> listShippingLocations();
 
-    // TODO [DDD] Is this the right DTO here?
-    List<CargoRoute> listAllCargos();
+  // TODO [DDD] Is this the right DTO here?
+  List<CargoRoute> listAllCargos();
 
-    List<String> listAllTrackingIds();
+  List<String> listAllTrackingIds();
 }

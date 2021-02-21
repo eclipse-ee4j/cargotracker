@@ -3,7 +3,6 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;

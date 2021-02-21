@@ -12,11 +12,11 @@ import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAtt
  */
 public interface ApplicationEvents {
 
-    void cargoWasHandled(HandlingEvent event);
+  void cargoWasHandled(HandlingEvent event);
 
-    void cargoWasMisdirected(Cargo cargo);
+  void cargoWasMisdirected(Cargo cargo);
 
-    void cargoHasArrived(Cargo cargo);
+  void cargoHasArrived(Cargo cargo);
 
-    void receivedHandlingEventRegistrationAttempt(HandlingEventRegistrationAttempt attempt);
+  void receivedHandlingEventRegistrationAttempt(HandlingEventRegistrationAttempt attempt);
 }
