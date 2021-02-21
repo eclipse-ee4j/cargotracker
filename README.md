@@ -32,7 +32,7 @@ The simplest steps are the following (no IDE required):
 
 To set up in Eclipse, follow these steps:
 
-* Set up Java SE 8 or Java SE 11, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.194/payara-5.194.zip) (any version up to and including 5.194 will work reliably. Later Payara 5 versions have known issues noted below). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
+* Set up Java SE 8 or Java SE 11, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as 
@@ -42,7 +42,7 @@ To set up in Eclipse, follow these steps:
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Jakarta EE features including Faces, CDI, Enterprise Beans, Persistence, REST, Batch, JSON Processing, Bean Validation and Messaging.
+number of Jakarta EE features including Faces, CDI, Enterprise Beans, Persistence, REST, Batch, JSON Binding, JSON Processing, Bean Validation and Messaging.
 
 There are several web interfaces, REST interfaces and a file system scanning
 interface. It's probably best to start exploring the interfaces in the rough
@@ -123,8 +123,8 @@ For testing locally you will first need to run a Payara 5 server.
 
 You can do that with the following script:
 ```shell script
-wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.194/payara-5.194.zip
-unzip payara-5.194.zip && cd payara5/bin
+wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.2021.1/payara-5.2021.1.zip
+unzip payara-5.2021.1.zip && cd payara5/bin
 ./asadmin start-domain
 ```
 
@@ -139,7 +139,6 @@ This project complies with the [Google Java Style Guide](https://google.github.i
 In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
 
 ## Known Issues
-* If you use a Payara version greater than 5.194, the batch process will not execute reliably. This is due to the fact that newer Payara vesions use H2 instead of Derby and the shift has caused the Jakarta Batch functionality to stop working reliably. This is a known issue that is [being looked at](https://groups.google.com/g/payara-forum/c/GT3e_hsPJM8).
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
   explained [here](https://github.com/payara/Payara/issues/3038).
