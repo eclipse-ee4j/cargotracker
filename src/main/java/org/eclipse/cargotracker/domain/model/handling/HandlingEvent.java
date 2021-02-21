@@ -253,11 +253,11 @@ public class HandlingEvent implements Serializable {
         return builder.toString();
     }
 
-    /**
-     * Handling event type. Either requires or prohibits a carrier movement association, it's never
-     * optional.
-     */
-    public enum Type {
+  /**
+   * Handling event type. Either requires or prohibits a carrier movement association, it's never
+   * optional.
+   */
+  public enum Type {
 
         // Loaded onto voyage from port location.
         LOAD(true),

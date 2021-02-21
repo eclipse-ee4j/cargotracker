@@ -14,7 +14,7 @@ public class DateUtil {
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofPattern(DATE_FORMAT).withZone(ZoneId.systemDefault());
 
-  private static final DateTimeFormatter DATE_TIME_FORMATER =
+  private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withZone(ZoneId.systemDefault());
 
   private DateUtil() {}
@@ -24,11 +24,11 @@ public class DateUtil {
   }
 
   public static LocalDateTime toDateTime(String datetime) {
-    return LocalDateTime.parse(datetime, DATE_TIME_FORMATER);
+    return LocalDateTime.parse(datetime, DATE_TIME_FORMATTER);
   }
 
   public static String toString(LocalDateTime dateTime) {
-    return dateTime.format(DATE_TIME_FORMATER);
+    return dateTime.format(DATE_TIME_FORMATTER);
   }
 
   public static String toString(LocalDate date) {

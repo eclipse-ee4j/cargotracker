@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,7 +103,7 @@ public class EventItemReader extends AbstractItemReader {
 
     try {
       completionTime = DateUtil.toDateTime(result[0]);
-    } catch (Exception e) {
+    } catch (DateTimeParseException e) {
       throw new EventLineParseException("Cannot parse completion time", e, line);
     }
 
