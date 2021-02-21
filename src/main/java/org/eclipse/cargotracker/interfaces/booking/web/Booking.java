@@ -1,16 +1,18 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
@@ -22,8 +24,6 @@ public class Booking implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
-  private static final long SECONDS_PER_HOUR = 3600;
-  private static final long GRACE_PERIOD = SECONDS_PER_HOUR * 4;
 
   private LocalDate today = null;
   private List<Location> locations;
@@ -123,8 +123,7 @@ public class Booking implements Serializable {
   }
 
   public void deadlineUpdated() {
-    duration =
-        Duration.between(today, arrivalDeadline.atStartOfDay().plusSeconds(GRACE_PERIOD)).toDays();
+    duration = ChronoUnit.DAYS.between(today, arrivalDeadline);
 
     if (duration >= MIN_JOURNEY_DURATION) {
       bookable = true;

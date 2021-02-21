@@ -3,7 +3,7 @@ package org.eclipse.cargotracker.domain.model.location;
 /** Sample locations, for test purposes. */
 public class SampleLocations {
 
-    public static final Location HONGKONG = new Location(new UnLocode("CNHKG"), "Hong Kong");
+  public static final Location HONGKONG = new Location(new UnLocode("CNHKG"), "Hong Kong");
     public static final Location MELBOURNE = new Location(new UnLocode("AUMEL"), "Melbourne");
     public static final Location STOCKHOLM = new Location(new UnLocode("SESTO"), "Stockholm");
     public static final Location HELSINKI = new Location(new UnLocode("FIHEL"), "Helsinki");
