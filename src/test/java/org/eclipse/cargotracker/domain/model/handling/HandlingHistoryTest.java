@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -30,7 +32,7 @@ public class HandlingHistoryTest {
   HandlingEvent event1 =
       new HandlingEvent(
           cargo,
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),
+          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5).truncatedTo(ChronoUnit.DAYS),
           LocalDateTime.now().plusDays(100),
           HandlingEvent.Type.LOAD,
           SampleLocations.SHANGHAI,
@@ -38,7 +40,7 @@ public class HandlingHistoryTest {
   HandlingEvent event1duplicate =
       new HandlingEvent(
           cargo,
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),
+          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5).truncatedTo(ChronoUnit.DAYS),
           LocalDateTime.now().plusDays(200),
           HandlingEvent.Type.LOAD,
           SampleLocations.SHANGHAI,
@@ -46,7 +48,7 @@ public class HandlingHistoryTest {
   HandlingEvent event2 =
       new HandlingEvent(
           cargo,
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(10),
+          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(10).truncatedTo(ChronoUnit.DAYS),
           LocalDateTime.now().plusDays(150),
           HandlingEvent.Type.UNLOAD,
           SampleLocations.DALLAS,
