@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 /** A few utilities for working with Date. */
 // TODO [Clean Code] Make this a CDI singleton?
 public class DateUtil {
-  public static final String DATE_FORMAT = "MM/dd/yyyy";
-  public static final String DATE_TIME_FORMAT = "MM/dd/yyyy hh:mm a";
+  public static final String DATE_FORMAT = "M/d/yyyy";
+  public static final String DATE_TIME_FORMAT = "M/d/yyyy h:m a";
 
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofPattern(DATE_FORMAT).withZone(ZoneId.systemDefault());
