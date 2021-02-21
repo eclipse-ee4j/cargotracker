@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-/** A few utils for working with Date. */
+/** A few utilities for working with Date. */
 // TODO [Clean Code] Make this a CDI singleton?
 public class DateUtil {
   private static final DateTimeFormatter DATE_FORMAT =
@@ -30,15 +30,5 @@ public class DateUtil {
 
   public static String toString(LocalDate date) {
     return date.format(DATE_FORMAT);
-  }
-
-  public static String getDateFromDateTime(String dateTime) {
-    // 03/15/2014 12:00 AM CET
-    return dateTime.substring(0, dateTime.indexOf(" "));
-  }
-
-  public static String getTimeFromDateTime(String dateTime) {
-    // 03/15/2014 12:00 AM CET
-    return dateTime.substring(dateTime.indexOf(" ") + 1);
   }
 }
