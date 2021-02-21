@@ -13,8 +13,18 @@ on:
       - reopened
 
 jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          version: 1.6
+          skipCommit: false
+        
   build:
     runs-on: ubuntu-latest
+    needs: [formatting]
     strategy:
       matrix:
         java: [1.8, 11, 15]
