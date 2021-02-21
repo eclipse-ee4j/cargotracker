@@ -1,15 +1,12 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
-import java.text.SimpleDateFormat;
+import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 
 public class TrackingEventsDtoAssembler {
-
-    private static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 
     public TrackingEvents toDto(Cargo cargo, HandlingEvent handlingEvent) {
         String location = locationFrom(handlingEvent);
@@ -22,7 +19,7 @@ public class TrackingEventsDtoAssembler {
     }
 
     private String timeFrom(HandlingEvent event) {
-        return DATE_FORMAT.format(event.getCompletionTime());
+        return DateUtil.toString(event.getCompletionTime());
     }
 
     private String descriptionFrom(HandlingEvent.Type type, String location, String voyageNumber) {
