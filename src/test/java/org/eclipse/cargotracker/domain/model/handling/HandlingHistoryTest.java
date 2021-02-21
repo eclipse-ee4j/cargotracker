@@ -32,7 +32,11 @@ public class HandlingHistoryTest {
   HandlingEvent event1 =
       new HandlingEvent(
           cargo,
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5).truncatedTo(ChronoUnit.DAYS),
+          LocalDateTime.now()
+              .minusYears(1)
+              .plusMonths(3)
+              .plusDays(5)
+              .truncatedTo(ChronoUnit.SECONDS),
           LocalDateTime.now().plusDays(100),
           HandlingEvent.Type.LOAD,
           SampleLocations.SHANGHAI,
@@ -40,7 +44,11 @@ public class HandlingHistoryTest {
   HandlingEvent event1duplicate =
       new HandlingEvent(
           cargo,
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5).truncatedTo(ChronoUnit.DAYS),
+          LocalDateTime.now()
+              .minusYears(1)
+              .plusMonths(3)
+              .plusDays(5)
+              .truncatedTo(ChronoUnit.SECONDS),
           LocalDateTime.now().plusDays(200),
           HandlingEvent.Type.LOAD,
           SampleLocations.SHANGHAI,
@@ -48,7 +56,11 @@ public class HandlingHistoryTest {
   HandlingEvent event2 =
       new HandlingEvent(
           cargo,
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(10).truncatedTo(ChronoUnit.DAYS),
+          LocalDateTime.now()
+              .minusYears(1)
+              .plusMonths(3)
+              .plusDays(10)
+              .truncatedTo(ChronoUnit.SECONDS),
           LocalDateTime.now().plusDays(150),
           HandlingEvent.Type.UNLOAD,
           SampleLocations.DALLAS,
