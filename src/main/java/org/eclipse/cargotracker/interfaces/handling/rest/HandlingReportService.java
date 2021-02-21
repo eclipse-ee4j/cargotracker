@@ -27,8 +27,6 @@ public class HandlingReportService {
 
   @Inject private ApplicationEvents applicationEvents;
 
-  public HandlingReportService() {}
-
   @POST
   @Path("/reports")
   @Consumes({"application/json", "application/xml"})
