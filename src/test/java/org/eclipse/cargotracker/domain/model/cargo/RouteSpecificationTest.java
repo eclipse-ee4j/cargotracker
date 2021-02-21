@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import org.eclipse.cargotracker.application.util.DateUtil;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
@@ -61,7 +60,9 @@ public class RouteSpecificationTest {
   public void testIsSatisfiedBySuccess() {
     RouteSpecification routeSpecification =
         new RouteSpecification(
-            SampleLocations.HONGKONG, SampleLocations.CHICAGO, DateUtil.toDate("2009-03-01"));
+            SampleLocations.HONGKONG,
+            SampleLocations.CHICAGO,
+            LocalDate.now().minusYears(1).plusMonths(3).plusDays(1));
 
     assertTrue(routeSpecification.isSatisfiedBy(itinerary));
   }
