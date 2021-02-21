@@ -19,8 +19,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: axel-op/googlejavaformat-action@v3
         with:
+          # This version works will all IDEs including Eclipse.
           version: 1.6
-          skipCommit: false
+          args: "--dry-run --set-exit-if-changed"
         
   build:
     runs-on: ubuntu-latest
