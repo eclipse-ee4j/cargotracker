@@ -10,7 +10,10 @@ public class HandlingReport {
 
   // TODO [Jakarta EE 8] Use not blank instead.
   @NotNull(message = "Missing completion time.")
-  @Size(min = 15, max = 19, message = "Completion time value must be between fifteen and nineteen characters long.")
+  @Size(
+      min = 15,
+      max = 19,
+      message = "Completion time value must be between fifteen and nineteen characters long.")
   // TODO [DDD] Apply regular expression validation.
   private String completionTime;
 
