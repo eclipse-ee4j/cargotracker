@@ -15,6 +15,16 @@ import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
 
+/**
+ * Handles booking cargo. Operates against a dedicated service facade, and could easily be rewritten
+ * as a thick client. Completely separated from the domain layer, unlike the tracking user
+ * interface.
+ *
+ * <p>In order to successfully keep the domain model shielded from user interface considerations,
+ * this approach is generally preferred to the one taken in the tracking controller. However, there
+ * is never any one perfect solution for all situations, so we've chosen to demonstrate two
+ * polarized ways to build user interfaces.
+ */
 @Named
 @FlowScoped("booking")
 public class Booking implements Serializable {
@@ -22,6 +32,9 @@ public class Booking implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
+
+  @Inject private BookingServiceFacade bookingServiceFacade;
+  @Inject private FacesContext context;
 
   private LocalDate today = null;
   private List<Location> locations;
@@ -34,10 +47,6 @@ public class Booking implements Serializable {
 
   private boolean bookable = false;
   private long duration = -1;
-
-  @Inject private BookingServiceFacade bookingServiceFacade;
-
-  @Inject private FacesContext context;
 
   @PostConstruct
   public void init() {
