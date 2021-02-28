@@ -29,6 +29,8 @@ public class Track implements Serializable {
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 
+  @Inject private FacesContext context;
+
   private List<String> trackingIds;
   private String trackingId;
   private CargoStatus cargo;
@@ -58,7 +60,6 @@ public class Track implements Serializable {
     cargo = bookingServiceFacade.loadCargoForTracking(this.trackingId);
 
     if (cargo == null) {
-      FacesContext context = FacesContext.getCurrentInstance();
       FacesMessage message =
           new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
       message.setSeverity(FacesMessage.SEVERITY_ERROR);

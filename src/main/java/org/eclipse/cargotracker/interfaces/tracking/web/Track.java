@@ -33,6 +33,8 @@ public class Track implements Serializable {
   @Inject private CargoRepository cargoRepository;
   @Inject private HandlingEventRepository handlingEventRepository;
 
+  @Inject private FacesContext context;
+
   private String trackingId;
   private CargoTrackingViewAdapter cargo;
 
@@ -66,7 +68,6 @@ public class Track implements Serializable {
               .getDistinctEventsByCompletionTime();
       this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
     } else {
-      FacesContext context = FacesContext.getCurrentInstance();
       FacesMessage message =
           new FacesMessage("Cargo with tracking ID: " + trackingId + " not found.");
       message.setSeverity(FacesMessage.SEVERITY_ERROR);
