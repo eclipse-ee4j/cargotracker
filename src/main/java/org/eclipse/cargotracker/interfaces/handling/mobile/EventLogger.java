@@ -42,6 +42,8 @@ public class EventLogger implements Serializable {
 
   @Inject private ApplicationEvents applicationEvents;
 
+  @Inject private FacesContext context;
+
   private List<SelectItem> trackingIds;
   private List<SelectItem> locations;
   private List<SelectItem> voyages;
@@ -167,7 +169,7 @@ public class EventLogger implements Serializable {
               FacesMessage.SEVERITY_ERROR,
               "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
               "");
-      FacesContext.getCurrentInstance().addMessage(null, message);
+      context.addMessage(null, message);
       return false;
     }
 

@@ -37,6 +37,8 @@ public class Booking implements Serializable {
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 
+  @Inject private FacesContext context;
+
   @PostConstruct
   public void init() {
     today = LocalDate.now();
@@ -47,8 +49,7 @@ public class Booking implements Serializable {
     List<Location> filteredLocations = new ArrayList<>();
     String locationToRemove = null;
 
-    // TODO [Jakarta EE 8] Use injection instead?
-    if (FacesContext.getCurrentInstance().getViewRoot().getViewId().endsWith("destination.xhtml")) {
+    if (context.getViewRoot().getViewId().endsWith("destination.xhtml")) {
       // In the destination menu, origin can't be selected.
       locationToRemove = originUnlocode;
     } else { // Vice-versa.
@@ -137,8 +138,6 @@ public class Booking implements Serializable {
     if (!originUnlocode.equals(destinationUnlocode)) {
       bookingServiceFacade.bookNewCargo(originUnlocode, destinationUnlocode, arrivalDeadline);
     } else {
-      // TODO [Jakarta EE 8] See if this can be injected.
-      FacesContext context = FacesContext.getCurrentInstance();
       // UI now prevents from selecting same origin/destination
       FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
       message.setSeverity(FacesMessage.SEVERITY_ERROR);

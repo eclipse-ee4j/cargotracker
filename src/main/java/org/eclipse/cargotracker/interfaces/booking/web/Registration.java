@@ -37,6 +37,8 @@ public class Registration implements Serializable {
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 
+  @Inject private FacesContext context;
+
   public List<Location> getLocations() {
     return locations;
   }
@@ -79,7 +81,6 @@ public class Registration implements Serializable {
               originUnlocode, destinationUnlocode, DateUtil.toDate(arrivalDeadline));
     } else {
       // TODO [Jakarta EE 8] See if this can be injected.
-      FacesContext context = FacesContext.getCurrentInstance();
       FacesMessage message = new FacesMessage("Origin and destination cannot be the same.");
       message.setSeverity(FacesMessage.SEVERITY_ERROR);
       context.addMessage(null, message);
