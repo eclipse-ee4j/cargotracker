@@ -21,7 +21,7 @@ jobs:
         with:
           # This version works will all IDEs including Eclipse.
           version: 1.6
-          # args: "--dry-run --set-exit-if-changed"
+          args: "--dry-run --set-exit-if-changed"
         
   # TODO [TDD] Enable tests using embedded server if possible.
   # TODO [TDD] After sucessful build, deploy to a cloud environment.
