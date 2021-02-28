@@ -6,6 +6,7 @@ import java.util.List;
 
 public class CargoStatus {
 
+  private final String trackingId;
   private final String destination;
   private final String statusText;
   private final boolean misdirected;
@@ -14,12 +15,14 @@ public class CargoStatus {
   private final List<TrackingEvents> events;
 
   public CargoStatus(
+      String trackigId,
       String destination,
       String statusText,
       boolean misdirected,
       String eta,
       String nextExpectedActivity,
       List<TrackingEvents> handlingEvents) {
+    this.trackingId = trackigId;
     this.destination = destination;
     this.statusText = statusText;
     this.misdirected = misdirected;
@@ -28,6 +31,10 @@ public class CargoStatus {
     this.events = new ArrayList<>(handlingEvents.size());
 
     events.addAll(handlingEvents);
+  }
+
+  public String getTrackingId() {
+    return trackingId;
   }
 
   public String getDestination() {

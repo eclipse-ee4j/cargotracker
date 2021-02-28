@@ -2,11 +2,11 @@ package org.eclipse.cargotracker.interfaces.tracking.web;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -33,8 +33,6 @@ public class Track implements Serializable {
   @Inject private CargoRepository cargoRepository;
   @Inject private HandlingEventRepository handlingEventRepository;
 
-  @Inject private FacesContext context;
-
   private String trackingId;
   private CargoTrackingViewAdapter cargo;
 
@@ -54,10 +52,6 @@ public class Track implements Serializable {
     return cargo;
   }
 
-  public void setCargo(CargoTrackingViewAdapter cargo) {
-    this.cargo = cargo;
-  }
-
   public void onTrackById() {
     Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
 
@@ -68,10 +62,6 @@ public class Track implements Serializable {
               .getDistinctEventsByCompletionTime();
       this.cargo = new CargoTrackingViewAdapter(cargo, handlingEvents);
     } else {
-      FacesMessage message =
-          new FacesMessage("Cargo with tracking ID: " + trackingId + " not found.");
-      message.setSeverity(FacesMessage.SEVERITY_ERROR);
-      context.addMessage(null, message);
       this.cargo = null;
     }
   }

@@ -3,8 +3,6 @@ package org.eclipse.cargotracker.interfaces.booking.web;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,8 +26,6 @@ public class Track implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Inject private BookingServiceFacade bookingServiceFacade;
-
-  @Inject private FacesContext context;
 
   private List<String> trackingIds;
   private String trackingId;
@@ -58,12 +54,5 @@ public class Track implements Serializable {
 
   public void onTrackById() {
     cargo = bookingServiceFacade.loadCargoForTracking(this.trackingId);
-
-    if (cargo == null) {
-      FacesMessage message =
-          new FacesMessage("Cargo with tracking ID: " + this.trackingId + " not found.");
-      message.setSeverity(FacesMessage.SEVERITY_ERROR);
-      context.addMessage(null, message);
-    }
   }
 }

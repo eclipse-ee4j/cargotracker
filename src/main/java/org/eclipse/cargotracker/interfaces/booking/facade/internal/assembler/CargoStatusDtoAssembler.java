@@ -26,6 +26,7 @@ public class CargoStatusDtoAssembler {
             .collect(Collectors.toList());
 
     return new CargoStatus(
+        cargo.getTrackingId().getIdString(),
         cargo.getRouteSpecification().getDestination().getName(),
         getCargoStatusText(cargo),
         cargo.getDelivery().isMisdirected(),
