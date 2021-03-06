@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -25,10 +26,12 @@ public class HandlingActivity implements Serializable {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "next_expected_handling_event_type")
+  @NotNull(message = "Handling event type is required.")
   private HandlingEvent.Type type;
 
   @ManyToOne
   @JoinColumn(name = "next_expected_location_id")
+  @NotNull(message = "Location is required.")
   private Location location;
 
   @ManyToOne
@@ -38,8 +41,8 @@ public class HandlingActivity implements Serializable {
   public HandlingActivity() {}
 
   public HandlingActivity(HandlingEvent.Type type, Location location) {
-    Validate.notNull(type, "Handling event type is required");
-    Validate.notNull(location, "Location is required");
+    Validate.notNull(type, "Handling event type is required.");
+    Validate.notNull(location, "Location is required.");
 
     this.type = type;
     this.location = location;

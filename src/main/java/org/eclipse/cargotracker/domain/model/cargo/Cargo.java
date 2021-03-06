@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
@@ -59,23 +60,30 @@ public class Cargo implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
-  @Embedded private TrackingId trackingId;
+
+  @Embedded
+  @NotNull(message = "Tracking ID is required.")
+  private TrackingId trackingId;
 
   @ManyToOne
   @JoinColumn(name = "origin_id", updatable = false)
+  @NotNull
   private Location origin;
 
-  @Embedded private RouteSpecification routeSpecification;
-  @Embedded private Itinerary itinerary;
-  @Embedded private Delivery delivery;
+  @Embedded
+  @NotNull(message = "Route specification is required.")
+  private RouteSpecification routeSpecification;
+
+  @Embedded @NotNull private Itinerary itinerary;
+  @Embedded @NotNull private Delivery delivery;
 
   public Cargo() {
     // Nothing to initialize.
   }
 
   public Cargo(TrackingId trackingId, RouteSpecification routeSpecification) {
-    Validate.notNull(trackingId, "Tracking ID is required");
-    Validate.notNull(routeSpecification, "Route specification is required");
+    Validate.notNull(trackingId, "Tracking ID is required.");
+    Validate.notNull(routeSpecification, "Route specification is required.");
 
     this.trackingId = trackingId;
     // Cargo origin never changes, even if the route specification changes.
@@ -117,7 +125,7 @@ public class Cargo implements Serializable {
 
   /** Specifies a new route for this cargo. */
   public void specifyNewRoute(RouteSpecification routeSpecification) {
-    Validate.notNull(routeSpecification, "Route specification is required");
+    Validate.notNull(routeSpecification, "Route specification is required.");
 
     this.routeSpecification = routeSpecification;
     // Handling consistency within the Cargo aggregate synchronously
@@ -125,7 +133,7 @@ public class Cargo implements Serializable {
   }
 
   public void assignToRoute(Itinerary itinerary) {
-    Validate.notNull(itinerary, "Itinerary is required for assignment");
+    Validate.notNull(itinerary, "Itinerary is required for assignment.");
 
     this.itinerary = itinerary;
     // Handling consistency within the Cargo aggregate synchronously

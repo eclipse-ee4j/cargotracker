@@ -24,6 +24,7 @@ public class CarrierMovement implements Serializable {
   public static final CarrierMovement NONE =
       new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
   private static final long serialVersionUID = 1L;
+
   @Id @GeneratedValue private Long id;
 
   @ManyToOne

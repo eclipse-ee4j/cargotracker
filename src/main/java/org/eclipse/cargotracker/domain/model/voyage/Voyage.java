@@ -23,19 +23,24 @@ public class Voyage implements Serializable {
   // Null object pattern
   public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
   private static final long serialVersionUID = 1L;
+
   @Id @GeneratedValue private Long id;
 
-  @Embedded @NotNull private VoyageNumber voyageNumber;
+  @Embedded
+  @NotNull(message = "Voyage number is required.")
+  private VoyageNumber voyageNumber;
 
-  @Embedded private Schedule schedule;
+  @Embedded
+  @NotNull(message = "Schedule is required.")
+  private Schedule schedule;
 
   public Voyage() {
     // Nothing to initialize
   }
 
   public Voyage(VoyageNumber voyageNumber, Schedule schedule) {
-    Validate.notNull(voyageNumber, "Voyage number is required");
-    Validate.notNull(schedule, "Schedule is required");
+    Validate.notNull(voyageNumber, "Voyage number is required.");
+    Validate.notNull(schedule, "Schedule is required.");
 
     this.voyageNumber = voyageNumber;
     this.schedule = schedule;

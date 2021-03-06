@@ -12,7 +12,7 @@ public class VoyageNumber implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Column(name = "voyage_number")
-  @NotEmpty(message = "Voyage number cannot be empty")
+  @NotEmpty(message = "Voyage number cannot be empty.")
   private String number;
 
   public VoyageNumber() {

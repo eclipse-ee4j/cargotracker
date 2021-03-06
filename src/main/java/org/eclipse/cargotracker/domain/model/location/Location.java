@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 
@@ -25,9 +26,10 @@ public class Location implements Serializable {
   // Special Location object that marks an unknown location.
   public static final Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");
   private static final long serialVersionUID = 1L;
+
   @Id @GeneratedValue private Long id;
-  @Embedded private UnLocode unLocode;
-  @NotNull private String name;
+  @Embedded @NotNull private UnLocode unLocode;
+  @NotEmpty private String name;
 
   public Location() {
     // Nothing to do.
@@ -65,13 +67,17 @@ public class Location implements Serializable {
     if (object == null) {
       return false;
     }
+
     if (this == object) {
       return true;
     }
+
     if (!(object instanceof Location)) {
       return false;
     }
+
     Location other = (Location) object;
+
     return sameIdentityAs(other);
   }
 

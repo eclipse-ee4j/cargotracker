@@ -38,7 +38,6 @@ public class Delivery implements Serializable {
 
   // Null object pattern.
   public static final LocalDateTime ETA_UNKOWN = null;
-  // Null object pattern
   public static final HandlingActivity NO_ACTIVITY = new HandlingActivity();
   private static final long serialVersionUID = 1L;
 
@@ -173,7 +172,7 @@ public class Delivery implements Serializable {
   }
 
   public LocalDateTime getEstimatedTimeOfArrival() {
-    return eta != ETA_UNKOWN ? eta : ETA_UNKOWN;
+    return eta;
   }
 
   public HandlingActivity getNextExpectedActivity() {
