@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Singleton;
 import javax.enterprise.event.Observes;
+import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
@@ -39,7 +40,7 @@ public class RealtimeCargoTrackingService {
     sessions.remove(session);
   }
 
-  public void onCargoInspected(@Observes @CargoInspected Cargo cargo) {
+  public void onCargoInspected(@ObservesAsync @CargoInspected Cargo cargo) {
     Writer writer = new StringWriter();
 
     try (JsonGenerator generator = Json.createGenerator(writer)) {

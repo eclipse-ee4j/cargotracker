@@ -49,6 +49,6 @@ public class DefaultCargoInspectionService implements CargoInspectionService {
 
     cargoRepository.store(cargo);
 
-    cargoInspected.fire(cargo);
+    cargoInspected.fireAsync(cargo);
   }
 }
