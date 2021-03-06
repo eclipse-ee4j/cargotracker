@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Singleton;
-import javax.enterprise.event.Observes;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -17,6 +16,7 @@ import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 
@@ -25,8 +25,9 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 @ServerEndpoint("/tracking")
 public class RealtimeCargoTrackingService {
 
-  private final Set<Session> sessions = new HashSet<>();
   @Inject private Logger logger;
+
+  private final Set<Session> sessions = new HashSet<>();
 
   @OnOpen
   public void onOpen(final Session session) {
@@ -56,6 +57,7 @@ public class RealtimeCargoTrackingService {
 
     String jsonValue = writer.toString();
 
+    // TODO [Jakarta EE 8] Convert this to streams and lamdas. 
     for (Session session : sessions) {
       try {
         session.getBasicRemote().sendText(jsonValue);

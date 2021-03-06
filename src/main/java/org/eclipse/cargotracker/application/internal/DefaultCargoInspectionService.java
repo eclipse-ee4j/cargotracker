@@ -17,13 +17,12 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 @Stateless
 public class DefaultCargoInspectionService implements CargoInspectionService {
 
+  @Inject private Logger logger;
   @Inject private ApplicationEvents applicationEvents;
   @Inject private CargoRepository cargoRepository;
   @Inject private HandlingEventRepository handlingEventRepository;
 
   @Inject @CargoInspected private Event<Cargo> cargoInspected;
-
-  @Inject private Logger logger;
 
   @Override
   public void inspectCargo(TrackingId trackingId) {
