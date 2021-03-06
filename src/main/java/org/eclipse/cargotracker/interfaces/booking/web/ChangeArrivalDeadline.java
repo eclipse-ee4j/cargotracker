@@ -26,8 +26,8 @@ public class ChangeArrivalDeadline implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;  
-  
+  @Inject private BookingServiceFacade bookingServiceFacade;
+
   private String trackingId;
   private CargoRoute cargo;
   private LocalDate arrivalDeadline;

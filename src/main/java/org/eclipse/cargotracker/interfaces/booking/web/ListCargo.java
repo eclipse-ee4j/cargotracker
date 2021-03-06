@@ -54,7 +54,7 @@ public class ListCargo {
 
   public List<CargoRoute> getRoutedUnclaimedCargos() {
     routedUnclaimedCargos = new ArrayList<>();
-    
+
     // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (CargoRoute route : cargos) {
       if (route.isRouted() && !route.isClaimed()) {

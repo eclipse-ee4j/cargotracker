@@ -130,7 +130,7 @@ public class EventLogger implements Serializable {
     List<Location> locations = locationRepository.findAll();
 
     this.locations = new ArrayList<>(locations.size());
-    
+
     // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Location location : locations) {
       String locationCode = location.getUnLocode().getIdString();
@@ -141,7 +141,7 @@ public class EventLogger implements Serializable {
     List<Voyage> voyages = voyageRepository.findAll();
 
     this.voyages = new ArrayList<>(voyages.size());
-    
+
     // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Voyage voyage : voyages) {
       this.voyages.add(
