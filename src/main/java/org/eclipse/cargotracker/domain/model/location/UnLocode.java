@@ -2,7 +2,7 @@ package org.eclipse.cargotracker.domain.model.location;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import org.apache.commons.lang3.Validate;
 
@@ -19,7 +19,7 @@ public class UnLocode implements Serializable {
   private static final java.util.regex.Pattern VALID_PATTERN =
       java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
 
-  @NotNull
+  @NotEmpty(message = "Location code must not be empty.")
   // Country code is exactly two letters.
   // Location code is usually three letters, but may contain the numbers 2-9
   // as well.
@@ -32,7 +32,7 @@ public class UnLocode implements Serializable {
 
   /** @param countryAndLocation Location string. */
   public UnLocode(String countryAndLocation) {
-    Validate.notNull(countryAndLocation, "Country and location may not be null");
+    Validate.notNull(countryAndLocation, "Country and location may not be null.");
     Validate.isTrue(
         VALID_PATTERN.matcher(countryAndLocation).matches(),
         countryAndLocation + " is not a valid UN/LOCODE (does not match pattern)");
@@ -50,6 +50,7 @@ public class UnLocode implements Serializable {
     if (this == o) {
       return true;
     }
+
     if (o == null || getClass() != o.getClass()) {
       return false;
     }

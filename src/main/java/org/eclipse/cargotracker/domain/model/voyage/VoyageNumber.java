@@ -3,7 +3,7 @@ package org.eclipse.cargotracker.domain.model.voyage;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import org.apache.commons.lang3.Validate;
 
 @Embeddable
@@ -12,7 +12,7 @@ public class VoyageNumber implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Column(name = "voyage_number")
-  @NotNull
+  @NotEmpty(message = "Voyage number cannot be empty")
   private String number;
 
   public VoyageNumber() {
