@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.LocationUtil;
 
 /** DTO for registering and routing a cargo. */
@@ -37,7 +37,7 @@ public class CargoRoute implements Serializable {
     this.trackingId = trackingId;
     this.origin = origin;
     this.finalDestination = finalDestination;
-    this.arrivalDeadline = DateUtil.toString(arrivalDeadline);
+    this.arrivalDeadline = DateConverter.toString(arrivalDeadline);
     this.misrouted = misrouted;
     this.claimed = claimed;
     this.lastKnownLocation = lastKnownLocation;

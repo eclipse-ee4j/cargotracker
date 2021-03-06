@@ -3,7 +3,7 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
 import org.eclipse.cargotracker.domain.model.cargo.HandlingActivity;
@@ -60,7 +60,7 @@ public class CargoStatusDtoAssembler {
     if (eta == null) {
       return "?";
     } else {
-      return DateUtil.toString(eta);
+      return DateConverter.toString(eta);
     }
   }
 

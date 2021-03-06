@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import org.eclipse.cargotracker.application.ApplicationEvents;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 
 @Dependent
@@ -53,9 +53,9 @@ public class EventItemWriter extends AbstractItemWriter {
         HandlingEventRegistrationAttempt attempt = (HandlingEventRegistrationAttempt) item;
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
         archive.println(
-            DateUtil.toString(attempt.getRegistrationTime())
+            DateConverter.toString(attempt.getRegistrationTime())
                 + ","
-                + DateUtil.toString(attempt.getCompletionTime())
+                + DateConverter.toString(attempt.getCompletionTime())
                 + ","
                 + attempt.getTrackingId()
                 + ","

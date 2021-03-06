@@ -3,7 +3,7 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
 import org.eclipse.cargotracker.domain.model.location.Location;
@@ -53,8 +53,8 @@ public class ItineraryCandidateDtoAssembler {
               voyage,
               from,
               to,
-              DateUtil.toDateTime(legDTO.getLoadTime()),
-              DateUtil.toDateTime(legDTO.getUnloadTime())));
+              DateConverter.toDateTime(legDTO.getLoadTime()),
+              DateConverter.toDateTime(legDTO.getUnloadTime())));
     }
 
     return new Itinerary(legs);

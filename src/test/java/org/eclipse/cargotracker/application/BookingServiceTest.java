@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -126,7 +126,7 @@ public class BookingServiceTest {
         .addClass(RoutingService.class)
         // Application layer components
         .addClass(DefaultBookingService.class)
-        .addClass(DateUtil.class)
+        .addClass(DateConverter.class)
         .addClass(RestConfiguration.class)
         // Infrastructure layer components.
         .addClass(JpaCargoRepository.class)

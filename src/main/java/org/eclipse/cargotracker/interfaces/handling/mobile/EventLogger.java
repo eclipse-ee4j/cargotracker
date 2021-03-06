@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import org.eclipse.cargotracker.application.ApplicationEvents;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -107,11 +107,11 @@ public class EventLogger implements Serializable {
   }
 
   public String getCompletionTimeValue() {
-    return DateUtil.toString(completionTime);
+    return DateConverter.toString(completionTime);
   }
 
   public String getCompletionTimePattern() {
-    return DateUtil.DATE_TIME_FORMAT;
+    return DateConverter.DATE_TIME_FORMAT;
   }
 
   @PostConstruct

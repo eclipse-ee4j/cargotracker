@@ -9,7 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import org.eclipse.cargotracker.application.ApplicationEvents;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
@@ -32,7 +32,7 @@ public class HandlingReportService {
   @Consumes({"application/json", "application/xml"})
   public void submitReport(
       @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
-    LocalDateTime completionTime = DateUtil.toDateTime(handlingReport.getCompletionTime());
+    LocalDateTime completionTime = DateConverter.toDateTime(handlingReport.getCompletionTime());
     VoyageNumber voyageNumber = null;
 
     if (handlingReport.getVoyageNumber() != null) {

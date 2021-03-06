@@ -13,7 +13,7 @@ import javax.batch.runtime.context.JobContext;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
@@ -102,7 +102,7 @@ public class EventItemReader extends AbstractItemReader {
     LocalDateTime completionTime = null;
 
     try {
-      completionTime = DateUtil.toDateTime(result[0]);
+      completionTime = DateConverter.toDateTime(result[0]);
     } catch (DateTimeParseException e) {
       throw new EventLineParseException("Cannot parse completion time", e, line);
     }

@@ -1,6 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
-import org.eclipse.cargotracker.application.util.DateUtil;
+import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
@@ -19,7 +19,7 @@ public class TrackingEventsDtoAssembler {
   }
 
   private String timeFrom(HandlingEvent event) {
-    return DateUtil.toString(event.getCompletionTime());
+    return DateConverter.toString(event.getCompletionTime());
   }
 
   private String descriptionFrom(HandlingEvent.Type type, String location, String voyageNumber) {

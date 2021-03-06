@@ -56,6 +56,8 @@ public class SampleDataGenerator {
     // TODO [Clean Code] See if there is a better way to do this.
     List<Cargo> cargos =
         entityManager.createQuery("Select c from Cargo c", Cargo.class).getResultList();
+
+    // TODO [Jakarta EE 8] Convert this to streams and lamdas.
     for (Cargo cargo : cargos) {
       cargo.getDelivery().setLastEvent(null);
       entityManager.merge(cargo);
