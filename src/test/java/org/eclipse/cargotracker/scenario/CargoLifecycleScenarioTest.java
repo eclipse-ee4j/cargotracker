@@ -47,6 +47,7 @@ public class CargoLifecycleScenarioTest {
   CargoRepository cargoRepository;
   LocationRepository locationRepository;
   VoyageRepository voyageRepository;
+
   /**
    * This interface is part of the application layer, and defines a number of events that occur
    * during aplication execution. It is used for message-driving and is implemented using JMS.
@@ -54,6 +55,7 @@ public class CargoLifecycleScenarioTest {
    * <p>In this test it is stubbed with synchronous calls.
    */
   ApplicationEvents applicationEvents;
+
   /**
    * These three components all belong to the application layer, and map against use cases of the
    * application. The "real" implementations are used in this lifecycle test, but wired with stubbed
@@ -63,12 +65,14 @@ public class CargoLifecycleScenarioTest {
 
   HandlingEventService handlingEventService;
   CargoInspectionService cargoInspectionService;
+
   /**
    * This factory is part of the handling aggregate and belongs to the domain layer. Similar to the
    * application layer components, the "real" implementation is used here too, wired with stubbed
    * infrastructure.
    */
   HandlingEventFactory handlingEventFactory;
+
   /**
    * This is a domain service interface, whose implementation is part of the infrastructure layer
    * (remote call to external system).
@@ -186,6 +190,7 @@ public class CargoLifecycleScenarioTest {
      */
     VoyageNumber noSuchVoyageNumber = new VoyageNumber("XX000");
     UnLocode noSuchUnLocode = new UnLocode("ZZZZZ");
+
     try {
       handlingEventService.registerHandlingEvent(
           LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),

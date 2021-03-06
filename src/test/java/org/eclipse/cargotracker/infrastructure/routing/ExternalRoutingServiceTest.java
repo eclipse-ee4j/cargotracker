@@ -57,6 +57,7 @@ public class ExternalRoutingServiceTest {
         externalRoutingService.fetchRoutesForSpecification(routeSpecification);
     assertNotNull(candidates);
 
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Itinerary itinerary : candidates) {
       List<Leg> legs = itinerary.getLegs();
       assertNotNull(legs);
@@ -70,6 +71,7 @@ public class ExternalRoutingServiceTest {
       assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
 
       // Assert that all legs are connected
+      // TODO [Jakarta EE 8] Convert this to streams and lambdas.
       for (int i = 0; i < legs.size() - 1; i++) {
         assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());
       }
