@@ -49,6 +49,7 @@ public class EventItemWriter extends AbstractItemWriter {
                             + jobContext.getInstanceId()
                             + ".csv"),
                     true)))) {
+      // TODO [Jakarta EE 8] Convert this to streams and lambdas.
       for (Object item : items) {
         HandlingEventRegistrationAttempt attempt = (HandlingEventRegistrationAttempt) item;
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);

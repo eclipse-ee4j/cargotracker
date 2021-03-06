@@ -27,12 +27,12 @@ public class ChangeDestination implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  @Inject private BookingServiceFacade bookingServiceFacade;
+
   private String trackingId;
   private CargoRoute cargo;
   private List<Location> locations;
   private String destinationUnlocode;
-
-  @Inject private BookingServiceFacade bookingServiceFacade;
 
   public String getTrackingId() {
     return trackingId;
@@ -53,13 +53,17 @@ public class ChangeDestination implements Serializable {
   public List<Location> getPotentialDestinations() {
     // Potential destination = All Locations - Origin - Current Destination
     List<Location> destinationsToRemove = new ArrayList<>();
+
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Location loc : locations) {
       if (loc.getName().equalsIgnoreCase(cargo.getOrigin())
           || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
         destinationsToRemove.add(loc);
       }
     }
+
     locations.removeAll(destinationsToRemove);
+
     return locations;
   }
 

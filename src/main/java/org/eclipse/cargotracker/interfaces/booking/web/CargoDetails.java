@@ -20,9 +20,10 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 @RequestScoped
 public class CargoDetails {
 
+  @Inject private BookingServiceFacade bookingServiceFacade;
+
   private String trackingId;
   private CargoRoute cargo;
-  @Inject private BookingServiceFacade bookingServiceFacade;
 
   public String getTrackingId() {
     return trackingId;

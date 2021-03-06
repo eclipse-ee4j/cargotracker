@@ -56,7 +56,7 @@ public class RealtimeCargoTrackingService {
 
     String jsonValue = writer.toString();
 
-    // TODO [Jakarta EE 8] Convert this to streams and lamdas.
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Session session : sessions) {
       try {
         session.getBasicRemote().sendText(jsonValue);

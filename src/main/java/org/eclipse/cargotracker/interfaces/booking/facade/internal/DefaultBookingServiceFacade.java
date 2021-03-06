@@ -33,13 +33,9 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   private static final long serialVersionUID = 1L;
 
   @Inject private BookingService bookingService;
-
   @Inject private LocationRepository locationRepository;
-
   @Inject private CargoRepository cargoRepository;
-
   @Inject private VoyageRepository voyageRepository;
-
   @Inject private HandlingEventRepository handlingEventRepository;
 
   @Override

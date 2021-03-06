@@ -25,11 +25,12 @@ import org.primefaces.PrimeFaces;
 public class ChangeArrivalDeadline implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
+  @Inject private BookingServiceFacade bookingServiceFacade;  
+  
   private String trackingId;
   private CargoRoute cargo;
   private LocalDate arrivalDeadline;
-
-  @Inject private BookingServiceFacade bookingServiceFacade;
 
   public String getTrackingId() {
     return trackingId;

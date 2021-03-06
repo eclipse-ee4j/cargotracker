@@ -35,13 +35,9 @@ public class EventLogger implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Inject private CargoRepository cargoRepository;
-
   @Inject private LocationRepository locationRepository;
-
   @Inject private VoyageRepository voyageRepository;
-
   @Inject private ApplicationEvents applicationEvents;
-
   @Inject private FacesContext context;
 
   private List<SelectItem> trackingIds;
@@ -120,6 +116,8 @@ public class EventLogger implements Serializable {
     List<Cargo> cargos = cargoRepository.findAll();
 
     trackingIds = new ArrayList<>(cargos.size());
+
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Cargo cargo : cargos) {
       // List only routed cargo that is not claimed yet.
       if (!cargo.getItinerary().getLegs().isEmpty()
@@ -132,6 +130,8 @@ public class EventLogger implements Serializable {
     List<Location> locations = locationRepository.findAll();
 
     this.locations = new ArrayList<>(locations.size());
+    
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Location location : locations) {
       String locationCode = location.getUnLocode().getIdString();
       this.locations.add(
@@ -141,6 +141,8 @@ public class EventLogger implements Serializable {
     List<Voyage> voyages = voyageRepository.findAll();
 
     this.voyages = new ArrayList<>(voyages.size());
+    
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (Voyage voyage : voyages) {
       this.voyages.add(
           new SelectItem(

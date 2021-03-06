@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -33,7 +32,6 @@ import org.eclipse.pathfinder.api.TransitPath;
 @Stateless
 public class ExternalRoutingService implements RoutingService {
 
-  private final Client jaxrsClient = ClientBuilder.newClient();
   @Inject private Logger logger;
 
   @Resource(lookup = "java:app/configuration/GraphTraversalUrl")
@@ -46,9 +44,7 @@ public class ExternalRoutingService implements RoutingService {
 
   @PostConstruct
   public void init() {
-    graphTraversalResource = jaxrsClient.target(graphTraversalUrl);
-    // graphTraversalResource.register(new MoxyJsonFeature()).register(new
-    // JsonMoxyConfigurationContextResolver());
+    graphTraversalResource = ClientBuilder.newClient().target(graphTraversalUrl);
   }
 
   @Override

@@ -20,6 +20,7 @@ public class CargoTrackingViewAdapter {
     this.cargo = cargo;
     this.events = new ArrayList<>(handlingEvents.size());
 
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (HandlingEvent handlingEvent : handlingEvents) {
       events.add(new HandlingEventViewAdapter(handlingEvent));
     }

@@ -23,12 +23,12 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 @RequestScoped
 public class ListCargo {
 
+  @Inject private BookingServiceFacade bookingServiceFacade;
+
   private List<CargoRoute> cargos;
   private List<CargoRoute> routedCargos;
   private List<CargoRoute> claimedCargos;
   private List<CargoRoute> routedUnclaimedCargos;
-
-  @Inject private BookingServiceFacade bookingServiceFacade;
 
   public List<CargoRoute> getCargos() {
     return cargos;
@@ -42,6 +42,7 @@ public class ListCargo {
   public List<CargoRoute> getRoutedCargos() {
     routedCargos = new ArrayList<>();
 
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (CargoRoute route : cargos) {
       if (route.isRouted()) {
         routedCargos.add(route);
@@ -53,6 +54,8 @@ public class ListCargo {
 
   public List<CargoRoute> getRoutedUnclaimedCargos() {
     routedUnclaimedCargos = new ArrayList<>();
+    
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (CargoRoute route : cargos) {
       if (route.isRouted() && !route.isClaimed()) {
         routedUnclaimedCargos.add(route);
@@ -65,6 +68,7 @@ public class ListCargo {
   public List<CargoRoute> getClaimedCargos() {
     claimedCargos = new ArrayList<>();
 
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (CargoRoute route : cargos) {
       if (route.isClaimed()) {
         claimedCargos.add(route);
@@ -77,6 +81,7 @@ public class ListCargo {
   public List<CargoRoute> getNotRoutedCargos() {
     List<CargoRoute> notRoutedCargos = new ArrayList<>();
 
+    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
     for (CargoRoute route : cargos) if (!route.isRouted()) notRoutedCargos.add(route);
 
     return notRoutedCargos;
