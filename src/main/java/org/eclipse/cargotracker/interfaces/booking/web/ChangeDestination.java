@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,65 +25,65 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeDestination implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+    @Inject private BookingServiceFacade bookingServiceFacade;
 
-  private String trackingId;
-  private CargoRoute cargo;
-  private List<Location> locations;
-  private String destinationUnlocode;
+    private String trackingId;
+    private CargoRoute cargo;
+    private List<Location> locations;
+    private String destinationUnlocode;
 
-  public String getTrackingId() {
-    return trackingId;
-  }
-
-  public void setTrackingId(String trackingId) {
-    this.trackingId = trackingId;
-  }
-
-  public CargoRoute getCargo() {
-    return cargo;
-  }
-
-  public List<Location> getLocations() {
-    return locations;
-  }
-
-  public List<Location> getPotentialDestinations() {
-    // Potential destination = All Locations - Origin - Current Destination
-    List<Location> destinationsToRemove = new ArrayList<>();
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Location loc : locations) {
-      if (loc.getName().equalsIgnoreCase(cargo.getOrigin())
-          || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
-        destinationsToRemove.add(loc);
-      }
+    public String getTrackingId() {
+        return trackingId;
     }
 
-    locations.removeAll(destinationsToRemove);
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
+    }
 
-    return locations;
-  }
+    public CargoRoute getCargo() {
+        return cargo;
+    }
 
-  public String getDestinationUnlocode() {
-    return destinationUnlocode;
-  }
+    public List<Location> getLocations() {
+        return locations;
+    }
 
-  public void setDestinationUnlocode(String destinationUnlocode) {
-    this.destinationUnlocode = destinationUnlocode;
-  }
+    public List<Location> getPotentialDestinations() {
+        // Potential destination = All Locations - Origin - Current Destination
+        List<Location> destinationsToRemove =
+                locations.stream()
+                        .filter(
+                                loc ->
+                                        loc.getName().equalsIgnoreCase(cargo.getOrigin())
+                                                || loc.getName()
+                                                        .equalsIgnoreCase(
+                                                                cargo.getFinalDestination()))
+                        .collect(Collectors.toList());
 
-  public void load() {
-    locations = bookingServiceFacade.listShippingLocations();
-    cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-  }
+        locations.removeAll(destinationsToRemove);
 
-  public void changeDestination() {
-    bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
-    // PF.current().dialog().closeDynamic("DONE");
-    PrimeFaces.current().dialog().closeDynamic("DONE");
-    // RequestContext.getCurrentInstance().closeDialog("DONE");
-  }
+        return locations;
+    }
+
+    public String getDestinationUnlocode() {
+        return destinationUnlocode;
+    }
+
+    public void setDestinationUnlocode(String destinationUnlocode) {
+        this.destinationUnlocode = destinationUnlocode;
+    }
+
+    public void load() {
+        locations = bookingServiceFacade.listShippingLocations();
+        cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
+    }
+
+    public void changeDestination() {
+        bookingServiceFacade.changeDestination(trackingId, destinationUnlocode);
+        // PF.current().dialog().closeDynamic("DONE");
+        PrimeFaces.current().dialog().closeDynamic("DONE");
+        // RequestContext.getCurrentInstance().closeDialog("DONE");
+    }
 }

@@ -1,6 +1,7 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -23,67 +24,49 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 @RequestScoped
 public class ListCargo {
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+    @Inject private BookingServiceFacade bookingServiceFacade;
 
-  private List<CargoRoute> cargos;
-  private List<CargoRoute> routedCargos;
-  private List<CargoRoute> claimedCargos;
-  private List<CargoRoute> routedUnclaimedCargos;
+    private List<CargoRoute> cargos;
+    private List<CargoRoute> routedCargos;
+    private List<CargoRoute> claimedCargos;
+    private List<CargoRoute> routedUnclaimedCargos;
 
-  public List<CargoRoute> getCargos() {
-    return cargos;
-  }
-
-  @PostConstruct
-  public void init() {
-    cargos = bookingServiceFacade.listAllCargos();
-  }
-
-  public List<CargoRoute> getRoutedCargos() {
-    routedCargos = new ArrayList<>();
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (CargoRoute route : cargos) {
-      if (route.isRouted()) {
-        routedCargos.add(route);
-      }
+    public List<CargoRoute> getCargos() {
+        return cargos;
     }
 
-    return routedCargos;
-  }
-
-  public List<CargoRoute> getRoutedUnclaimedCargos() {
-    routedUnclaimedCargos = new ArrayList<>();
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (CargoRoute route : cargos) {
-      if (route.isRouted() && !route.isClaimed()) {
-        routedUnclaimedCargos.add(route);
-      }
+    @PostConstruct
+    public void init() {
+        cargos = bookingServiceFacade.listAllCargos();
     }
 
-    return routedUnclaimedCargos;
-  }
+    public List<CargoRoute> getRoutedCargos() {
+        List<CargoRoute> routedCargos =
+                cargos.stream().filter(CargoRoute::isRouted).collect(toList());
 
-  public List<CargoRoute> getClaimedCargos() {
-    claimedCargos = new ArrayList<>();
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (CargoRoute route : cargos) {
-      if (route.isClaimed()) {
-        claimedCargos.add(route);
-      }
+        return routedCargos;
     }
 
-    return claimedCargos;
-  }
+    public List<CargoRoute> getRoutedUnclaimedCargos() {
+        List<CargoRoute> routedUnclaimedCargos =
+                cargos.stream()
+                        .filter(route -> route.isRouted() && !route.isClaimed())
+                        .collect(toList());
 
-  public List<CargoRoute> getNotRoutedCargos() {
-    List<CargoRoute> notRoutedCargos = new ArrayList<>();
+        return routedUnclaimedCargos;
+    }
 
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (CargoRoute route : cargos) if (!route.isRouted()) notRoutedCargos.add(route);
+    public List<CargoRoute> getClaimedCargos() {
+        List<CargoRoute> claimedCargos =
+                cargos.stream().filter(CargoRoute::isClaimed).collect(toList());
 
-    return notRoutedCargos;
-  }
+        return claimedCargos;
+    }
+
+    public List<CargoRoute> getNotRoutedCargos() {
+        List<CargoRoute> notRoutedCargos =
+                cargos.stream().filter(route -> !route.isRouted()).collect(toList());
+
+        return notRoutedCargos;
+    }
 }

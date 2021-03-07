@@ -19,11 +19,8 @@ public class CargoTrackingViewAdapter {
   public CargoTrackingViewAdapter(Cargo cargo, List<HandlingEvent> handlingEvents) {
     this.cargo = cargo;
     this.events = new ArrayList<>(handlingEvents.size());
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (HandlingEvent handlingEvent : handlingEvents) {
-      events.add(new HandlingEventViewAdapter(handlingEvent));
-    }
+    
+    handlingEvents.stream().map(HandlingEventViewAdapter::new).forEach(events::add);
   }
 
   public String getTrackingId() {
