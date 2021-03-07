@@ -1,43 +1,56 @@
 package org.eclipse.cargotracker.interfaces.booking.socket;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.Singleton;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
-import javax.websocket.OnClose;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.sse.Sse;
+import javax.ws.rs.sse.SseBroadcaster;
+import javax.ws.rs.sse.SseEventSink;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 
-/** WebSocket service for tracking all cargoes in real time. */
-@Singleton
-@ServerEndpoint("/tracking")
+/** Sever-sent events service for tracking all cargoes in real time. */
+@ApplicationScoped
+@Path("/tracking")
 public class RealtimeCargoTrackingService {
 
   @Inject private Logger logger;
 
-  private final Set<Session> sessions = new HashSet<>();
+  @Context private Sse sse;
+  private SseBroadcaster broadcaster;
 
-  @OnOpen
-  public void onOpen(final Session session) {
-    // Infinite by default on GlassFish. We need this principally for WebLogic.
-    session.setMaxIdleTimeout(5 * 60 * 1000);
-    sessions.add(session);
+  @PostConstruct
+  public void init() {
+    broadcaster = sse.newBroadcaster();
+    logger.log(Level.INFO, "Sse broadcaster created");
   }
 
-  @OnClose
-  public void onClose(final Session session) {
-    sessions.remove(session);
+  @GET
+  @Produces(MediaType.SERVER_SENT_EVENTS)
+  public void tracking(@Context SseEventSink eventSink) {
+    // sending some events is required to tell the client that Sse connection is open.
+    eventSink.send(sse.newEventBuilder().comment("EventSource open").build());
+    broadcaster.register(eventSink);
+    logger.log(Level.INFO, "Sse event sink registered");
+  }
+
+  @PreDestroy
+  public void terminate() {
+    broadcaster.close();
+    logger.log(Level.INFO, "Sse broadcaster closed");
   }
 
   public void onCargoInspected(@ObservesAsync @CargoInspected Cargo cargo) {
@@ -54,15 +67,6 @@ public class RealtimeCargoTrackingService {
           .writeEnd();
     }
 
-    String jsonValue = writer.toString();
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Session session : sessions) {
-      try {
-        session.getBasicRemote().sendText(jsonValue);
-      } catch (IOException ex) {
-        logger.log(Level.WARNING, "Unable to publish WebSocket message", ex);
-      }
-    }
+    broadcaster.broadcast(sse.newEvent(writer.toString()));
   }
 }

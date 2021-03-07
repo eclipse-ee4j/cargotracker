@@ -240,26 +240,27 @@
 <script type="text/javascript">
     window.onload = function () {
         const applicationPath = window.location.pathname.split('/')[1];
-        const socketUri = "ws://" + document.location.host + "/" + applicationPath + "/tracking";
-        const socket = new WebSocket(socketUri);
+        const trackingUri = "http://" + window.location.host +
+                "/" + applicationPath + "/rest/tracking";
+        const trackingEvent = new EventSource(trackingUri);
 
         const status = document.getElementById("status");
 
-        socket.onopen = function (event) {
+        trackingEvent.onopen = function (event) {
             status.innerHTML = "online";
-        }
+        };
 
-        socket.onmessage = function (event) {
+        trackingEvent.onmessage = function (event) {
             status.innerHTML = "mesage";
             location.reload(true);
         };
 
-        socket.onclose = function (event) {
-            status.innerHTML = "offline";
+        trackingEvent.onerror = function (event) {
+            status.innerHTML = "error";
         };
 
         init();
-    }
+    };
 </script>
 </body>
 </html>
