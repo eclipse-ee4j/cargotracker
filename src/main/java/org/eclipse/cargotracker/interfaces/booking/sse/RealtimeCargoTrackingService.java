@@ -1,4 +1,4 @@
-package org.eclipse.cargotracker.interfaces.booking.socket;
+package org.eclipse.cargotracker.interfaces.booking.sse;
 
 import java.io.StringWriter;
 import java.io.Writer;
