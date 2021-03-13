@@ -56,13 +56,12 @@ public class RealtimeCargoTrackingService {
 
     String jsonValue = writer.toString();
 
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Session session : sessions) {
+    sessions.forEach(session -> {
       try {
         session.getBasicRemote().sendText(jsonValue);
       } catch (IOException ex) {
         logger.log(Level.WARNING, "Unable to publish WebSocket message", ex);
       }
-    }
+    });
   }
 }

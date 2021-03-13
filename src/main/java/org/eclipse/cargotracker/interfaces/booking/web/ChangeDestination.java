@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -52,15 +52,13 @@ public class ChangeDestination implements Serializable {
 
   public List<Location> getPotentialDestinations() {
     // Potential destination = All Locations - Origin - Current Destination
-    List<Location> destinationsToRemove = new ArrayList<>();
-
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Location loc : locations) {
-      if (loc.getName().equalsIgnoreCase(cargo.getOrigin())
-          || loc.getName().equalsIgnoreCase(cargo.getFinalDestination())) {
-        destinationsToRemove.add(loc);
-      }
-    }
+    List<Location> destinationsToRemove =
+        locations.stream()
+            .filter(
+                loc ->
+                    loc.getName().equalsIgnoreCase(cargo.getOrigin())
+                        || loc.getName().equalsIgnoreCase(cargo.getFinalDestination()))
+            .collect(Collectors.toList());
 
     locations.removeAll(destinationsToRemove);
 

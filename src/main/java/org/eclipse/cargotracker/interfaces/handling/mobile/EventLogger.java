@@ -117,37 +117,39 @@ public class EventLogger implements Serializable {
 
     trackingIds = new ArrayList<>(cargos.size());
 
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Cargo cargo : cargos) {
-      // List only routed cargo that is not claimed yet.
-      if (!cargo.getItinerary().getLegs().isEmpty()
-          && !(cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED))) {
-        String trackingId = cargo.getTrackingId().getIdString();
-        trackingIds.add(new SelectItem(trackingId, trackingId));
-      }
-    }
+    // List only routed cargo that is not claimed yet.
+    cargos.stream()
+        .filter(
+            cargo ->
+                !cargo.getItinerary().getLegs().isEmpty()
+                    && !(cargo
+                        .getDelivery()
+                        .getTransportStatus()
+                        .sameValueAs(TransportStatus.CLAIMED)))
+        .map(cargo -> cargo.getTrackingId().getIdString())
+        .forEachOrdered(trackingId -> trackingIds.add(new SelectItem(trackingId, trackingId)));
 
     List<Location> locations = locationRepository.findAll();
 
     this.locations = new ArrayList<>(locations.size());
 
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Location location : locations) {
-      String locationCode = location.getUnLocode().getIdString();
-      this.locations.add(
-          new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
-    }
+    locations.forEach(
+        location -> {
+          String locationCode = location.getUnLocode().getIdString();
+          this.locations.add(
+              new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
+        });
 
     List<Voyage> voyages = voyageRepository.findAll();
 
     this.voyages = new ArrayList<>(voyages.size());
 
-    // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-    for (Voyage voyage : voyages) {
-      this.voyages.add(
-          new SelectItem(
-              voyage.getVoyageNumber().getIdString(), voyage.getVoyageNumber().getIdString()));
-    }
+    voyages.forEach(
+        voyage ->
+            this.voyages.add(
+                new SelectItem(
+                    voyage.getVoyageNumber().getIdString(),
+                    voyage.getVoyageNumber().getIdString())));
   }
 
   public String onFlowProcess(FlowEvent event) {
