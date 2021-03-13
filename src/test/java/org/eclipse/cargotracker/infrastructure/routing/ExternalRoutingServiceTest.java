@@ -3,10 +3,8 @@ package org.eclipse.cargotracker.infrastructure.routing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.IntStream;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
@@ -69,11 +67,9 @@ public class ExternalRoutingServiceTest {
               assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
               Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
               assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
-              IntStream.range(0, legs.size() - 1)
-                  .forEach(
-                      i ->
-                          assertEquals(
-                              legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation()));
+              for (int i = 0; i < legs.size() - 1; i++) {
+                assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());
+              }
             });
 
     //        verify(voyageRepository);

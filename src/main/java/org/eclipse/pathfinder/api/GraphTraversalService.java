@@ -73,7 +73,6 @@ public class GraphTraversalService {
               fromDate,
               toDate));
 
-      // TODO [Jakarta EE 8] Convert this to streams and lambdas.
       for (int j = 0; j < allVertices.size() - 1; j++) {
         String current = allVertices.get(j);
         String next = allVertices.get(j + 1);
