@@ -41,31 +41,33 @@ public class EventItemWriter extends AbstractItemWriter {
         new PrintWriter(
             new BufferedWriter(
                 new FileWriter(
-                    new File(
-                        jobContext.getProperties().getProperty(ARCHIVE_DIRECTORY)
-                            + "/archive_"
-                            + jobContext.getJobName()
-                            + "_"
-                            + jobContext.getInstanceId()
-                            + ".csv"),
+                    jobContext.getProperties().getProperty(ARCHIVE_DIRECTORY)
+                        + "/archive_"
+                        + jobContext.getJobName()
+                        + "_"
+                        + jobContext.getInstanceId()
+                        + ".csv",
                     true)))) {
-      // TODO [Jakarta EE 8] Convert this to streams and lambdas.
-      for (Object item : items) {
-        HandlingEventRegistrationAttempt attempt = (HandlingEventRegistrationAttempt) item;
-        applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
-        archive.println(
-            DateConverter.toString(attempt.getRegistrationTime())
-                + ","
-                + DateConverter.toString(attempt.getCompletionTime())
-                + ","
-                + attempt.getTrackingId()
-                + ","
-                + attempt.getVoyageNumber()
-                + ","
-                + attempt.getUnLocode()
-                + ","
-                + attempt.getType());
-      }
+
+      items
+          .stream()
+          .map(item -> (HandlingEventRegistrationAttempt) item)
+          .forEach(
+              attempt -> {
+                applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
+                archive.println(
+                    DateConverter.toString(attempt.getRegistrationTime())
+                        + ","
+                        + DateConverter.toString(attempt.getCompletionTime())
+                        + ","
+                        + attempt.getTrackingId()
+                        + ","
+                        + attempt.getVoyageNumber()
+                        + ","
+                        + attempt.getUnLocode()
+                        + ","
+                        + attempt.getType());
+              });
     }
   }
 }
