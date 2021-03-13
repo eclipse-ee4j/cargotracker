@@ -32,7 +32,8 @@
             "SEGOT": "Gothenburg",
             "CNHGH": "Hangzhou",
             "USNYC": "New York",
-            "USDAL": "Dallas"
+            "USDAL": "Dallas",
+            "XXXXX": "Unknown"
         };
 
         const routingStatusName = {
@@ -64,7 +65,8 @@
             "SEGOT": 58,
             "CNHGH": 30,
             "USNYC": 41,
-            "USDAL": 33
+            "USDAL": 33,
+            "XXXXX": -90  // the South Pole for Unknown
         };
 
         const longitude = {
@@ -80,7 +82,8 @@
             "SEGOT": 12,
             "CNHGH": 120,
             "USNYC": -74,
-            "USDAL": -97
+            "USDAL": -97,
+            "XXXXX": 0
         };
 
         //  load the icons for the map
@@ -164,85 +167,58 @@
     };
 </script>
 <script type="text/javascript">
-    function init() {
-        // TODO [DDD] This extra invocation really isn't necessary. We should get all the
-        // necessary data from the Cargo view adapter.
-        fetch('/cargo-tracker/rest/cargo')
-            .then(response => response.json())
-            .then(cargos => {
-                const coordinates = [];
+    const applicationUri = "http://" + document.location.host + "/" +
+            window.location.pathname.split('/')[1];
 
-                for (const cargo of cargos) {
-                    const locationCode = (cargo.transportStatus == 'NOT_RECEIVED') ? cargo.origin : cargo.lastKnownLocation;
+    const trackingAllCargosUri = applicationUri + "/rest/tracking";
 
-                    let statusCode = 'NOT_RECEIVED';
-                    if ((cargo.routingStatus === 'NOT_ROUTED') || (cargo.routingStatus === 'MISROUTED')) {
-                        statusCode = cargo.routingStatus;
-                    } else if (cargo.misdirected === true) {
-                        statusCode = 'MISDIRECTED';
-                    } else if (cargo.atDestination === true) {
-                        statusCode = 'AT_DESTINATION';
-                    } else {
-                        statusCode = cargo.transportStatus;
-                    }
+    const winDimensions = "height=" + window.innerHeight + ",width=" + window.innerWidth;
 
-                    coordinates.push(
-                        {
-                            position: {
-                                lon: longitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
-                                lat: latitude[locationCode] + (Math.floor((Math.random() * 3) - 3)),
-                            },
-                            trackingId: cargo.trackingId,
-                            style: colorCodes[statusCode]
-                        }
-                    );
-                }
-
-                const map = L.map('map').setView({lon: 0, lat: 0}, 2);
-
-                // add the OpenStreetMap tiles
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
-                }).addTo(map);
-
-                // show the scale bar on the lower left corner
-                L.control.scale().addTo(map);
-
-                const applicationPath = window.location.pathname.split('/')[1];
-                const trackingBaseUri = "http://" + document.location.host + "/" + applicationPath + "/admin/show.xhtml?trackingId=";
-                const winHeight = window.innerHeight;
-                const winWidth = window.innerWidth;
-                const winDimensions = "height=" + winHeight + ",width=" + winWidth;
-
-                coordinates.forEach((coord, index) => {
-                    const popupContent = 'Tracking ID: ' + cargos[index].trackingId + '&lt;br/>' +
-                        'Routing Status: ' + routingStatusName[cargos[index].routingStatus] + '&lt;br/>' +
-                        'Misdirected: ' + (cargos[index].misdirected ? "Yes" : "No") + '&lt;br/>' +
-                        'Transport Status: ' + transportStatusName[cargos[index].transportStatus] + '&lt;br/>' +
-                        'At Destination: ' + (cargos[index].atDestination ? "Yes" : "No") + '&lt;br/>' +
-                        'Origin: ' + locationName[cargos[index].origin] + '&lt;br/>' +
-                        'Last known location: ' + locationName[cargos[index].lastKnownLocation];
-
-                    L.marker(coord['position'], {icon: coord.style})
-                        .bindTooltip(popupContent)
-                        .addTo(map)
-                        .on('click', () => {
-                            const trackingUri = trackingBaseUri + coord.trackingId;
-                            window.open(trackingUri, "winMap", winDimensions);
-                        });
-                });
-            })
-            .catch(e => console.error("cannot fetch cargos", e));
+    function trackingSpecifiedCargoUri(cargo) {
+        return applicationUri + "/admin/show.xhtml?trackingId=" + cargo.trackingId;
     }
 
+    function coordinates(cargo) {
+        return {
+            lon: longitude[cargo.locationCode] + (Math.floor((Math.random() * 3) - 3)),
+            lat: latitude[cargo.locationCode] + (Math.floor((Math.random() * 3) - 3))
+        };
+    }
+
+    function popupContent(cargo) {
+        return 'Tracking ID: ' + cargo.trackingId + '&lt;br/>' +
+            'Routing Status: ' + routingStatusName[cargo.routingStatus] + '&lt;br/>' +
+            'Misdirected: ' + (cargo.misdirected ? "Yes" : "No") + '&lt;br/>' +
+            'Transport Status: ' + transportStatusName[cargo.transportStatus] + '&lt;br/>' +
+            'At Destination: ' + (cargo.atDestination ? "Yes" : "No") + '&lt;br/>' +
+            'Origin: ' + locationName[cargo.origin] + '&lt;br/>' +
+            'Last known location: ' + locationName[cargo.lastKnownLocation];
+    }
+
+    function createCargoMarker(cargo) {
+        return L.marker(coordinates(cargo), {icon: colorCodes[cargo.statusCode]})
+            .bindTooltip(popupContent(cargo))
+            .on('click', () => {
+                    window.open(trackingSpecifiedCargoUri(cargo), "winMap", winDimensions);
+            });
+    }
 </script>
 <script type="text/javascript">
     window.onload = function () {
-        const applicationPath = window.location.pathname.split('/')[1];
-        const trackingUri = "http://" + window.location.host +
-                "/" + applicationPath + "/rest/tracking";
-        const trackingEvent = new EventSource(trackingUri);
+        const map = L.map('map').setView({lon: 0, lat: 0}, 2);
+
+        // add the OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
+        }).addTo(map);
+
+        // show the scale bar on the lower left corner
+        L.control.scale().addTo(map);
+
+        const cargoMarkers = new Map();
+        
+        const trackingEvent = new EventSource(trackingAllCargosUri);
 
         const status = document.getElementById("status");
 
@@ -252,14 +228,18 @@
 
         trackingEvent.onmessage = function (event) {
             status.innerHTML = "mesage";
-            location.reload(true);
+            const cargo = JSON.parse(event.data);
+            const marker = createCargoMarker(cargo);
+            if (cargoMarkers.has(cargo.trackingId)) {
+                cargoMarkers.get(cargo.trackingId).removeFrom(map);
+            }
+            marker.addTo(map);
+            cargoMarkers.set(cargo.trackingId, marker);
         };
 
         trackingEvent.onerror = function (event) {
             status.innerHTML = "error";
         };
-
-        init();
     };
 </script>
 </body>
