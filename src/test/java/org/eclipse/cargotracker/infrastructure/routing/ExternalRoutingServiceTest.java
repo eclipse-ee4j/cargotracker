@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.stream.IntStream;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
-import org.eclipse.cargotracker.domain.model.cargo.Leg;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
-import org.junit.Assert;
 
 public class ExternalRoutingServiceTest {
 
@@ -61,15 +59,22 @@ public class ExternalRoutingServiceTest {
     // Cargo origin and start of first leg should match
     // Cargo final destination and last leg stop should match
     // Assert that all legs are connected
-    candidates.stream().map(Itinerary::getLegs).forEach(legs -> {
-      assertNotNull(legs);
-      assertFalse(legs.isEmpty());
-      assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
-      Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
-      assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
-      IntStream.range(0, legs.size() - 1)
-              .forEach(i -> assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation()));
-    });
+    candidates
+        .stream()
+        .map(Itinerary::getLegs)
+        .forEach(
+            legs -> {
+              assertNotNull(legs);
+              assertFalse(legs.isEmpty());
+              assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
+              Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
+              assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
+              IntStream.range(0, legs.size() - 1)
+                  .forEach(
+                      i ->
+                          assertEquals(
+                              legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation()));
+            });
 
     //        verify(voyageRepository);
   }

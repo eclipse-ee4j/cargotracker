@@ -49,7 +49,8 @@ public class EventItemWriter extends AbstractItemWriter {
                         + ".csv",
                     true)))) {
 
-      items.stream()
+      items
+          .stream()
           .map(item -> (HandlingEventRegistrationAttempt) item)
           .forEach(
               attempt -> {

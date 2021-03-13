@@ -118,7 +118,8 @@ public class EventLogger implements Serializable {
     trackingIds = new ArrayList<>(cargos.size());
 
     // List only routed cargo that is not claimed yet.
-    cargos.stream()
+    cargos
+        .stream()
         .filter(
             cargo ->
                 !cargo.getItinerary().getLegs().isEmpty()

@@ -24,49 +24,46 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 @RequestScoped
 public class ListCargo {
 
-    @Inject private BookingServiceFacade bookingServiceFacade;
+  @Inject private BookingServiceFacade bookingServiceFacade;
 
-    private List<CargoRoute> cargos;
-    private List<CargoRoute> routedCargos;
-    private List<CargoRoute> claimedCargos;
-    private List<CargoRoute> routedUnclaimedCargos;
+  private List<CargoRoute> cargos;
+  private List<CargoRoute> routedCargos;
+  private List<CargoRoute> claimedCargos;
+  private List<CargoRoute> routedUnclaimedCargos;
 
-    public List<CargoRoute> getCargos() {
-        return cargos;
-    }
+  public List<CargoRoute> getCargos() {
+    return cargos;
+  }
 
-    @PostConstruct
-    public void init() {
-        cargos = bookingServiceFacade.listAllCargos();
-    }
+  @PostConstruct
+  public void init() {
+    cargos = bookingServiceFacade.listAllCargos();
+  }
 
-    public List<CargoRoute> getRoutedCargos() {
-        List<CargoRoute> routedCargos =
-                cargos.stream().filter(CargoRoute::isRouted).collect(toList());
+  public List<CargoRoute> getRoutedCargos() {
+    List<CargoRoute> routedCargos = cargos.stream().filter(CargoRoute::isRouted).collect(toList());
 
-        return routedCargos;
-    }
+    return routedCargos;
+  }
 
-    public List<CargoRoute> getRoutedUnclaimedCargos() {
-        List<CargoRoute> routedUnclaimedCargos =
-                cargos.stream()
-                        .filter(route -> route.isRouted() && !route.isClaimed())
-                        .collect(toList());
+  public List<CargoRoute> getRoutedUnclaimedCargos() {
+    List<CargoRoute> routedUnclaimedCargos =
+        cargos.stream().filter(route -> route.isRouted() && !route.isClaimed()).collect(toList());
 
-        return routedUnclaimedCargos;
-    }
+    return routedUnclaimedCargos;
+  }
 
-    public List<CargoRoute> getClaimedCargos() {
-        List<CargoRoute> claimedCargos =
-                cargos.stream().filter(CargoRoute::isClaimed).collect(toList());
+  public List<CargoRoute> getClaimedCargos() {
+    List<CargoRoute> claimedCargos =
+        cargos.stream().filter(CargoRoute::isClaimed).collect(toList());
 
-        return claimedCargos;
-    }
+    return claimedCargos;
+  }
 
-    public List<CargoRoute> getNotRoutedCargos() {
-        List<CargoRoute> notRoutedCargos =
-                cargos.stream().filter(route -> !route.isRouted()).collect(toList());
+  public List<CargoRoute> getNotRoutedCargos() {
+    List<CargoRoute> notRoutedCargos =
+        cargos.stream().filter(route -> !route.isRouted()).collect(toList());
 
-        return notRoutedCargos;
-    }
+    return notRoutedCargos;
+  }
 }
