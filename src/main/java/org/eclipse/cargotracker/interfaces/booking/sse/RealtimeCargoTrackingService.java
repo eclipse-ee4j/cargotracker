@@ -7,8 +7,6 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -20,8 +18,6 @@ import javax.ws.rs.sse.SseBroadcaster;
 import javax.ws.rs.sse.SseEventSink;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
-import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
-import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 
 /** Sever-sent events service for tracking all cargo in real time. */
@@ -62,46 +58,9 @@ public class RealtimeCargoTrackingService {
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-    JsonObject cargoInJson =
-        Json.createObjectBuilder()
-            .add("trackingId", cargo.getTrackingId().getIdString())
-            .add("routingStatus", cargo.getDelivery().getRoutingStatus().toString())
-            .add("misdirected", cargo.getDelivery().isMisdirected())
-            .add("transportStatus", cargo.getDelivery().getTransportStatus().toString())
-            .add("atDestination", cargo.getDelivery().isUnloadedAtDestination())
-            .add("origin", cargo.getOrigin().getUnLocode().getIdString())
-            .add(
-                "lastKnownLocation",
-                cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString())
-            .add(
-                "locationCode",
-                cargo.getDelivery().getTransportStatus() == TransportStatus.NOT_RECEIVED
-                    ? cargo.getOrigin().getUnLocode().getIdString()
-                    : cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString())
-            .add("statusCode", statusCode(cargo))
-            .build();
-
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
-        .data(cargoInJson)
+        .data(new RealtimeCargoTrackingViewAdapter(cargo))
         .build();
-  }
-
-  private String statusCode(Cargo cargo) {
-    RoutingStatus routingStatus = cargo.getDelivery().getRoutingStatus();
-
-    if (routingStatus == RoutingStatus.NOT_ROUTED || routingStatus == RoutingStatus.MISROUTED) {
-      return routingStatus.toString();
-    }
-
-    if (cargo.getDelivery().isMisdirected()) {
-      return "MISDIRECTED";
-    }
-
-    if (cargo.getDelivery().isUnloadedAtDestination()) {
-      return "AT_DESTINATION";
-    }
-
-    return cargo.getDelivery().getTransportStatus().toString();
   }
 }
