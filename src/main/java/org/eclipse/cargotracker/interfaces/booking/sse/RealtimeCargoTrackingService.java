@@ -2,9 +2,10 @@ package org.eclipse.cargotracker.interfaces.booking.sse;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Singleton;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -18,20 +19,20 @@ import javax.ws.rs.sse.OutboundSseEvent;
 import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseBroadcaster;
 import javax.ws.rs.sse.SseEventSink;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
 
-/** Sever-sent events service for tracking all cargoes in real time. */
-@ApplicationScoped
-@Path("/tracking")
+/** Sever-sent events service for tracking all cargo in real time. */
+@Singleton
+@Path("/cargo")
 public class RealtimeCargoTrackingService {
+  @Inject private Logger logger;
 
   @Inject private CargoRepository cargoRepository;
-
-  @Inject private Logger logger;
 
   @Context private Sse sse;
   private SseBroadcaster broadcaster;
@@ -39,29 +40,30 @@ public class RealtimeCargoTrackingService {
   @PostConstruct
   public void init() {
     broadcaster = sse.newBroadcaster();
-    logger.log(Level.INFO, "Sse broadcaster created");
+    logger.log(Level.INFO, "SSE broadcaster created.");
   }
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
+
     broadcaster.register(eventSink);
-    logger.log(Level.INFO, "Sse event sink registered");
+    logger.log(Level.INFO, "SSE event sink registered.");
   }
 
   @PreDestroy
-  public void terminate() {
+  public void close() {
     broadcaster.close();
-    logger.log(Level.INFO, "Sse broadcaster closed");
+    logger.log(Level.INFO, "SSE broadcaster closed.");
   }
 
   public void onCargoInspected(@ObservesAsync @CargoInspected Cargo cargo) {
+    logger.log(Level.INFO, "SSE event broadcast.");
     broadcaster.broadcast(cargoToSseEvent(cargo));
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-
     JsonObject cargoInJson =
         Json.createObjectBuilder()
             .add("trackingId", cargo.getTrackingId().getIdString())
@@ -89,6 +91,7 @@ public class RealtimeCargoTrackingService {
 
   private String statusCode(Cargo cargo) {
     RoutingStatus routingStatus = cargo.getDelivery().getRoutingStatus();
+
     if (routingStatus == RoutingStatus.NOT_ROUTED || routingStatus == RoutingStatus.MISROUTED) {
       return routingStatus.toString();
     }
