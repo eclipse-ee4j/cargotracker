@@ -12,3 +12,4 @@ bin/
 *.log
 *.log-*
 data
+.DS_Store
