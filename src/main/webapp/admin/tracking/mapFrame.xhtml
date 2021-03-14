@@ -15,23 +15,6 @@
 	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 	crossorigin="" />
 <script type="text/javascript">
-	  const locationName = {
-	      "CNHKG": "Hong Kong",
-	      "AUMEL": "Melbourne",
-	      "SESTO": "Stockholm",
-	      "FIHEL": "Helsinki",
-	      "USCHI": "Chicago",
-	      "JNTKO": "Tokyo",
-	      "DEHAM": "Hamburg",
-	      "CNSHA": "Shanghai",
-	      "NLRTM": "Rotterdam",
-	      "SEGOT": "Gothenburg",
-	      "CNHGH": "Hangzhou",
-	      "USNYC": "New York",
-	      "USDAL": "Dallas",
-	      "XXXXX": "Unknown"
-	  };
-	
 	  const routingStatusName = {
 	      "NOT_ROUTED": "Not routed",
 	      "ROUTED": "Routed",
@@ -172,8 +155,8 @@
 	
 	    function coordinates(cargo) {
 	        return {
-	            lon: longitude[cargo.locationCode] + (Math.floor((Math.random() * 4) - 2)),
-	            lat: latitude[cargo.locationCode] + (Math.floor((Math.random() * 4) - 2))
+	            lon: longitude[cargo.location.unLocode] + (Math.floor((Math.random() * 4) - 2)),
+	            lat: latitude[cargo.location.unLocode] + (Math.floor((Math.random() * 4) - 2))
 	        };
 	    }
 	
@@ -183,8 +166,8 @@
 	            'Misdirected: ' + (cargo.misdirected ? "Yes" : "No") + '&lt;br/>' +
 	            'Transport status: ' + transportStatusName[cargo.transportStatus] + '&lt;br/>' +
 	            'At destination: ' + (cargo.atDestination ? "Yes" : "No") + '&lt;br/>' +
-	            'Origin: ' + locationName[cargo.origin] + '&lt;br/>' +
-	            'Last known location: ' + locationName[cargo.lastKnownLocation];
+	            'Origin: ' + cargo.origin.name + '&lt;br/>' +
+	            'Last known location: ' + cargo.lastKnownLocation.name;
 	    }
 	
 	    function createCargoMarker(cargo) {

@@ -33,18 +33,18 @@ public class RealtimeCargoTrackingViewAdapter {
     return cargo.getDelivery().isUnloadedAtDestination();
   }
 
-  public String getOrigin() {
-    return cargo.getOrigin().getUnLocode().getIdString();
+  public LocationViewAdapter getOrigin() {
+    return new LocationViewAdapter(cargo.getOrigin());
   }
 
-  public String getLastKnownLocation() {
-    return cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString();
+  public LocationViewAdapter getLastKnownLocation() {
+    return new LocationViewAdapter(cargo.getDelivery().getLastKnownLocation());
   }
 
-  public String getLocationCode() {
+  public LocationViewAdapter getLocation() {
     return cargo.getDelivery().getTransportStatus() == TransportStatus.NOT_RECEIVED
-        ? cargo.getOrigin().getUnLocode().getIdString()
-        : cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString();
+        ? getOrigin()
+        : getLastKnownLocation();
   }
 
   public String getStatusCode() {
