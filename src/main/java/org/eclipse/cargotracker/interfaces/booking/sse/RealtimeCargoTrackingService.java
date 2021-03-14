@@ -40,7 +40,7 @@ public class RealtimeCargoTrackingService {
   @PostConstruct
   public void init() {
     broadcaster = sse.newBroadcaster();
-    logger.log(Level.INFO, "SSE broadcaster created.");
+    logger.log(Level.FINEST, "SSE broadcaster created.");
   }
 
   @GET
@@ -49,17 +49,17 @@ public class RealtimeCargoTrackingService {
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
 
     broadcaster.register(eventSink);
-    logger.log(Level.INFO, "SSE event sink registered.");
+    logger.log(Level.FINEST, "SSE event sink registered.");
   }
 
   @PreDestroy
   public void close() {
     broadcaster.close();
-    logger.log(Level.INFO, "SSE broadcaster closed.");
+    logger.log(Level.FINEST, "SSE broadcaster closed.");
   }
 
   public void onCargoInspected(@ObservesAsync @CargoInspected Cargo cargo) {
-    logger.log(Level.INFO, "SSE event broadcast.");
+    logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
     broadcaster.broadcast(cargoToSseEvent(cargo));
   }
 
