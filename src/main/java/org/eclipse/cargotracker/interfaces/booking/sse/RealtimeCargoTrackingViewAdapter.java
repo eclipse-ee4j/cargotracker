@@ -1,11 +1,18 @@
 package org.eclipse.cargotracker.interfaces.booking.sse;
 
+import java.util.EnumMap;
+import java.util.Map;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 
 /** View adapter for displaying a cargo in a realtime tracking context. */
 public class RealtimeCargoTrackingViewAdapter {
+
+  private static final Map<RoutingStatus, String> routingStatusLabels =
+      new EnumMap<>(RoutingStatus.class);
+  private static final Map<TransportStatus, String> transportStatusLabels =
+      new EnumMap<>(TransportStatus.class);
 
   private final Cargo cargo;
 
@@ -18,7 +25,7 @@ public class RealtimeCargoTrackingViewAdapter {
   }
 
   public String getRoutingStatus() {
-    return cargo.getDelivery().getRoutingStatus().toString();
+    return routingStatusLabels.get(cargo.getDelivery().getRoutingStatus());
   }
 
   public boolean isMisdirected() {
@@ -26,7 +33,7 @@ public class RealtimeCargoTrackingViewAdapter {
   }
 
   public String getTransportStatus() {
-    return cargo.getDelivery().getTransportStatus().toString();
+    return transportStatusLabels.get(cargo.getDelivery().getTransportStatus());
   }
 
   public boolean isAtDestination() {
@@ -63,5 +70,17 @@ public class RealtimeCargoTrackingViewAdapter {
     }
 
     return cargo.getDelivery().getTransportStatus().toString();
+  }
+
+  static {
+    routingStatusLabels.put(RoutingStatus.NOT_ROUTED, "Not routed");
+    routingStatusLabels.put(RoutingStatus.ROUTED, "Routed");
+    routingStatusLabels.put(RoutingStatus.MISROUTED, "Misrouted");
+
+    transportStatusLabels.put(TransportStatus.NOT_RECEIVED, "Not received");
+    transportStatusLabels.put(TransportStatus.IN_PORT, "In port");
+    transportStatusLabels.put(TransportStatus.ONBOARD_CARRIER, "Onboard carrier");
+    transportStatusLabels.put(TransportStatus.CLAIMED, "Claimed");
+    transportStatusLabels.put(TransportStatus.UNKNOWN, "Unknown");
   }
 }
