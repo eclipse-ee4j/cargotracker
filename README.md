@@ -42,7 +42,7 @@ To set up in Eclipse, follow these steps:
 
 After the application runs, it will be available at: 
 http://localhost:8080/cargo-tracker/. Under the hood, the application uses a 
-number of Jakarta EE features including Faces, CDI, Enterprise Beans, Persistence, REST, Batch, JSON Binding, JSON Processing, Bean Validation and Messaging.
+number of Jakarta EE features including Faces, CDI, Enterprise Beans, Persistence, REST, Batch, JSON Binding, Bean Validation and Messaging.
 
 There are several web interfaces, REST interfaces and a file system scanning
 interface. It's probably best to start exploring the interfaces in the rough
