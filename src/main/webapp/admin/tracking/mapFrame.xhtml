@@ -15,73 +15,6 @@
 	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 	crossorigin="" />
 <script type="text/javascript">
-	  const locationName = {
-	      "CNHKG": "Hong Kong",
-	      "AUMEL": "Melbourne",
-	      "SESTO": "Stockholm",
-	      "FIHEL": "Helsinki",
-	      "USCHI": "Chicago",
-	      "JNTKO": "Tokyo",
-	      "DEHAM": "Hamburg",
-	      "CNSHA": "Shanghai",
-	      "NLRTM": "Rotterdam",
-	      "SEGOT": "Gothenburg",
-	      "CNHGH": "Hangzhou",
-	      "USNYC": "New York",
-	      "USDAL": "Dallas",
-	      "XXXXX": "Unknown"
-	  };
-	
-	  const routingStatusName = {
-	      "NOT_ROUTED": "Not routed",
-	      "ROUTED": "Routed",
-	      "MISROUTED": "Misrouted"
-	  };
-	
-	  const transportStatusName = {
-	      "NOT_RECEIVED": "Not received",
-	      "IN_PORT": " In port",
-	      "ONBOARD_CARRIER": "Onboard carrier",
-	      "CLAIMED": "Claimed",
-	      "UNKNOWN": "Unknown"
-	  };
-	
-	  // TODO See if there is a service to get the latitude/longitude
-	  // data from.
-	  const latitude = {
-	      "CNHKG": 22,
-	      "AUMEL": -38,
-	      "SESTO": 59,
-	      "FIHEL": 60,
-	      "USCHI": 42,
-	      "JNTKO": 36,
-	      "DEHAM": 54,
-	      "CNSHA": 31,
-	      "NLRTM": 52,
-	      "SEGOT": 58,
-	      "CNHGH": 30,
-	      "USNYC": 41,
-	      "USDAL": 33,
-	      "XXXXX": -90  // the South Pole for Unknown
-	  };
-	
-	  const longitude = {
-	      "CNHKG": 114,
-	      "AUMEL": 145,
-	      "SESTO": 18,
-	      "FIHEL": 25,
-	      "USCHI": -88,
-	      "JNTKO": 140,
-	      "DEHAM": 10,
-	      "CNSHA": 121,
-	      "NLRTM": 5,
-	      "SEGOT": 12,
-	      "CNHGH": 120,
-	      "USNYC": -74,
-	      "USDAL": -97,
-	      "XXXXX": 0
-	  };
-	
 	  //  Load the icons for the map
 	  const greenIcon = new L.Icon({
 	      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -172,19 +105,21 @@
 	
 	    function coordinates(cargo) {
 	        return {
-	            lon: longitude[cargo.locationCode] + (Math.floor((Math.random() * 4) - 2)),
-	            lat: latitude[cargo.locationCode] + (Math.floor((Math.random() * 4) - 2))
+	            lon: cargo.location.coordinates.longitude +
+	                    (Math.floor((Math.random() * 4) - 2)),
+	            lat: cargo.location.coordinates.latitude +
+	                    (Math.floor((Math.random() * 4) - 2))
 	        };
 	    }
 	
 	    function popupContent(cargo) {
 	        return 'Tracking ID: ' + cargo.trackingId + '&lt;br/>' +
-	            'Routing status: ' + routingStatusName[cargo.routingStatus] + '&lt;br/>' +
+	            'Routing status: ' + cargo.routingStatus + '&lt;br/>' +
 	            'Misdirected: ' + (cargo.misdirected ? "Yes" : "No") + '&lt;br/>' +
-	            'Transport status: ' + transportStatusName[cargo.transportStatus] + '&lt;br/>' +
+	            'Transport status: ' + cargo.transportStatus + '&lt;br/>' +
 	            'At destination: ' + (cargo.atDestination ? "Yes" : "No") + '&lt;br/>' +
-	            'Origin: ' + locationName[cargo.origin] + '&lt;br/>' +
-	            'Last known location: ' + locationName[cargo.lastKnownLocation];
+	            'Origin: ' + cargo.origin.name + '&lt;br/>' +
+	            'Last known location: ' + cargo.lastKnownLocation.name;
 	    }
 	
 	    function createCargoMarker(cargo) {
