@@ -22,7 +22,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 /** View adapter for displaying a location in a realtime tracking context. */
 public class LocationViewAdapter {
 
-  private static final Map<Location, LocationCoordinates> coordinatesMap = new HashMap<>();
+  private static final Map<Location, Coordinates> coordinatesMap = new HashMap<>();
 
   private final Location location;
 
@@ -38,25 +38,44 @@ public class LocationViewAdapter {
     return location.getName();
   }
 
-  public LocationCoordinates getCoordinates() {
+  public Coordinates getCoordinates() {
     return coordinatesMap.get(location);
   }
 
   static {
     // TODO See if there is a service to get the latitude/longitude data from.
-    coordinatesMap.put(HONGKONG, new LocationCoordinates(22, 114));
-    coordinatesMap.put(MELBOURNE, new LocationCoordinates(-38, 145));
-    coordinatesMap.put(STOCKHOLM, new LocationCoordinates(59, 18));
-    coordinatesMap.put(HELSINKI, new LocationCoordinates(60, 25));
-    coordinatesMap.put(CHICAGO, new LocationCoordinates(42, -88));
-    coordinatesMap.put(TOKYO, new LocationCoordinates(36, 140));
-    coordinatesMap.put(HAMBURG, new LocationCoordinates(54, 10));
-    coordinatesMap.put(SHANGHAI, new LocationCoordinates(31, 121));
-    coordinatesMap.put(ROTTERDAM, new LocationCoordinates(52, 5));
-    coordinatesMap.put(GOTHENBURG, new LocationCoordinates(58, 12));
-    coordinatesMap.put(HANGZOU, new LocationCoordinates(30, 120));
-    coordinatesMap.put(NEWYORK, new LocationCoordinates(41, -74));
-    coordinatesMap.put(DALLAS, new LocationCoordinates(33, -97));
-    coordinatesMap.put(UNKNOWN, new LocationCoordinates(-90, 0)); // the South Pole
+    coordinatesMap.put(HONGKONG, new Coordinates(22, 114));
+    coordinatesMap.put(MELBOURNE, new Coordinates(-38, 145));
+    coordinatesMap.put(STOCKHOLM, new Coordinates(59, 18));
+    coordinatesMap.put(HELSINKI, new Coordinates(60, 25));
+    coordinatesMap.put(CHICAGO, new Coordinates(42, -88));
+    coordinatesMap.put(TOKYO, new Coordinates(36, 140));
+    coordinatesMap.put(HAMBURG, new Coordinates(54, 10));
+    coordinatesMap.put(SHANGHAI, new Coordinates(31, 121));
+    coordinatesMap.put(ROTTERDAM, new Coordinates(52, 5));
+    coordinatesMap.put(GOTHENBURG, new Coordinates(58, 12));
+    coordinatesMap.put(HANGZOU, new Coordinates(30, 120));
+    coordinatesMap.put(NEWYORK, new Coordinates(41, -74));
+    coordinatesMap.put(DALLAS, new Coordinates(33, -97));
+    coordinatesMap.put(UNKNOWN, new Coordinates(-90, 0)); // The South Pole.
+  }
+
+  public static class Coordinates {
+
+    private final double latitude;
+    private final double longitude;
+
+    public Coordinates(double latitude, double longitude) {
+      this.latitude = latitude;
+      this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+      return latitude;
+    }
+
+    public double getLongitude() {
+      return longitude;
+    }
   }
 }

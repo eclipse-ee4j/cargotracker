@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
+import org.eclipse.cargotracker.infrastructure.events.cdi.CargoUpdated;
 
 @ApplicationScoped
 public class JpaCargoRepository implements CargoRepository, Serializable {
@@ -22,6 +24,8 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
   @Inject private Logger logger;
 
   @PersistenceContext private EntityManager entityManager;
+
+  @Inject @CargoUpdated private Event<Cargo> cargoUpdated;
 
   @Override
   public Cargo find(TrackingId trackingId) {
@@ -47,6 +51,8 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
     cargo.getItinerary().getLegs().forEach(leg -> entityManager.persist(leg));
 
     entityManager.persist(cargo);
+
+    cargoUpdated.fireAsync(cargo);
   }
 
   @Override

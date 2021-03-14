@@ -18,7 +18,7 @@ import javax.ws.rs.sse.SseBroadcaster;
 import javax.ws.rs.sse.SseEventSink;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
-import org.eclipse.cargotracker.infrastructure.events.cdi.CargoInspected;
+import org.eclipse.cargotracker.infrastructure.events.cdi.CargoUpdated;
 
 /** Sever-sent events service for tracking all cargo in real time. */
 @Singleton
@@ -52,7 +52,7 @@ public class RealtimeCargoTrackingService {
     logger.log(Level.FINEST, "SSE broadcaster closed.");
   }
 
-  public void onCargoInspected(@ObservesAsync @CargoInspected Cargo cargo) {
+  public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
     logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
     broadcaster.broadcast(cargoToSseEvent(cargo));
   }
