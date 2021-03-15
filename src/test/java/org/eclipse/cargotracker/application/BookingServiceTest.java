@@ -55,6 +55,7 @@ import org.eclipse.cargotracker.infrastructure.persistence.jpa.JpaLocationReposi
 import org.eclipse.cargotracker.infrastructure.persistence.jpa.JpaVoyageRepository;
 import org.eclipse.cargotracker.infrastructure.routing.ExternalRoutingService;
 import org.eclipse.pathfinder.api.GraphTraversalService;
+import org.eclipse.pathfinder.api.PathSpecification;
 import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
 import org.eclipse.pathfinder.internal.GraphDao;
@@ -140,6 +141,7 @@ public class BookingServiceTest {
         .addClass(TransitEdge.class)
         // Third-party system simulator
         .addClass(GraphTraversalService.class)
+        .addClass(PathSpecification.class)
         .addClass(GraphDao.class)
         // Sample data.
         .addClass(BookingServiceTestDataGenerator.class)
