@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Random;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import org.eclipse.pathfinder.internal.GraphDao;
 
 @Stateless
@@ -28,30 +27,12 @@ public class GraphTraversalService {
   @GET
   @Path("/shortest-path")
   @Produces({"application/json", "application/xml; qs=.75"})
-  public List<TransitPath> findShortestPath(
-      @NotBlank(message = "Missing origin UN location code.")
-          @Size(
-              min = 5,
-              max = 5,
-              message = "Origin UN location code value must be five characters long.")
-          @QueryParam("origin")
-          String originUnLocode,
-      @NotBlank(message = "Missing destination UN location code.")
-          @Size(
-              min = 5,
-              max = 5,
-              message = "Destination UN location code value must be five characters long.")
-          @QueryParam("destination")
-          String destinationUnLocode,
-      // TODO [DDD] Apply regular expression validation.
-      @Size(min = 8, max = 8, message = "Deadline value must be eight characters long.")
-          @QueryParam("deadline")
-          String deadline) {
+  public List<TransitPath> findShortestPath(@Valid @BeanParam PathSpecification spec) {
     LocalDateTime date = nextDate(LocalDateTime.now());
 
     List<String> allVertices = dao.listLocations();
-    allVertices.remove(originUnLocode);
-    allVertices.remove(destinationUnLocode);
+    allVertices.remove(spec.getOriginUnLocode());
+    allVertices.remove(spec.getDestinationUnLocode());
 
     int candidateCount = getRandomNumberOfCandidates();
     List<TransitPath> candidates = new ArrayList<>(candidateCount);
@@ -67,8 +48,8 @@ public class GraphTraversalService {
 
       transitEdges.add(
           new TransitEdge(
-              dao.getVoyageNumber(originUnLocode, firstLegTo),
-              originUnLocode,
+              dao.getVoyageNumber(spec.getOriginUnLocode(), firstLegTo),
+              spec.getOriginUnLocode(),
               firstLegTo,
               fromDate,
               toDate));
@@ -88,9 +69,9 @@ public class GraphTraversalService {
       toDate = nextDate(fromDate);
       transitEdges.add(
           new TransitEdge(
-              dao.getVoyageNumber(lastLegFrom, destinationUnLocode),
+              dao.getVoyageNumber(lastLegFrom, spec.getDestinationUnLocode()),
               lastLegFrom,
-              destinationUnLocode,
+              spec.getDestinationUnLocode(),
               fromDate,
               toDate));
 
