@@ -1,6 +1,6 @@
 # Contributing to Eclipse Cargo Tracker
 
-Thanks for your interest in this project. Your feedback and contributions are most welcome.
+Thanks for your interest in this project. Your feedback and contributions are most welcome. Please consider contacting the developers of the project before proposing a change.
 
 ## Project description
 
