@@ -138,6 +138,8 @@ This project complies with the [Google Java Style Guide](https://google.github.i
 
 In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
 
+For further guidance on contributing including the project roadmap, please look [here](CONTRIBUTING.md).
+
 ## Known Issues
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
