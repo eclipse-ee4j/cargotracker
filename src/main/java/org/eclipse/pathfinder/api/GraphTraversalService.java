@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Random;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,6 +23,10 @@ public class GraphTraversalService {
 
   private static final long ONE_MIN_MS = 1000 * 60;
   private static final long ONE_DAY_MS = ONE_MIN_MS * 60 * 24;
+  private static final String UNLOCODE_PATTERN_VIOLATION_MESSAGE =
+      "UN location code value must be five characters long, "
+          + "the first two must be alphabetic and "
+          + "the last three must be alphanumeric(excluding 0 and 1).";
   private final Random random = new Random();
   @Inject private GraphDao dao;
 
@@ -29,18 +34,16 @@ public class GraphTraversalService {
   @Path("/shortest-path")
   @Produces({"application/json", "application/xml; qs=.75"})
   public List<TransitPath> findShortestPath(
-      @NotBlank(message = "Missing origin UN location code.")
-          @Size(
-              min = 5,
-              max = 5,
-              message = "Origin UN location code value must be five characters long.")
+      @NotNull(message = "Missing origin UN location code.")
+          @Pattern(
+              regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}",
+              message = "Origin " + UNLOCODE_PATTERN_VIOLATION_MESSAGE)
           @QueryParam("origin")
           String originUnLocode,
-      @NotBlank(message = "Missing destination UN location code.")
-          @Size(
-              min = 5,
-              max = 5,
-              message = "Destination UN location code value must be five characters long.")
+      @NotNull(message = "Missing destination UN location code.")
+          @Pattern(
+              regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}",
+              message = "Destination " + UNLOCODE_PATTERN_VIOLATION_MESSAGE)
           @QueryParam("destination")
           String destinationUnLocode,
       // TODO [DDD] Apply regular expression validation.
