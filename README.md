@@ -1,7 +1,5 @@
 # Eclipse Cargo Tracker - Applied Domain-Driven Design Blueprints for Jakarta EE
 
-## Overview
-
 The project demonstrates how you can develop applications with Jakarta EE using widely adopted architectural best practices like Domain-Driven 
 Design (DDD). The project is directly based on the well known 
 original [Java DDD sample application](http://dddsample.sourceforge.net) 
