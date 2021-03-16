@@ -1,24 +1,24 @@
-# Contributing to Eclipse Cargotracker
+# Contributing to Eclipse Cargo Tracker
 
-Thanks for your interest in this project.
+Thanks for your interest in this project. Your feedback and contributions are most welcome.
 
 ## Project description
 
-Jakarta EE DDD Blueprints
+The project demonstrates how you can develop applications with Jakarta EE using widely adopted architectural best practices like Domain-Driven Design (DDD).
 
 * https://projects.eclipse.org/projects/ee4j.cargotracker
 
 ## Developer resources
 
-Information regarding source code management, builds, coding standards, and
-more.
+The project maintains the following source code repository:
 
-* https://projects.eclipse.org/projects/ee4j.cargotracker/developer
-
-The project maintains the following source code repositories
-
-* https://github.com/eclipse-ee4j/cargotracker.git
 * https://github.com/eclipse-ee4j/cargotracker
+
+## Development Standards/Style
+
+This project complies with the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). You can use the [google-java-format](https://github.com/google/google-java-format) tool to help you comply with the Google Java Style Guide. You can use the tool with most major IDEs such as Eclipse and IntelliJ.
+
+In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
 
 ## Eclipse Development Process
 
