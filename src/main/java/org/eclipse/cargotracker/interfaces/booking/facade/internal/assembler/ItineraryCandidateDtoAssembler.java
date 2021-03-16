@@ -3,6 +3,8 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -14,8 +16,10 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 
-// TODO [Clean Code] Could this be a CDI singleton?
+@ApplicationScoped
 public class ItineraryCandidateDtoAssembler {
+
+  @Inject private LocationDtoAssembler locationDtoAssembler;
 
   public RouteCandidate toDto(Itinerary itinerary) {
     List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs =
@@ -27,10 +31,8 @@ public class ItineraryCandidateDtoAssembler {
     VoyageNumber voyageNumber = leg.getVoyage().getVoyageNumber();
     return new org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg(
         voyageNumber.getIdString(),
-        leg.getLoadLocation().getUnLocode().getIdString(),
-        leg.getLoadLocation().getName(),
-        leg.getUnloadLocation().getUnLocode().getIdString(),
-        leg.getUnloadLocation().getName(),
+        locationDtoAssembler.toDto(leg.getLoadLocation()),
+        locationDtoAssembler.toDto(leg.getUnloadLocation()),
         leg.getLoadTime(),
         leg.getUnloadTime());
   }

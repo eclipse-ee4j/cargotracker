@@ -9,26 +9,20 @@ public class Leg implements Serializable {
 
   private static final long serialVersionUID = 1L;
   private final String voyageNumber;
-  private final String fromUnLocode;
-  private final String fromName;
-  private final String toUnLocode;
-  private final String toName;
+  private final Location from;
+  private final Location to;
   private final String loadTime;
   private final String unloadTime;
 
   public Leg(
       String voyageNumber,
-      String fromUnLocode,
-      String fromName,
-      String toUnLocode,
-      String toName,
+      Location from,
+      Location to,
       LocalDateTime loadTime,
       LocalDateTime unloadTime) {
     this.voyageNumber = voyageNumber;
-    this.fromUnLocode = fromUnLocode;
-    this.fromName = fromName;
-    this.toUnLocode = toUnLocode;
-    this.toName = toName;
+    this.from = from;
+    this.to = to;
     this.loadTime = DateConverter.toString(loadTime);
     this.unloadTime = DateConverter.toString(unloadTime);
   }
@@ -38,27 +32,27 @@ public class Leg implements Serializable {
   }
 
   public String getFrom() {
-    return fromName + " (" + fromUnLocode + ")";
+    return from.getName();
   }
 
   public String getFromUnLocode() {
-    return fromUnLocode;
+    return from.getUnLocode();
   }
 
   public String getFromName() {
-    return fromName;
+    return from.getNameOnly();
   }
 
   public String getTo() {
-    return toUnLocode + " (" + toName + ")";
+    return to.getName();
   }
 
   public String getToName() {
-    return toName;
+    return to.getNameOnly();
   }
 
   public String getToUnLocode() {
-    return toUnLocode;
+    return to.getUnLocode();
   }
 
   public String getLoadTime() {
@@ -75,9 +69,9 @@ public class Leg implements Serializable {
         + "voyageNumber="
         + voyageNumber
         + ", from="
-        + fromUnLocode
+        + from.getUnLocode()
         + ", to="
-        + toUnLocode
+        + to.getUnLocode()
         + ", loadTime="
         + loadTime
         + ", unloadTime="

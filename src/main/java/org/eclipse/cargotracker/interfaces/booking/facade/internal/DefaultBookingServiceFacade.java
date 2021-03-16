@@ -37,13 +37,16 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   @Inject private CargoRepository cargoRepository;
   @Inject private VoyageRepository voyageRepository;
   @Inject private HandlingEventRepository handlingEventRepository;
+  @Inject private CargoRouteDtoAssembler cargoRouteDtoAssembler;
+  @Inject private CargoStatusDtoAssembler cargoStatusDtoAssembler;
+  @Inject private ItineraryCandidateDtoAssembler itineraryCandidateDtoAssembler;
+  @Inject private LocationDtoAssembler locationDtoAssembler;
 
   @Override
   public List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Location>
       listShippingLocations() {
     List<Location> allLocations = locationRepository.findAll();
-    LocationDtoAssembler assembler = new LocationDtoAssembler();
-    return assembler.toDtoList(allLocations);
+    return locationDtoAssembler.toDtoList(allLocations);
   }
 
   @Override
@@ -57,15 +60,14 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   @Override
   public CargoRoute loadCargoForRouting(String trackingId) {
     Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
-    CargoRouteDtoAssembler assembler = new CargoRouteDtoAssembler();
-    return assembler.toDto(cargo);
+    return cargoRouteDtoAssembler.toDto(cargo);
   }
 
   @Override
   public void assignCargoToRoute(String trackingIdStr, RouteCandidate routeCandidateDTO) {
     Itinerary itinerary =
-        new ItineraryCandidateDtoAssembler()
-            .fromDTO(routeCandidateDTO, voyageRepository, locationRepository);
+        itineraryCandidateDtoAssembler.fromDTO(
+            routeCandidateDTO, voyageRepository, locationRepository);
     TrackingId trackingId = new TrackingId(trackingIdStr);
 
     bookingService.assignCargoToRoute(itinerary, trackingId);
@@ -87,9 +89,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     List<Cargo> cargos = cargoRepository.findAll();
     List<CargoRoute> routes;
 
-    CargoRouteDtoAssembler assembler = new CargoRouteDtoAssembler();
-
-    routes = cargos.stream().map(assembler::toDto).collect(Collectors.toList());
+    routes = cargos.stream().map(cargoRouteDtoAssembler::toDto).collect(Collectors.toList());
 
     return routes;
   }
@@ -113,14 +113,12 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
       return null;
     }
 
-    CargoStatusDtoAssembler assembler = new CargoStatusDtoAssembler();
-
     List<HandlingEvent> handlingEvents =
         handlingEventRepository
             .lookupHandlingHistoryOfCargo(trackingId)
             .getDistinctEventsByCompletionTime();
 
-    return assembler.toDto(cargo, handlingEvents);
+    return cargoStatusDtoAssembler.toDto(cargo, handlingEvents);
   }
 
   @Override
@@ -128,9 +126,11 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     List<Itinerary> itineraries =
         bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 
-    List<RouteCandidate> routeCandidates;
-    ItineraryCandidateDtoAssembler dtoAssembler = new ItineraryCandidateDtoAssembler();
-    routeCandidates = itineraries.stream().map(dtoAssembler::toDto).collect(Collectors.toList());
+    List<RouteCandidate> routeCandidates =
+        itineraries
+            .stream()
+            .map(itineraryCandidateDtoAssembler::toDto)
+            .collect(Collectors.toList());
 
     return routeCandidates;
   }

@@ -3,8 +3,10 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
+@ApplicationScoped
 public class LocationDtoAssembler {
 
   public org.eclipse.cargotracker.interfaces.booking.facade.dto.Location toDto(Location location) {

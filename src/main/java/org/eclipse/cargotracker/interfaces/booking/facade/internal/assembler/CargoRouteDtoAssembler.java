@@ -1,32 +1,27 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 
-// TODO [Clean Code] Convert to a singleton and inject?
+@ApplicationScoped
 public class CargoRouteDtoAssembler {
+
+  @Inject private LocationDtoAssembler locationDtoAssembler;
 
   public CargoRoute toDto(Cargo cargo) {
     CargoRoute dto =
         new CargoRoute(
             cargo.getTrackingId().getIdString(),
-            cargo.getOrigin().getName()
-                + " ("
-                + cargo.getOrigin().getUnLocode().getIdString()
-                + ")",
-            cargo.getRouteSpecification().getDestination().getName()
-                + " ("
-                + cargo.getRouteSpecification().getDestination().getUnLocode().getIdString()
-                + ")",
+            locationDtoAssembler.toDto(cargo.getOrigin()),
+            locationDtoAssembler.toDto(cargo.getRouteSpecification().getDestination()),
             cargo.getRouteSpecification().getArrivalDeadline(),
             cargo.getDelivery().getRoutingStatus().sameValueAs(RoutingStatus.MISROUTED),
             cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED),
-            cargo.getDelivery().getLastKnownLocation().getName()
-                + " ("
-                + cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString()
-                + ")",
+            locationDtoAssembler.toDto(cargo.getDelivery().getLastKnownLocation()),
             cargo.getDelivery().getTransportStatus().name());
 
     cargo
@@ -36,10 +31,8 @@ public class CargoRouteDtoAssembler {
             leg ->
                 dto.addLeg(
                     leg.getVoyage().getVoyageNumber().getIdString(),
-                    leg.getLoadLocation().getUnLocode().getIdString(),
-                    leg.getLoadLocation().getName(),
-                    leg.getUnloadLocation().getUnLocode().getIdString(),
-                    leg.getUnloadLocation().getName(),
+                    locationDtoAssembler.toDto(leg.getLoadLocation()),
+                    locationDtoAssembler.toDto(leg.getUnloadLocation()),
                     leg.getLoadTime(),
                     leg.getUnloadTime()));
 

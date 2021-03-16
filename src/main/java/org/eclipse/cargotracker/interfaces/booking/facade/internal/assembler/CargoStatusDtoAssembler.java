@@ -3,6 +3,8 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
@@ -11,13 +13,13 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 
-// TODO [Clean Code] Could this be a CDI singleton?
+@ApplicationScoped
 public class CargoStatusDtoAssembler {
+
+  @Inject private TrackingEventsDtoAssembler assembler;
 
   public CargoStatus toDto(Cargo cargo, List<HandlingEvent> handlingEvents) {
     List<TrackingEvents> trackingEvents;
-
-    TrackingEventsDtoAssembler assembler = new TrackingEventsDtoAssembler();
 
     trackingEvents =
         handlingEvents
