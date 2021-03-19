@@ -138,19 +138,13 @@
 
 <script type="text/javascript">
     window.onload = function init() {
-        var statusCode = getUrlParameter('statusCode');
-        var originCode = getUrlParameter('originCode');
-        var originName = getUrlParameter('originName');
-        var destinationCode = getUrlParameter('destinationCode');
-        var destinationName = getUrlParameter('destinationName');
-        var lastKnownLocationCode = getUrlParameter('lastKnownLocationCode');
-        var lastKnownLocationName = getUrlParameter('lastKnownLocationName');
+        var cargo = JSON.parse(getUrlParameter('cargo'));
 
         const originCoordinate = {
             position: {
-                lon: longitude[originCode]
+                lon: longitude[cargo.originCode]
                     + (Math.floor((Math.random() * 3) - 3)),
-                lat: latitude[originCode]
+                lat: latitude[cargo.originCode]
                     + (Math.floor((Math.random() * 3) - 3))
             },
             style: blackIcon
@@ -158,9 +152,9 @@
 
         const destinationCoordinate = {
             position: {
-                lon: longitude[destinationCode]
+                lon: longitude[cargo.destinationCode]
                     + (Math.floor((Math.random() * 3) - 3)),
-                lat: latitude[destinationCode]
+                lat: latitude[cargo.destinationCode]
                     + (Math.floor((Math.random() * 3) - 3))
             },
             style: blackIcon
@@ -168,12 +162,12 @@
 
         const lastKnownCoordinate = {
             position: {
-                lon: longitude[lastKnownLocationCode]
+                lon: longitude[cargo.lastKnownLocationCode]
                     + (Math.floor((Math.random() * 3) - 3)),
-                lat: latitude[lastKnownLocationCode]
+                lat: latitude[cargo.lastKnownLocationCode]
                     + (Math.floor((Math.random() * 3) - 3))
             },
-            style: colorCodes[statusCode]
+            style: colorCodes[cargo.statusCode]
         };
 
         const map = L.map('map').setView({
@@ -195,15 +189,15 @@
 
         L.marker(originCoordinate['position'], {
             icon: originCoordinate.style
-        }).bindTooltip('Origin: ' + originName).addTo(map);
+        }).bindTooltip('Origin: ' + cargo.originName).addTo(map);
 
         L.marker(destinationCoordinate['position'], {
             icon: destinationCoordinate.style
-        }).bindTooltip('Destination: ' + destinationName).addTo(map);
+        }).bindTooltip('Destination: ' + cargo.destinationName).addTo(map);
 
         L.marker(lastKnownCoordinate['position'], {
             icon: lastKnownCoordinate.style
-        }).bindTooltip('Last known location: ' + lastKnownLocationName)
+        }).bindTooltip('Last known location: ' + cargo.lastKnownLocationName)
             .addTo(map);
     }
 </script>
