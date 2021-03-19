@@ -46,7 +46,7 @@ public class EventLogger implements Serializable {
 
   private String trackingId;
   private String location;
-  private String eventType;
+  private HandlingEvent.Type eventType;
   private String voyageNumber;
   private LocalDateTime completionTime;
 
@@ -74,11 +74,11 @@ public class EventLogger implements Serializable {
     return locations;
   }
 
-  public String getEventType() {
+  public HandlingEvent.Type getEventType() {
     return eventType;
   }
 
-  public void setEventType(String eventType) {
+  public void setEventType(HandlingEvent.Type eventType) {
     this.eventType = eventType;
   }
 
@@ -166,9 +166,7 @@ public class EventLogger implements Serializable {
   }
 
   private boolean validate(final String step) {
-    if ("voyageTab".equals(step)
-        && ("LOAD".equals(eventType) || "UNLOAD".equals(eventType))
-        && voyageNumber == null) {
+    if ("voyageTab".equals(step) && eventType.requiresVoyage() && voyageNumber == null) {
       FacesMessage message =
           new FacesMessage(
               FacesMessage.SEVERITY_ERROR,
@@ -186,10 +184,8 @@ public class EventLogger implements Serializable {
 
     TrackingId trackingId = new TrackingId(this.trackingId);
     UnLocode location = new UnLocode(this.location);
-    HandlingEvent.Type type = HandlingEvent.Type.valueOf(eventType);
 
-    // Only Load & Unload could have a Voyage set
-    if ("LOAD".equals(eventType) || "UNLOAD".equals(eventType)) {
+    if (eventType.requiresVoyage()) {
       voyage = new VoyageNumber(voyageNumber);
     } else {
       voyage = null;
@@ -197,7 +193,7 @@ public class EventLogger implements Serializable {
 
     HandlingEventRegistrationAttempt attempt =
         new HandlingEventRegistrationAttempt(
-            LocalDateTime.now(), completionTime, trackingId, voyage, type, location);
+            LocalDateTime.now(), completionTime, trackingId, voyage, eventType, location);
 
     applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 
