@@ -2,8 +2,6 @@ package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
@@ -32,7 +30,8 @@ public class CargoRoute implements Serializable {
       boolean misrouted,
       boolean claimed,
       Location lastKnownLocation,
-      String transportStatus) {
+      String transportStatus,
+      List<Leg> legs) {
     this.trackingId = trackingId;
     this.origin = origin;
     this.finalDestination = finalDestination;
@@ -41,7 +40,7 @@ public class CargoRoute implements Serializable {
     this.claimed = claimed;
     this.lastKnownLocation = lastKnownLocation;
     this.transportStatus = transportStatus;
-    this.legs = new ArrayList<>();
+    this.legs = Collections.unmodifiableList(legs);
   }
 
   public String getTrackingId() {
@@ -72,18 +71,8 @@ public class CargoRoute implements Serializable {
     return finalDestination.getUnLocode();
   }
 
-  // TODO [Clean Code] See if this can be done in a more DDD friendly way.
-  public void addLeg(
-      String voyageNumber,
-      Location from,
-      Location to,
-      LocalDateTime loadTime,
-      LocalDateTime unloadTime) {
-    legs.add(new Leg(voyageNumber, from, to, loadTime, unloadTime));
-  }
-
   public List<Leg> getLegs() {
-    return Collections.unmodifiableList(legs);
+    return legs;
   }
 
   public boolean isMisrouted() {
