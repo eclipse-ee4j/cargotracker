@@ -43,7 +43,7 @@ public class LocationViewAdapter {
   }
 
   static {
-    // TODO See if there is a service to get the latitude/longitude data from.
+    // TODO [Clean Code] See if there is a service to get the latitude/longitude data from.
     coordinatesMap.put(HONGKONG, new Coordinates(22, 114));
     coordinatesMap.put(MELBOURNE, new Coordinates(-38, 145));
     coordinatesMap.put(STOCKHOLM, new Coordinates(59, 18));
