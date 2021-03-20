@@ -26,7 +26,7 @@ public class GraphTraversalService {
   private static final String UNLOCODE_PATTERN_VIOLATION_MESSAGE =
       "UN location code value must be five characters long, "
           + "the first two must be alphabetic and "
-          + "the last three must be alphanumeric(excluding 0 and 1).";
+          + "the last three must be alphanumeric (excluding 0 and 1).";
   private final Random random = new Random();
   @Inject private GraphDao dao;
 
