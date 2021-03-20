@@ -2,12 +2,9 @@ package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
-import org.eclipse.cargotracker.application.util.LocationUtil;
 
 /** DTO for registering and routing a cargo. */
 public class CargoRoute implements Serializable {
@@ -15,25 +12,26 @@ public class CargoRoute implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private final String trackingId;
-  private final String origin;
-  private final String finalDestination;
+  private final Location origin;
+  private final Location finalDestination;
   private final String arrivalDeadline;
   private final boolean misrouted;
   private final List<Leg> legs;
   private final boolean claimed;
-  private final String lastKnownLocation;
+  private final Location lastKnownLocation;
   private final String transportStatus;
   private String nextLocation;
 
   public CargoRoute(
       String trackingId,
-      String origin,
-      String finalDestination,
+      Location origin,
+      Location finalDestination,
       LocalDate arrivalDeadline,
       boolean misrouted,
       boolean claimed,
-      String lastKnownLocation,
-      String transportStatus) {
+      Location lastKnownLocation,
+      String transportStatus,
+      List<Leg> legs) {
     this.trackingId = trackingId;
     this.origin = origin;
     this.finalDestination = finalDestination;
@@ -42,7 +40,7 @@ public class CargoRoute implements Serializable {
     this.claimed = claimed;
     this.lastKnownLocation = lastKnownLocation;
     this.transportStatus = transportStatus;
-    this.legs = new ArrayList<>();
+    this.legs = Collections.unmodifiableList(legs);
   }
 
   public String getTrackingId() {
@@ -50,48 +48,31 @@ public class CargoRoute implements Serializable {
   }
 
   public String getOrigin() {
-    return origin;
+    return origin.getName();
   }
 
   public String getOriginName() {
-    // TODO [Clean Code] See if this can be done in a more DDD friendly way.
-    return LocationUtil.getLocationName(origin);
+    return origin.getNameOnly();
   }
 
   public String getOriginCode() {
-    // TODO [Clean Code] See if this can be done in a more DDD friendly way.
-    return LocationUtil.getLocationCode(origin);
+    return origin.getUnLocode();
   }
 
   public String getFinalDestination() {
-    return finalDestination;
+    return finalDestination.getName();
   }
 
   public String getFinalDestinationName() {
-    // TODO [Clean Code] See if this can be done in a more DDD friendly way.
-    return LocationUtil.getLocationName(finalDestination);
+    return finalDestination.getNameOnly();
   }
 
   public String getFinalDestinationCode() {
-    // TODO [Clean Code] See if this can be done in a more DDD friendly way.
-    return LocationUtil.getLocationCode(finalDestination);
-  }
-
-  // TODO [Clean Code] See if this can be done in a more DDD friendly way.
-  public void addLeg(
-      String voyageNumber,
-      String fromUnLocode,
-      String fromName,
-      String toUnLocode,
-      String toName,
-      LocalDateTime loadTime,
-      LocalDateTime unloadTime) {
-    legs.add(
-        new Leg(voyageNumber, fromUnLocode, fromName, toUnLocode, toName, loadTime, unloadTime));
+    return finalDestination.getUnLocode();
   }
 
   public List<Leg> getLegs() {
-    return Collections.unmodifiableList(legs);
+    return legs;
   }
 
   public boolean isMisrouted() {
@@ -111,15 +92,15 @@ public class CargoRoute implements Serializable {
   }
 
   public String getLastKnownLocation() {
-    return this.lastKnownLocation;
+    return lastKnownLocation.getName();
   }
 
   public String getLastKnownLocationName() {
-    return LocationUtil.getLocationName(lastKnownLocation);
+    return lastKnownLocation.getNameOnly();
   }
 
   public String getLastKnownLocationCode() {
-    return LocationUtil.getLocationCode(lastKnownLocation);
+    return lastKnownLocation.getUnLocode();
   }
 
   public String getTransportStatus() {

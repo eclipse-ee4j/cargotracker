@@ -1,11 +1,13 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
+import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 
+@ApplicationScoped
 public class TrackingEventsDtoAssembler {
 
   public TrackingEvents toDto(Cargo cargo, HandlingEvent handlingEvent) {
