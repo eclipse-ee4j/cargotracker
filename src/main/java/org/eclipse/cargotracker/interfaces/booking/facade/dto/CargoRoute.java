@@ -48,11 +48,11 @@ public class CargoRoute implements Serializable {
   }
 
   public String getOrigin() {
-    return origin.getName();
+    return origin.toString();
   }
 
   public String getOriginName() {
-    return origin.getNameOnly();
+    return origin.getName();
   }
 
   public String getOriginCode() {
@@ -60,11 +60,11 @@ public class CargoRoute implements Serializable {
   }
 
   public String getFinalDestination() {
-    return finalDestination.getName();
+    return finalDestination.toString();
   }
 
   public String getFinalDestinationName() {
-    return finalDestination.getNameOnly();
+    return finalDestination.getName();
   }
 
   public String getFinalDestinationCode() {
@@ -92,11 +92,11 @@ public class CargoRoute implements Serializable {
   }
 
   public String getLastKnownLocation() {
-    return lastKnownLocation.getName();
+    return lastKnownLocation.toString();
   }
 
   public String getLastKnownLocationName() {
-    return lastKnownLocation.getNameOnly();
+    return lastKnownLocation.getName();
   }
 
   public String getLastKnownLocationCode() {

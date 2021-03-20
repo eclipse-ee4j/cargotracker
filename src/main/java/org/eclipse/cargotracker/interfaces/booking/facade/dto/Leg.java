@@ -32,7 +32,7 @@ public class Leg implements Serializable {
   }
 
   public String getFrom() {
-    return from.getName();
+    return from.toString();
   }
 
   public String getFromUnLocode() {
@@ -40,15 +40,15 @@ public class Leg implements Serializable {
   }
 
   public String getFromName() {
-    return from.getNameOnly();
+    return from.getName();
   }
 
   public String getTo() {
-    return to.getName();
+    return to.toString();
   }
 
   public String getToName() {
-    return to.getNameOnly();
+    return to.getName();
   }
 
   public String getToUnLocode() {

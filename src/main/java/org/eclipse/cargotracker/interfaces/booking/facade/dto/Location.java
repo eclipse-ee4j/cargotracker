@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class Location implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
   private String unLocode;
   private String name;
 
@@ -19,10 +20,11 @@ public class Location implements Serializable {
   }
 
   public String getName() {
-    return name + " (" + unLocode + ")";
+    return name;
   }
 
-  public String getNameOnly() {
-    return name;
+  @Override
+  public String toString() {
+    return name + " (" + unLocode + ")";
   }
 }
