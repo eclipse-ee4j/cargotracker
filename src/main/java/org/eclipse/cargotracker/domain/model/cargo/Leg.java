@@ -2,6 +2,7 @@ package org.eclipse.cargotracker.domain.model.cargo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,8 +62,12 @@ public class Leg implements Serializable {
     this.voyage = voyage;
     this.loadLocation = loadLocation;
     this.unloadLocation = unloadLocation;
-    this.loadTime = loadTime;
-    this.unloadTime = unloadTime;
+    // Hibernate issue:
+    // when the `LocalDateTime` field is persisted into db, and retrieved from db, the values
+    // are different in nanoseconds.
+    // any good idea to overcome this?
+    this.loadTime = loadTime.truncatedTo(ChronoUnit.SECONDS);
+    this.unloadTime = unloadTime.truncatedTo(ChronoUnit.SECONDS);
   }
 
   public Voyage getVoyage() {
@@ -101,7 +106,7 @@ public class Leg implements Serializable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (o == null || !(o instanceof Leg)) {
       return false;
     }
 

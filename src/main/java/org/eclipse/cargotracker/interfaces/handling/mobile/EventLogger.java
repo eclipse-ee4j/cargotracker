@@ -1,17 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.mobile;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.Transactional;
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
@@ -27,6 +15,20 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 import org.primefaces.event.FlowEvent;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.transaction.Transactional.TxType.REQUIRED;
 
 @Named
 @ViewScoped
@@ -110,16 +112,14 @@ public class EventLogger implements Serializable {
     return DateConverter.DATE_TIME_FORMAT;
   }
 
-  @PostConstruct
-  @Transactional
+  @Transactional(REQUIRED)
   public void init() {
     List<Cargo> cargos = cargoRepository.findAll();
 
     trackingIds = new ArrayList<>(cargos.size());
 
     // List only routed cargo that is not claimed yet.
-    cargos
-        .stream()
+    cargos.stream()
         .filter(
             cargo ->
                 !cargo.getItinerary().getLegs().isEmpty()

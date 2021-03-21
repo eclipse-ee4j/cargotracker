@@ -23,9 +23,9 @@ The simplest steps are the following (no IDE required):
 
 * Get the project source code.
 * Ensure you are running Java SE 8 or Java SE 11.
-* Make sure JAVA_HOME is set.
+* Make sure `JAVA_HOME` is set.
 * As long as you have Maven set up properly, navigate to the project source root and 
-  type: `mvn clean package cargo:run`
+  type: `mvn clean package cargo:run` to run it on Payara or type `mvn clean wildfly:run -Pwildfly` to run on WildFly instead.
 * Go to http://localhost:8080/cargo-tracker
 
 To set up in Eclipse, follow these steps:
@@ -116,7 +116,7 @@ Cargo Tracker's testing is done using JUnit and Arquillian. The Arquillian confi
 uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 5). Therefore, to perform a test you will need to make sure
 to have a container running. 
 
-## Testing Locally with Payara
+### Testing Locally with Payara
 For testing locally you will first need to run a Payara 5 server.
 
 You can do that with the following script:
@@ -129,6 +129,23 @@ unzip payara-5.2021.1.zip && cd payara5/bin
 Now for running the tests: 
 ```shell script
 mvn clean verify -DskipTests=false
+```
+
+### Testing Locally with WildFly
+
+Getting the latest WildFly from https://www.wildfly.org.
+
+You can do that with the following script:
+```shell script
+wget https://download.jboss.org/wildfly/23.0.0.Final/wildfly-23.0.0.Final.zip
+unzip wildfly-23.0.0.Final.zip && cd wildfly-23.0.0.Final/bin
+./standalone -c standalone-full.xml
+```
+Follow the [WildFly Admin Guide](https://docs.wildfly.org/23/Admin_Guide.html#add-user-utility) to add a new admin user(`admin/admin@123`).
+
+Now for running the tests against WildLFy:
+```shell script
+mvn clean verify -Pwildfly -DskipTests=false
 ```
 
 ## Java EE 7

@@ -16,4 +16,15 @@
             <property name="adminPassword"></property>
         </configuration>
     </container>
+
+    <!-- Configuration to be used when the `wildfly` profile is active -->
+    <container qualifier="wildfly">
+        <configuration>
+            <property name="managementAddress">127.0.0.1</property>
+            <property name="managementPort">9990</property>
+            <property name="protocol">http-remoting</property>
+            <property name="username">admin</property>
+            <property name="password">admin@123</property>
+        </configuration>
+    </container>
 </arquillian>

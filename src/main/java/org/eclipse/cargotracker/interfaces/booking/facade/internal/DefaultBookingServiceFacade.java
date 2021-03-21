@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -28,6 +30,7 @@ import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.Iti
 import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.LocationDtoAssembler;
 
 @ApplicationScoped
+@Transactional
 public class DefaultBookingServiceFacade implements BookingServiceFacade, Serializable {
 
   private static final long serialVersionUID = 1L;

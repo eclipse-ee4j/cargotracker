@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 
     <!-- Overriding system level defaults is a decent usage of XML. -->
     <context-param>
@@ -77,31 +77,32 @@
     <jms-destination>
         <name>java:app/jms/CargoHandledQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
+        <!-- remove resource-adapter property, Payara and WildFly will select the built-in one for it -->
+        <!--        <resource-adapter>jmsra</resource-adapter>-->
         <destination-name>CargoHandledQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/MisdirectedCargoQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
+        <!--        <resource-adapter>jmsra</resource-adapter>-->
         <destination-name>MisdirectedCargoQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/DeliveredCargoQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
+        <!--        <resource-adapter>jmsra</resource-adapter>-->
         <destination-name>DeliveredCargoQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
+        <!--        <resource-adapter>jmsra</resource-adapter>-->
         <destination-name>RejectedRegistrationAttemptsQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
         <interface-name>javax.jms.Queue</interface-name>
-        <resource-adapter>jmsra</resource-adapter>
+        <!--        <resource-adapter>jmsra</resource-adapter>-->
         <destination-name>HandlingEventRegistrationAttemptQueue</destination-name>
     </jms-destination>
 </web-app>

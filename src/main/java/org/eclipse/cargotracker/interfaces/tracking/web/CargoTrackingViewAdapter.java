@@ -156,8 +156,12 @@ public class CargoTrackingViewAdapter {
 
     private final HandlingEvent handlingEvent;
 
+    private boolean expected;
+
     public HandlingEventViewAdapter(HandlingEvent handlingEvent) {
       this.handlingEvent = handlingEvent;
+      // move this executed before rendering the view.
+      this.expected = cargo.getItinerary().isExpected(handlingEvent);
     }
 
     public String getTime() {
@@ -165,7 +169,9 @@ public class CargoTrackingViewAdapter {
     }
 
     public boolean isExpected() {
-      return cargo.getItinerary().isExpected(handlingEvent);
+      // This will cause Hibernate lazy initialization exception thrown in WildFly.
+      // return cargo.getItinerary().isExpected(handlingEvent);
+      return this.expected;
     }
 
     public String getDescription() {

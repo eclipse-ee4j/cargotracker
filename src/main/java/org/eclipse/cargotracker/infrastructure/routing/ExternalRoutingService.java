@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -44,7 +45,16 @@ public class ExternalRoutingService implements RoutingService {
 
   @PostConstruct
   public void init() {
-    graphTraversalResource = ClientBuilder.newClient().target(graphTraversalUrl);
+    Client jaxrsClient = ClientBuilder.newClient();
+    try {
+      Class<?> clazz =
+          Class.forName(
+              "org.eclipse.cargotracker.infrastructure.routing.client.JacksonObjectMapperContextResolver");
+      jaxrsClient.register(clazz);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    graphTraversalResource = jaxrsClient.target(graphTraversalUrl);
   }
 
   @Override
@@ -64,8 +74,7 @@ public class ExternalRoutingService implements RoutingService {
     List<Itinerary> itineraries = new ArrayList<>();
 
     // Use the specification to safe-guard against invalid itineraries
-    transitPaths
-        .stream()
+    transitPaths.stream()
         .map(this::toItinerary)
         .forEach(
             itinerary -> {
