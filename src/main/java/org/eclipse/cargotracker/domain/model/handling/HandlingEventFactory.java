@@ -18,6 +18,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 public class HandlingEventFactory implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
   @Inject private CargoRepository cargoRepository;
   @Inject private VoyageRepository voyageRepository;
   @Inject private LocationRepository locationRepository;

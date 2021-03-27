@@ -1,4 +1,4 @@
-package org.eclipse.cargotracker.interfaces.internal;
+package org.eclipse.cargotracker.interfaces;
 
 import static org.eclipse.cargotracker.domain.model.location.Location.UNKNOWN;
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.CHICAGO;
@@ -14,25 +14,30 @@ import static org.eclipse.cargotracker.domain.model.location.SampleLocations.ROT
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.SHANGHAI;
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.STOCKHOLM;
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.TOKYO;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 
-public class CoordinatesFinder {
+/**
+ * At the moment, coordinates are produced by a simple factory. It may be converted to a repository
+ * if coordinates become a domain layer concern.
+ */
+public class CoordinatesFactory {
 
   private static final Map<String, Coordinates> COORDINATES_MAP;
 
-  private CoordinatesFinder() {}
+  private CoordinatesFactory() {
+    /* Prevent instantiation. */
+  }
 
   public static Coordinates find(Location location) {
-    return COORDINATES_MAP.get(location.getUnLocode().getIdString());
+    return find(location.getUnLocode());
   }
 
   public static Coordinates find(UnLocode unLocode) {
-    return COORDINATES_MAP.get(unLocode.getIdString());
+    return find(unLocode.getIdString());
   }
 
   public static Coordinates find(String unLocode) {
@@ -59,24 +64,5 @@ public class CoordinatesFinder {
     map.put(UNKNOWN.getUnLocode().getIdString(), new Coordinates(-90, 0)); // The South Pole.
 
     COORDINATES_MAP = Collections.unmodifiableMap(map);
-  }
-
-  public static class Coordinates {
-
-    private final double latitude;
-    private final double longitude;
-
-    public Coordinates(double latitude, double longitude) {
-      this.latitude = latitude;
-      this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-      return latitude;
-    }
-
-    public double getLongitude() {
-      return longitude;
-    }
   }
 }

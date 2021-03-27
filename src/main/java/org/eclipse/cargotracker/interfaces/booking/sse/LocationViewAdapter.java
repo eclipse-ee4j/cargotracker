@@ -1,9 +1,10 @@
 package org.eclipse.cargotracker.interfaces.booking.sse;
 
 import org.eclipse.cargotracker.domain.model.location.Location;
-import org.eclipse.cargotracker.interfaces.internal.CoordinatesFinder;
+import org.eclipse.cargotracker.interfaces.Coordinates;
+import org.eclipse.cargotracker.interfaces.CoordinatesFactory;
 
-/** View adapter for displaying a location in a realtime tracking context. */
+/** View adapter for displaying a location in a real-time tracking context. */
 public class LocationViewAdapter {
 
   private final Location location;
@@ -20,7 +21,7 @@ public class LocationViewAdapter {
     return location.getName();
   }
 
-  public CoordinatesFinder.Coordinates getCoordinates() {
-    return CoordinatesFinder.find(location);
+  public Coordinates getCoordinates() {
+    return CoordinatesFactory.find(location);
   }
 }

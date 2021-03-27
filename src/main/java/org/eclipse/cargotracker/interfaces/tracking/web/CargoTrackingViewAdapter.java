@@ -9,8 +9,8 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
 import org.eclipse.cargotracker.domain.model.cargo.HandlingActivity;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
-import org.eclipse.cargotracker.interfaces.internal.CoordinatesFinder;
-import org.eclipse.cargotracker.interfaces.internal.CoordinatesFinder.Coordinates;
+import org.eclipse.cargotracker.interfaces.Coordinates;
+import org.eclipse.cargotracker.interfaces.CoordinatesFactory;
 
 /** View adapter for displaying a cargo in a tracking context. */
 public class CargoTrackingViewAdapter {
@@ -38,7 +38,7 @@ public class CargoTrackingViewAdapter {
   }
 
   public Coordinates getOriginCoordinates() {
-    return CoordinatesFinder.find(cargo.getRouteSpecification().getOrigin());
+    return CoordinatesFactory.find(cargo.getRouteSpecification().getOrigin());
   }
 
   public String getDestinationName() {
@@ -50,7 +50,7 @@ public class CargoTrackingViewAdapter {
   }
 
   public Coordinates getDestinationCoordinates() {
-    return CoordinatesFinder.find(cargo.getRouteSpecification().getDestination());
+    return CoordinatesFactory.find(cargo.getRouteSpecification().getDestination());
   }
 
   public String getLastKnownLocationName() {
@@ -64,7 +64,7 @@ public class CargoTrackingViewAdapter {
   }
 
   public Coordinates getLastKnownLocationCoordinates() {
-    return CoordinatesFinder.find(cargo.getDelivery().getLastKnownLocation());
+    return CoordinatesFactory.find(cargo.getDelivery().getLastKnownLocation());
   }
 
   public String getStatusCode() {

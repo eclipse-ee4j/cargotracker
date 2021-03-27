@@ -1,15 +1,15 @@
 package org.eclipse.cargotracker.interfaces.tracking.web;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -34,7 +34,7 @@ public class Track implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private static final Jsonb JSONB = JsonbBuilder.create();
+  @Inject private Logger logger;
 
   @Inject private CargoRepository cargoRepository;
   @Inject private HandlingEventRepository handlingEventRepository;
@@ -58,11 +58,12 @@ public class Track implements Serializable {
     return cargo;
   }
 
-  public String getCargoForURLSearchParameterValue() {
+  public String getCargoAsJson() {
     try {
-      return URLEncoder.encode(JSONB.toJson(cargo), UTF_8.name());
+      return URLEncoder.encode(JsonbBuilder.create().toJson(cargo), UTF_8.name());
     } catch (UnsupportedEncodingException ex) {
-      return null; // never happens.
+      logger.log(Level.WARNING, "URL encoding error.", ex);
+      return ""; // Should never happen.
     }
   }
 
