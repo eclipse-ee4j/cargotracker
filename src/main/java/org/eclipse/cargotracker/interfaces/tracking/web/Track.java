@@ -1,6 +1,7 @@
 package org.eclipse.cargotracker.interfaces.tracking.web;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
