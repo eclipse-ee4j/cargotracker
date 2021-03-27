@@ -14,6 +14,7 @@ import static org.eclipse.cargotracker.domain.model.location.SampleLocations.ROT
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.SHANGHAI;
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.STOCKHOLM;
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.TOKYO;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
