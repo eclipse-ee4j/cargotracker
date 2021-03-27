@@ -30,42 +30,6 @@
         //]]>
     </script>
     <script type="text/javascript">
-        // TODO See if there is a service to get the latitude/longitude
-        // data from.
-        const latitude = {
-            "XXXXX": 38.4667,
-            "CNHKG": 22,
-            "AUMEL": -38,
-            "SESTO": 59,
-            "FIHEL": 60,
-            "USCHI": 42,
-            "JNTKO": 36,
-            "DEHAM": 54,
-            "CNSHA": 31,
-            "NLRTM": 52,
-            "SEGOT": 58,
-            "CNHGH": 30,
-            "USNYC": 41,
-            "USDAL": 33
-        };
-
-        const longitude = {
-            "XXXXX": -28.4,
-            "CNHKG": 114,
-            "AUMEL": 145,
-            "SESTO": 18,
-            "FIHEL": 25,
-            "USCHI": -88,
-            "JNTKO": 140,
-            "DEHAM": 10,
-            "CNSHA": 121,
-            "NLRTM": 5,
-            "SEGOT": 12,
-            "CNHGH": 120,
-            "USNYC": -74,
-            "USDAL": -97
-        };
-
         //  load the icons for the map
         const greenIcon = new L.Icon(
             {
@@ -138,19 +102,13 @@
 
 <script type="text/javascript">
     window.onload = function init() {
-        var statusCode = getUrlParameter('statusCode');
-        var originCode = getUrlParameter('originCode');
-        var originName = getUrlParameter('originName');
-        var destinationCode = getUrlParameter('destinationCode');
-        var destinationName = getUrlParameter('destinationName');
-        var lastKnownLocationCode = getUrlParameter('lastKnownLocationCode');
-        var lastKnownLocationName = getUrlParameter('lastKnownLocationName');
+        var cargo = JSON.parse(getUrlParameter('cargo'));
 
         const originCoordinate = {
             position: {
-                lon: longitude[originCode]
+                lon: cargo.originCoordinates.longitude
                     + (Math.floor((Math.random() * 3) - 3)),
-                lat: latitude[originCode]
+                lat: cargo.originCoordinates.latitude
                     + (Math.floor((Math.random() * 3) - 3))
             },
             style: blackIcon
@@ -158,9 +116,9 @@
 
         const destinationCoordinate = {
             position: {
-                lon: longitude[destinationCode]
+                lon: cargo.destinationCoordinates.longitude
                     + (Math.floor((Math.random() * 3) - 3)),
-                lat: latitude[destinationCode]
+                lat: cargo.destinationCoordinates.latitude
                     + (Math.floor((Math.random() * 3) - 3))
             },
             style: blackIcon
@@ -168,12 +126,12 @@
 
         const lastKnownCoordinate = {
             position: {
-                lon: longitude[lastKnownLocationCode]
+                lon: cargo.lastKnownLocationCoordinates.longitude
                     + (Math.floor((Math.random() * 3) - 3)),
-                lat: latitude[lastKnownLocationCode]
+                lat: cargo.lastKnownLocationCoordinates.latitude
                     + (Math.floor((Math.random() * 3) - 3))
             },
-            style: colorCodes[statusCode]
+            style: colorCodes[cargo.statusCode]
         };
 
         const map = L.map('map').setView({
@@ -195,15 +153,15 @@
 
         L.marker(originCoordinate['position'], {
             icon: originCoordinate.style
-        }).bindTooltip('Origin: ' + originName).addTo(map);
+        }).bindTooltip('Origin: ' + cargo.originName).addTo(map);
 
         L.marker(destinationCoordinate['position'], {
             icon: destinationCoordinate.style
-        }).bindTooltip('Destination: ' + destinationName).addTo(map);
+        }).bindTooltip('Destination: ' + cargo.destinationName).addTo(map);
 
         L.marker(lastKnownCoordinate['position'], {
             icon: lastKnownCoordinate.style
-        }).bindTooltip('Last known location: ' + lastKnownLocationName)
+        }).bindTooltip('Last known location: ' + cargo.lastKnownLocationName)
             .addTo(map);
     }
 </script>
