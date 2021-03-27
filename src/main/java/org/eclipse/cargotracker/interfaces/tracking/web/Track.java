@@ -34,7 +34,7 @@ public class Track implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Inject private Logger logger;
+  @Inject private transient Logger logger;
 
   @Inject private CargoRepository cargoRepository;
   @Inject private HandlingEventRepository handlingEventRepository;
