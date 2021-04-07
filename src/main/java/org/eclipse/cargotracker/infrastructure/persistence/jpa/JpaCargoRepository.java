@@ -46,6 +46,24 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
   }
 
   @Override
+  public Cargo findByTrackingIdWithItineraryLegs(TrackingId trackingId) {
+    Cargo cargo;
+
+    try {
+      cargo =
+              entityManager
+                      .createNamedQuery("Cargo.findByTrackingIdWithItineraryLegs", Cargo.class)
+                      .setParameter("trackingId", trackingId)
+                      .getSingleResult();
+    } catch (NoResultException e) {
+      logger.log(Level.FINE, "Find called on non-existant tracking ID.", e);
+      cargo = null;
+    }
+
+    return cargo;
+  }
+
+  @Override
   public void store(Cargo cargo) {
     // TODO [Clean Code] See why cascade is not working correctly for legs.
     cargo.getItinerary().getLegs().forEach(leg -> entityManager.persist(leg));

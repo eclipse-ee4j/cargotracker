@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.Transactional;
+import javax.json.bind.JsonbBuilder;
 
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -19,7 +19,6 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 
-import static javax.transaction.Transactional.TxType.*;
 
 /**
  * Backing bean for tracking cargo. This interface sits immediately on top of the domain layer,
@@ -62,9 +61,17 @@ public class Track implements Serializable {
     return cargo;
   }
 
-  @Transactional(REQUIRED)
+  public String getCargoAsJson() {
+    try {
+      return URLEncoder.encode(JsonbBuilder.create().toJson(cargo), UTF_8.name());
+    } catch (UnsupportedEncodingException ex) {
+      logger.log(Level.WARNING, "URL encoding error.", ex);
+      return ""; // Should never happen.
+    }
+  }
+
   public void onTrackById() {
-    Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
+    Cargo cargo = cargoRepository.findByTrackingIdWithItineraryLegs(new TrackingId(trackingId));
 
     if (cargo != null) {
       List<HandlingEvent> handlingEvents =
