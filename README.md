@@ -33,8 +33,7 @@ To set up in Eclipse, follow these steps:
 * Set up Java SE 8 or Java SE 11, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as 
-  Maven downloads dependencies), simply run it via Payara 5.
+* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
 
 ## Exploring the Application
 
