@@ -51,7 +51,7 @@
 							requiredMessage="Event type missing" required="true">
 							<f:selectItem itemLabel="Event Type" itemValue=""
 								noSelectionOption="true" />
-							<f:selectItems value="#{labels.handlingEventType}" />
+							<f:selectItems value="#{eventLogger.eventTypes}" />
 						</p:selectOneMenu>
 					</h:panelGrid>
 				</p:panel>

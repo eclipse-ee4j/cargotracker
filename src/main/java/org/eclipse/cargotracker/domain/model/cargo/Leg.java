@@ -62,10 +62,8 @@ public class Leg implements Serializable {
     this.voyage = voyage;
     this.loadLocation = loadLocation;
     this.unloadLocation = unloadLocation;
-    // Hibernate issue:
-    // when the `LocalDateTime` field is persisted into db, and retrieved from db, the values
-    // are different in nanoseconds.
-    // any good idea to overcome this?
+    // This is a workaround to a Hibernate issue: when the `LocalDateTime` field is persisted into
+    // the DB, and retrieved from the DB, the values are different by nanoseconds.
     this.loadTime = loadTime.truncatedTo(ChronoUnit.SECONDS);
     this.unloadTime = unloadTime.truncatedTo(ChronoUnit.SECONDS);
   }
