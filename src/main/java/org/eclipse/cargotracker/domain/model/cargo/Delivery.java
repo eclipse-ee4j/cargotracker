@@ -349,7 +349,7 @@ public class Delivery implements Serializable {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (o == null || !(o instanceof Delivery)) {
       return false;
     }
 

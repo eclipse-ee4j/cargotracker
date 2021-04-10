@@ -51,7 +51,7 @@ public class UnLocode implements Serializable {
       return true;
     }
 
-    if (o == null || getClass() != o.getClass()) {
+    if (o == null || !(o instanceof UnLocode)) {
       return false;
     }
 
