@@ -96,7 +96,7 @@ public class HandlingActivity implements Serializable {
     if (obj == null) {
       return false;
     }
-    if (obj.getClass() != this.getClass()) {
+    if (!(obj instanceof HandlingActivity)) {
       return false;
     }
 
