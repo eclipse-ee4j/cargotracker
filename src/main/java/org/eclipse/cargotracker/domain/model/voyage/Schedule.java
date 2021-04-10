@@ -3,7 +3,6 @@ package org.eclipse.cargotracker.domain.model.voyage;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -11,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
