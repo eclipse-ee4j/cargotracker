@@ -13,7 +13,7 @@
 </h:head>
 <h:body>
 	<h:form>
-		<p:growl id="growl" sticky="true" showDetail="true" />
+		<p:growl id="growl" showDetail="true" life="1000"/>
 		<p:wizard flowListener="#{eventLogger.onFlowProcess}"
 			onnext="hideBackButton()" widgetVar="eventLogger">
 
