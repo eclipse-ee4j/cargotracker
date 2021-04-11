@@ -14,7 +14,6 @@ import javax.ejb.TransactionManagementType;
  * <p>Files that fail to parse are moved into a separate directory, successful files are deleted.
  */
 @Stateless
-// TODO [Jakarta EE 8] Review if transaction handling is correct.
 @TransactionManagement(TransactionManagementType.BEAN) // Batch steps manage their own transactions.
 public class UploadDirectoryScanner {
 
