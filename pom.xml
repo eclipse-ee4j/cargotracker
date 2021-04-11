@@ -40,8 +40,6 @@
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.18.1</assertj.version>
 
-        <skipTests>true</skipTests>
-
         <!-- Application properties -->
         <webapp.graphTraversalUrl>
             http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
@@ -191,7 +189,7 @@
                     <version>2.33</version>
                     <scope>provided</scope>
                 </dependency>
-               <!-- Embedding the JDBC driver in the WAR works in Payara -->
+                <!-- Embedding the JDBC driver in the WAR works in Payara -->
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
@@ -200,8 +198,14 @@
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-remote</artifactId>
-                    <version>2.3.1</version>
+                    <artifactId>arquillian-payara-server-embedded</artifactId>
+                    <version>2.4.1</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>fish.payara.extras</groupId>
+                    <artifactId>payara-embedded-all</artifactId>
+                    <version>5.2021.2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

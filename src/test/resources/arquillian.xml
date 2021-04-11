@@ -11,9 +11,7 @@
 
     <container qualifier="payara" default="true">
         <configuration>
-            <!-- <property name="outputToConsole">true</property> -->
-            <property name="adminUser">admin</property>
-            <property name="adminPassword"></property>
+            <property name="bindHttpPort">8181</property>
         </configuration>
     </container>
 </arquillian>
