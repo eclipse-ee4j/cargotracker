@@ -11,7 +11,10 @@
 
     <container qualifier="payara" default="true">
         <configuration>
-            <property name="bindHttpPort">8181</property>
+            <property name="microJar">${PAYARA_MICRO_JAR}</property>
+            <property name="randomHttpPort">false</property>
+            <property name="autoBindHttp">false</property>
+            <property name="extraMicroOptions">--port 8181 --contextroot cargo-tracker-test</property>
         </configuration>
     </container>
 </arquillian>
