@@ -23,7 +23,7 @@
         <system>github</system>
         <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
     </issueManagement>
-
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
@@ -39,6 +39,8 @@
         <junit.version>4.13.1</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.18.1</assertj.version>
+        
+        <skipTests>true</skipTests>
 
         <!-- Application properties -->
         <webapp.graphTraversalUrl>
