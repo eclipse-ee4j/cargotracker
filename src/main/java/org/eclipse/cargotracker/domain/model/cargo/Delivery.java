@@ -95,10 +95,7 @@ public class Delivery implements Serializable {
     this.transportStatus = calculateTransportStatus();
     this.lastKnownLocation = calculateLastKnownLocation();
     this.currentVoyage = calculateCurrentVoyage();
-
-    // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
-    // the DB, and retrieved from the DB, the values are different by nanoseconds.
-    this.eta = calculateEta(itinerary).truncatedTo(ChronoUnit.SECONDS);
+    this.eta = calculateEta(itinerary);
     this.nextExpectedActivity = calculateNextExpectedActivity(routeSpecification, itinerary);
     this.isUnloadedAtDestination = calculateUnloadedAtDestination(routeSpecification);
   }
@@ -256,7 +253,9 @@ public class Delivery implements Serializable {
 
   private LocalDateTime calculateEta(Itinerary itinerary) {
     if (onTrack()) {
-      return itinerary.getFinalArrivalDate();
+      // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
+      // the DB, and retrieved from the DB, the values are different by nanoseconds.
+      return itinerary.getFinalArrivalDate().truncatedTo(ChronoUnit.SECONDS);
     } else {
       return ETA_UNKOWN;
     }
