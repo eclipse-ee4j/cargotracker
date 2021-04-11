@@ -59,13 +59,13 @@ public class HandlingHistory {
     if (this == o) {
       return true;
     }
-    
+
     if (o == null || !(o instanceof HandlingHistory)) {
       return false;
     }
 
     HandlingHistory other = (HandlingHistory) o;
-    
+
     return sameValueAs(other);
   }
 

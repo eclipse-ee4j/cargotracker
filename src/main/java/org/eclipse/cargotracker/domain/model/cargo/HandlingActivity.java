@@ -93,11 +93,11 @@ public class HandlingActivity implements Serializable {
     if (obj == this) {
       return true;
     }
-    
+
     if (obj == null) {
       return false;
     }
-    
+
     if (!(obj instanceof HandlingActivity)) {
       return false;
     }

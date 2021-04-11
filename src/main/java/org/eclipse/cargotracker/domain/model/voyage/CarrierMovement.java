@@ -3,7 +3,6 @@ package org.eclipse.cargotracker.domain.model.voyage;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -89,7 +88,7 @@ public class CarrierMovement implements Serializable {
     if (this == o) {
       return true;
     }
-    
+
     if (o == null || !(o instanceof CarrierMovement)) {
       return false;
     }
