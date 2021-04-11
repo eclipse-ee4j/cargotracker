@@ -174,7 +174,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.version>5.2021.1</payara.version>
+                <payara.version>5.2021.2</payara.version>
                 <db.driverClass>org.h2.Driver</db.driverClass>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
                     path name (it should include driver name under Windows). -->
@@ -205,14 +205,14 @@
             </dependencies>
             <build>
                 <plugins>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <systemPropertyVariables>
-                            <PAYARA_MICRO_JAR>${project.basedir}/src/test/payara/payara-micro-5.2021.2.jar</PAYARA_MICRO_JAR>
-                        </systemPropertyVariables>
-                    </configuration>
-                </plugin>                
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <PAYARA_MICRO_JAR>${project.basedir}/src/test/payara/payara-micro-${payara.version}.jar</PAYARA_MICRO_JAR>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
