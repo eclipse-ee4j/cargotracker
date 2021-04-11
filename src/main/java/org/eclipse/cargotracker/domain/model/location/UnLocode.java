@@ -16,6 +16,7 @@ import org.apache.commons.lang3.Validate;
 public class UnLocode implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
   private static final java.util.regex.Pattern VALID_PATTERN =
       java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
 

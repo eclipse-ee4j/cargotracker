@@ -11,6 +11,7 @@ import static org.eclipse.cargotracker.domain.model.cargo.TransportStatus.UNKNOW
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -36,10 +37,11 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 @Embeddable
 public class Delivery implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern.
   public static final LocalDateTime ETA_UNKOWN = null;
   public static final HandlingActivity NO_ACTIVITY = new HandlingActivity();
-  private static final long serialVersionUID = 1L;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "transport_status")
@@ -83,7 +85,9 @@ public class Delivery implements Serializable {
 
   public Delivery(
       HandlingEvent lastEvent, Itinerary itinerary, RouteSpecification routeSpecification) {
-    this.calculatedAt = LocalDateTime.now();
+    // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
+    // the DB, and retrieved from the DB, the values are different by nanoseconds.
+    this.calculatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     this.lastEvent = lastEvent;
 
     this.misdirected = calculateMisdirectionStatus(itinerary);
@@ -91,7 +95,10 @@ public class Delivery implements Serializable {
     this.transportStatus = calculateTransportStatus();
     this.lastKnownLocation = calculateLastKnownLocation();
     this.currentVoyage = calculateCurrentVoyage();
-    this.eta = calculateEta(itinerary);
+
+    // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
+    // the DB, and retrieved from the DB, the values are different by nanoseconds.
+    this.eta = calculateEta(itinerary).truncatedTo(ChronoUnit.SECONDS);
     this.nextExpectedActivity = calculateNextExpectedActivity(routeSpecification, itinerary);
     this.isUnloadedAtDestination = calculateUnloadedAtDestination(routeSpecification);
   }

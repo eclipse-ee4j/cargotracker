@@ -86,6 +86,7 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
     if (this == o) {
       return true;
     }
+
     if (o == null || !(o instanceof RouteSpecification)) {
       return false;
     }
