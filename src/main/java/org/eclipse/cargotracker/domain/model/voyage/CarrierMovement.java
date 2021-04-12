@@ -2,6 +2,7 @@ package org.eclipse.cargotracker.domain.model.voyage;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +21,11 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern
   public static final CarrierMovement NONE =
       new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
-  private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
 
@@ -56,8 +58,11 @@ public class CarrierMovement implements Serializable {
       LocalDateTime arrivalTime) {
     Validate.noNullElements(
         new Object[] {departureLocation, arrivalLocation, departureTime, arrivalTime});
-    this.departureTime = departureTime;
-    this.arrivalTime = arrivalTime;
+
+    // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
+    // the DB, and retrieved from the DB, the values are different by nanoseconds.
+    this.departureTime = departureTime.truncatedTo(ChronoUnit.SECONDS);
+    this.arrivalTime = arrivalTime.truncatedTo(ChronoUnit.SECONDS);
     this.departureLocation = departureLocation;
     this.arrivalLocation = arrivalLocation;
   }
@@ -83,6 +88,7 @@ public class CarrierMovement implements Serializable {
     if (this == o) {
       return true;
     }
+
     if (o == null || !(o instanceof CarrierMovement)) {
       return false;
     }

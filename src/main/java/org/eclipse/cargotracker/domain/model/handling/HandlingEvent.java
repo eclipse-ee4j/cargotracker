@@ -2,6 +2,7 @@ package org.eclipse.cargotracker.domain.model.handling;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -44,6 +45,7 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 public class HandlingEvent implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
   @Id @GeneratedValue private Long id;
 
   @Enumerated(EnumType.STRING)
@@ -106,8 +108,11 @@ public class HandlingEvent implements Serializable {
     }
 
     this.voyage = voyage;
-    this.completionTime = completionTime;
-    this.registrationTime = registrationTime;
+
+    // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
+    // the DB, and retrieved from the DB, the values are different by nanoseconds.
+    this.completionTime = completionTime.truncatedTo(ChronoUnit.SECONDS);
+    this.registrationTime = registrationTime.truncatedTo(ChronoUnit.SECONDS);
     this.type = type;
     this.location = location;
     this.cargo = cargo;
@@ -137,8 +142,10 @@ public class HandlingEvent implements Serializable {
       throw new IllegalArgumentException("Voyage is required for event type " + type);
     }
 
-    this.completionTime = completionTime;
-    this.registrationTime = registrationTime;
+    // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
+    // the DB, and retrieved from the DB, the values are different by nanoseconds.
+    this.completionTime = completionTime.truncatedTo(ChronoUnit.SECONDS);
+    this.registrationTime = registrationTime.truncatedTo(ChronoUnit.SECONDS);
     this.type = type;
     this.location = location;
     this.cargo = cargo;
@@ -185,6 +192,7 @@ public class HandlingEvent implements Serializable {
     if (voyage != null) {
       builder.append("Voyage: ").append(voyage.getVoyageNumber());
     }
+
     return builder.toString();
   }
 
@@ -193,6 +201,7 @@ public class HandlingEvent implements Serializable {
     if (this == o) {
       return true;
     }
+
     if (o == null || !(o instanceof HandlingEvent)) {
       return false;
     }

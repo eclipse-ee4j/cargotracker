@@ -23,9 +23,10 @@ import org.apache.commons.lang3.Validate;
     query = "Select l from Location l where l.unLocode = :unLocode")
 public class Location implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Special Location object that marks an unknown location.
   public static final Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");
-  private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
   @Embedded @NotNull private UnLocode unLocode;

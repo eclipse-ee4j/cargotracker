@@ -6,6 +6,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 public class UnknownVoyageException extends CannotCreateHandlingEventException {
 
   private static final long serialVersionUID = 1L;
+
   private final VoyageNumber voyageNumber;
 
   public UnknownVoyageException(VoyageNumber voyageNumber) {
@@ -14,6 +15,6 @@ public class UnknownVoyageException extends CannotCreateHandlingEventException {
 
   @Override
   public String getMessage() {
-    return "No voyage with number " + voyageNumber.getIdString() + " exists in the system";
+    return "No voyage with number " + voyageNumber.getIdString() + " exists in the system.";
   }
 }

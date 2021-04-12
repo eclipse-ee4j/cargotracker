@@ -15,10 +15,11 @@ public class HandlingHistory {
       new HandlingHistory(Collections.<HandlingEvent>emptyList());
   private static final Comparator<HandlingEvent> BY_COMPLETION_TIME_COMPARATOR =
       Comparator.comparing(HandlingEvent::getCompletionTime);
+
   private final List<HandlingEvent> handlingEvents;
 
   public HandlingHistory(Collection<HandlingEvent> handlingEvents) {
-    Validate.notNull(handlingEvents, "Handling events are required");
+    Validate.notNull(handlingEvents, "Handling events are required.");
 
     this.handlingEvents = new ArrayList<>(handlingEvents);
   }
@@ -58,11 +59,13 @@ public class HandlingHistory {
     if (this == o) {
       return true;
     }
+
     if (o == null || !(o instanceof HandlingHistory)) {
       return false;
     }
 
     HandlingHistory other = (HandlingHistory) o;
+
     return sameValueAs(other);
   }
 

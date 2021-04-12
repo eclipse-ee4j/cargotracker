@@ -8,7 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang3.Validate;
@@ -18,14 +18,15 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Embeddable
 public class Itinerary implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern.
   public static final Itinerary EMPTY_ITINERARY = new Itinerary();
-  private static final long serialVersionUID = 1L;
 
   // TODO [Clean Code] Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "cargo_id")
-  @OrderBy("loadTime")
+  @OrderColumn(name = "leg_order")
   @Size(min = 1)
   @NotEmpty(message = "Legs must not be empty.")
   private List<Leg> legs = Collections.emptyList();
@@ -143,6 +144,7 @@ public class Itinerary implements Serializable {
     if (this == o) {
       return true;
     }
+
     if (o == null || !(o instanceof Itinerary)) {
       return false;
     }
