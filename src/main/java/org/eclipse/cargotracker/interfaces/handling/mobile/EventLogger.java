@@ -125,15 +125,13 @@ public class EventLogger implements Serializable {
   }
 
   @PostConstruct
-  @Transactional
   public void init() {
-    List<Cargo> cargos = cargoRepository.findAll();
+    List<Cargo> cargos = cargoRepository.findAllWithItineraryLegs();
 
     trackingIds = new ArrayList<>(cargos.size());
 
     // List only routed cargo that is not claimed yet.
-    cargos
-        .stream()
+    cargos.stream()
         .filter(
             cargo ->
                 !cargo.getItinerary().getLegs().isEmpty()

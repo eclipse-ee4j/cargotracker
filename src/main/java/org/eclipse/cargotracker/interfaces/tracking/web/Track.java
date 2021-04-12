@@ -12,11 +12,13 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.bind.JsonbBuilder;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
+
 
 /**
  * Backing bean for tracking cargo. This interface sits immediately on top of the domain layer,
@@ -69,7 +71,7 @@ public class Track implements Serializable {
   }
 
   public void onTrackById() {
-    Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
+    Cargo cargo = cargoRepository.findByTrackingIdWithItineraryLegs(new TrackingId(trackingId));
 
     if (cargo != null) {
       List<HandlingEvent> handlingEvents =

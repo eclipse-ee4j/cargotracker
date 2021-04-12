@@ -7,9 +7,13 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
+
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -64,7 +68,9 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -77,6 +83,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
+  private static final Logger LOGGER = Logger.getLogger(BookingServiceTest.class.getName());
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
   private static LocalDate deadline;
@@ -85,9 +92,11 @@ public class BookingServiceTest {
   @Inject private BookingService bookingService;
   @PersistenceContext private EntityManager entityManager;
 
+  @Inject UserTransaction utx;
+
   @Deployment
   public static WebArchive createDeployment() {
-    return ShrinkWrap.create(WebArchive.class, "cargo-tracker-test.war")
+    WebArchive war= ShrinkWrap.create(WebArchive.class, "cargo-tracker-test.war")
         // Application layer component directly under test.
         .addClass(BookingService.class)
         // Domain layer components.
@@ -156,10 +165,46 @@ public class BookingServiceTest {
                 .resolve("org.apache.commons:commons-lang3", "com.h2database:h2")
                 .withTransitivity()
                 .asFile());
+
+    try {
+      Class<?> clazz =
+              Class.forName(
+                      "org.eclipse.cargotracker.infrastructure.routing.client.JacksonObjectMapperContextResolver");
+      war.addClass(clazz);
+    } catch (ClassNotFoundException e) {
+      LOGGER.log(
+              Level.WARNING,
+              "ignore this exception on non-WildFly server: {0}",
+              e.getMessage());
+    }
+
+    LOGGER.log(Level.INFO, "war: {0}", war.toString(true));
+    return war;
   }
 
-  @Test
-  @InSequence(1)
+  // Wildfly/Hibernate issue:
+  // use a UserTransaction to wrap the tests and avoid the Hibernate lazy initialization exception
+  // in test.
+  @Before
+  public void setUp() throws Exception {
+    startTransaction();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    commitTransaction();
+  }
+
+  public void startTransaction() throws Exception {
+    utx.begin();
+    entityManager.joinTransaction();
+  }
+
+  public void commitTransaction() throws Exception {
+    utx.commit();
+  }
+
+  @Test  @InSequence(1)
   public void testRegisterNew() {
     UnLocode fromUnlocode = new UnLocode("USCHI");
     UnLocode toUnlocode = new UnLocode("SESTO");
