@@ -73,7 +73,7 @@ handy. You can access the itinerary for registered cargo via the admin interface
 
 You should also explore the file system based bulk event registration interface. 
 It reads files under /tmp/uploads. The files are just CSV files. A sample CSV
-file is available under [src/test/resources/handling_events.csv](src/test/resources/handling_events.csv). The sample is already set up to match the remaining itinerary events for cargo ABC123. Just make sure to update the times in the first column of the sample CSV file to match the itinerary as well.
+file is available under [src/test/sample/handling_events.csv](src/test/sample/handling_events.csv). The sample is already set up to match the remaining itinerary events for cargo ABC123. Just make sure to update the times in the first column of the sample CSV file to match the itinerary as well.
 
 Sucessfully processed entries are archived under /tmp/archive. Any failed records are 
 archived under /tmp/failed.
@@ -86,7 +86,7 @@ a blank slate easily if needed.*
 
 You can also use the soapUI scripts included in the source code to explore the 
 REST interfaces as well as the numerous unit tests covering the code base 
-generally.
+generally. Some of the tests use Arquillian.
 
 ## Exploring the Code
 
@@ -108,27 +108,6 @@ understanding both Jakarta EE and DDD. Though it's not our goal to become a kitc
 sink example for demonstrating the vast amount of APIs and features in Jakarta EE,
 we do use a very representative set. You'll find that you'll learn a fair amount
 by simply digging into the code to see how things are implemented.
-
-## Exploring the Tests
-
-Cargo Tracker's testing is done using JUnit and Arquillian. The Arquillian configuration
-uses a [remote container](http://arquillian.org/arquillian-core/#_containers) (Payara 5). Therefore, to perform a test you will need to make sure
-to have a container running. 
-
-## Testing Locally with Payara
-For testing locally you will first need to run a Payara 5 server.
-
-You can do that with the following script:
-```shell script
-wget https://repo1.maven.org/maven2/fish/payara/distributions/payara/5.2021.1/payara-5.2021.1.zip
-unzip payara-5.2021.1.zip && cd payara5/bin
-./asadmin start-domain
-```
-
-Now for running the tests: 
-```shell script
-mvn clean verify -DskipTests=false
-```
 
 ## Java EE 7
 A Java EE 7, Java SE 8, Payara 4.1 version of Cargo Tracker is available under the ['javaee7' branch](https://github.com/eclipse-ee4j/cargotracker/tree/javaee7).
