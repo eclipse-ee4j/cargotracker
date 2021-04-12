@@ -92,6 +92,13 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>2.33</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Required by Java SE 9+ -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
