@@ -1,10 +1,11 @@
 package org.eclipse.cargotracker.application.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.glassfish.jersey.server.ServerProperties;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import org.glassfish.jersey.server.ServerProperties;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Jakarta REST configuration. */
 @ApplicationPath("rest")

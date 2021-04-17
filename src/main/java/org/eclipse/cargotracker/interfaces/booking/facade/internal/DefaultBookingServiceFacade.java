@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -59,7 +61,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 
   @Override
   public CargoRoute loadCargoForRouting(String trackingId) {
-    Cargo cargo = cargoRepository.find(new TrackingId(trackingId));
+    Cargo cargo = cargoRepository.findByTrackingIdWithItineraryLegs(new TrackingId(trackingId));
     return cargoRouteDtoAssembler.toDto(cargo);
   }
 
@@ -86,7 +88,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   @Override
   // TODO [DDD] Is this the correct DTO here?
   public List<CargoRoute> listAllCargos() {
-    List<Cargo> cargos = cargoRepository.findAll();
+    List<Cargo> cargos = cargoRepository.findAllWithItineraryLegs();
     List<CargoRoute> routes;
 
     routes = cargos.stream().map(cargoRouteDtoAssembler::toDto).collect(Collectors.toList());
@@ -107,7 +109,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   @Override
   public CargoStatus loadCargoForTracking(String trackingIdValue) {
     TrackingId trackingId = new TrackingId(trackingIdValue);
-    Cargo cargo = cargoRepository.find(trackingId);
+    Cargo cargo = cargoRepository.findByTrackingIdWithItineraryLegs(trackingId);
 
     if (cargo == null) {
       return null;

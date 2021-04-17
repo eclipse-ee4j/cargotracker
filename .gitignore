@@ -14,3 +14,4 @@ bin/
 data
 .DS_Store
 cargo-tracker-test-data
+cargo-tracker-data
