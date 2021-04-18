@@ -51,10 +51,10 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
 
     try {
       cargo =
-              entityManager
-                      .createNamedQuery("Cargo.findByTrackingIdWithItineraryLegs", Cargo.class)
-                      .setParameter("trackingId", trackingId)
-                      .getSingleResult();
+          entityManager
+              .createNamedQuery("Cargo.findByTrackingIdWithItineraryLegs", Cargo.class)
+              .setParameter("trackingId", trackingId)
+              .getSingleResult();
     } catch (NoResultException e) {
       logger.log(Level.FINE, "Find called on non-existant tracking ID.", e);
       cargo = null;
@@ -87,6 +87,8 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
 
   @Override
   public List<Cargo> findAllWithItineraryLegs() {
-    return entityManager.createNamedQuery("Cargo.findAllWithItineraryLegs", Cargo.class).getResultList();
+    return entityManager
+        .createNamedQuery("Cargo.findAllWithItineraryLegs", Cargo.class)
+        .getResultList();
   }
 }
