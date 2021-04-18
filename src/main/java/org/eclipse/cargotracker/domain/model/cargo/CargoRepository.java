@@ -5,14 +5,14 @@ import java.util.List;
 public interface CargoRepository {
 
   Cargo find(TrackingId trackingId);
+  
+  Cargo findByTrackingIdWithItineraryLegs(TrackingId trackingId);  
 
   List<Cargo> findAll();
-
-  Cargo findByTrackingIdWithItineraryLegs(TrackingId trackingId);
+  
+  List<Cargo> findAllWithItineraryLegs();  
 
   void store(Cargo cargo);
 
   TrackingId nextTrackingId();
-
-  List<Cargo> findAllWithItineraryLegs();
 }
