@@ -5,7 +5,7 @@
 
     <groupId>org.eclipse.ee4j</groupId>
     <artifactId>cargo-tracker</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Eclipse Cargo Tracker</name>
     <description>
@@ -270,13 +270,11 @@
             <id>wildfly</id>
             <properties>
                 <wildfly.version>23.0.0.Final</wildfly.version>
-                <wildfly-maven-plugin.version>2.1.0.Beta1</wildfly-maven-plugin.version>
-                <wildfly-arquillian.version>3.0.1.Final</wildfly-arquillian.version>
                 <resteasy.version>3.14.0.Final</resteasy.version>
                 <jackson.version>2.11.3</jackson.version>
-                <!-- WildFly requires a DataSource impl -->
+                <!-- WildFly requires a DataSource implementation -->
                 <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
-                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified
+                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
                     path name (it should include driver name under Windows). -->
                 <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
             </properties>
@@ -311,7 +309,8 @@
                     <version>${jackson.version}</version>
                     <scope>provided</scope>
                 </dependency>
-                <!-- H2 per deployment -->
+
+                <!-- Embedding the JDBC driver in the WAR works in WildFly -->
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
@@ -322,7 +321,7 @@
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-embedded</artifactId>
-                    <version>${wildfly-arquillian.version}</version>
+                    <version>3.0.1.Final</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -352,7 +351,7 @@
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>
-                        <version>${wildfly-maven-plugin.version}</version>
+                        <version>2.1.0.Beta1</version>
                         <configuration>
                             <server-config>standalone-full.xml</server-config>
                         </configuration>
