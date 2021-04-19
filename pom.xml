@@ -5,7 +5,7 @@
 
     <groupId>org.eclipse.ee4j</groupId>
     <artifactId>cargo-tracker</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Eclipse Cargo Tracker</name>
     <description>
