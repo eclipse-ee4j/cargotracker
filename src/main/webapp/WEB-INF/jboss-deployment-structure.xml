@@ -2,10 +2,10 @@
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
         <exclusions>
+            <module name="org.jboss.resteasy.resteasy-jackson2-provider"/>
         </exclusions>
         <dependencies>
-            <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" services="import"/>
-            <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" services="import"/>
+            <module name="org.jboss.resteasy.resteasy-json-binding-provider" services="import"/>
         </dependencies>
     </deployment>
 </jboss-deployment-structure>

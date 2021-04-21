@@ -24,6 +24,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.domain.service.RoutingService;
 import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
+import org.jboss.resteasy.plugins.providers.jsonb.JsonBindingProvider;
 
 /**
  * Our end of the routing service. This is basically a data model translation layer between our
@@ -46,14 +47,7 @@ public class ExternalRoutingService implements RoutingService {
   @PostConstruct
   public void init() {
     Client jaxrsClient = ClientBuilder.newClient();
-    try {
-      Class<?> clazz =
-          Class.forName(
-              "org.eclipse.cargotracker.infrastructure.routing.client.JacksonObjectMapperContextResolver");
-      jaxrsClient.register(clazz);
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-    }
+    jaxrsClient.register(JsonBindingProvider.class);
     graphTraversalResource = jaxrsClient.target(graphTraversalUrl);
   }
 
