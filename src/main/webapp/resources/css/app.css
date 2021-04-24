@@ -272,3 +272,5 @@ body {
 .ui-wizard-step-title.ui-state-highlight::before {
     background-color: var(--primary-color);
 }
+
+iframe { border: none; }
