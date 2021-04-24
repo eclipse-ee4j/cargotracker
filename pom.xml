@@ -175,7 +175,7 @@
             </activation>
             <properties>
                 <payara.version>5.2021.2</payara.version>
-                <db.driverClass>org.h2.Driver</db.driverClass>
+                <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
                     path name (it should include driver name under Windows). -->
                 <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
