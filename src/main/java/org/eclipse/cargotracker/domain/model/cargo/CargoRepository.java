@@ -6,7 +6,11 @@ public interface CargoRepository {
 
   Cargo find(TrackingId trackingId);
 
+  Cargo findByTrackingIdWithItineraryLegs(TrackingId trackingId);
+
   List<Cargo> findAll();
+
+  List<Cargo> findAllWithItineraryLegs();
 
   void store(Cargo cargo);
 
