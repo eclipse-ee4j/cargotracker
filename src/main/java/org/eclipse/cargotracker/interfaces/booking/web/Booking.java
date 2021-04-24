@@ -82,13 +82,13 @@ public class Booking implements Serializable {
 
   public void setOriginUnlocode(String originUnlocode) {
     this.originUnlocode = originUnlocode;
-
-    // TODO [Jakarta EE 8] Adopt streams, collections and lambda.
-    for (Location location : locations) {
-      if (location.getUnLocode().equalsIgnoreCase(originUnlocode)) {
-        this.originName = location.getName();
-      }
-    }
+    this.originName =
+        locations
+            .stream()
+            .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
+            .findAny()
+            .get()
+            .getName();
   }
 
   public String getOriginName() {
@@ -101,13 +101,13 @@ public class Booking implements Serializable {
 
   public void setDestinationUnlocode(String destinationUnlocode) {
     this.destinationUnlocode = destinationUnlocode;
-
-    // TODO [Jakarta EE 8] Adopt streams, collections and lambda.
-    for (Location location : locations) {
-      if (location.getUnLocode().equalsIgnoreCase(destinationUnlocode)) {
-        destinationName = location.getName();
-      }
-    }
+    this.destinationName =
+        locations
+            .stream()
+            .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
+            .findAny()
+            .get()
+            .getName();
   }
 
   public String getDestinationName() {
