@@ -17,4 +17,10 @@
             <property name="extraMicroOptions">--port 8181 --contextroot cargo-tracker-test</property>
         </configuration>
     </container>
+    <container qualifier="wildfly-embedded">
+        <configuration>
+            <!--<property name="jbossHome">${jbossHome:target/wildfly-18.0.1.Final}</property>-->
+            <property name="serverConfig">standalone-full.xml</property>
+        </configuration>
+    </container>
 </arquillian>

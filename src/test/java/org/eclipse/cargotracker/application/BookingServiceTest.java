@@ -166,18 +166,6 @@ public class BookingServiceTest {
                 .withTransitivity()
                 .asFile());
 
-    try {
-      Class<?> clazz =
-              Class.forName(
-                      "org.eclipse.cargotracker.infrastructure.routing.client.JacksonObjectMapperContextResolver");
-      war.addClass(clazz);
-    } catch (ClassNotFoundException e) {
-      LOGGER.log(
-              Level.WARNING,
-              "ignore this exception on non-WildFly server: {0}",
-              e.getMessage());
-    }
-
     LOGGER.log(Level.INFO, "war: {0}", war.toString(true));
     return war;
   }
@@ -204,7 +192,8 @@ public class BookingServiceTest {
     utx.commit();
   }
 
-  @Test  @InSequence(1)
+  @Test
+  @InSequence(1)
   public void testRegisterNew() {
     UnLocode fromUnlocode = new UnLocode("USCHI");
     UnLocode toUnlocode = new UnLocode("SESTO");

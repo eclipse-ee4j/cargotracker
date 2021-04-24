@@ -271,7 +271,6 @@
             <properties>
                 <wildfly.version>23.0.0.Final</wildfly.version>
                 <resteasy.version>3.14.0.Final</resteasy.version>
-                <jackson.version>2.11.3</jackson.version>
                 <!-- WildFly requires a DataSource implementation -->
                 <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
@@ -280,33 +279,9 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                    <version>${jackson.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-core</artifactId>
-                    <version>${jackson.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
                     <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-jackson2-provider</artifactId>
+                    <artifactId>resteasy-json-binding-provider</artifactId>
                     <version>${resteasy.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jsr310</artifactId>
-                    <version>${jackson.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jdk8</artifactId>
-                    <version>${jackson.version}</version>
                     <scope>provided</scope>
                 </dependency>
 
@@ -317,7 +292,6 @@
                     <version>1.4.200</version>
                     <scope>runtime</scope>
                 </dependency>
-
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-embedded</artifactId>
@@ -328,25 +302,44 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>3.2.0</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>3.1.2</version>
                         <executions>
                             <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
+                                <id>unpack</id>
+                                <phase>process-test-resources</phase>
                                 <goals>
-                                    <goal>add-source</goal>
+                                    <goal>unpack</goal>
                                 </goals>
                                 <configuration>
-                                    <sources>
-                                        <source>
-                                            src/main/java-wildfly
-                                        </source>
-                                    </sources>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>${wildfly.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <environmentVariables>
+                                <JBOSS_HOME>${project.build.directory}/wildfly-${wildfly.version}</JBOSS_HOME>
+                            </environmentVariables>
+                            <systemPropertyVariables>
+                                <arquillian.launch>wildfly-embedded</arquillian.launch>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            </systemPropertyVariables>
+                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>
