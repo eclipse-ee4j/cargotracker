@@ -128,7 +128,7 @@ For further guidance on contributing including the project roadmap, please look 
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
   explained [here](https://github.com/payara/Payara/issues/3038).
 * If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
-  Just re-run the application (make sure to completely shut down Payara first).
+  Just re-run the application (make sure to completely un-deploy the application and shut down Payara first).
 * Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the H2 database that 
   the application uses get's corrupted, resulting in strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
