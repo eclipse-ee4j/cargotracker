@@ -1,4 +1,4 @@
-name: Buid on Commit
+name: Sanity Check Build
 
 on:
   push:
