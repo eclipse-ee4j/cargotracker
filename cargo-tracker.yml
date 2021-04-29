@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cargo-tracker
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cargo-tracker  
+  template:
+    metadata:
+      name: cargo-tracker
+      labels:
+        app: cargo-tracker
+    spec:
+      containers:
+      - name: cargo-tracker
+        image: <your Docker Hub account>/cargo-tracker:v2.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cargo-tracker
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: cargo-tracker
