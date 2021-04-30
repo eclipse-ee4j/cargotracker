@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cargo-tracker
-        image: <your Docker Hub account>/cargo-tracker:v2.1
+        image: rezarahman/cargo-tracker:v2.1-SNAPSHOT
 ---
 apiVersion: v1
 kind: Service

@@ -59,10 +59,10 @@ jobs:
         run: docker login -u rezarahman -p gemini6
         
       - name: Build Docker image
-        run: docker build -t rezarahman/cargo-tracker:v2.1 .
+        run: docker build -t rezarahman/cargo-tracker:v2.1-SNAPSHOT .
         
       - name: Publish Docker image
-        run:  docker push rezarahman/cargo-tracker:v2.1
+        run:  docker push rezarahman/cargo-tracker:v2.1-SNAPSHOT
         
       - name: Create Cargo Tracker Deployment
         uses: actions-hub/kubectl@master
