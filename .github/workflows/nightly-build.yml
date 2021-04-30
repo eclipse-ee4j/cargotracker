@@ -35,7 +35,7 @@ jobs:
         run:  docker push rezarahman/cargo-tracker:v2.1
         
       - name: Get Kube Config
-        run: echo "KUBE_CONFIG=$(cat kube_config | base64)" >> $GITHUB_ENV
+        run: echo "KUBE_CONFIG=$(cat kube_config)" >> $GITHUB_ENV
         
       - name: Delete PostgreSQL
         uses: actions-hub/kubectl@master
