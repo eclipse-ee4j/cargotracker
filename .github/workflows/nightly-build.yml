@@ -26,13 +26,8 @@ jobs:
         run: mvn clean package --file pom.xml
         
       - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: rezarahman
-          password: gemini6
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: rezarahman/cargo-tracker:v2.1
+        run: docker login -u rezarahman -p gemini6
+      - name: Build Docker image
+        run: docker build -t rezarahman/cargo-tracker:v2.1 .
+      - name: Publish Docker image
+        run:  docker push rezarahman/cargo-tracker:v2.1
