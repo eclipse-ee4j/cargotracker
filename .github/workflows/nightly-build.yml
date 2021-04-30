@@ -2,11 +2,6 @@ name: Nightly Build
 
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        description: 'Run manually'
-        required: false
-        default: 'Run manually'
   schedule:
     - cron: '0 2 * * *' # run at 2 AM UTC
 
