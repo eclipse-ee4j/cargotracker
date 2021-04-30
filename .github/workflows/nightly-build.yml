@@ -27,7 +27,20 @@ jobs:
         
       - name: Login to DockerHub
         run: docker login -u rezarahman -p gemini6
+        
       - name: Build Docker image
         run: docker build -t rezarahman/cargo-tracker:v2.1 .
+        
       - name: Publish Docker image
         run:  docker push rezarahman/cargo-tracker:v2.1
+        
+      - name: Get Kube Config
+        run: echo "KUBE_CONFIG=$(cat kube_config | base64)" >> $GITHUB_ENV
+        
+      - name: Delete PostgreSQL
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ env.KUBE_CONFIG }}
+        with:
+          args: kubectl delete -f postgres.yml
+        continue-on-error: false
