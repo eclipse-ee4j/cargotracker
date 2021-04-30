@@ -36,7 +36,9 @@ jobs:
         
       - name: Get Kube Config
         run: |
-          echo "KUBE_CONFIG=$(cat kube_config)" >> $GITHUB_ENV
+          echo 'KUBE_CONFIG<<EOF' >> $GITHUB_ENV
+          cat kube_config >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
         
       - name: Delete PostgreSQL
         uses: actions-hub/kubectl@master
