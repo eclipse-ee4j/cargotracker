@@ -45,5 +45,5 @@ jobs:
         env:
           KUBE_CONFIG: ${{ env.KUBE_CONFIG }}
         with:
-          args: kubectl delete -f postgres.yml
+          args: delete -f postgres.yml
         continue-on-error: false
