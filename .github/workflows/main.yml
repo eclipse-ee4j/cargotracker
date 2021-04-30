@@ -1,4 +1,4 @@
-name: Default Build
+name: Main Build
 
 on:
   push:
