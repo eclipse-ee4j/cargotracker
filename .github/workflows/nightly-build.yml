@@ -10,6 +10,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Get Kube Config
+        run: |
+          echo 'KUBE_CONFIG<<EOF' >> $GITHUB_ENV
+          cat kube_config >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+        
+      - name: Delete Cargo Tracker Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ env.KUBE_CONFIG }}
+        with:
+          args: delete -f cargo-tracker.yml
+        continue-on-error: true        
+        
+      - name: Delete PostgreSQL Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ env.KUBE_CONFIG }}
+        with:
+          args: delete -f postgres.yml
+        continue-on-error: true
+        
+      - name: Create PostgreSQL Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ env.KUBE_CONFIG }}
+        with:
+          args: create -f postgres.yml
+      
       - name: Set up Java
         uses: actions/setup-java@v1
         with:
@@ -34,16 +64,9 @@ jobs:
       - name: Publish Docker image
         run:  docker push rezarahman/cargo-tracker:v2.1
         
-      - name: Get Kube Config
-        run: |
-          echo 'KUBE_CONFIG<<EOF' >> $GITHUB_ENV
-          cat kube_config >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-        
-      - name: Delete PostgreSQL
+      - name: Create Cargo Tracker Deployment
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ env.KUBE_CONFIG }}
         with:
-          args: delete -f postgres.yml
-        continue-on-error: false
+          args: create -f cargo-tracker.yml
