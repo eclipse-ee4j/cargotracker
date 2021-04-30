@@ -1,4 +1,4 @@
-name: Sanity Check Build
+name: Default Build
 
 on:
   push:
