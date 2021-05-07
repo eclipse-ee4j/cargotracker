@@ -36,5 +36,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
           tags: ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
