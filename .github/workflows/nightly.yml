@@ -38,4 +38,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
+          tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
