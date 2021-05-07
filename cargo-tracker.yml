@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cargo-tracker
-        image: rezarahman/cargo-tracker:v2.1-SNAPSHOT
+        image: ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
         imagePullPolicy: Always
 ---
 apiVersion: v1
@@ -24,9 +24,28 @@ kind: Service
 metadata:
   name: cargo-tracker
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 8080
   selector:
     app: cargo-tracker
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cargo-tracker
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx    
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cargo-tracker
+            port:
+              number: 80

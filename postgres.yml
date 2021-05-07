@@ -16,9 +16,15 @@ spec:
           name: postgres
           env:
             - name: POSTGRES_USER
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres_user
             - name: POSTGRES_PASSWORD
-              value: "postgres"
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres_password          
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
           ports:
