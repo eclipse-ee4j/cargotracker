@@ -87,7 +87,7 @@
 	      };
     </script>
 	<script type="text/javascript">
-	    var applicationUri = "http://" + document.location.host;
+	    var applicationUri = location.protocol + "//" + document.location.host;
 	    const contextRoot = window.location.pathname.split('/')[1];
 	    
 	    if (contextRoot == "cargo-tracker") {
