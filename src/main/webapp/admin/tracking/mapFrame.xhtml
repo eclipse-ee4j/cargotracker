@@ -87,8 +87,12 @@
 	      };
     </script>
 	<script type="text/javascript">
-	    const applicationUri = "http://" + document.location.host + "/" +
-	            window.location.pathname.split('/')[1];
+	    var applicationUri = "http://" + document.location.host;
+	    const contextRoot = window.location.pathname.split('/')[1];
+	    
+	    if (contextRoot == "cargo-tracker") {
+	    	applicationUri = applicationUri + "/cargo-tracker";
+	    }
 	
 	    const cargoUri = applicationUri + "/rest/cargo";
 	
