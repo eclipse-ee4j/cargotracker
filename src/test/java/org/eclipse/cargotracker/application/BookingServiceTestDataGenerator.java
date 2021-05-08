@@ -26,8 +26,7 @@ public class BookingServiceTestDataGenerator {
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void loadSampleData() {
     logger.info("Loading sample data.");
-    unLoadAll(); // Fail-safe in case of application restart that does not
-    // trigger a JPA schema drop.
+    unLoadAll();
     loadSampleLocations();
     loadSampleVoyages();
     // loadSampleCargos();
