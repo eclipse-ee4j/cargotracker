@@ -146,7 +146,7 @@ public class BookingServiceTest {
         .addClass(SampleLocations.class)
         .addClass(SampleVoyages.class)
         // Persistence unit descriptor
-        .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+        .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
         // Web application descriptor
         .addAsWebInfResource("test-web.xml", "web.xml")
         // Library dependencies

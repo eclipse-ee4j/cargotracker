@@ -12,6 +12,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
@@ -40,12 +42,30 @@ public class SampleDataGenerator {
   @PostConstruct
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void loadSampleData() {
-    logger.info("Loading sample data.");
-    unLoadAll(); // Fail-safe in case of application restart that does not trigger a JPA schema
-    // drop.
-    loadSampleLocations();
-    loadSampleVoyages();
-    loadSampleCargos();
+    if (!isSampleLoaded()) {
+      logger.info("Loading sample data.");
+      unLoadAll();
+      loadSampleLocations();
+      loadSampleVoyages();
+      loadSampleCargos();
+    } else {
+      logger.info("Sample data already loaded, skipping.");
+    }
+  }
+
+  private boolean isSampleLoaded() {
+    boolean sampleLoaded = false;
+
+    try {
+      ApplicationSettings settings =
+          entityManager.find(ApplicationSettings.class, 1L, LockModeType.PESSIMISTIC_WRITE);
+      sampleLoaded = settings.isSampleLoaded();
+      settings.setSampleLoaded(true);
+    } catch (NoResultException e) {
+      throw new RuntimeException("Could not retrieve application settings.", e);
+    }
+
+    return sampleLoaded;
   }
 
   private void unLoadAll() {
