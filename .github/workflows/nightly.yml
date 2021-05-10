@@ -39,3 +39,12 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
+                    
+      - name: Print POSTGRES_USER
+        run: echo ${{ secrets.POSTGRES_USER }}
+        
+      - name: Print POSTGRES_PASSWORD
+        run: echo ${{ secrets.POSTGRES_PASSWORD }}        
+
+      - name: Print KUBE_CONFIG
+        run: echo ${{ secrets.KUBE_CONFIG }}
