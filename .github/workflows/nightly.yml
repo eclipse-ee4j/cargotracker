@@ -17,8 +17,7 @@ jobs:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
           args: delete -f cargo-tracker.yml
-        continue-on-error: true        
-        
+        continue-on-error: true    
         
       - name: Delete PostgreSQL Deployment
         uses: actions-hub/kubectl@master
@@ -34,7 +33,7 @@ jobs:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
           args: create configmap postgres-config --from-literal=postgres_user=${{ secrets.POSTGRES_USER }} --from-literal=postgres_password=${{ secrets.POSTGRES_PASSWORD }}
-        continue-on-error: true        
+        continue-on-error: true
         
       - name: Create PostgreSQL Deployment
         uses: actions-hub/kubectl@master
