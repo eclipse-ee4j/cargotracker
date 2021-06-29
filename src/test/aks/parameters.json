@@ -1,0 +1,167 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "_artifactsLocation": {
+            "value": "https://raw.githubusercontent.com/#gitUserName#/arm-oraclelinux-wls-aks/#testbranchName#/src/main/arm/"
+        },
+        "aciResourcePermissions": {
+            "value": true
+        },
+        "aciRetentionInDays": {
+            "value": 120
+        },
+        "aciWorkspaceSku": {
+            "value": "pergb2018"
+        },
+        "acrName": {
+            "value": "acr-contoso"
+        },
+        "aksAgentPoolName": {
+            "value": "agentpool"
+        },
+        "aksAgentPoolNodeCount": {
+            "value": 2
+        },
+        "aksAgentPoolVMSize": {
+            "value": "Standard_DS2_v2"
+        },
+        "aksClusterNamePrefix": {
+            "value": "wlsonaks"
+        },
+        "aksClusterRGName": {
+            "value": "aks-contoso-rg"
+        },
+        "aksClusterName": {
+            "value": "aks-contoso"
+        },
+        "aksVersion": {
+            "value": "default"
+        },
+        "appGatewayCertificateOption": {
+            "value": "generateCert"
+        },
+        "appGatewayPublicIPAddressName": {
+            "value": "gwip"
+        },
+        "appGatewaySSLCertData": {
+            "value": "appgw-ssl-data"
+        },
+        "appgwForAdminServer": {
+            "value": true
+        },
+        "appPackageUrls": {
+            "value": ["#appPackageUrls#"]
+        },
+        "appReplicas": {
+            "value": 2
+        },
+        "createACR": {
+            "value": true
+        },
+        "createAKSCluster": {
+            "value": true
+        },
+        "createDNSZone": {
+            "value": true
+        },
+        "dnsNameforApplicationGateway": {
+            "value": "wlsgw"
+        },
+        "dnszoneAdminConsoleLabel": {
+            "value": "admin"
+        },
+        "dnszoneAppGatewayLabel": {
+            "value": "www"
+        },
+        "dnszoneName": {
+            "value": "contoso.xyz"
+        },
+        "dnszoneRGName": {
+            "value": "dns-contoso-rg"
+        },
+        "enableAppGWIngress": {
+            "value": true
+        },
+        "enableAzureMonitoring": {
+            "value": false
+        },
+        "enableAzureFileShare": {
+            "value": false
+        },
+        "enableDNSConfiguration": {
+            "value": false
+        },
+        "enableCookieBasedAffinity":{
+            "value": true
+        },
+        "identity": {
+            "value": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                    "#userAssignedManagedIdentity#": {}
+                }
+            }
+        },
+        "keyVaultName": {
+            "value": "kv-contoso"
+        },
+        "keyVaultResourceGroup": {
+            "value": "kv-contoso-rg"
+        },
+        "keyVaultSku": {
+            "value": "Standard"
+        },
+        "keyVaultSSLCertDataSecretName": {
+            "value": "kv-ssl-data"
+        },
+        "keyVaultSSLCertPasswordSecretName": {
+            "value": "kv-ssl-psw"
+        },
+        "location": {
+            "value": "#location#"
+        },
+        "lbSvcValues": {
+            "value": []
+        },
+        "managedServerPrefix": {
+            "value": "managed-server"
+        },
+        "ocrSSOPSW": {
+            "value": "#ocrSSOPSW#"
+        },
+        "ocrSSOUser": {
+            "value": "#ocrSSOUser#"
+        },
+        "servicePrincipal": {
+            "value": "#servicePrincipal#"
+        },
+        "wdtRuntimePassword": {
+            "value": "#wdtRuntimePassword#"
+        },
+        "wlsClusterSize": {
+            "value": 5
+        },
+        "wlsCPU": {
+            "value": "200m"
+        },
+        "wlsDomainName": {
+            "value": "domain1"
+        },
+        "wlsDomainUID": {
+            "value": "sample-domain1"
+        },
+        "wlsImageTag": {
+            "value": "14.1.1.0-11"
+        },
+        "wlsMemory": {
+            "value": "1.5Gi"
+        },
+        "wlsPassword": {
+            "value": "#wlsPassword#"
+        },
+        "wlsUserName": {
+            "value": "#wlsUserName#"
+        }
+    }
+}

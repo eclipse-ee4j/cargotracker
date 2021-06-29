@@ -7,8 +7,10 @@ import java.util.List;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.location.Location;
@@ -24,7 +26,10 @@ public class Voyage implements Serializable {
   // Null object pattern
   public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
 
-  @Id @GeneratedValue private Long id;
+  @Id 
+  @SequenceGenerator(name = "seq", sequenceName = "cargotracker_seq", allocationSize = 50)
+  @GeneratedValue (strategy = GenerationType.AUTO, generator = "seq")
+  private Long id;
 
   @Embedded
   @NotNull(message = "Voyage number is required.")

@@ -1,0 +1,165 @@
+name: Update Cargo Tracker
+
+on:
+  workflow_dispatch:
+    inputs:
+      wlsImagePath:
+        description: 'Specify weblogic image path'
+        required: true
+        default: 'container-registry.oracle.com/middleware/weblogic:14.1.1.0-11'
+      resourceGroupForWlsAks:
+        description: 'Specify resource group of aks cluster'
+        required: true
+        default: 'wlsd-aks-1052320694-65'
+      storageAccountName:
+        description: 'Specify storage account of uploading .war file'
+        required: true
+        default: 'wlsdsa105232069465'
+      storageContainerName:
+        description: 'Specify container of uploading .war file'
+        required: true
+        default: 'wlsdcon105232069465'
+      azureACRServer:
+        description: 'Specify ACR server of uploading image'
+        required: true
+        default: 'wlsaksacr7ozfx6l7kbssy.azurecr.io'
+      azureACRUserName:
+        description: 'Specify ACR server user name'
+        required: true
+        default: 'wlsaksacr7ozfx6l7kbssy'
+      wlsClusterSize:
+        description: 'Specify WLS on AKS cluster size'
+        required: true
+        default: '5'
+      wlsClusterNamespace:
+        description: 'Specify WLS on AKS cluster namespace'
+        required: true
+        default: 'sample-domain1-ns'
+      wlsCLusterDomainName:
+        description: 'Specify WLS on AKS cluster domain name'
+        required: true
+        default: 'sample-domain1'
+  repository_dispatch:
+
+env:
+    azCliVersion: 2.23.0
+    azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+    location: eastus
+    ocrSSOUser: ${{ secrets.ORC_SSOUSER }}
+    ocrSSOPSW: ${{ secrets.ORC_SSOPSW }}
+    azureACRPassword: ${{ secrets.AZURE_ACR_PASSWORD }}
+    imageTag: ${{ github.run_id }}${{ github.run_number }}
+
+jobs:
+    deploy-cargo-tracker:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set up JDK 1.8
+              uses: actions/setup-java@v1
+              with:
+                java-version: 1.8
+            - name: Install jq
+              run: |
+                sudo apt-get install jq -y
+            - uses: azure/login@v1
+              id: azure-login
+              with:
+                creds: ${{ env.azureCredentials }}
+            - name: Checkout cargotracker
+              uses: actions/checkout@v2
+              with:
+                path: cargotracker
+            - name: Build the app
+              run: |
+                echo "build the Cargo Tracker web app"
+                mvn clean install -PweblogicOnAks --file cargotracker/pom.xml
+            - name: Query version string for deployment verification
+              run: |
+                PROPERTY_FILE="cargotracker/target/cargo-tracker/WEB-INF/classes/org/eclipse/cargotracker/messages.properties"
+                PROP_KEY=versionString
+                deployVersion=$(cat $PROPERTY_FILE | grep "$PROP_KEY" | cut -d '=' -f 2)
+                echo "deployVersion=${deployVersion}" >> $GITHUB_ENV
+            - name: Upload the app to storage account
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    az storage blob upload --account-name ${{ github.event.inputs.storageAccountName }} --container-name ${{ github.event.inputs.storageContainerName }} --file cargotracker/target/cargo-tracker.war --name cargo-tracker.war
+            - name: Query web app blob url and set to env
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    cargoTrackerBlobUrl=$(az storage blob url --account-name ${{ github.event.inputs.storageAccountName }} --container-name ${{ github.event.inputs.storageContainerName }} --name cargo-tracker.war -o tsv)
+                    echo "cargoTrackerBlobUrl=${cargoTrackerBlobUrl}" >> $GITHUB_ENV
+            - name: Checkout galiacheng/arm-oraclelinux-wls-aks
+              uses: actions/checkout@v2
+              with:
+                repository: galiacheng/arm-oraclelinux-wls-aks
+                path: arm-oraclelinux-wls-aks
+            - name: Build image and upload to ACR
+              run: |
+                chmod ugo+x -R arm-oraclelinux-wls-aks/
+                cd arm-oraclelinux-wls-aks/src/main/arm/scripts
+                ./buildWLSDockerImage.sh ${{ github.event.inputs.wlsImagePath }} ${{ github.event.inputs.azureACRServer }} ${{ github.event.inputs.azureACRUserName }} ${{ env.azureACRPassword }} ${{ env.imageTag }} ["${cargoTrackerBlobUrl}"] ${{ env.ocrSSOUser }} ${{ env.ocrSSOPSW }} ${{ github.event.inputs.wlsClusterSize }} false
+            - name: Connect to AKS cluster
+              run: |
+                echo "connect to cluster"
+                aksClusterName=$(az resource list --resource-group ${{ github.event.inputs.resourceGroupForWlsAks }} --query "[?type=='Microsoft.ContainerService/managedClusters'].name|[0]" -o tsv)
+                az aks get-credentials --resource-group ${{ github.event.inputs.resourceGroupForWlsAks }} --name $aksClusterName
+            - name: Query current image in use
+              run: |
+                oldImageURL=$(kubectl get domain ${{ github.event.inputs.wlsCLusterDomainName }} -n ${{ github.event.inputs.wlsClusterNamespace }} -o json | jq -r '.spec.image')
+                echo "oldImageURL=${oldImageURL}" >> $GITHUB_ENV
+            - name: Update image path
+              run: |
+                acrImagePath="${{ github.event.inputs.azureACRServer }}/aks-wls-images:${{ env.imageTag }}"
+                restartVersion=$(kubectl -n ${{ github.event.inputs.wlsClusterNamespace }} get domain ${{ github.event.inputs.wlsCLusterDomainName }} '-o=jsonpath={.spec.restartVersion}')
+                # increase restart version
+                restartVersion=$((restartVersion + 1))
+                kubectl -n ${{ github.event.inputs.wlsClusterNamespace }} patch domain ${{ github.event.inputs.wlsCLusterDomainName }} \
+                    --type=json \
+                    '-p=[{"op": "replace", "path": "/spec/restartVersion", "value": "'${restartVersion}'" }, {"op": "replace", "path": "/spec/image", "value": "'${acrImagePath}'" }]'
+                echo "acrImagePath=${acrImagePath}" >> $GITHUB_ENV
+            - name: Verify all pods are updated with the latest image
+              run: |
+                echo "check if all pods are updated with the latest image"
+                chmod ugo+x -R cargotracker/
+                attempt=0
+                podVersionStatus="notAllUpdated"
+                while [[ $attempt -le 10 ]] && [[ $podVersionStatus = notAllUpdated ]]
+                do
+                  sleep 2m
+                  attempt=$((attempt + 1))
+                  podVersionStatus=$(./cargotracker/src/test/aks/checkPodsImage.sh ${{ github.event.inputs.wlsClusterNamespace }} ${{ env.acrImagePath }})
+                  echo "Pod image version status: ${podVersionStatus}"
+                done
+            - name: Query Application Gateway URL
+              run: |
+                appgatewayname=$(az resource list --resource-group ${{ github.event.inputs.resourceGroupForWlsAks }} --query "[?type=='Microsoft.Network/applicationGateways'].name|[0]" -o tsv)
+                echo $appgatewayname
+                publicIpAddressId=$(az network application-gateway show --resource-group ${{ github.event.inputs.resourceGroupForWlsAks }} --name ${appgatewayname} --query frontendIpConfigurations[0].publicIpAddress.id -o tsv)
+                echo $publicIpAddressId
+                appGatewayURL=$(az network public-ip show --resource-group ${{ github.event.inputs.resourceGroupForWlsAks }} --ids ${publicIpAddressId} --query dnsSettings.fqdn -o tsv)
+                echo $appGatewayURL
+                echo "appGatewayURL=${appGatewayURL}" >> $GITHUB_ENV
+            - name: Verify that the app is update
+              run: |
+                # install dependencies
+                sudo apt-get install libegl1\
+                      libopus0\
+                      libwoff1\
+                      libharfbuzz-icu0\
+                      libgstreamer-plugins-base1.0-0\
+                      libgstreamer-gl1.0-0\
+                      libgstreamer-plugins-bad1.0-0\
+                      libopenjp2-7\
+                      libwebpdemux2\
+                      libenchant1c2a\
+                      libhyphen0\
+                      libgles2\
+                      gstreamer1.0-libav -y
+                appURL=http://${{ env.appGatewayURL }}/cargo-tracker/
+                cd cargotracker/src/test/aks/playwright-ui-test
+                mvn clean install
+                mvn exec:java -e -Dexec.mainClass=com.microsoft.azure.javaee.FetchBuildVersion -Dexec.args="'${appURL}' '${{ env.deployVersion }}'"

@@ -95,6 +95,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+
         <!-- The third-party dependencies this application has -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -163,6 +172,120 @@
     </build>
     <profiles>
         <!-- The currently supported application servers are represented as profiles -->
+        <!-- WebLogic on VM Profile -->
+        <profile>
+            <id>weblogicOnVm</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webapp.graphTraversalUrl>http://localhost:8001/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>                
+                <db.driverClass>org.apache.derby.jdbc.EmbeddedDriver</db.driverClass>
+                <db.jdbcUrl>jdbc:derby:${webapp.databaseTempDir}/cargo-tracker-database;create=true</db.jdbcUrl>
+                <project.build.time>${maven.build.timestamp}</project.build.time>
+                <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                    <version>1.0.0.Alpha3</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.6</version>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                            <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <systemPropertyVariables>
+                                <!-- This is needed to tell the unit tests which profile
+                                we are running. -->
+                                <profileId>${project.activeProfiles[0].id}</profileId>
+                                <!-- This is needed to tell Arquillian which profile
+                                we are running. -->
+                                <arquillian.launch>${project.activeProfiles[0].id}</arquillian.launch>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- WebLogic on Aks Profile -->
+        <profile>
+            <id>weblogicOnAks</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webapp.graphTraversalUrl>http://sample-domain1-cluster-cluster-1:8001/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>                
+                <db.driverClass>org.apache.derby.jdbc.EmbeddedDriver</db.driverClass>
+                <db.jdbcUrl>jdbc:derby:${webapp.databaseTempDir}/cargo-tracker-database;create=true</db.jdbcUrl>
+                <project.build.time>${maven.build.timestamp}</project.build.time>
+                <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                    <version>1.0.0.Alpha3</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.6</version>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                            <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <systemPropertyVariables>
+                                <!-- This is needed to tell the unit tests which profile
+                                we are running. -->
+                                <profileId>${project.activeProfiles[0].id}</profileId>
+                                <!-- This is needed to tell Arquillian which profile
+                                we are running. -->
+                                <arquillian.launch>${project.activeProfiles[0].id}</arquillian.launch>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>payara</id>
             <activation>

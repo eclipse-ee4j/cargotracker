@@ -6,9 +6,11 @@ import java.time.temporal.ChronoUnit;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -21,7 +23,10 @@ public class Leg implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Id @GeneratedValue private Long id;
+  @Id 
+  @SequenceGenerator(name = "seq", sequenceName = "cargotracker_seq", allocationSize = 50)
+  @GeneratedValue (strategy = GenerationType.AUTO, generator = "seq")
+  private Long id;
 
   @ManyToOne
   @JoinColumn(name = "voyage_id")

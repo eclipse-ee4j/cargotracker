@@ -9,7 +9,7 @@
         <env-entry-value>http://localhost:9090/cargo-tracker-test/rest/graph-traversal/shortest-path</env-entry-value>
     </env-entry>
     <data-source>
-        <name>java:app/jdbc/CargoTrackerDatabase</name>
+        <name>jdbc/CargoTrackerDB</name>
         <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
         <url>jdbc:h2:file:./cargo-tracker-test-data/cargo-tracker-database;create=true</url>    
     </data-source>

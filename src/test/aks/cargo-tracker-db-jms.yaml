@@ -1,0 +1,36 @@
+# Copyright (c) 2020, Oracle Corporation and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+resources:
+  JDBCSystemResource:
+    CargoTrackerDB:
+      Target: 'cluster-1'
+      JdbcResource:
+        JDBCDataSourceParams:
+          JNDIName: [
+            jdbc/CargoTrackerDB
+          ]
+          GlobalTransactionsProtocol: EmulateTwoPhaseCommit
+        JDBCDriverParams:
+          DriverName: org.postgresql.Driver
+          URL: #dbUrl#
+          PasswordEncrypted: #dbPassword#
+          Properties:
+            user:
+              Value: #dbUser#
+        JDBCConnectionPoolParams:
+            InitialCapacity: 0
+            MaxCapacity: 1
+            TestTableName: SQL SELECT 1
+            TestConnectionsOnReserve: true
+  JMSServer:
+        CargoHandledQueue:
+            Target: 'cluster-1'
+        MisdirectedCargoQueue:
+            Target: 'cluster-1'
+        DeliveredCargoQueue:
+            Target: 'cluster-1'
+        RejectedRegistrationAttemptsQueue:
+            Target: 'cluster-1'
+        HandlingEventRegistrationAttemptQueue:
+            Target: 'cluster-1'
