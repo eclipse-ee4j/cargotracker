@@ -68,7 +68,7 @@
     <!-- Defining these at the application server level instead of here can be more operations friendly 
         and help make deployment even faster. -->
     <data-source>
-        <name>java:app/jdbc/CargoTrackerDatabase</name>
+        <name>jdbc/CargoTrackerDB</name>
         <class-name>${db.driverClass}</class-name>
         <url>${db.jdbcUrl}</url>
         <max-pool-size>32</max-pool-size>
