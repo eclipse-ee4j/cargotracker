@@ -39,6 +39,10 @@
         <junit.version>4.13.1</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.18.1</assertj.version>
+        <project.build.time>${maven.build.timestamp}</project.build.time>
+
+        <jta.data.source>java:app/jdbc/CargoTrackerDatabase</jta.data.source>
+        <initial.data.sql>initital-data.sql</initial.data.sql>
     </properties>
 
     <dependencyManagement>
@@ -95,15 +99,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-
         <!-- The third-party dependencies this application has -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -158,6 +153,18 @@
 
     <build>
         <finalName>cargo-tracker</finalName>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
+        <testResources>
+          <testResource>
+            <directory>src/test/resources</directory>
+            <filtering>true</filtering>
+          </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -186,12 +193,20 @@
                 <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
             </properties>
             <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
-                    <version>1.0.0.Alpha3</version>
-                    <scope>test</scope>
-                </dependency>
+              <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
+              <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet-core</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+              </dependency>
+
+              <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                <version>1.0.0.Alpha3</version>
+                <scope>test</scope>
+              </dependency>
             </dependencies>
             <build>
                 <resources>
@@ -200,6 +215,12 @@
                         <filtering>true</filtering>
                     </resource>
                 </resources>
+                <testResources>
+                  <testResource>
+                    <directory>src/test/resources</directory>
+                    <filtering>true</filtering>
+                  </testResource>
+                </testResources>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -239,16 +260,26 @@
                 <webapp.graphTraversalUrl>http://sample-domain1-cluster-cluster-1:8001/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>                
                 <db.driverClass>org.apache.derby.jdbc.EmbeddedDriver</db.driverClass>
                 <db.jdbcUrl>jdbc:derby:${webapp.databaseTempDir}/cargo-tracker-database;create=true</db.jdbcUrl>
+                <jta.data.source>jdbc/CargoTrackerDB</jta.data.source>
+                <initial.data.sql>postgresql-initital-data.sql</initial.data.sql>
                 <project.build.time>${maven.build.timestamp}</project.build.time>
                 <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
             </properties>
             <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
-                    <version>1.0.0.Alpha3</version>
-                    <scope>test</scope>
-                </dependency>
+              <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
+              <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet-core</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+              </dependency>
+
+              <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-wls-remote-12.1.2</artifactId>
+                <version>1.0.0.Alpha3</version>
+                <scope>test</scope>
+              </dependency>
             </dependencies>
             <build>
                 <resources>
@@ -257,6 +288,12 @@
                         <filtering>true</filtering>
                     </resource>
                 </resources>
+                <testResources>
+                  <testResource>
+                    <directory>src/test/resources</directory>
+                    <filtering>true</filtering>
+                  </testResource>
+                </testResources>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -325,6 +362,18 @@
                 </dependency>
             </dependencies>
             <build>
+                <resources>
+                  <resource>
+                    <directory>src/main/resources</directory>
+                    <filtering>true</filtering>
+                  </resource>
+                </resources>
+                <testResources>
+                  <testResource>
+                    <directory>src/test/resources</directory>
+                    <filtering>true</filtering>
+                  </testResource>
+                </testResources>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
