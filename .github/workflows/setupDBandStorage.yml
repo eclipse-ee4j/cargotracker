@@ -1,0 +1,110 @@
+name: Setup WLS on AKS
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+
+env:
+    refJavaee: bce4e6ec57726d4bc7992b45e1ff6e459b02fb39
+    azCliVersion: 2.23.0
+    azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+    location: eastus
+    resourceGroupForDB: wlsd-db-${{ github.run_id }}-${{ github.run_number }}
+    resourceGroupForStorageAccount: wlsd-sa-${{ github.run_id }}-${{ github.run_number }}
+    dbName: wlsdb${{ github.run_id }}${{ github.run_number }}
+    dbAdminUser: weblogic
+    dbPassword: ${{ secrets.DB_PASSWORD }}
+    storageAccountName: wlsdsa${{ github.run_id }}${{ github.run_number }}
+    storageContainerName: wlsdcon${{ github.run_id }}${{ github.run_number }}
+
+jobs:
+    preflight:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set up JDK 1.8
+              uses: actions/setup-java@v1
+              with:
+                java-version: 1.8
+    deploy-db:
+        needs: preflight
+        runs-on: ubuntu-latest
+        steps:
+            - uses: azure/login@v1
+              id: azure-login
+              with:
+                creds: ${{ env.azureCredentials }}
+            - name: Create Resource Group
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    echo "create resource group" ${{ env.resourceGroupForDB }}
+                    az group create --verbose --name ${{ env.resourceGroupForDB }} --location ${{ env.location }}
+            - name: Set Up Azure Postgresql to Test dbTemplate
+              id: setup-postgresql
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    echo "Deploy DB with name " ${{ env.dbName }}
+                    az postgres server create \
+                    --resource-group ${{ env.resourceGroupForDB }} \
+                    --name ${{ env.dbName }}  \
+                    --location ${{ env.location }} \
+                    --admin-user ${{ env.dbAdminUser }} \
+                    --ssl-enforcement Enabled \
+                    --public-network-access Enabled \
+                    --admin-password ${{ env.dbPassword }} \
+                    --sku-name B_Gen5_1
+                    echo "Allow Access To Azure Services"
+                    az postgres server firewall-rule create \
+                    -g ${{ env.resourceGroupForDB }} \
+                    -s ${{ env.dbName }} \
+                    -n "AllowAllWindowsAzureIps" \
+                    --start-ip-address "0.0.0.0" \
+                    --end-ip-address "0.0.0.0"
+    deploy-storage-account:
+        needs: preflight
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout edburns/cargotracker
+              uses: actions/checkout@v2
+              with:
+                path: cargotracker
+            - name: Maven build web app
+              run: |
+                mvn clean install -PweblogicOnAks --file cargotracker/pom.xml
+            - uses: azure/login@v1
+              id: azure-login
+              with:
+                creds: ${{ env.azureCredentials }}
+            - name: Create Resource Group
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    echo "create resource group" ${{ env.resourceGroupForStorageAccount }}
+                    az group create --verbose --name ${{ env.resourceGroupForStorageAccount }} --location ${{ env.location }}
+            - name: Create Storage Account
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    az storage account create --name ${{ env.storageAccountName }} \
+                        --resource-group ${{ env.resourceGroupForStorageAccount }} \
+                        --location ${{ env.location }} \
+                        --sku Standard_LRS \
+                        --kind StorageV2
+            - name: Create Storage Container
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    az storage container create -n ${{ env.storageContainerName }} --public-access container --account-name ${{ env.storageAccountName }}
+            - name: Upload built web app war file
+              uses: azure/CLI@v1
+              with:
+                azcliversion: ${{ env.azCliVersion }}
+                inlineScript: |
+                    az storage blob upload --account-name ${{ env.storageAccountName }} --container-name ${{ env.storageContainerName }} --file cargotracker/target/cargo-tracker.war --name cargo-tracker.war
+             
