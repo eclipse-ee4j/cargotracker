@@ -1,4 +1,4 @@
-name: Setup WLS on AKS
+name: Setup DB and Storage Account
 
 on:
   workflow_dispatch:
