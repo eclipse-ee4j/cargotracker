@@ -81,7 +81,7 @@ jobs:
                 path: ${{steps.artifact_file.outputs.artifactPath}}
              
     deploy-wls-on-aks:
-        needs: [deploy-db, deploy-storage-account]
+        needs: preflight
         runs-on: ubuntu-latest
         steps:
             - name: Checkout galiacheng/arm-oraclelinux-wls-aks
