@@ -22,9 +22,10 @@ env:
     azCliVersion: 2.23.0
     azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
     location: eastus
-    resourceGroupForWlsAks: wlsd-aks-${{ github.event.inputs.disambiguationSuffix }}
+    resourceGroupForWlsAks: wlsd-aks-${{ github.event.inputs.disambiguationSuffix }}-${{ github.run_number }}
     dbAdminUser: weblogic
     dbPassword: ${{ secrets.DB_PASSWORD }}
+    dbName: ${{ github.event.inputs.dbName }}
     servicePrincipal: ${{ secrets.SERVICE_PRINCIPAL }}
     ocrSSOPSW: ${{ secrets.ORC_SSOPSW }}
     ocrSSOUser: ${{ secrets.ORC_SSOUSER }}
@@ -157,9 +158,9 @@ jobs:
             - name: Prepare configmap source file
               run: |
                 echo "replace placeholders using real parameter"
-                sed -i "s/#dbUrl#/'jdbc:postgresql:\/\/${github.event.inputs.dbName}.postgres.database.azure.com:5432\/postgres'/g; \
+                sed -i "s/#dbUrl#/'jdbc:postgresql:\/\/${dbName}.postgres.database.azure.com:5432\/postgres'/g; \
                         s/#dbPassword#/'${dbPassword}'/g; \
-                        s/#dbUser#/'${dbAdminUser}@${github.event.inputs.dbName}'/g" \
+                        s/#dbUser#/'${dbAdminUser}@${dbName}'/g" \
                         cargotracker/src/test/aks/cargo-tracker-db-jms.yaml
             - name: Install kubectl
               run: |
