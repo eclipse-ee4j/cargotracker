@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "_artifactsLocation": {
-            "value": "https://raw.githubusercontent.com/#gitUserName#/arm-oraclelinux-wls-aks/#testbranchName#/src/main/arm/"
+            "value": "https://raw.githubusercontent.com/oracle/weblogic-azure/#testbranchName#/weblogic-azure-aks/src/main/arm/"
         },
         "aciResourcePermissions": {
             "value": true
