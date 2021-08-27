@@ -59,22 +59,22 @@ jobs:
                 ref: ${{ env.refJavaee }}
             - name: Build azure-javaee-iaas
               run: mvn -DskipTests clean install --file azure-javaee-iaas/pom.xml
-            - name: Checkout galiacheng/arm-oraclelinux-wls-aks
+            - name: Checkout oracle/weblogic-azure
               uses: actions/checkout@v2
               with:
-                repository: galiacheng/arm-oraclelinux-wls-aks
-                path: arm-oraclelinux-wls-aks
-            - name: Build and test arm-oraclelinux-wls-aks
-              run: mvn -Pbicep -Ddev -Passembly clean install --file arm-oraclelinux-wls-aks/pom.xml
+                repository: oracle/weblogic-azure
+                path: weblogic-azure
+            - name: Build and test weblogic-azure-aks
+              run: mvn -Pbicep -Ddev -Passembly clean install --file weblogic-azure/weblogic-azure-aks/pom.xml
             - name: Generate artifact file name and path
               id: artifact_file
               run: |
-                version=$(awk '/<version>[^<]+<\/version>/{gsub(/<version>|<\/version>/,"",$1);print $1;exit;}' arm-oraclelinux-wls-aks/pom.xml)
+                version=$(awk '/<version>[^<]+<\/version>/{gsub(/<version>|<\/version>/,"",$1);print $1;exit;}' weblogic-azure/weblogic-azure-aks/pom.xml)
                 artifactName=wls-on-aks-azure-marketplace-$version-arm-assembly
-                unzip arm-oraclelinux-wls-aks/target/$artifactName.zip -d arm-oraclelinux-wls-aks/target/$artifactName
+                unzip weblogic-azure/weblogic-azure-aks/target/$artifactName.zip -d weblogic-azure/weblogic-azure-aks/target/$artifactName
                 echo "##[set-output name=artifactName;]${artifactName}"
-                echo "##[set-output name=artifactPath;]arm-oraclelinux-wls-aks/target/$artifactName"
-            - name: Archive arm-oraclelinux-wls-aks template
+                echo "##[set-output name=artifactPath;]weblogic-azure/weblogic-azure-aks/target/$artifactName"
+            - name: Archive weblogic-azure-aks template
               uses: actions/upload-artifact@v1
               if: success()
               with:
@@ -85,15 +85,15 @@ jobs:
         needs: preflight
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout galiacheng/arm-oraclelinux-wls-aks
+            - name: Checkout oracle/weblogic-azure
               uses: actions/checkout@v2
               with:
-                repository: galiacheng/arm-oraclelinux-wls-aks
-                path: arm-oraclelinux-wls-aks
-            - name: Get version information from arm-oraclelinux-wls-aks/pom.xml
+                repository: oracle/weblogic-azure
+                path: weblogic-azure
+            - name: Get version information from weblogic-azure/weblogic-azure-aks/pom.xml
               id: version
               run: |
-                version=$(awk '/<version>[^<]+<\/version>/{gsub(/<version>|<\/version>/,"",$1);print $1;exit;}' arm-oraclelinux-wls-aks/pom.xml)
+                version=$(awk '/<version>[^<]+<\/version>/{gsub(/<version>|<\/version>/,"",$1);print $1;exit;}' weblogic-azure/weblogic-azure-aks/pom.xml)
                 echo "version=${version}" >> $GITHUB_ENV
             - name: Output artifact name for Download action
               id: artifact_file
