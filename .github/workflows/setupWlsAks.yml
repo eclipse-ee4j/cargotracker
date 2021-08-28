@@ -33,7 +33,8 @@ env:
     wlsUserName: ${{ secrets.WLS_USERNAME }}
     wlsPassword: ${{ secrets.WLS_PSW }}
     userAssignedManagedIdentity: ${{ secrets.USER_ASSIGNED_MANAGED_IDENTITY_ID }}
-    aksRepoBranchName: 65ff4325c5d1470c00b4290c4fde5ccf16241ec1
+    aksRepoUserName: ${{ secrets.AKS_REPO_USER_NAME }}
+    aksRepoBranchName: ${{ secrets.AKS_REPO_BRANCH_NAME }}
     aksClusterConfigMapName: wlsd-wdt-config-map-${{ github.event.inputs.disambiguationSuffix }}
 
 jobs:
@@ -140,6 +141,7 @@ jobs:
                         s/#servicePrincipal#/${servicePrincipal}/g; \
                         s/#wdtRuntimePassword#/${wdtRuntimePassword}/g; \
                         s/#testbranchName#/${aksRepoBranchName}/g; \
+                        s/#gitUserName#/${aksRepoUserName}/g" \
                         cargotracker/src/test/aks/parameters.json
             - name: Deploy WebLogic Server Cluster Domain offer
               id: deploy-wls-cluster
