@@ -15,7 +15,7 @@ For further details on the project, please visit: https://eclipse-ee4j.github.io
 
 A slide deck introducing the
 fundamentals of the project is available on the official Eclipse 
-Foundation [Jakarta EE SlideShare account](https://www.slideshare.net/Jakarta_EE/applied-domaindriven-design-blueprints-for-jakarta-ee).
+Foundation [Jakarta EE SlideShare account](https://www.slideshare.net/Jakarta_EE/applied-domaindriven-design-blueprints-for-jakarta-ee). A recording of the slide deck is available on the official [Jakarta EE YouTube account](https://www.youtube.com/watch?v=pKmmZd-3mhA).
 
 ![Cargo Tracker cover](cargo_tracker_cover.png)
  
