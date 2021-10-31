@@ -85,7 +85,7 @@ archived under /tmp/failed.
 Don't worry about making mistakes. The application is intended to be fairly 
 error tolerant. If you do come across issues, you should [report them](https://github.com/eclipse-ee4j/cargotracker/issues).
 
-You can simply remove ./cargo-tracker-database from the file system to restart fresh. This directory will typically be under $your-payara-installation/glassfish/domains/domain1/config.
+You can simply remove ./cargo-tracker-data from the file system to restart fresh. This directory will typically be under $your-payara-installation/glassfish/domains/domain1/config.
 
 You can also use the soapUI scripts included in the source code to explore the 
 REST interfaces as well as the numerous unit tests covering the code base 
