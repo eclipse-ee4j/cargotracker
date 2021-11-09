@@ -1,15 +1,12 @@
 package org.eclipse.cargotracker.application;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -58,15 +55,19 @@ import org.eclipse.pathfinder.api.GraphTraversalService;
 import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
 import org.eclipse.pathfinder.internal.GraphDao;
+import org.glassfish.grizzly.http.LZMAContentEncoding;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
@@ -75,7 +76,8 @@ import org.junit.runner.RunWith;
  * <p>Ensure a Payara instance is running locally before this test is executed, with the default
  * user name and password.
  */
-@RunWith(Arquillian.class)
+
+@ExtendWith(ArquillianExtension.class)
 public class BookingServiceTest {
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
@@ -151,7 +153,7 @@ public class BookingServiceTest {
         .addAsWebInfResource("test-web.xml", "web.xml")
         // Library dependencies
         .addAsLibraries(
-            Maven.resolver()
+                Maven.resolver()
                 .loadPomFromFile("pom.xml")
                 .resolve("org.apache.commons:commons-lang3", "com.h2database:h2")
                 .withTransitivity()
@@ -159,7 +161,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(1)
+  @Order(1)
   public void testRegisterNew() {
     UnLocode fromUnlocode = new UnLocode("USCHI");
     UnLocode toUnlocode = new UnLocode("SESTO");
@@ -189,7 +191,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(2)
+  @Order(2)
   public void testRouteCandidates() {
     candidates = bookingService.requestPossibleRoutesForCargo(trackingId);
 
@@ -197,7 +199,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(3)
+  @Order(3)
   public void testAssignRoute() {
     assigned = candidates.get(new Random().nextInt(candidates.size()));
 
@@ -215,17 +217,17 @@ public class BookingServiceTest {
     assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertTrue(cargo.getDelivery().getEstimatedTimeOfArrival().isBefore(deadline.atStartOfDay()));
-    Assert.assertEquals(
+    assertEquals(
         HandlingEvent.Type.RECEIVE, cargo.getDelivery().getNextExpectedActivity().getType());
-    Assert.assertEquals(
+    assertEquals(
         SampleLocations.CHICAGO, cargo.getDelivery().getNextExpectedActivity().getLocation());
-    Assert.assertEquals(null, cargo.getDelivery().getNextExpectedActivity().getVoyage());
+    assertEquals(null, cargo.getDelivery().getNextExpectedActivity().getVoyage());
     assertFalse(cargo.getDelivery().isUnloadedAtDestination());
     assertEquals(RoutingStatus.ROUTED, cargo.getDelivery().getRoutingStatus());
   }
 
   @Test
-  @InSequence(4)
+  @Order(4)
   public void testChangeDestination() {
     bookingService.changeDestination(trackingId, new UnLocode("FIHEL"));
 
@@ -250,7 +252,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(5)
+  @Order(5)
   public void testChangeDeadline() {
     LocalDate newDeadline = deadline.plusMonths(1);
     bookingService.changeDeadline(trackingId, newDeadline);

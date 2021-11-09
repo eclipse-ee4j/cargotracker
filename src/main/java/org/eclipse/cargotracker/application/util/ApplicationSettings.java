@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.application.util;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 /**
  * Application settings. Although this is stored in the database, it is not a true part of the

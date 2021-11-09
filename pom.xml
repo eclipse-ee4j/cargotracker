@@ -1,6 +1,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.eclipse.ee4j</groupId>
@@ -28,17 +28,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
 
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 
-        <jakartaee-api.version>8.0.0</jakartaee-api.version>
-
-        <arquillian-bom.version>1.6.0.Final</arquillian-bom.version>
+        <jakartaee-api.version>9.1.0</jakartaee-api.version>
+        <primefaces.version>10.0.0</primefaces.version>
 
         <!-- Test Utilities -->
-        <junit.version>4.13.1</junit.version>
+        <arquillian-bom.version>1.7.0.Alpha10</arquillian-bom.version>
+        <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <assertj.version>3.18.1</assertj.version>
+        <assertj.version>3.21.0</assertj.version>
     </properties>
 
     <dependencyManagement>
@@ -61,10 +63,11 @@
             </dependency>
 
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.hamcrest</groupId>
@@ -87,14 +90,6 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
 
-        <!-- Required by Java SE 9+ -->
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.3</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- The third-party dependencies this application has -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -104,13 +99,35 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>8.0</version>
+            <version>${primefaces.version}</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Test dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -121,21 +138,6 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Arquillian dependencies -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Resolvers are needed in the Arquillian tests. This is used for adding all the runtime dependencies 
-            inside a testing war. -->
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -152,8 +154,13 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -161,6 +168,24 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus Staging</name>
+            <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus</id>
+            <name>Payara Nexus Artifacts</name>
+            <url>https://nexus.payara.fish/repository/payara-artifacts/</url>
+        </repository>
+    </repositories>
     <profiles>
         <!-- The currently supported application servers are represented as profiles -->
         <profile>
@@ -169,9 +194,11 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.version>5.2021.2</payara.version>                
+                <payara.version>6.2021.1.Alpha1</payara.version>
+                <arquillian-payara.version>3.0.alpha1</arquillian-payara.version>
                 <!-- Application properties -->
-                <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>                
+                <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+                </webapp.graphTraversalUrl>
                 <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
                     path name (it should include driver name under Windows). -->
@@ -179,12 +206,19 @@
             </properties>
 
             <dependencies>
-                <!-- We need a Jersey specific dependency -->
                 <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-server</artifactId>
-                    <version>2.33</version>
-                    <scope>provided</scope>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee9</artifactId>
+                    <version>${arquillian-payara.version}</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <!-- Payara Micro Managed Container Adaptor -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-micro-managed</artifactId>
+                    <version>${arquillian-payara.version}</version>
+                    <scope>test</scope>
                 </dependency>
 
                 <!-- Embedding the JDBC driver in the WAR works in Payara -->
@@ -193,12 +227,6 @@
                     <artifactId>h2</artifactId>
                     <version>1.4.200</version>
                     <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>2.4.1</version>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
             <build>
@@ -232,7 +260,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.2</version>
+                        <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
@@ -241,8 +269,8 @@
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.8.5</version>
+                        <artifactId>cargo-maven3-plugin</artifactId>
+                        <version>1.9.6</version>
                         <configuration>
                             <container>
                                 <containerId>payara</containerId>
@@ -265,33 +293,26 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <payara.version>5.2021.2</payara.version>
-                <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>                
+                <payara.version>6.2021.1.Alpha1</payara.version>
+                <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path
+                </webapp.graphTraversalUrl>
                 <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
                 <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres?user=postgres). -->
                 <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
             </properties>
 
             <dependencies>
-                <!-- We need a Jersey specific dependency -->
                 <dependency>
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-server</artifactId>
                     <version>2.33</version>
                     <scope>provided</scope>
                 </dependency>
-
                 <!-- Embedding the JDBC driver in the WAR works in Payara Micro -->
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
                     <version>1.4.200</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>2.4.1</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -334,7 +355,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.2</version>
+                        <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
