@@ -71,9 +71,6 @@ import org.junit.runner.RunWith;
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
- *
- * <p>Ensure a Payara instance is running locally before this test is executed, with the default
- * user name and password.
  */
 @RunWith(Arquillian.class)
 public class BookingServiceTest {
