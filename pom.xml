@@ -237,6 +237,12 @@
 					<scope>test</scope>
 				</dependency>
 				<dependency>
+					<groupId>fish.payara.extras</groupId>
+					<artifactId>payara-micro</artifactId>
+					<version>${payara.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
 					<groupId>fish.payara.arquillian</groupId>
 					<artifactId>arquillian-payara-micro-managed</artifactId>
 					<version>2.4.5</version>
@@ -252,7 +258,7 @@
 						<executions>
 							<execution>
 								<id>copy</id>
-								<phase>process-test-resources</phase>
+								<phase>prepare-package</phase>
 								<goals>
 									<goal>copy</goal>
 								</goals>
@@ -261,18 +267,10 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>fish.payara.extras</groupId>
-									<artifactId>payara-micro</artifactId>
-									<version>${payara.version}</version>
-									<overWrite>false</overWrite>
-									<outputDirectory>${project.build.directory}</outputDirectory>
-									<destFileName>payara-micro.jar</destFileName>
-								</artifactItem>
-								<artifactItem>
 									<groupId>org.postgresql</groupId>
 									<artifactId>postgresql</artifactId>
 									<version>42.3.1</version>
-									<overWrite>false</overWrite>
+									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}</outputDirectory>
 									<destFileName>postgresql.jar</destFileName>
 								</artifactItem>
@@ -283,11 +281,6 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>2.22.2</version>
-						<configuration>
-							<systemPropertyVariables>
-								<PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
-							</systemPropertyVariables>
-						</configuration>
 					</plugin>
 				</plugins>
 			</build>
