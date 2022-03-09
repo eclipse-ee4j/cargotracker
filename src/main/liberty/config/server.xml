@@ -1,0 +1,129 @@
+<server description="Open Liberty server">
+
+  <featureManager>
+    <feature>jakartaee-8.0</feature>
+    <feature>batchManagement-1.0</feature>
+	  <feature>appSecurity-2.0</feature>
+    <feature>jms-2.0</feature>
+  </featureManager>
+
+  <variable name="default.http.port" defaultValue="8080"/>
+  <variable name="default.https.port" defaultValue="8081"/>
+
+  <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
+
+  <!-- JMS SETUP -->
+  <messagingEngine>
+    <queue id="CargoHandledQueue"></queue>
+    <queue id="MisdirectedCargoQueue"></queue>
+    <queue id="DeliveredCargoQueue"></queue>
+    <queue id="HandlingEventRegistrationAttemptQueue"></queue>
+    <queue id="RejectedRegistrationAttemptsQueue"></queue>
+  </messagingEngine>
+
+  <jmsQueueConnectionFactory jndiName="jms/QueueConnectionFactory">
+    <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="pwd"/>
+  </jmsQueueConnectionFactory>
+
+  <resourceAdapter id="activemq" location="/Users/chanun/Downloads/activemq-rar-5.16.4.rar">
+    <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="pwd"/>
+  </resourceAdapter>
+
+  <jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
+    <properties.activemq PhysicalName="CargoHandledQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
+    <properties.activemq destinationRef="CargoHandledQueue" destinationType="javax.jms.Queue"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
+    <properties.activemq PhysicalName="MisdirectedCargoQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
+    <properties.activemq destinationRef="MisdirectedCargoQueue" destinationType="javax.jms.Queue"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
+    <properties.activemq PhysicalName="DeliveredCargoQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
+    <properties.activemq destinationRef="DeliveredCargoQueue" destinationType="javax.jms.Queue"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
+    <properties.activemq PhysicalName="HandlingEventRegistrationAttemptQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
+    <properties.activemq destinationRef="HandlingEventRegistrationAttemptQueue" destinationType="javax.jms.Queue"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
+    <properties.activemq PhysicalName="RejectedRegistrationAttemptsQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
+    <properties.activemq destinationRef="RejectedRegistrationAttemptsQueue" destinationType="javax.jms.Queue"/>
+  </jmsActivationSpec>  
+  
+  <!-- DB SETUP -->
+  <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/>
+         
+  <library id="derbyJDBCLib">
+    <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
+  </library>
+
+  <basicRegistry id="basic" realm="ibm/api">
+    <user name="usr" password="pwd"/>
+  </basicRegistry>
+
+  <authorization-roles id="com.ibm.ws.batch">
+    <security-role name="batchAdmin" >	
+      <user name="usr" />	
+    </security-role>
+  </authorization-roles>
+  
+  <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
+    <jdbcDriver libraryRef="derbyJDBCLib" />
+    <properties.derby.embedded databaseName="CargoTrackerDB" createDatabase="create" />
+  </dataSource>
+  
+  <databaseStore id="EJBPersistentTimerStore" tablePrefix="WLP2_" keyGenerationStrategy="SEQUENCE"/>
+  <persistentExecutor id="EJBPersistentTimerExecutor" 
+      taskStoreRef="EJBPersistentTimerStore" 
+      initialPollDelay="-1" 
+      enableTaskExecution="true" retryInterval="300s" 
+      retryLimit="-1" 
+      ignore.minimum.for.test.use.only="true">
+        <contextService>
+            <securityContext/>
+        </contextService>
+  </persistentExecutor>
+
+  <ejbContainer>
+        <timerService persistentExecutorRef="EJBPersistentTimerExecutor"/>
+        <timerService missedPersistentTimerAction="ONCE"/>
+  </ejbContainer>
+
+  <databaseStore id="ejbTimerDataStore" keyGenerationStrategy="SEQUENCE"/>
+  <dataSource id="DefaultDataSource" jdbcDriverRef="derbyjdbcdriver">
+        <properties.derby.embedded createDatabase="create" databaseName="EJBTimerDB"/>
+  </dataSource>
+
+  <webApplication location="cargo-tracker.war" contextRoot="cargo-tracker">
+    <application-bnd>
+      <security-role name="batchAdmin">
+          <user name="usr" />
+          <run-as userid="usr" password="pwd"/>
+      </security-role>
+    </application-bnd>
+  </webApplication>
+
+  <applicationMonitor updateTrigger="mbean"/>
+  <applicationManager autoExpand="true"/>
+  <httpSession cookieName="COOKIE"/>
+  
+</server>
