@@ -13,6 +13,7 @@
   <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
 
   <!-- JMS SETUP -->
+
   <messagingEngine>
     <queue id="CargoHandledQueue"></queue>
     <queue id="MisdirectedCargoQueue"></queue>
@@ -20,7 +21,7 @@
     <queue id="HandlingEventRegistrationAttemptQueue"></queue>
     <queue id="RejectedRegistrationAttemptsQueue"></queue>
   </messagingEngine>
-
+ 
   <jmsQueueConnectionFactory jndiName="jms/QueueConnectionFactory">
     <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="pwd"/>
   </jmsQueueConnectionFactory>
@@ -34,7 +35,7 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
-    <properties.activemq destinationRef="CargoHandledQueue" destinationType="javax.jms.Queue"/>
+    <properties.activemq destination="CargoHandledQueue" destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
@@ -42,7 +43,7 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
-    <properties.activemq destinationRef="MisdirectedCargoQueue" destinationType="javax.jms.Queue"/>
+    <properties.activemq destination="MisdirectedCargoQueue" destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
@@ -50,7 +51,7 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
-    <properties.activemq destinationRef="DeliveredCargoQueue" destinationType="javax.jms.Queue"/>
+    <properties.activemq destination="DeliveredCargoQueue" destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
@@ -58,7 +59,7 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
-    <properties.activemq destinationRef="HandlingEventRegistrationAttemptQueue" destinationType="javax.jms.Queue"/>
+    <properties.activemq destination="HandlingEventRegistrationAttemptQueue" destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
