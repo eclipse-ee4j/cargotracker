@@ -93,10 +93,8 @@
 					</div>
 				</div>
 
-				<div id="map" class="ui-g-12">
-					<iframe class="mapFrame" width="100%" height="960"
-						src="#{request.contextPath}/public/mapFrame.xhtml?cargo=#{'public'.track.cargoAsJson}" />
-				</div>
+				<iframe class="mapFrame" width="100%" height="960"
+						src="#{externalContext.getRequest().getContextPath()}/public/mapFrame.xhtml?cargo=#{public.track.cargoAsJson}" />
 			</h:panelGroup>
 		</div>
 	</ui:define>
