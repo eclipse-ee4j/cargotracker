@@ -17,7 +17,7 @@
 
   <variable name="default.http.port" defaultValue="8080"/>
   <variable name="default.https.port" defaultValue="8081"/>
-
+  
   <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
   
   <basicRegistry id="basic" realm="ibm/api">
@@ -92,7 +92,7 @@
   <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/>
          
   <library id="derbyJDBCLib">
-    <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
+    <fileset dir="/Users/chanun/derby" includes="derby*.jar" />
   </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
