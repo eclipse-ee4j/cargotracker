@@ -41,6 +41,7 @@ public class SampleDataGenerator {
   @PostConstruct
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void loadSampleData() {
+    logger.info("Sample loaded: " + Boolean.toString(isSampleLoaded())); 
     if (!isSampleLoaded()) {
       logger.info("Loading sample data.");
       loadSampleLocations();
@@ -53,7 +54,6 @@ public class SampleDataGenerator {
 
   private boolean isSampleLoaded() {
     boolean sampleLoaded = false;
-
     try {
       ApplicationSettings settings =
           entityManager.find(ApplicationSettings.class, 1L, LockModeType.PESSIMISTIC_WRITE);
