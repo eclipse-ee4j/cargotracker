@@ -7,7 +7,6 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
-import javax.ws.rs.POST; 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,11 +27,11 @@ public class RealtimeCargoTrackingService {
   @Inject private Logger logger;
 
   @Inject private CargoRepository cargoRepository;
-  
-  @Context private Sse sse; 
+
+  @Context private Sse sse;
 
   private SseBroadcaster broadcaster;
-  
+
   @PostConstruct
   public void init() {
     System.out.println("init: sse = " + sse);
@@ -58,7 +57,8 @@ public class RealtimeCargoTrackingService {
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
-  public void tracking(@Context SseEventSink eventSink) {
+  public void tracking(@Context Sse sse2, @Context SseEventSink eventSink) {
+    this.sse = sse2;
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
 
     broadcaster.register(eventSink);
@@ -77,7 +77,7 @@ public class RealtimeCargoTrackingService {
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-	System.out.println("cargoToSseEvent sse = " + sse);
+    System.out.println("sse =" + sse.newEventBuilder());
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
