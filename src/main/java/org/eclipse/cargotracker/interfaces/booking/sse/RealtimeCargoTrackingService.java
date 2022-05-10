@@ -35,14 +35,30 @@ public class RealtimeCargoTrackingService {
   
   @PostConstruct
   public void init() {
+    System.out.println("init: sse = " + sse);
     broadcaster = sse.newBroadcaster();
+    System.out.println("init: broadcaster = " + broadcaster);
     logger.log(Level.FINEST, "SSE broadcaster created.");
   }
+  
+  /*
+  @POST
+  @Produces(MediaType.TEXT_PLAIN)
+  public boolean setup() { //returns whether setup was necessary
+    System.out.println("setup: sse = " + sse);
+    synchronized (RealtimeCargoTrackingService.class) {
+      //Always create a new broadcaster instance.
+      broadcaster = sse.newBroadcaster();
+      System.out.println("setup: broadcaster = " + broadcaster);
+      logger.log(Level.FINEST, "setup created new Broadcaster: " + broadcaster);
+      return true;
+    }
+  }
+  */
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
-  public void tracking(@Context Sse sse2, @Context SseEventSink eventSink) {
-	this.sse = sse2; 
+  public void tracking(@Context SseEventSink eventSink) {
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
 
     broadcaster.register(eventSink);
@@ -61,7 +77,7 @@ public class RealtimeCargoTrackingService {
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-	System.out.println("sse =" + sse.newEventBuilder());
+	System.out.println("cargoToSseEvent sse = " + sse);
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
