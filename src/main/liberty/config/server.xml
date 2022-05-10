@@ -24,7 +24,7 @@
   <wasJmsEndpoint id="InboundJmsCommsEndpoint" host="*" wasJmsPort="7276" wasJmsSSLPort="9100"/> 
   
   <basicRegistry id="basic" realm="ibm/api">
-    <user name="usr" password="pwd"/>
+    <user name="usr" password="{xor}Lyg7"/>
   </basicRegistry>
 
   <authorization-roles id="com.ibm.ws.batch">
@@ -91,104 +91,14 @@
   <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
     <properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue" maxConcurrency="200"/>
   </jmsActivationSpec>
-  
-  <!-- ACTIVEMQ -->
-  
-  <!--  
-  
-  <jmsQueueConnectionFactory jndiName="jms/QueueConnectionFactory">
-    <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="pwd"/>
-  </jmsQueueConnectionFactory>
-
-  <resourceAdapter id="activemq" location="/Users/chanun/Downloads/activemq-rar-5.16.4.rar">
-    <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="pwd"/>
-  </resourceAdapter>
-
-  <jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
-    <properties.activemq PhysicalName="CargoHandledQueue"/>
-  </jmsQueue>
-
-  <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
-    <properties.activemq destination="CargoHandledQueue" destinationType="javax.jms.Queue"/>
-  </jmsActivationSpec>  
-
-  <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
-    <properties.activemq PhysicalName="MisdirectedCargoQueue"/>
-  </jmsQueue>
-
-  <jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
-    <properties.activemq destination="MisdirectedCargoQueue" destinationType="javax.jms.Queue"/>
-  </jmsActivationSpec>  
-
-  <jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
-    <properties.activemq PhysicalName="DeliveredCargoQueue"/>
-  </jmsQueue>
-
-  <jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
-    <properties.activemq destination="DeliveredCargoQueue" destinationType="javax.jms.Queue"/>
-  </jmsActivationSpec>  
-
-  <jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
-    <properties.activemq PhysicalName="HandlingEventRegistrationAttemptQueue"/>
-  </jmsQueue>
-
-  <jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
-    <properties.activemq destination="HandlingEventRegistrationAttemptQueue" destinationType="javax.jms.Queue"/>
-  </jmsActivationSpec>  
-
-  <jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
-    <properties.activemq PhysicalName="RejectedRegistrationAttemptsQueue"/>
-  </jmsQueue>
-
-  <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
-    <properties.activemq destinationRef="RejectedRegistrationAttemptsQueue" destinationType="javax.jms.Queue"/>
-  </jmsActivationSpec>  
-  
-  -->
  
   <!-- DB DRIVERS AND LIBRARIES -->
-  
   
   <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/> 
   
   <library id="derbyJDBCLib">
     <fileset dir="/Users/chanun/derby" includes="derby*.jar" />
   </library>
-  
-  <!-- H2 DB SETUP -->
-  
-  <!--  
-  <jdbcDriver id="h2jdbcdriver" libraryRef="h2JDBCLib"/>
-  
-  <library id="h2JDBCLib">
-    <fileset dir="/Users/chanun/h2/bin" includes="h2*.jar" />
-  </library>
-  
-  <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
-    <jdbcDriver libraryRef="h2JDBCLib" />
-    <properties password="pass" user="user" 
-    URL="jdbc:h2:mem:testdb"/>
-  </dataSource>
-  
-  <databaseStore id="EJBPersistentTimerStore" tablePrefix="WLP2_" keyGenerationStrategy="SEQUENCE"/>
-  <persistentExecutor id="EJBPersistentTimerExecutor" 
-      taskStoreRef="EJBPersistentTimerStore" 
-      initialPollDelay="-1" 
-      enableTaskExecution="true" retryInterval="300s" 
-      retryLimit="-1" 
-      ignore.minimum.for.test.use.only="true">
-        <contextService>
-            <securityContext/>
-        </contextService>
-  </persistentExecutor>
-
-  <databaseStore id="ejbTimerDataStore" keyGenerationStrategy="SEQUENCE"/>
-  <dataSource id="DefaultDataSource" jdbcDriverRef="h2jdbcdriver">
-        <properties password="pass" user="user" 
-    URL="jdbc:h2:mem:testdb"/>
-  </dataSource>
-  
-  -->
   
   <!-- DERBY DB SETUP -->
   
@@ -223,12 +133,12 @@
     <application-bnd>
       <security-role name="batchAdmin">
           <user name="usr" />
-          <run-as userid="usr" password="pwd"/>
+          <run-as userid="usr" password="{xor}Lyg7"/>
       </security-role>
     </application-bnd>
   </webApplication>
 
-  <keyStore id="defaultKeyStore" password="password"/>
+  <keyStore id="defaultKeyStore" password="{xor}Lz4sLCgwLTs="/>
   <applicationMonitor updateTrigger="mbean"/>
   <applicationManager autoExpand="true"/>
   <httpSession cookieName="COOKIE"/>
