@@ -4,6 +4,8 @@
     <feature>jakartaee-8.0</feature>
     <feature>localConnector-1.0</feature>
     <feature>appSecurity-2.0</feature>
+    <feature>wasJmsClient-2.0</feature>
+    <feature>wasJmsServer-1.0</feature>
   </featureManager> 
   
   <!--
@@ -19,6 +21,7 @@
   <variable name="default.https.port" defaultValue="8081"/>
   
   <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
+  <wasJmsEndpoint id="InboundJmsCommsEndpoint" host="*" wasJmsPort="7276" wasJmsSSLPort="9100"/> 
   
   <basicRegistry id="basic" realm="ibm/api">
     <user name="usr" password="{xor}Lyg7"/>
@@ -31,93 +34,71 @@
   </authorization-roles>
 
   <!-- JMS SETUP -->
- 
-  <jmsQueueConnectionFactory jndiName="jms/QueueConnectionFactory">
-    <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="{xor}Lyg7"/>
+  
+  <!-- WASJMS -->
+  
+  <connectionManager id="CargoCM" minPoolSize="1" maxPoolSize="400"/>
+  
+  <messagingEngine id="defaultME">
+  	<queue id="CargoHandledQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="MisdirectedCargoQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="DeliveredCargoQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="HandlingEventRegistrationAttemptQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="RejectedRegistrationAttemptsQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+  </messagingEngine>
+  
+  <jmsQueueConnectionFactory 
+  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM" containerAuthDataRef="JMSConnectionAlias">
+   	<properties.wasJms/>
   </jmsQueueConnectionFactory>
-
-  <resourceAdapter id="activemq" location="/Users/chanun/Downloads/activemq-rar-5.16.4.rar">
-    <properties.activemq serverUrl="tcp://localhost:61616" userName="admin" password="{xor}Lyg7"/>
-  </resourceAdapter>
-
+  
   <jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
-    <properties.activemq PhysicalName="CargoHandledQueue"/>
+    <properties.wasJms queueName="CargoHandledQueue"/>
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
-    <properties.activemq destination="CargoHandledQueue" destinationType="javax.jms.Queue"/>
+    <properties.wasJms destinationRef="CargoHandledQueue" maxConcurrency="200"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
-    <properties.activemq PhysicalName="MisdirectedCargoQueue"/>
+    <properties.wasJms queueName="MisdirectedCargoQueue"/>
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
-    <properties.activemq destination="MisdirectedCargoQueue" destinationType="javax.jms.Queue"/>
+    <properties.wasJms destinationRef="MisdirectedCargoQueue" maxConcurrency="200"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
-    <properties.activemq PhysicalName="DeliveredCargoQueue"/>
+    <properties.wasJms queueName="DeliveredCargoQueue"/>
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
-    <properties.activemq destination="DeliveredCargoQueue" destinationType="javax.jms.Queue"/>
+    <properties.wasJms destinationRef="DeliveredCargoQueue" maxConcurrency="200"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
-    <properties.activemq PhysicalName="HandlingEventRegistrationAttemptQueue"/>
+    <properties.wasJms queueName="HandlingEventRegistrationAttemptQueue"/>
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
-    <properties.activemq destination="HandlingEventRegistrationAttemptQueue" destinationType="javax.jms.Queue"/>
+    <properties.wasJms destinationRef="HandlingEventRegistrationAttemptQueue" maxConcurrency="200"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
-    <properties.activemq PhysicalName="RejectedRegistrationAttemptsQueue"/>
+    <properties.wasJms queueName="RejectedRegistrationAttemptsQueue"/>
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
-    <properties.activemq destinationRef="RejectedRegistrationAttemptsQueue" destinationType="javax.jms.Queue"/>
-  </jmsActivationSpec>  
-  
+    <properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue" maxConcurrency="200"/>
+  </jmsActivationSpec>
+ 
   <!-- DB DRIVERS AND LIBRARIES -->
   
-  <jdbcDriver id="h2jdbcdriver" libraryRef="h2JDBCLib"/>
-  <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/>
-         
-  <library id="h2JDBCLib">
-    <fileset dir="/Users/chanun/h2/bin" includes="h2*.jar" />
-  </library>
+  <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/> 
   
   <library id="derbyJDBCLib">
     <fileset dir="/Users/chanun/derby" includes="derby*.jar" />
   </library>
-  
-  <!-- H2 DB SETUP -->
-  
-  <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
-    <jdbcDriver libraryRef="h2JDBCLib" />
-    <properties password="{xor}Lz4sLA==" user="user" 
-    URL="jdbc:h2:mem:testdb"/>
-  </dataSource>
-  
-  <databaseStore id="EJBPersistentTimerStore" tablePrefix="WLP2_" keyGenerationStrategy="SEQUENCE"/>
-  <persistentExecutor id="EJBPersistentTimerExecutor" 
-      taskStoreRef="EJBPersistentTimerStore" 
-      initialPollDelay="-1" 
-      enableTaskExecution="true" retryInterval="300s" 
-      retryLimit="-1" 
-      ignore.minimum.for.test.use.only="true">
-        <contextService>
-            <securityContext/>
-        </contextService>
-  </persistentExecutor>
-
-  <databaseStore id="ejbTimerDataStore" keyGenerationStrategy="SEQUENCE"/>
-  <dataSource id="DefaultDataSource" jdbcDriverRef="h2jdbcdriver">
-        <properties password="{xor}Lz4sLA==" user="user" 
-    URL="jdbc:h2:mem:testdb"/>
-  </dataSource>
   
   <!-- DERBY DB SETUP -->
   
@@ -163,3 +144,4 @@
   <httpSession cookieName="COOKIE"/>
   
 </server>
+  
