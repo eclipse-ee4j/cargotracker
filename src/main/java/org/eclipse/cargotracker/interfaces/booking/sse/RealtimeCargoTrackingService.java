@@ -43,16 +43,16 @@ public class RealtimeCargoTrackingService {
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
-	synchronized (RealtimeCargoTrackingService.class) {
-	if (broadcaster == null) {
-		broadcaster = sse.newBroadcaster();
+    synchronized (RealtimeCargoTrackingService.class) {
+      if (broadcaster == null) {
+        broadcaster = sse.newBroadcaster();
         System.out.println("tracking: broadcaster = " + broadcaster);
-		}
-	}
+      }
+    }
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
     broadcaster.register(eventSink);
     logger.log(Level.FINEST, "SSE event sink registered.");
-}
+  }
 
   @PreDestroy
   public void close() {
@@ -63,8 +63,8 @@ public class RealtimeCargoTrackingService {
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
     if (broadcaster != null) {
-    	logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
-    	broadcaster.broadcast(cargoToSseEvent(cargo));
+      logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
+      broadcaster.broadcast(cargoToSseEvent(cargo));
     }
   }
 
