@@ -3,20 +3,10 @@
   <featureManager>
     <feature>jakartaee-8.0</feature>
     <feature>localConnector-1.0</feature>
-    <feature>appSecurity-2.0</feature>
     <feature>wasJmsClient-2.0</feature>
     <feature>wasJmsServer-1.0</feature>
   </featureManager> 
   
-  <!--
-  <logging  traceSpecification="com.ibm.ws.jsf*=all:org.apache.myfaces*=all:com.ibm.ws.webcontainer*=all:com.ibm.wsspi.webcontainer*=all"
-    traceFileName="trace.log"
-    maxFileSize="20"
-    maxFiles="10"
-    traceFormat="BASIC" 
-  />
-  -->
-
   <variable name="default.http.port" defaultValue="8080"/>
   <variable name="default.https.port" defaultValue="8081"/>
   
@@ -32,7 +22,7 @@
       <user name="usr" />	
     </security-role>
   </authorization-roles>
-
+  
   <!-- JMS SETUP -->
   
   <!-- WASJMS -->
@@ -48,16 +38,17 @@
   </messagingEngine>
   
   <jmsQueueConnectionFactory 
-  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM" containerAuthDataRef="JMSConnectionAlias">
+  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM">
    	<properties.wasJms/>
   </jmsQueueConnectionFactory>
   
-  <jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
+  <jmsQueue id="CargoHandledQueue" jndiName="java:app/jms/CargoHandledQueue">
     <properties.wasJms queueName="CargoHandledQueue"/>
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
-    <properties.wasJms destinationRef="CargoHandledQueue" maxConcurrency="200"/>
+    <properties.wasJms destinationRef="CargoHandledQueue" maxConcurrency="200"
+    destinationLookup="java:app/jms/CargoHandledQueue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
@@ -97,7 +88,7 @@
   <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/> 
   
   <library id="derbyJDBCLib">
-    <fileset dir="/Users/chanun/derby" includes="derby*.jar" />
+    <fileset dir="${shared.resource.dir}" includes="derby*.jar" />
   </library>
   
   <!-- DERBY DB SETUP -->
