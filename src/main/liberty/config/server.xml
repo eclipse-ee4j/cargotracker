@@ -23,10 +23,6 @@
     </security-role>
   </authorization-roles>
   
-  <!-- JMS SETUP -->
-  
-  <!-- WASJMS -->
-  
   <connectionManager id="CargoCM" minPoolSize="1" maxPoolSize="400"/>
   
   <messagingEngine id="defaultME">
@@ -82,16 +78,12 @@
   <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
     <properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue" maxConcurrency="200"/>
   </jmsActivationSpec>
- 
-  <!-- DB DRIVERS AND LIBRARIES -->
   
   <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/> 
   
   <library id="derbyJDBCLib">
     <fileset dir="${shared.resource.dir}" includes="derby*.jar" />
   </library>
-  
-  <!-- DERBY DB SETUP -->
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
     <jdbcDriver libraryRef="derbyJDBCLib" />
