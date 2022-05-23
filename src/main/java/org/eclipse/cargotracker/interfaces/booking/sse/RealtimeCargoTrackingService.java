@@ -7,7 +7,6 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
-import javax.ws.rs.POST; 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,11 +27,11 @@ public class RealtimeCargoTrackingService {
   @Inject private Logger logger;
 
   @Inject private CargoRepository cargoRepository;
-  
-  @Context private Sse sse; 
+
+  @Context private Sse sse;
 
   private SseBroadcaster broadcaster;
-  
+
   @PostConstruct
   public void init() {
     System.out.println("init: sse = " + sse);
@@ -40,27 +39,17 @@ public class RealtimeCargoTrackingService {
     System.out.println("init: broadcaster = " + broadcaster);
     logger.log(Level.FINEST, "SSE broadcaster created.");
   }
-  
-  /*
-  @POST
-  @Produces(MediaType.TEXT_PLAIN)
-  public boolean setup() { //returns whether setup was necessary
-    System.out.println("setup: sse = " + sse);
-    synchronized (RealtimeCargoTrackingService.class) {
-      //Always create a new broadcaster instance.
-      broadcaster = sse.newBroadcaster();
-      System.out.println("setup: broadcaster = " + broadcaster);
-      logger.log(Level.FINEST, "setup created new Broadcaster: " + broadcaster);
-      return true;
-    }
-  }
-  */
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
+    synchronized (RealtimeCargoTrackingService.class) {
+      if (broadcaster == null) {
+        broadcaster = sse.newBroadcaster();
+        System.out.println("tracking: broadcaster = " + broadcaster);
+      }
+    }
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
-
     broadcaster.register(eventSink);
     logger.log(Level.FINEST, "SSE event sink registered.");
   }
@@ -68,16 +57,19 @@ public class RealtimeCargoTrackingService {
   @PreDestroy
   public void close() {
     broadcaster.close();
+    System.out.println("SSE broadcaster closed");
     logger.log(Level.FINEST, "SSE broadcaster closed.");
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
-    logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
-    broadcaster.broadcast(cargoToSseEvent(cargo));
+    if (broadcaster != null) {
+      logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
+      broadcaster.broadcast(cargoToSseEvent(cargo));
+    }
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-	System.out.println("cargoToSseEvent sse = " + sse);
+    System.out.println("cargoToSseEvent sse = " + sse);
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
