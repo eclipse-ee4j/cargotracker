@@ -351,6 +351,13 @@
                             <artifactId>derby</artifactId>
                         </dependency>
                     </copyDependencies>
+                    <copyDependencies>
+                    	<location>${project.basedir}/src/main/webapp/WEB-INF/lib</location>
+                    	<dependency>
+                        	<groupId>org.apache.commons</groupId>
+							<artifactId>commons-lang3</artifactId>
+                        </dependency>
+					</copyDependencies>
                 </configuration>
             </plugin>
             <plugin>
