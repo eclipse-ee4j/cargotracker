@@ -329,11 +329,6 @@
             <version>10.14.2.0</version>
             <scope>provided</scope>
         </dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>8.0</version>
-		</dependency>
       </dependencies>
     
       <build>
@@ -357,6 +352,11 @@
                         	<groupId>org.apache.commons</groupId>
 							<artifactId>commons-lang3</artifactId>
                         </dependency>
+                        <dependency>
+							<groupId>org.primefaces</groupId>
+							<artifactId>primefaces</artifactId>
+							<version>8.0</version>
+						</dependency>
 					</copyDependencies>
                 </configuration>
             </plugin>
