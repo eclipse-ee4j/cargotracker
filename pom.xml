@@ -288,6 +288,7 @@
 			</build>
 		</profile>
 		
+		<!-- Profile to run the application with Open Liberty -->
 		<profile>
 			<id>openliberty</id>
 		  	<activation>
