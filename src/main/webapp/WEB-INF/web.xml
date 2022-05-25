@@ -70,14 +70,6 @@
 		<lookup-name>jdbc/DefaultDB</lookup-name>
 	</resource-ref>
 
-	<!--
-	<resource-ref>
-		<res-ref-name>jdbc/postgres</res-ref-name>
-		<res-type>javax.sql.DataSource</res-type>
-		<lookup-name>jdbc/postgres</lookup-name>
-	</resource-ref>
-	-->
-
 	<jms-destination>
 		<name>java:app/jms/CargoHandledQueue</name>
 		<interface-name>javax.jms.Queue</interface-name>
