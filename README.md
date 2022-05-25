@@ -29,15 +29,16 @@ The simplest steps are the following (no IDE required):
 * Ensure you are running Java SE 8 or Java SE 11.
 * Make sure JAVA_HOME is set.
 * As long as you have Maven set up properly, navigate to the project source root and 
-  type: `mvn clean package cargo:run`
-* Go to http://localhost:8080/cargo-tracker
+type: `mvn clean package cargo:run` if using Payara
+* To run using Open Liberty in development mode, type: mvn -P openliberty liberty:dev
+* Alternatively, run the application with the Liberty Maven Plugin: mvn liberty:run
+* Go to http://localhost:8080/cargo-tracker to view the application 
 
 To set up in Eclipse, follow these steps:
 
 * Set up Java SE 8 or Java SE 11, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
-* Import this code in Eclipse as a Maven project, 
-  Eclipse will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+* Import this code in Eclipse with the "Existing Maven projects" option selected. Eclipse will do the rest for you. Proceed with clean/building the application.
+* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5 or by creating a new Open Liberty server in Eclipse and configuring the server for the application using the Eclipse setup wizard. 
 
 ## Exploring the Application
 
