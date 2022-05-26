@@ -1,5 +1,11 @@
 package org.eclipse.cargotracker.interfaces.booking.sse;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -34,45 +40,48 @@ public class RealtimeCargoTrackingService {
 
   @PostConstruct
   public void init() {
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	Date date = new Date();
+	String strDate = sdf.format(date);
     System.out.println("init: sse = " + sse);
     broadcaster = sse.newBroadcaster();
-    System.out.println("init: broadcaster = " + broadcaster);
-    logger.log(Level.FINEST, "SSE broadcaster created.");
+    System.out.println("tracking: SSE " + broadcaster.toString() + " created at " + strDate);
+    logger.log(Level.FINEST, "SSE " + broadcaster.toString() + " created at " + strDate);
   }
-
-  /*
-  @POST
-  @Produces(MediaType.TEXT_PLAIN)
-  public boolean setup() { //returns whether setup was necessary
-    System.out.println("setup: sse = " + sse);
-    synchronized (RealtimeCargoTrackingService.class) {
-      //Always create a new broadcaster instance.
-      broadcaster = sse.newBroadcaster();
-      System.out.println("setup: broadcaster = " + broadcaster);
-      logger.log(Level.FINEST, "setup created new Broadcaster: " + broadcaster);
-      return true;
-    }
-  }
-  */
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
+    synchronized (RealtimeCargoTrackingService.class) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	  Date date = new Date();
+	  String strDate = sdf.format(date);
+      if (broadcaster == null) {
+        broadcaster = sse.newBroadcaster();
+        logger.log(Level.FINEST, "SSE " + broadcaster.toString() + " created at " + date.getTime());
+        System.out.println("tracking: SSE " + broadcaster.toString() + " created at " + strDate);
+      }
+    }
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
-
     broadcaster.register(eventSink);
     logger.log(Level.FINEST, "SSE event sink registered.");
   }
 
   @PreDestroy
   public void close() {
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	Date date = new Date();
+	String strDate = sdf.format(date);
     broadcaster.close();
+    System.out.println("tracking: SSE " + broadcaster.toString() + " destroyed at " + strDate);
     logger.log(Level.FINEST, "SSE broadcaster closed.");
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
-    logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
-    broadcaster.broadcast(cargoToSseEvent(cargo));
+    if (broadcaster != null && (sse.newEventBuilder() != null)) {
+      logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
+      broadcaster.broadcast(cargoToSseEvent(cargo));
+    }
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
