@@ -63,4 +63,5 @@ public class RealtimeCargoTrackingService {
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
         .build();
   }
+  
 }
