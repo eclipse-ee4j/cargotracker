@@ -48,7 +48,7 @@
   </messagingEngine>
   
   <jmsQueueConnectionFactory 
-  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM" containerAuthDataRef="JMSConnectionAlias">
+  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM">
    	<properties.wasJms/>
   </jmsQueueConnectionFactory>
   
