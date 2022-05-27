@@ -1,7 +1,5 @@
 package org.eclipse.cargotracker.interfaces.booking.sse;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -31,57 +29,35 @@ public class RealtimeCargoTrackingService {
   @Inject private CargoRepository cargoRepository;
 
   @Context private Sse sse;
-
   private SseBroadcaster broadcaster;
 
   @PostConstruct
   public void init() {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    Date date = new Date();
-    String strDate = sdf.format(date);
-    System.out.println("init: sse = " + sse);
     broadcaster = sse.newBroadcaster();
-    System.out.println("tracking: SSE " + broadcaster.toString() + " created at " + strDate);
-    logger.log(Level.FINEST, "SSE " + broadcaster.toString() + " created at " + strDate);
+    logger.log(Level.FINEST, "SSE broadcaster created.");
   }
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
-    synchronized (RealtimeCargoTrackingService.class) {
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-      Date date = new Date();
-      String strDate = sdf.format(date);
-      if (broadcaster == null) {
-        broadcaster = sse.newBroadcaster();
-        logger.log(Level.FINEST, "SSE " + broadcaster.toString() + " created at " + date.getTime());
-        System.out.println("tracking: SSE " + broadcaster.toString() + " created at " + strDate);
-      }
-    }
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
+
     broadcaster.register(eventSink);
     logger.log(Level.FINEST, "SSE event sink registered.");
   }
 
   @PreDestroy
   public void close() {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-    Date date = new Date();
-    String strDate = sdf.format(date);
     broadcaster.close();
-    System.out.println("tracking: SSE " + broadcaster.toString() + " destroyed at " + strDate);
     logger.log(Level.FINEST, "SSE broadcaster closed.");
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
-    if (broadcaster != null && (sse.newEventBuilder() != null)) {
-      logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
-      broadcaster.broadcast(cargoToSseEvent(cargo));
-    }
+    logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
+    broadcaster.broadcast(cargoToSseEvent(cargo));
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-    System.out.println("cargoToSseEvent sse = " + sse);
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
