@@ -1,11 +1,7 @@
 package org.eclipse.cargotracker.interfaces.booking.sse;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -40,9 +36,9 @@ public class RealtimeCargoTrackingService {
 
   @PostConstruct
   public void init() {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	Date date = new Date();
-	String strDate = sdf.format(date);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    Date date = new Date();
+    String strDate = sdf.format(date);
     System.out.println("init: sse = " + sse);
     broadcaster = sse.newBroadcaster();
     System.out.println("tracking: SSE " + broadcaster.toString() + " created at " + strDate);
@@ -54,8 +50,8 @@ public class RealtimeCargoTrackingService {
   public void tracking(@Context SseEventSink eventSink) {
     synchronized (RealtimeCargoTrackingService.class) {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	  Date date = new Date();
-	  String strDate = sdf.format(date);
+      Date date = new Date();
+      String strDate = sdf.format(date);
       if (broadcaster == null) {
         broadcaster = sse.newBroadcaster();
         logger.log(Level.FINEST, "SSE " + broadcaster.toString() + " created at " + date.getTime());
@@ -69,9 +65,9 @@ public class RealtimeCargoTrackingService {
 
   @PreDestroy
   public void close() {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	Date date = new Date();
-	String strDate = sdf.format(date);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    Date date = new Date();
+    String strDate = sdf.format(date);
     broadcaster.close();
     System.out.println("tracking: SSE " + broadcaster.toString() + " destroyed at " + strDate);
     logger.log(Level.FINEST, "SSE broadcaster closed.");
