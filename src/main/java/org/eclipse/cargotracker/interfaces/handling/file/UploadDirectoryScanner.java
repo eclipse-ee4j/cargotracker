@@ -1,6 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
-import javax.annotation.security.RunAs;
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Schedule;
@@ -16,7 +15,6 @@ import javax.ejb.TransactionManagementType;
  */
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN) // Batch steps manage their own transactions.
-@RunAs("batchAdmin")
 public class UploadDirectoryScanner {
 
   @Schedule(minute = "*/2", hour = "*") // In production, run every fifteen minutes
