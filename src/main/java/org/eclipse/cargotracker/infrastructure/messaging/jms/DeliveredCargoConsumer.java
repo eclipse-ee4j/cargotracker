@@ -15,7 +15,7 @@ import javax.jms.MessageListener;
           propertyName = "destinationType",
           propertyValue = "javax.jms.Queue"),
       @ActivationConfigProperty(
-          propertyName = "destination",
+          propertyName = "destinationLookup",
           propertyValue = "java:app/jms/DeliveredCargoQueue")
     })
 public class DeliveredCargoConsumer implements MessageListener {
