@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<web-app version="4.0"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee https://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 
 	<!-- Overriding system level defaults is a decent usage of XML. -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Production</param-value>
+		<param-value>Development</param-value>
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
@@ -64,20 +67,15 @@
 		<env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
 	</env-entry>
 
-	<resource-ref>
-		<res-ref-name>jdbc/DefaultDB</res-ref-name>
-		<res-type>javax.sql.XADataSource</res-type>
-		<lookup-name>jdbc/DefaultDB</lookup-name>
-	</resource-ref>
-
-	<!--
-	<resource-ref>
-		<res-ref-name>jdbc/postgres</res-ref-name>
-		<res-type>javax.sql.DataSource</res-type>
-		<lookup-name>jdbc/postgres</lookup-name>
-	</resource-ref>
-	-->
-
+	<!-- Defining these at the application server level instead of here can 
+		be more operations friendly and help make deployment even faster. -->
+	<data-source>
+		<name>java:app/jdbc/CargoTrackerDatabase</name>
+		<class-name>${db.driverClass}</class-name>
+		<url>${db.jdbcUrl}</url>
+		<max-pool-size>32</max-pool-size>
+		<min-pool-size>2</min-pool-size>
+	</data-source>
 	<jms-destination>
 		<name>java:app/jms/CargoHandledQueue</name>
 		<interface-name>javax.jms.Queue</interface-name>
