@@ -52,11 +52,13 @@ public class ExternalRoutingService implements RoutingService {
     // The RouteSpecification is picked apart and adapted to the external API.
     String origin = routeSpecification.getOrigin().getUnLocode().getIdString();
     String destination = routeSpecification.getDestination().getUnLocode().getIdString();
-
+    System.out.println("Origin: " + origin); 
+    System.out.println("Destination: " + destination); 
+    
     List<TransitPath> transitPaths =
         graphTraversalResource
             .queryParam("origin", origin)
-            .queryParam("destination", destination)
+            .queryParam("destination", destination)  
             .request(MediaType.APPLICATION_JSON_TYPE)
             .get(new GenericType<List<TransitPath>>() {});
 
