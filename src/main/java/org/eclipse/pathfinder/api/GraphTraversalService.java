@@ -28,7 +28,7 @@ public class GraphTraversalService {
           + "the last three must be alphanumeric (excluding 0 and 1).";
   private final Random random = new Random();
   @Inject private GraphDao dao;
-  
+
   @GET
   @Path("/shortest-path/graph-traversal")
   @Produces({"application/json", "application/xml; qs=.75"})
