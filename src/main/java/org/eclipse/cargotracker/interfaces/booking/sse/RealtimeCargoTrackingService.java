@@ -34,7 +34,7 @@ public class RealtimeCargoTrackingService {
 
   @PostConstruct
   public void init() {
-    logger.log(Level.FINEST, "init method invoked");
+    logger.log(Level.FINEST, "@PostConstruct init method invoked.");
   }
 
   @GET
