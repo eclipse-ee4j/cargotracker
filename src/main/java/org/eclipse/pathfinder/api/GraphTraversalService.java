@@ -18,7 +18,6 @@ import javax.ws.rs.QueryParam;
 import org.eclipse.pathfinder.internal.GraphDao;
 
 @Stateless
-@Path("/graph-traversal")
 public class GraphTraversalService {
 
   private static final long ONE_MIN_MS = 1000 * 60;
@@ -29,9 +28,9 @@ public class GraphTraversalService {
           + "the last three must be alphanumeric (excluding 0 and 1).";
   private final Random random = new Random();
   @Inject private GraphDao dao;
-
+  
   @GET
-  @Path("/shortest-path")
+  @Path("/shortest-path/graph-traversal")
   @Produces({"application/json", "application/xml; qs=.75"})
   public List<TransitPath> findShortestPath(
       @NotNull(message = "Missing origin UN location code.")
