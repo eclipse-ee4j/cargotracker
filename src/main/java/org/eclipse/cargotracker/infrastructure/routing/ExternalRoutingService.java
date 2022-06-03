@@ -52,8 +52,6 @@ public class ExternalRoutingService implements RoutingService {
     // The RouteSpecification is picked apart and adapted to the external API.
     String origin = routeSpecification.getOrigin().getUnLocode().getIdString();
     String destination = routeSpecification.getDestination().getUnLocode().getIdString();
-    System.out.println("Origin: " + origin); 
-    System.out.println("Destination: " + destination); 
     
     List<TransitPath> transitPaths =
         graphTraversalResource
