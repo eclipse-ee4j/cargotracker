@@ -64,6 +64,7 @@ public class RealtimeCargoTrackingService {
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
+    System.out.println("cargoToSseEvent sse = " + sse);
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
