@@ -29,19 +29,23 @@ public class RealtimeCargoTrackingService {
   @Inject private CargoRepository cargoRepository;
 
   @Context private Sse sse;
+
   private SseBroadcaster broadcaster;
 
   @PostConstruct
   public void init() {
-    broadcaster = sse.newBroadcaster();
-    logger.log(Level.FINEST, "SSE broadcaster created.");
+    logger.log(Level.FINEST, "init method invoked");
   }
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
-  public void tracking(@Context SseEventSink eventSink) {
+  public void tracking(@Context SseEventSink eventSink, @Context Sse sse) {
+    synchronized (RealtimeCargoTrackingService.class) {
+      if (broadcaster == null) {
+        broadcaster = sse.newBroadcaster();
+      }
+    }
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
-
     broadcaster.register(eventSink);
     logger.log(Level.FINEST, "SSE event sink registered.");
   }
@@ -53,11 +57,14 @@ public class RealtimeCargoTrackingService {
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
-    logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
-    broadcaster.broadcast(cargoToSseEvent(cargo));
+    if (broadcaster != null && (sse.newEventBuilder() != null)) {
+      logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
+      broadcaster.broadcast(cargoToSseEvent(cargo));
+    }
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
+    System.out.println("cargoToSseEvent sse = " + sse);
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
