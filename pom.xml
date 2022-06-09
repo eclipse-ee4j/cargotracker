@@ -304,6 +304,8 @@
 				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 				<maven.compiler.source>1.8</maven.compiler.source>
 				<maven.compiler.target>1.8</maven.compiler.target>
+				<db.driverClass>org.apache.derby.jdbc.EmbeddedDriver</db.driverClass>
+				<db.jdbcUrl>jdbc:derby:/Users/chanun/cargotracker/target/liberty/wlp/usr/servers/defaultServer/CargoTrackerDB;create=true</db.jdbcUrl>
 			</properties>
 
       <dependencies>

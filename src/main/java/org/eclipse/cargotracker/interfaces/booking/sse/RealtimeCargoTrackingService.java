@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.interfaces.booking.sse;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.enterprise.event.ObservesAsync;
@@ -32,14 +31,9 @@ public class RealtimeCargoTrackingService {
 
   private SseBroadcaster broadcaster;
 
-  @PostConstruct
-  public void init() {
-    logger.log(Level.FINEST, "init method invoked");
-  }
-
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
-  public void tracking(@Context SseEventSink eventSink, @Context Sse sse) {
+  public void tracking(@Context SseEventSink eventSink) {
     synchronized (RealtimeCargoTrackingService.class) {
       if (broadcaster == null) {
         broadcaster = sse.newBroadcaster();
@@ -64,7 +58,6 @@ public class RealtimeCargoTrackingService {
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
-    System.out.println("cargoToSseEvent sse = " + sse);
     return sse.newEventBuilder()
         .mediaType(MediaType.APPLICATION_JSON_TYPE)
         .data(new RealtimeCargoTrackingViewAdapter(cargo))
