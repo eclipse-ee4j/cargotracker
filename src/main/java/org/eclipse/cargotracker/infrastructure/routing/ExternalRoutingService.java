@@ -55,7 +55,7 @@ public class ExternalRoutingService implements RoutingService {
     String destination = routeSpecification.getDestination().getUnLocode().getIdString();
     System.out.println("Origin: " + origin);
     System.out.println("Destination: " + destination);
-    System.out.println("graphTraversalUrl at fetchRoutesForSpecification: " + graphTraversalUrl); 
+    System.out.println("graphTraversalUrl at fetchRoutesForSpecification: " + graphTraversalUrl);
 
     List<TransitPath> transitPaths =
         graphTraversalResource
