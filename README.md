@@ -35,12 +35,12 @@ _NOTE: I am currently working on the copyDependencies issue, so as of now the us
 
 Currently (using Derby), you will notice a DB exception: 
 
-'''
+```
 [INFO] [WARNING ] CWWJP9991W: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.10.v20211216-fe64cd39c3): org.eclipse.persistence.exceptions.DatabaseException
 [INFO] Internal Exception: java.sql.SQLSyntaxErrorException: Syntax error: Encountered "<EOF>" at line 1, column 57.
 [INFO] Error Code: 30000
 [INFO] Call: -- It's OK for this to fail if the record already exists.
-'''
+```
  
 You can safely ignore this along with the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
