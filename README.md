@@ -28,16 +28,21 @@ The simplest steps are the following (no IDE required):
 * Get the project source code.
 * Ensure you are running Java SE 8 or Java SE 11.
 * Make sure JAVA_HOME is set.
-* As long as you have Maven set up properly, navigate to the project source root and 
-  type: `mvn clean package cargo:run`
-* Go to http://localhost:8080/cargo-tracker
+* Navigate to the cargotracker directory
+* Develop the application with Liberty Maven Plugin: "mvn -P openliberty liberty:dev -DserverStartTimeout=300".
 
-To set up in Eclipse, follow these steps:
+NOTE: I am currently working on the copyDependencies issue, so as of now the user would be manually required to move the derby .jar to the shared/resource folder.
 
-* Set up Java SE 8 or Java SE 11, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
-* Import this code in Eclipse as a Maven project, 
-  Eclipse will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+Currently (using Derby), you will notice a DB exception: 
+
+[INFO] [WARNING ] CWWJP9991W: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.10.v20211216-fe64cd39c3): org.eclipse.persistence.exceptions.DatabaseException
+[INFO] Internal Exception: java.sql.SQLSyntaxErrorException: Syntax error: Encountered "<EOF>" at line 1, column 57.
+[INFO] Error Code: 30000
+[INFO] Call: -- It's OK for this to fail if the record already exists.
+
+You can safely ignore this along with the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
+
+* The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker. 
 
 ## Exploring the Application
 
