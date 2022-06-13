@@ -31,15 +31,17 @@ The simplest steps are the following (no IDE required):
 * Navigate to the cargotracker directory
 * Develop the application with Liberty Maven Plugin: "mvn -P openliberty liberty:dev -DserverStartTimeout=300".
 
-NOTE: I am currently working on the copyDependencies issue, so as of now the user would be manually required to move the derby .jar to the shared/resource folder.
+_NOTE: I am currently working on the copyDependencies issue, so as of now the user would be manually required to move the derby .jar to the shared/resource folder._
 
 Currently (using Derby), you will notice a DB exception: 
 
+'''
 [INFO] [WARNING ] CWWJP9991W: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.10.v20211216-fe64cd39c3): org.eclipse.persistence.exceptions.DatabaseException
 [INFO] Internal Exception: java.sql.SQLSyntaxErrorException: Syntax error: Encountered "<EOF>" at line 1, column 57.
 [INFO] Error Code: 30000
 [INFO] Call: -- It's OK for this to fail if the record already exists.
-
+'''
+ 
 You can safely ignore this along with the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
 * The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker. 
