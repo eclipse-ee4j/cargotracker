@@ -349,22 +349,23 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <looseApplication>false</looseApplication>
                     <copyDependencies>
-                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derby</artifactId>
-                        </dependency>
-                    </copyDependencies>   
-                    <copyDependencies>
-                    	<location>${project.basedir}/src/main/webapp/WEB-INF/lib</location>
-                    	<dependency>
-                        	<groupId>org.apache.commons</groupId>
-							<artifactId>commons-lang3</artifactId>
-                        </dependency>
-					</copyDependencies>
-                </configuration>
+                    	<dependencyGroup>
+	                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+	                        <dependency>
+	                            <groupId>org.apache.derby</groupId>
+	                            <artifactId>derby</artifactId>
+	                        </dependency>
+						</dependencyGroup>
+						<dependencyGroup>
+	                    	<location>${project.basedir}/src/main/webapp/WEB-INF/lib</location>
+	                    	<dependency>
+	                    		<groupId>org.apache.commons</groupId>
+	                    		<artifactId>commons-lang3</artifactId>
+	                    	</dependency>
+                    	</dependencyGroup>
+                    </copyDependencies>               
+               </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
