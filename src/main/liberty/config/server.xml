@@ -91,9 +91,9 @@
   <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/>  
   
   <library id="derbyJDBCLib">
-    <fileset dir="${project.build.directory}/liberty/wlp/usr/shared/resources" includes="derby*.jar" />
+    <fileset dir="/Users/chanun/derby" includes="derby*.jar" />
   </library> 
-
+  
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
     <jdbcDriver libraryRef="derbyJDBCLib" />
     <properties.derby.embedded databaseName="CargoTrackerDB" createDatabase="create" />
