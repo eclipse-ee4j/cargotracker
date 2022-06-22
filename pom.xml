@@ -71,25 +71,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-<<<<<<< HEAD
-		
-=======
->>>>>>> 146e025b4b1cfa0dd0ac388c4e479cdc029f5f58
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>8.0</version>
 		</dependency>
 
-<<<<<<< HEAD
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
-			<version>5.16.4</version>
-		</dependency>
-
-=======
->>>>>>> 146e025b4b1cfa0dd0ac388c4e479cdc029f5f58
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
