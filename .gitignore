@@ -14,5 +14,8 @@ bin/
 data
 .DS_Store
 cargo-tracker-test-data
+<<<<<<< HEAD
 /.apt_generated/
 /.apt_generated_tests/
+=======
+>>>>>>> 146e025b4b1cfa0dd0ac388c4e479cdc029f5f58

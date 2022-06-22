@@ -71,19 +71,25 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 146e025b4b1cfa0dd0ac388c4e479cdc029f5f58
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>8.0</version>
 		</dependency>
 
+<<<<<<< HEAD
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
 			<version>5.16.4</version>
 		</dependency>
 
+=======
+>>>>>>> 146e025b4b1cfa0dd0ac388c4e479cdc029f5f58
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -292,89 +298,5 @@
 				</plugins>
 			</build>
 		</profile>
-		
-		<profile>
-			<id>openliberty</id>
-		  	<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-				<maven.compiler.source>1.8</maven.compiler.source>
-				<maven.compiler.target>1.8</maven.compiler.target>
-				<db.driverClass>org.apache.derby.jdbc.EmbeddedDriver</db.driverClass>
-				<db.jdbcUrl>jdbc:derby:/Users/chanun/cargotracker/target/liberty/wlp/usr/servers/defaultServer/CargoTrackerDB;create=true</db.jdbcUrl>
-			</properties>
-
-      <dependencies>
-        <!-- Provided dependencies -->
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>8.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>4.1</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>3.0.3</version>
-			<scope>provided</scope>
-		</dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.14.2.0</version>
-            <scope>provided</scope>
-        </dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>8.0</version>
-		</dependency>
-      </dependencies>
-    
-      <build>
-      	<plugins>
-            <!-- Enable liberty-maven plugin -->
-            <plugin>
-                <groupId>io.openliberty.tools</groupId>
-                <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <copyDependencies>
-                    	<dependencyGroup>
-	                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
-	                        <dependency>
-	                            <groupId>org.apache.derby</groupId>
-	                            <artifactId>derby</artifactId>
-	                        </dependency>
-						</dependencyGroup>
-						<dependencyGroup>
-	                    	<location>${project.basedir}/src/main/webapp/WEB-INF/lib</location>
-	                    	<dependency>
-	                    		<groupId>org.apache.commons</groupId>
-	                    		<artifactId>commons-lang3</artifactId>
-	                    	</dependency>
-                    	</dependencyGroup>
-                    </copyDependencies>               
-               </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
-        </plugins>
-      </build>
-	  </profile>
-			
 	</profiles>
 </project>
