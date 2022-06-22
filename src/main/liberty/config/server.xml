@@ -94,7 +94,7 @@
   	   To work around this issue, replace the filler directory below with your unique file path. -->
   
   <library id="hsqlLib">
-  	<fileset dir="/Users/chanun/hsqldb" includes="hsqldb*.jar"/>
+  	<fileset dir="** YOUR FILEPATH HERE **" includes="hsqldb*.jar"/>
   </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
