@@ -7,15 +7,13 @@
     <feature>wasJmsClient-2.0</feature>
     <feature>wasJmsServer-1.0</feature>
   </featureManager> 
-  
-  <!--
-  <logging  traceSpecification="com.ibm.ws.jsf*=all:org.apache.myfaces*=all:com.ibm.ws.webcontainer*=all:com.ibm.wsspi.webcontainer*=all"
+
+  <logging  traceSpecification="com.ibm.ws.runtime.update*=all"
     traceFileName="trace.log"
     maxFileSize="20"
     maxFiles="10"
     traceFormat="BASIC" 
   />
-  -->
 
   <variable name="default.http.port" defaultValue="8080"/>
   <variable name="default.https.port" defaultValue="8081"/>
@@ -88,15 +86,19 @@
     <properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue" maxConcurrency="200"/>
   </jmsActivationSpec>
   
-  <jdbcDriver id="derbyjdbcdriver" libraryRef="derbyJDBCLib"/>  
+  <jdbcDriver id="hsqldriver" libraryRef="hsqlLib"/>
   
-  <library id="derbyJDBCLib">
-    <fileset dir="/Users/chanun/derby" includes="derby*.jar" />
-  </library> 
+  <!-- There is an issue where OL cannot find JDBC drivers when using variable substitution.
+  	   To work around this issue, replace the filler directory below with the exact file path that
+  	   Maven copied the HSQL DB .jar to. -->
+  
+  <library id="hsqlLib">
+  	<fileset dir="/Users/chanun/hsqldb" includes="hsqldb*.jar"/>
+  </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
-    <jdbcDriver libraryRef="derbyJDBCLib" />
-    <properties.derby.embedded databaseName="CargoTrackerDB" createDatabase="create" />
+    <jdbcDriver libraryRef="hsqlLib" />
+    <properties password="pwd" user="usr" URL="jdbc:hsqldb:mem:CargoTrackerDB" />
   </dataSource>
   
   <databaseStore id="EJBPersistentTimerStore" tablePrefix="WLP2_" keyGenerationStrategy="SEQUENCE"/>
@@ -112,8 +114,8 @@
   </persistentExecutor>
 
   <databaseStore id="ejbTimerDataStore" keyGenerationStrategy="SEQUENCE"/>
-  <dataSource id="DefaultDataSource" jdbcDriverRef="derbyjdbcdriver">
-        <properties.derby.embedded createDatabase="create" databaseName="EJBTimerDB"/>
+  <dataSource id="DefaultDataSource" jdbcDriverRef="hsqldriver">
+        <properties password="pwd" user="usr" URL="jdbc:hsqldb:mem:EJBTimerDS" />
   </dataSource>
   
   <ejbContainer>
@@ -122,7 +124,7 @@
   </ejbContainer>
 
   <webApplication location="cargo-tracker.war" contextRoot="cargo-tracker">
-  	<classloader commonLibraryRef="derbyJDBCLib"/>
+  	<classloader commonLibraryRef="hsqlLib"/>
   	<web-bnd moduleName="cargo-tracker">
       <env-entry name="java:app/configuration/GraphTraversalUrl" value="http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path"/>
   	</web-bnd>
@@ -140,4 +142,3 @@
   <httpSession cookieName="COOKIE"/>
   
 </server>
-  
