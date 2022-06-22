@@ -88,12 +88,11 @@
   
   <jdbcDriver id="hsqldriver" libraryRef="hsqlLib"/>
   
-  <!-- There is an issue where OL cannot find JDBC drivers when using variable substitution.
-  	   To work around this issue, replace the filler directory below with the exact file path that
-  	   Maven copied the HSQL DB .jar to. -->
+  <!-- Currently, OL cannot find JDBC drivers when using variable substitution.
+  	   To work around this issue, replace the filler directory below with your unique file path. -->
   
   <library id="hsqlLib">
-  	<fileset dir="/Users/chanun/hsqldb" includes="hsqldb*.jar"/>
+  	<fileset dir="** YOUR FILEPATH HERE **" includes="hsqldb*.jar"/>
   </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">

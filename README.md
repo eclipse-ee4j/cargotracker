@@ -25,24 +25,16 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 
 The simplest steps are the following (no IDE required):
 
-* Get the project source code.
+* Get the project source code and download the HSQL DB version 2.6.1 .jar file: https://hsqldb.org/ -> "Download"
 * Ensure you are running Java SE 8 or Java SE 11.
 * Make sure JAVA_HOME is set.
-* Navigate to the cargotracker directory
-* Develop the application with Liberty Maven Plugin: "mvn -P openliberty liberty:dev -DserverStartTimeout=300".
+* Navigate to the cargotracker directory and access the server.xml located in src/main/liberty/config.
+* Change the filler file path for the HSQL DB library (Line 96) to your unique file path. 
+* Return to the cargotracker directory and develop the application with Liberty Maven Plugin: "mvn -P openliberty liberty:dev -DserverStartTimeout=300".
 
-_NOTE: I am currently working on the copyDependencies issue, so as of now the user would be manually required to move the derby .jar to the shared/resource folder._
-
-Currently (using Derby), you will notice a DB exception: 
-
-```
-[INFO] [WARNING ] CWWJP9991W: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.10.v20211216-fe64cd39c3): org.eclipse.persistence.exceptions.DatabaseException
-[INFO] Internal Exception: java.sql.SQLSyntaxErrorException: Syntax error: Encountered "<EOF>" at line 1, column 57.
-[INFO] Error Code: 30000
-[INFO] Call: -- It's OK for this to fail if the record already exists.
-```
+_NOTE: OL currently cannot search for JDBC drivers using variable substitution. The user will be required to manually change the HSQL DB .jar file path in the server.xml to their unique file path in order for the application to start._
  
-You can safely ignore this along with the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
+You can safely ignore the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
 * The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker. 
 
