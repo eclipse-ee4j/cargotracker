@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+    <ui:define name="title">Cargo Registration</ui:define>
+    <ui:define name="content">
+        <div class="ui-g-2" id="leftCol"></div>
+        <div class="ui-g-8" id="mainCol">
+            <br/>
+            <h:form>
+                <p:outputLabel value="1. Choose the origin of the new cargo"/>
+                <hr/>
+                <p:selectOneMenu id="origin" value="#{booking.originUnlocode}">
+                    <f:selectItems value="#{booking.locations}" var="location"
+                                   itemLabel="#{location.name}" itemValue="#{location.unLocode}"/>
+                </p:selectOneMenu>
+                <hr/>
+                <h:panelGrid columns="2" style="margin: 0 auto;">
+                    <p:commandButton value="Cancel" action="/admin/dashboard"/>
+                    <p:commandButton value="Next" action="booking-destination"/>
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

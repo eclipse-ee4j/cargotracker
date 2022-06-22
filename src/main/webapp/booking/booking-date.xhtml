@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+    <ui:define name="title">Cargo Registration</ui:define>
+    <ui:define name="content">
+        <div class="ui-g-2" id="leftCol"></div>
+        <div class="ui-g-8" id="mainCol">
+            <br/>
+            <h:form id="dateForm">
+                <p:outputLabel
+                        value="3. Set the arrival deadline for this new #{booking.originName}-#{booking.destinationName} cargo "/>
+                <hr/>
+                <h:panelGrid columns="2" styleClass="registrationPanelGrid"
+                             style="margin: 0 auto;">
+                    <p:calendar id="deadline" value="#{booking.arrivalDeadline}"
+                                mindate="#{booking.today}" mode="inline" pattern="yyyy-MM-dd">
+                        <p:ajax event="dateSelect" listener="#{booking.deadlineUpdated}"/>
+                    </p:calendar>
+                </h:panelGrid>
+                <h:panelGrid columns="2" id="durationPanel"
+                             styleClass="registrationPanelGrid" style="margin: 0 auto;">
+                    <p:outputLabel value="A journey can't start and end the same day!"
+                                   rendered="#{booking.duration eq 0}"/>
+                    <p:outputLabel value="Journey duration is one day."
+                                   rendered="#{booking.duration eq 1}"/>
+                    <p:outputLabel
+                            value="Journey duration is #{booking.duration} days."
+                            rendered="#{booking.duration gt 1}"/>
+                </h:panelGrid>
+                <hr/>
+                <h:panelGrid columns="5" styleClass="registrationPanelGrid"
+                             style="margin: 0 auto;">
+                    <p:commandButton value="Back" action="booking-destination"/>
+                    <p:commandButton value="Cancel" action="/admin/dashboard"/>
+                    <p:commandButton value="Book Cargo" id="bookBtn"
+                                     action="#{booking.register()}" disabled="#{!booking.bookable}"/>
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

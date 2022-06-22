@@ -1,0 +1,79 @@
+name: Nightly Build
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # run at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+              
+      - name: Delete Cargo Tracker Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: delete -f cargo-tracker.yml
+        continue-on-error: true    
+        
+      - name: Delete PostgreSQL Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: delete -f postgres.yml
+        continue-on-error: true
+
+      - name: Create PostgreSQL Config Map
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: create configmap postgres-config --from-literal=postgres_user=${{ secrets.POSTGRES_USER }} --from-literal=postgres_password=${{ secrets.POSTGRES_PASSWORD }}
+        continue-on-error: true
+        
+      - name: Create PostgreSQL Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: create -f postgres.yml
+      
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '1.8'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build with Maven
+        run: mvn clean package -Pcloud -DpostgreSqlJdbcUrl="jdbc:postgresql://postgres:5432/postgres?user=${{ secrets.POSTGRES_USER }}&amp;password=${{ secrets.POSTGRES_PASSWORD }}" --file pom.xml
+        
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: eclipse-ee4j
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
+                      
+      - name: Create Cargo Tracker Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: create -f cargo-tracker.yml

@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+    <ui:define name="title">Cargo Administration</ui:define>
+    <ui:define name="content">
+
+        <div class="ui-grid-col-3"></div>
+        <div class="ui-grid-col-6">
+            <br/>
+            <div id="container" class="panel">
+                <h3>This interface includes several features for Cargo
+                    Administrators:</h3>
+                <ul>
+                    <li>View the current status of all registered cargo.</li>
+                    <li>View details for cargo such as origin, destination,
+                        deadline and itinerary.
+                    </li>
+                    <li>Change cargo destination/deadline.</li>
+                    <li>Book new cargo.</li>
+                    <li>Assign route to cargo.</li>
+                    <li>Track cargo via the internal tracking interface.</li>
+                    <li>View a live map that continuously monitors all cargo in
+                        real time.
+                    </li>
+                </ul>
+                <p>
+                    Visit <a
+                        href="https://eclipse-ee4j.github.io/cargotracker/">https://eclipse-ee4j.github.io/cargotracker/</a>
+                    for more information about Cargo Tracker.
+                </p>
+                <hr/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="EventFilesProcessorJob"
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <properties>
+        <property name="upload_directory" value="/tmp/uploads"/>
+        <property name="archive_directory" value="/tmp/archive"/>
+        <property name="failed_directory" value="/tmp/failed"/>
+    </properties>
+    <listeners>
+        <listener ref="FileProcessorJobListener"/>
+    </listeners>
+    <step id="ProcessEventFiles">
+        <listeners>
+            <listener ref="LineParseExceptionListener"/>
+        </listeners>
+        <chunk item-count="12">
+            <reader ref="EventItemReader"/>
+            <writer ref="EventItemWriter"/>
+            <skippable-exception-classes>
+                <include
+                        class="org.eclipse.cargotracker.interfaces.handling.file.EventLineParseException"/>
+            </skippable-exception-classes>
+        </chunk>
+    </step>
+</job>

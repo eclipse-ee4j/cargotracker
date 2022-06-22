@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cargo-tracker
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cargo-tracker  
+  template:
+    metadata:
+      name: cargo-tracker
+      labels:
+        app: cargo-tracker
+    spec:
+      containers:
+      - name: cargo-tracker
+        image: ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cargo-tracker
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: cargo-tracker
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cargo-tracker
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"      
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cargo-tracker
+            port:
+              number: 80

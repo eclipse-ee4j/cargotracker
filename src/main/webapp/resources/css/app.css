@@ -1,0 +1,276 @@
+/* Variables */
+:root {
+    --secondary-text-color: #f5f5f5;
+
+
+    --primary-color: #FFA500;
+    --primary-color-darker: #d48900;
+    --primary-color-lighten: #f5ecda;
+
+    --secondary-color: #262626;
+
+    --background-panel-main-color: #262626;
+}
+
+
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.full-page {
+    height: 100vh;
+}
+
+/*************************************
+             Side panel style
+ *************************************/
+
+.side-panel {
+    background-color: var(--background-panel-main-color);
+
+    padding: 0;
+    margin: 0;
+}
+
+/*this is for overriding Primefaces' background and color */
+.side-panel * {
+    background-color: var(--background-panel-main-color);
+    color: var(--secondary-text-color);
+}
+
+.side-panel .side-panel-img {
+    display: block;
+
+    width: 80%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-bottom: 50px;
+}
+
+.side-panel > .menu-container {
+    width: 100%;
+    margin: 0;
+
+    font-size: 25px;
+}
+
+.side-panel .menu-container .ui-menu {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.side-panel .menu-container .ui-menu .ui-menu-list .ui-menuitem {
+    border-bottom: solid 2px var(--primary-color);
+    margin: 0 0 10px 0;
+    padding: 0 0 10px 0;
+}
+
+.side-panel .menu-container .ui-menu .ui-menu-list .ui-menuitem:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.side-panel .menu-container .ui-menu .ui-state-hover {
+    background: inherit; /* remove default Primefaces background on hover */
+}
+
+.side-panel .menu-container .ui-menu .ui-state-hover span {
+    color: orange;
+}
+
+.side-panel .menu-footer {
+    position: absolute;
+    bottom: 0;
+    width: inherit;
+    margin-left: -0.5em;
+}
+
+/*************************************
+             Table style
+ *************************************/
+
+.ui-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.ui-datatable .ui-datatable-header,
+.ui-datatable .ui-datatable-footer {
+    text-align: left;
+    padding: 4px 10px;
+    text-align-last: left;
+}
+
+.ui-datatable .ui-datatable-header {
+    background: var(--primary-color);
+    color: #ffffff;
+
+    font-weight: bold;
+    font-size: 2em;
+
+    border-bottom: 0 none;
+}
+
+.ui-datatable .ui-datatable-footer {
+    border-top: 0 none;
+    background: var(--primary-color);
+}
+
+.ui-datatable th.ui-state-default,
+.ui-datatable tfoot td.ui-state-default {
+    background: var(--primary-color);
+
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+
+    border-top: 0 none;
+    border-right: 0 none;
+    border-left: 0 none;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+    padding: 4px 10px;
+    white-space: pre-line;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+    border: 0 none !important;
+}
+
+.ui-datatable tbody > tr.ui-widget-content {
+    border: 0 none;
+}
+
+.ui-datatable-odd {
+    background-color: var(--primary-color-lighten);
+}
+
+/*************************************
+             Calendar style
+ *************************************/
+.ui-datepicker .ui-datepicker-header,
+.ui-datepicker .ui-timepicker-div > .ui-widget-header {
+    background: var(--background-panel-main-color);
+    background: -webkit-linear-gradient(top, var(--background-panel-main-color) 0, #474a4b 100%);
+
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+    border-radius: 0;
+}
+
+.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div > .ui-widget-header {
+    border: 1px solid #3b3e40;
+}
+
+.ui-datepicker th {
+    color: #e8e9ea !important;
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #474a4b), color-stop(100%, #5b5e5e));
+
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    border: none !important;
+}
+
+.ui-datepicker-current-day a {
+    background: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+/*************************************
+             Components style
+ *************************************/
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color-darker);
+
+    color: var(--secondary-text-color);
+
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: var(--primary-color-darker);
+    color: var(--secondary-text-color);
+}
+
+.ui-inputfield {
+    border-width: 0 0 2px;
+    border-color: var(--secondary-color)
+}
+
+.ui-inputfield.ui-state-focus {
+    outline: 0 none;
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+/*************************************
+             Timeline style
+ *************************************/
+
+.ok-timeline-event {
+    border: #90ee90;
+    background: #818181 none !important;
+    color: #ffffff !important;
+}
+
+.error-timeline-event {
+    border: #cd5c5c;
+    background: #d26161 none !important;
+    color: #ffffff !important;
+}
+
+/*************************************
+             Wizard style
+ *************************************/
+
+.ui-wizard-step-titles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.ui-wizard-step-titles::before {
+    content: ' ';
+    border-top: 1px solid black;
+    width: 100%;
+    left: 0;
+    display: block;
+    position: absolute;
+    z-index: -100;
+}
+
+.ui-wizard-step-title::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    -moz-border-radius: 7.5px;
+    -webkit-border-radius: 7.5px;
+    border-radius: 7.5px;
+    background-color: var(--background-panel-main-color);
+    padding: 1px;
+    margin: 10px;
+}
+
+.ui-wizard-step-title {
+    font-size: 0 !important;
+    background: none;
+    border: none;
+}
+
+.ui-wizard-step-title.ui-state-highlight::before {
+    background-color: var(--primary-color);
+}
+
+iframe { border: none; }

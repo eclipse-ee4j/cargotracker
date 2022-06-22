@@ -1,0 +1,59 @@
+<div id="id_list_inprog_cargoes" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<p:outputLabel value="Routed Cargo"
+		style="font-size: 2em; font-weight: bold" />
+	<p:separator />
+
+	<p:dataTable var="cargo" value="#{listCargo.routedUnclaimedCargos}"
+		style="text-align: center;">
+		<p:column headerText="Tracking ID" width="94">
+			<h:link value="#{cargo.trackingId}" id="trackingId"
+				outcome="show.xhtml?faces-redirect=true"
+				style="text-decoration: none;">
+				<f:param name="trackingId" value="#{cargo.trackingId}" />
+				<i class="fa fa-info-circle" style="color: #999999;"></i>
+			</h:link>
+			<p:tooltip id="toolTipFade" for="trackingId"
+				value="Click to see itinerary's details." />
+		</p:column>
+
+		<p:column headerText="Origin">
+			<h:outputText value="#{cargo.originName}  " />
+			<br />
+			<h:outputText value="#{cargo.originCode}"
+				style="color: #999999;font-size:.8em;" />
+		</p:column>
+
+		<p:column headerText="Destination">
+			<h:outputText value="#{cargo.finalDestinationName}" />
+			<br />
+			<h:outputText value="#{cargo.finalDestinationCode}"
+				style="color: #999999;font-size:.8em;" />
+		</p:column>
+
+		<p:column headerText="Last Known Location">
+			<h:outputText value="#{cargo.lastKnownLocationName}" />
+			<br />
+			<h:outputText value="#{cargo.lastKnownLocationCode}"
+				style="color: #999999;font-size:.8em;"
+				rendered="#{!cargo.lastKnownLocationCode.contains('XXXX')}" />
+		</p:column>
+
+		<p:column headerText="Status">
+			<h:outputText value="#{cargo.transportStatus}" />
+		</p:column>
+
+		<p:column headerText="Deadline">
+			<h:outputText value="#{cargo.arrivalDeadline}" />
+		</p:column>
+
+	</p:dataTable>
+
+	<p:dialog header="Tracking Details" widgetVar="ShowTrackingDialog"
+		modal="false" height="200">
+		<h:outputText value="Test --> #{currentTracking.test}" />
+		<br />
+		<h:outputText value="Id --> #{currentTracking.id}" />
+	</p:dialog>
+</div>

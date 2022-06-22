@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Cargo Live Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="#{resource['/css/dd.css']}" />
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+<link rel="stylesheet" href="#{resource['/leaflet/leaflet.css']}" />
+<script src="#{resource['/leaflet/leaflet.js']}" />
+<script type="text/javascript">
+	  //  Load the icons for the map.
+	  const greenIcon = new L.Icon({
+	      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	      iconSize: [25, 41],
+	      iconAnchor: [12, 41],
+	      popupAnchor: [1, -34],
+	      shadowSize: [41, 41]
+	  });
+	
+	  const greyIcon = new L.Icon({
+	      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+	      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	      iconSize: [25, 41],
+	      iconAnchor: [12, 41],
+	      popupAnchor: [1, -34],
+	      shadowSize: [41, 41]
+	  });
+	
+	  const redIcon = new L.Icon({
+	      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	      iconSize: [25, 41],
+	      iconAnchor: [12, 41],
+	      popupAnchor: [1, -34],
+	      shadowSize: [41, 41]
+	  });
+	
+	  const blackIcon = new L.Icon({
+	      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+	      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	      iconSize: [25, 41],
+	      iconAnchor: [12, 41],
+	      popupAnchor: [1, -34],
+	      shadowSize: [41, 41]
+	  });
+	
+	  const goldIcon = new L.Icon({
+	      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+	      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	      iconSize: [25, 41],
+	      iconAnchor: [12, 41],
+	      popupAnchor: [1, -34],
+	      shadowSize: [41, 41]
+	  });
+	
+	  const colorCodes = {
+	      "NOT_ROUTED": greyIcon,
+	      "MISROUTED": redIcon,
+	      "NOT_RECEIVED": goldIcon,
+	      "IN_PORT": greenIcon,
+	      "ONBOARD_CARRIER": greenIcon,
+	      "MISDIRECTED": redIcon,
+	      "AT_DESTINATION": blackIcon,
+	      "CLAIMED": blackIcon,
+	      "UNKNOWN": redIcon
+	  };
+</script>
+</head>
+<body style="background-color: white">
+	<div>
+		<div id="map"
+			style="height: 600px; border: #FFF; border-style: solid; border-width: 8px;">
+		</div>
+		<br /> <br />
+		<div id='connected' class='status'>
+			<p id='status' class='status_constent'>offline</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+	      const statusBox = document.getElementById('connected');
+	      statusBox.style.cursor = 'pointer';
+	      statusBox.onclick = function () {
+	        location.reload(true);
+	      };
+    </script>
+	<script type="text/javascript">
+	    var applicationUri = location.protocol + "//" + document.location.host;
+	    const contextRoot = window.location.pathname.split('/')[1];
+	    
+	    if (contextRoot == "cargo-tracker") {
+	    	applicationUri = applicationUri + "/cargo-tracker";
+	    }
+	
+	    const cargoUri = applicationUri + "/rest/cargo";
+	
+	    const windowDimensions = "height=" + window.innerHeight + ",width=" + window.innerWidth;
+	
+	    function specificCargoUri(cargo) {
+	        return applicationUri + "/admin/show.xhtml?trackingId=" + cargo.trackingId;
+	    }
+	
+	    function coordinates(cargo) {
+	        return {
+	            lon: cargo.location.coordinates.longitude +
+	                    (Math.floor((Math.random() * 4) - 2)),
+	            lat: cargo.location.coordinates.latitude +
+	                    (Math.floor((Math.random() * 4) - 2))
+	        };
+	    }
+	
+	    function popupContent(cargo) {
+	        return 'Tracking ID: ' + cargo.trackingId + '&lt;br/>' +
+	            'Routing status: ' + cargo.routingStatus + '&lt;br/>' +
+	            'Misdirected: ' + (cargo.misdirected ? "Yes" : "No") + '&lt;br/>' +
+	            'Transport status: ' + cargo.transportStatus + '&lt;br/>' +
+	            'At destination: ' + (cargo.atDestination ? "Yes" : "No") + '&lt;br/>' +
+	            'Origin: ' + cargo.origin.name + '&lt;br/>' +
+	            'Last known location: ' + cargo.lastKnownLocation.name;
+	    }
+	
+	    function createCargoMarker(cargo) {
+	        return L.marker(coordinates(cargo), {icon: colorCodes[cargo.statusCode]})
+	            .bindTooltip(popupContent(cargo))
+	            .on('click', () => {
+	                    window.open(specificCargoUri(cargo), "winMap", windowDimensions);
+	            });
+	    }
+    </script>
+	<script type="text/javascript">
+	    window.onload = function () {
+	        const map = L.map('map').setView({lon: 0, lat: 0}, 2);
+	
+	        // Add the OpenStreetMap tiles.
+	        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	            maxZoom: 19,
+	            attribution: '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
+	        }).addTo(map);
+	
+	        // Show the scale bar on the lower left corner.
+	        L.control.scale().addTo(map);
+	
+	        const cargoMarkers = new Map();
+	        
+	        const cargoEventSource = new EventSource(cargoUri);
+	
+	        const status = document.getElementById("status");
+	
+	        cargoEventSource.onopen = function (event) {
+	            status.innerHTML = "online";
+	        };
+	
+	        cargoEventSource.onmessage = function (event) {
+	            status.innerHTML = "updated";
+	            const cargo = JSON.parse(event.data);
+	            const marker = createCargoMarker(cargo);
+	            
+	            if (cargoMarkers.has(cargo.trackingId)) {
+	                cargoMarkers.get(cargo.trackingId).removeFrom(map);
+	            }
+	            
+	            marker.addTo(map);
+	            cargoMarkers.set(cargo.trackingId, marker);
+	        };
+	
+	        cargoEventSource.onerror = function (event) {
+	            status.innerHTML = "error";
+	        };
+	    };
+    </script>
+</body>
+</html>

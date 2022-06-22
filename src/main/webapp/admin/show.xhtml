@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+	<ui:define name="title">Cargo Details</ui:define>
+	<ui:define name="content">
+		<div class="ui-grid-col-3" id="leftCol"></div>
+		<div class="ui-grid-col-6" id="mainCol">
+			<f:metadata>
+				<f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />
+				<f:event type="preRenderView" listener="#{cargoDetails.load()}" />
+			</f:metadata>
+			<br />
+			<p:outputLabel
+				value="Routing Details for Cargo #{cargoDetails.cargo.trackingId}"
+				style="font-size: 2em; font-weight: bold" />
+			<p:separator />
+			<h:panelGrid columns="3" styleClass="registrationPanelGrid"
+				cellpadding="5">
+
+				<p:outputLabel value="Origin:"
+					style="color:#5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{cargoDetails.cargo.originName}" />
+					<p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.originCode}"
+						style="color: #999999;font-size:.9em;" />
+				</h:panelGroup>
+				<p:outputLabel />
+
+				<p:outputLabel value="Destination:"
+					style="color: #5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{cargoDetails.cargo.finalDestinationName}" />
+					<p:outputLabel
+						value="&#160;&#160;#{cargoDetails.cargo.finalDestinationCode}"
+						style="color: #999999;font-size:.9em;" />
+				</h:panelGroup>
+				<p:outputLabel />
+				<p:outputLabel value="Arrival deadline:"
+					style="color: #5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{cargoDetails.cargo.arrivalDeadline}" />
+				</h:panelGroup>
+			</h:panelGrid>
+			<p:separator />
+			<br />
+			<div class="row">
+				<div class="large-12 columns">
+					<div id="container" class="panel">
+						<h:panelGroup rendered="#{cargoDetails.cargo.routed}">
+							<h:panelGroup rendered="#{cargoDetails.cargo.misrouted}">
+								<h:panelGrid columns="3" style="font-size: 1.2em"
+									cellpadding="5">
+									<p:outputLabel value="Misrouted cargo!"
+										style="vertical-align: top;" />
+									<h:form>
+										<p:button value="Reroute"
+											outcome="selectItinerary.xhtml?faces-redirect=true"
+											style="font-size:.9em;">
+											<f:param name="trackingId"
+												value="#{cargoDetails.cargo.trackingId}" />
+										</p:button>
+									</h:form>
+									<p:outputLabel />
+								</h:panelGrid>
+							</h:panelGroup>
+							<p:outputLabel value="Itinerary"
+								style="font-size: x-large; font-weight: bold;" />
+							<br />
+							<br />
+							<p:dataTable var="legs" value="#{cargoDetails.cargo.legs}"
+								style="text-align: center;">
+								<p:column headerText="Voyage" width="64"
+									style="text-align: center;">
+									<h:outputText value="#{legs.voyageNumber}" />
+								</p:column>
+
+								<p:column headerText="Load" style="text-align: center;">
+									<h:outputText value="#{legs.fromName}  " />
+									<br />
+									<h:outputText value="#{legs.fromUnLocode}"
+										style="color: #999999;font-size:.8em;" />
+								</p:column>
+
+								<p:column headerText="Time" style="text-align: center;">
+									<h:outputText value="#{legs.loadTime}" />
+								</p:column>
+
+								<p:column headerText="Unload" style="text-align: center;">
+									<h:outputText value="#{legs.toName}" />
+									<br />
+									<h:outputText value="#{legs.toUnLocode}"
+										style="color: #999999;font-size:.8em;" />
+								</p:column>
+
+								<p:column headerText="Time" style="text-align: center;">
+									<h:outputText value="#{legs.unloadTime}" />
+								</p:column>
+							</p:dataTable>
+
+						</h:panelGroup>
+						<h:panelGroup rendered="#{not cargoDetails.cargo.routed}">
+							<p>
+								<strong>Not routed</strong> -
+								<h:link value="route this cargo"
+									outcome="selectItinerary.xhtml?faces-redirect=true">
+									<f:param name="trackingId"
+										value="#{cargoDetails.cargo.trackingId}" />
+								</h:link>
+							</p>
+						</h:panelGroup>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

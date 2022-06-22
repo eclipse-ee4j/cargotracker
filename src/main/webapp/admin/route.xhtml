@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+	<ui:define name="title">Route Cargo #{cargoDetails.trackingId}</ui:define>
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />
+			<f:event type="preRenderView" listener="#{cargoDetails.load}" />
+			<f:viewParam name="trackingId"
+				value="#{itinerarySelection.trackingId}" />
+			<f:event type="preRenderView" listener="#{itinerarySelection.load}" />
+		</f:metadata>
+		<div class="ui-grid-col-2" id="leftCol"></div>
+		<div class="ui-grid-col-8" id="mainCol">
+			<br />
+			<p:outputLabel
+				value="Set Route for Cargo #{cargoDetails.cargo.trackingId}"
+				style="font-size: 2em; font-weight: bold;" />
+			<p:separator />
+			<h:panelGrid columns="2" styleClass="registrationPanelGrid"
+				cellpadding="5">
+				<p:outputLabel value="Origin:"
+					style="color:#5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{cargoDetails.cargo.originName}" />
+					<p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.originCode}"
+						style="color: #999999;font-size:.9em;" />
+				</h:panelGroup>
+				<p:outputLabel value="Destination:"
+					style="color: #5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{cargoDetails.cargo.finalDestinationName}" />
+					<p:outputLabel
+						value="&#160;&#160;#{cargoDetails.cargo.finalDestinationCode}"
+						style="color: #999999;font-size:.9em;" />
+				</h:panelGroup>
+				<p:outputLabel value="Arrival deadline:"
+					style="color: #5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{cargoDetails.cargo.arrivalDeadline}" />
+				</h:panelGroup>
+				<p:outputLabel value="Potential routes:"
+					style="color: #5392c3;font-weight: bold;" />
+				<h:panelGroup>
+					<p:outputLabel value="#{itinerarySelection.routeCandidates.size()}" />
+				</h:panelGroup>
+			</h:panelGrid>
+			<p:separator />
+			<h:panelGroup rendered="#{empty itinerarySelection.routeCandidates}">
+				<p>
+					<i class="fa fa-exclamation-triangle" style="color: #9b2332" /> No
+					routes found that satisfy the route specification. Try setting an
+					arrival deadline further into the future.
+				</p>
+			</h:panelGroup>
+
+			<ui:repeat value="#{itinerarySelection.routeCandidates}"
+				var="itinerary" varStatus="itineraryStatus">
+				<div class="ui-g ui-g-12">
+					<div class="ui-g-3" style="font-size: 1.5em; padding: 10px;">
+						<span class="success label">Route option
+							##{itineraryStatus.index + 1}</span>
+					</div>
+					<div class="ui-g-1 ui-g-offset-8"
+						style="font-size: 1.5em; padding: 10px;">
+						<p:commandLink
+							action="#{itinerarySelection.assignItinerary(itineraryStatus.index)}"
+							style="text-decoration: none;">
+							<span style="color: #e8b44b; font-weight: bold;">Select</span>
+						</p:commandLink>
+					</div>
+					<div class="ui-g-12">
+						<p:dataTable var="legs" value="#{itinerary.legs}"
+							style="text-align: center;" id="legs">
+
+							<p:column headerText="Voyage" width="64"
+								style="text-align: center;">
+								<h:outputText value="#{legs.voyageNumber}"
+									style="color: #9b2332" />
+							</p:column>
+
+							<p:column headerText="Load" style="text-align: center;">
+								<h:outputText value="#{legs.fromName}"
+									style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.fromName) ? 'bold' : 'normal'}" />
+								<ui:fragment
+									rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.fromName)}">
+									<i class="fa fa-arrow-right" />
+								</ui:fragment>
+
+							</p:column>
+
+							<p:column headerText="Time" style="text-align: center;">
+								<h:outputText value="#{legs.loadTime}" />
+							</p:column>
+
+							<p:column headerText="Unload" style="text-align: center;">
+								<ui:fragment
+									rendered="${fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName)}">
+									<i class="fa fa-arrow-right" />
+								</ui:fragment>
+								<h:outputText value="#{legs.toName}"
+									style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName) ?'bolder' : 'normal'}" />
+							</p:column>
+
+							<p:column headerText="Time" style="text-align: center;">
+								<h:outputText value="#{legs.unloadTime}" />
+							</p:column>
+
+						</p:dataTable>
+						<p:tooltip for="legs"
+							value="Hit 'Select' to assign this candidate itinerary to the cargo"
+							trackMouse="true" />
+						<br />
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

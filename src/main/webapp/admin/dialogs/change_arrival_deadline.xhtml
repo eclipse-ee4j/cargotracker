@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Change Deadline</title>
+</h:head>
+<body>
+    <f:metadata>
+        <f:viewParam name="trackingId"
+                     value="#{changeArrivalDeadline.trackingId}"/>
+        <f:viewAction action="#{changeArrivalDeadline.load}"/>
+    </f:metadata>
+
+    <div class="ui-g full-page">
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="15">
+                <p:outputLabel value="Origin:"/>
+                <p:outputLabel value="#{changeArrivalDeadline.cargo.originName}"/>
+
+                <p:outputLabel value="Destination: "/>
+                <p:outputLabel
+                        value="#{changeArrivalDeadline.cargo.finalDestinationName}"/>
+
+                <p:outputLabel value="Deadline: "/>
+                <p:datePicker
+                        value="#{changeArrivalDeadline.arrivalDeadline}"/>
+
+                <p:commandButton value="Cancel"
+                                 action="#{changeArrivalDeadlineDialog.cancel()}"/>
+
+                <p:commandButton value="Update"
+                                 action="#{changeArrivalDeadline.changeArrivalDeadline()}"
+                                 oncomplete="window.location.replace(window.location.href);"/>
+            </h:panelGrid>
+        </h:form>
+    </div>
+</body>
+</html>

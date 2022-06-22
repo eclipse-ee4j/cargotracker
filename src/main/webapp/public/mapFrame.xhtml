@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Cargo Live Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="#{resource['/css/dd.css']}" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+<link rel="stylesheet" href="#{resource['/leaflet/leaflet.css']}" />
+<script src="#{resource['/leaflet/leaflet.js']}" />
+
+<script type="text/javascript">
+	//<![CDATA[
+	function getUrlParameter(name) {
+		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+		var results = regex.exec(location.search);
+		return results === null ? '' : decodeURIComponent(results[1].replace(
+				/\+/g, ' '));
+	};
+	//]]>
+</script>
+<script type="text/javascript">
+	//  load the icons for the map
+	const greenIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
+
+	const greyIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
+
+	const redIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
+
+	const blackIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
+
+	const goldIcon = new L.Icon(
+			{
+				iconUrl : 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+				shadowUrl : 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				iconSize : [ 25, 41 ],
+				iconAnchor : [ 12, 41 ],
+				popupAnchor : [ 1, -34 ],
+				shadowSize : [ 41, 41 ]
+			});
+
+	const colorCodes = {
+		"NOT_ROUTED" : greyIcon,
+		"NOT_RECEIVED" : goldIcon,
+		"IN_PORT" : greenIcon,
+		"ONBOARD_CARRIER" : greenIcon,
+		"MISDIRECTED" : redIcon,
+		"AT_DESTINATION" : blackIcon,
+		"CLAIMED" : blackIcon,
+		"UNKNOWN" : redIcon
+	};
+</script>
+</head>
+<body style="background-color: white">
+	<div>
+		<div id="map"
+			style="height: 600px; border: #FFF; border-style: solid; border-width: 8px;">
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = function init() {
+			var cargo = JSON.parse(getUrlParameter('cargo'));
+
+			const originCoordinates = {
+				position : {
+					lon : cargo.originCoordinates.longitude
+							+ (Math.floor((Math.random() * 3) - 3)),
+					lat : cargo.originCoordinates.latitude
+							+ (Math.floor((Math.random() * 3) - 3))
+				},
+				style : blackIcon
+			};
+
+			const destinationCoordinates = {
+				position : {
+					lon : cargo.destinationCoordinates.longitude
+							+ (Math.floor((Math.random() * 3) - 3)),
+					lat : cargo.destinationCoordinates.latitude
+							+ (Math.floor((Math.random() * 3) - 3))
+				},
+				style : blackIcon
+			};
+
+			const lastKnownCoordinates = {
+				position : {
+					lon : cargo.lastKnownLocationCoordinates.longitude
+							+ (Math.floor((Math.random() * 3) - 3)),
+					lat : cargo.lastKnownLocationCoordinates.latitude
+							+ (Math.floor((Math.random() * 3) - 3))
+				},
+				style : colorCodes[cargo.statusCode]
+			};
+
+			const map = L.map('map').setView({
+				lon : 0,
+				lat : 0
+			}, 2);
+
+			// add the OpenStreetMap tiles
+			L
+					.tileLayer(
+							'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+							{
+								maxZoom : 19,
+								attribution : '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
+							}).addTo(map);
+
+			// show the scale bar on the lower left corner
+			L.control.scale().addTo(map);
+
+			L.marker(originCoordinates['position'], {
+				icon : originCoordinates.style
+			}).bindTooltip('Origin: ' + cargo.originName).addTo(map);
+
+			L.marker(destinationCoordinates['position'], {
+				icon : destinationCoordinates.style
+			}).bindTooltip('Destination: ' + cargo.destinationName).addTo(map);
+
+			L.marker(lastKnownCoordinates['position'], {
+				icon : lastKnownCoordinates.style
+			}).bindTooltip(
+					'Last known location: ' + cargo.lastKnownLocationName)
+					.addTo(map);
+		}
+	</script>
+</body>
+</html>

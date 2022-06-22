@@ -1,0 +1,147 @@
+
+.alignRight {
+    text-align: right;
+}
+
+.ui-panel {
+    margin: 8px;
+}
+
+.ui-panel .ui-panel-content {
+    padding: 0em 0em !important;
+}
+
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 100% !important;
+}
+
+/* work around to fix selectonemenu bug in Chrome & Safari */
+.ui-selectonemenu-label {
+    width: 90% !important;
+}
+
+/* plain (i.e. no strip) for the modal background */
+.ui-widget-overlay {
+    background-image: none;
+}
+
+.registrationPanelGrid {
+    border: none;
+    padding: 0.1em;
+    margin-bottom: 2px;
+}
+
+.buttonStyle {
+    padding: 0.1em;
+}
+
+.alignTop {
+    vertical-align: top;
+}
+
+.centered {
+    margin: 0px auto;
+}
+
+.large {
+    vertical-align: top;
+}
+
+.listing {
+    font-size: 0.9em;
+    text-align: center;
+}
+
+
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
+    border: none;
+    background-color: white;
+    background: none;
+}
+
+.ui-layout-unit-content {
+    background: white;
+    border: none;
+    background: none;
+
+}
+
+.decoration .ui-layout-unit-content {
+    height: 48px !important; /* woraround header heigh bug in Chrome & Safari */
+    color: white;
+    font-weight: 100;
+    background-image: -webkit-linear-gradient(bottom, rgb(43, 50, 64), rgb(80, 80, 140));
+    background-image: -moz-linear-gradient(bottom, rgb(43, 50, 64), rgb(80, 80, 140));
+    background-image: -o-linear-gradient(bottom, rgb(43, 50, 64), rgb(80, 80, 140));
+    background-image: linear-gradient(to top, rgb(43, 50, 64), rgb(80, 80, 140));
+}
+
+.decorationPublic .ui-layout-unit-content {
+    height: 48px !important; /* woraround header heigh bug in Chrome & Safari */
+    color: white;
+    font-weight: 100;
+    background: -webkit-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* Chrome 10+, Saf5.1+ */
+    background: -moz-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* FF3.6+ */
+    background: -ms-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* IE10 */
+    background: -o-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* Opera 11.10+ */
+    background: linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* W3C */
+}
+
+
+.shadowme {
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+
+.ui-datatable-odd {
+    background: none repeat scroll 0 0 #F2F5F9;
+}
+
+.ui-dashboard-column {
+    padding-bottom: 2px !important;
+}
+
+.titleText {
+    font-size: 20px;
+}
+
+.footerText {
+    color: #b5b5b5 !important;
+    font-size: .75em;
+    text-decoration: none;
+}
+
+.headerLink {
+    text-decoration: none;
+    color: white !important;
+}
+
+
+/* Live Map : On/Offline status */
+div.wrapper {
+    float: left; /* important */
+    position: relative;
+}
+
+div.status {
+    position: absolute;
+    /* bottom:0px; */
+    top: 85px; /* yes 85! */
+    left: 17px; /* yes 17! */
+    width: 44px;
+    background-color: black;
+    font-family: 'tahoma';
+    font-size: 12px;
+    color: white;
+    opacity: 0.8;
+    filter: alpha(opacity=8);
+    z-index: 10000;
+    border-radius: 3px;
+}
+
+p.status_content {
+    padding: 5px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    margin: 0px;
+}
