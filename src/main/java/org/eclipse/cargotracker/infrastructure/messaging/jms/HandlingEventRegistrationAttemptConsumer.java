@@ -18,7 +18,7 @@ import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAtt
           propertyName = "destinationType",
           propertyValue = "javax.jms.Queue"),
       @ActivationConfigProperty(
-          propertyName = "destinationLookup",
+          propertyName = "destination",
           propertyValue = "java:app/jms/HandlingEventRegistrationAttemptQueue")
     })
 public class HandlingEventRegistrationAttemptConsumer implements MessageListener {
