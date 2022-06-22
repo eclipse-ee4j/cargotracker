@@ -7,13 +7,15 @@
     <feature>wasJmsClient-2.0</feature>
     <feature>wasJmsServer-1.0</feature>
   </featureManager> 
-
+  
+  <!--
   <logging  traceSpecification="com.ibm.ws.runtime.update*=all"
     traceFileName="trace.log"
     maxFileSize="20"
     maxFiles="10"
     traceFormat="BASIC" 
   />
+  -->
 
   <variable name="default.http.port" defaultValue="8080"/>
   <variable name="default.https.port" defaultValue="8081"/>
@@ -92,7 +94,7 @@
   	   To work around this issue, replace the filler directory below with your unique file path. -->
   
   <library id="hsqlLib">
-  	<fileset dir="** YOUR FILEPATH HERE **" includes="hsqldb*.jar"/>
+  	<fileset dir="/Users/chanun/hsqldb" includes="hsqldb*.jar"/>
   </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
