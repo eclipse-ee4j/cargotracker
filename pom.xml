@@ -286,7 +286,6 @@
 				</plugins>
 			</build>
 		</profile>
-		
 		<profile>
 			<id>openliberty</id>
 		  	<activation>
@@ -371,6 +370,5 @@
         </plugins>
       </build>
 	  </profile>
-			
 	</profiles>
 </project>
