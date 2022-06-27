@@ -71,6 +71,7 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -285,5 +286,89 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>openliberty</id>
+		  	<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+				<!--> 
+				<db.driverClass> to be filled with HSQLDB driverClass. </db.driverClass>
+				<db.jdbcUrl> to be filled with HSQLDB JDBC URL. </db.jdbcUrl>
+				<-->
+			</properties>
+
+      <dependencies>
+        <!-- Provided dependencies -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>4.1</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>3.0.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.hsqldb</groupId>
+		    <artifactId>hsqldb</artifactId>
+		    <version>2.6.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>8.0</version>
+		</dependency>
+      </dependencies>
+    
+      <build>
+      	<plugins>
+            <!-- Enable liberty-maven plugin -->
+            <plugin>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <copyDependencies>
+                    	<dependencyGroup>
+	                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+	                        <dependency>
+	                            <groupId>org.hsqldb</groupId>
+	                            <artifactId>hsqldb</artifactId>
+	                        </dependency>
+						</dependencyGroup>
+						<dependencyGroup>
+	                    	<location>${project.basedir}/src/main/webapp/WEB-INF/lib</location>
+	                    	<dependency>
+	                    		<groupId>org.apache.commons</groupId>
+	                    		<artifactId>commons-lang3</artifactId>
+	                    	</dependency>
+                    	</dependencyGroup>
+                    </copyDependencies>               
+               </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+        </plugins>
+      </build>
+	  </profile>
 	</profiles>
 </project>

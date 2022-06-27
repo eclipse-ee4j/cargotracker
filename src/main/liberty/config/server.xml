@@ -1,0 +1,145 @@
+<server description="Open Liberty server">
+
+  <featureManager>
+    <feature>jakartaee-8.0</feature>
+    <feature>localConnector-1.0</feature>
+    <feature>appSecurity-2.0</feature>
+    <feature>wasJmsClient-2.0</feature>
+    <feature>wasJmsServer-1.0</feature>
+  </featureManager> 
+  
+  <!--
+  <logging  traceSpecification="com.ibm.ws.runtime.update*=all"
+    traceFileName="trace.log"
+    maxFileSize="20"
+    maxFiles="10"
+    traceFormat="BASIC" 
+  />
+  -->
+
+  <variable name="default.http.port" defaultValue="8080"/>
+  <variable name="default.https.port" defaultValue="8081"/>
+  
+  <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
+  <wasJmsEndpoint id="InboundJmsCommsEndpoint" host="*" wasJmsPort="7276" wasJmsSSLPort="9100"/> 
+  
+  <basicRegistry id="basic" realm="ibm/api">
+    <user name="usr" password="pwd"/>
+  </basicRegistry>
+
+  <authorization-roles id="com.ibm.ws.batch">
+    <security-role name="batchAdmin" >	
+      <user name="usr" />	
+    </security-role>
+  </authorization-roles>
+
+  <connectionManager id="CargoCM" minPoolSize="1" maxPoolSize="400"/>
+  
+  <messagingEngine id="defaultME">
+  	<queue id="CargoHandledQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="MisdirectedCargoQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="DeliveredCargoQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="HandlingEventRegistrationAttemptQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+	<queue id="RejectedRegistrationAttemptsQueue" forceReliability="ReliablePersistent" maxQueueDepth="5000"/>
+  </messagingEngine>
+  
+  <jmsQueueConnectionFactory 
+  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM">
+   	<properties.wasJms/>
+  </jmsQueueConnectionFactory>
+  
+  <jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
+    <properties.wasJms queueName="CargoHandledQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
+    <properties.wasJms destinationRef="CargoHandledQueue" maxConcurrency="200"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
+    <properties.wasJms queueName="MisdirectedCargoQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
+    <properties.wasJms destinationRef="MisdirectedCargoQueue" maxConcurrency="200"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
+    <properties.wasJms queueName="DeliveredCargoQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
+    <properties.wasJms destinationRef="DeliveredCargoQueue" maxConcurrency="200"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
+    <properties.wasJms queueName="HandlingEventRegistrationAttemptQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
+    <properties.wasJms destinationRef="HandlingEventRegistrationAttemptQueue" maxConcurrency="200"/>
+  </jmsActivationSpec>  
+
+  <jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
+    <properties.wasJms queueName="RejectedRegistrationAttemptsQueue"/>
+  </jmsQueue>
+
+  <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
+    <properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue" maxConcurrency="200"/>
+  </jmsActivationSpec>
+  
+  <jdbcDriver id="hsqldriver" libraryRef="hsqlLib"/>
+  
+  <!-- Currently, OL cannot find JDBC drivers when using variable substitution.
+  	   To work around this issue, replace the filler directory below with your unique file path. -->
+  
+  <library id="hsqlLib">
+  	<fileset dir="** YOUR FILEPATH HERE **" includes="hsqldb*.jar"/>
+  </library>
+  
+  <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
+    <jdbcDriver libraryRef="hsqlLib" />
+    <properties password="pwd" user="usr" URL="jdbc:hsqldb:mem:CargoTrackerDB" />
+  </dataSource>
+  
+  <databaseStore id="EJBPersistentTimerStore" tablePrefix="WLP2_" keyGenerationStrategy="SEQUENCE"/>
+  <persistentExecutor id="EJBPersistentTimerExecutor" 
+      taskStoreRef="EJBPersistentTimerStore" 
+      initialPollDelay="-1" 
+      enableTaskExecution="true" retryInterval="300s" 
+      retryLimit="-1" 
+      ignore.minimum.for.test.use.only="true">
+        <contextService>
+            <securityContext/>
+        </contextService>
+  </persistentExecutor>
+
+  <databaseStore id="ejbTimerDataStore" keyGenerationStrategy="SEQUENCE"/>
+  <dataSource id="DefaultDataSource" jdbcDriverRef="hsqldriver">
+        <properties password="pwd" user="usr" URL="jdbc:hsqldb:mem:EJBTimerDS" />
+  </dataSource>
+  
+  <ejbContainer>
+        <timerService persistentExecutorRef="EJBPersistentTimerExecutor"/>
+        <timerService missedPersistentTimerAction="ONCE"/>
+  </ejbContainer>
+
+  <webApplication location="cargo-tracker.war" contextRoot="cargo-tracker">
+  	<classloader commonLibraryRef="hsqlLib"/>
+  	<web-bnd moduleName="cargo-tracker">
+      <env-entry name="java:app/configuration/GraphTraversalUrl" value="http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path"/>
+  	</web-bnd>
+    <application-bnd>
+      <security-role name="batchAdmin">
+          <user name="usr" />
+          <run-as userid="usr" password="pwd"/>
+      </security-role>
+    </application-bnd>
+  </webApplication>
+
+  <keyStore id="defaultKeyStore" password="password"/>
+  <applicationMonitor updateTrigger="mbean"/>
+  <applicationManager autoExpand="true"/>
+  <httpSession cookieName="COOKIE"/>
+  
+</server>
