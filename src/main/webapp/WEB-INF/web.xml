@@ -64,7 +64,6 @@
 		<env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
 	</env-entry>
 	
-	<!--
 	<data-source>
 		<name>java:app/jdbc/CargoTrackerDatabase</name>
 		<class-name>${db.driverClass}</class-name>
@@ -72,15 +71,6 @@
 		<max-pool-size>32</max-pool-size>
 		<min-pool-size>2</min-pool-size>
 	</data-source>
-
-	
-	-->
-	
-	<resource-ref>
-		<res-ref-name>jdbc/DefaultDB</res-ref-name>
-		<res-type>javax.sql.XADataSource</res-type>
-		<lookup-name>jdbc/DefaultDB</lookup-name>
-	</resource-ref>
 
 	<jms-destination>
 		<name>java:app/jms/CargoHandledQueue</name>
