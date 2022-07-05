@@ -2,12 +2,12 @@ package org.eclipse.cargotracker.interfaces.booking.sse;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.enterprise.event.ObservesAsync;
 import javax.inject.Inject;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -32,22 +32,20 @@ public class RealtimeCargoTrackingService {
   @Context private Sse sse;
 
   private SseBroadcaster broadcaster;
-  
-  
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
     synchronized (RealtimeCargoTrackingService.class) {
-    	try {
-    	  String name = "java:app/jms/CargoHandledQueue";
-	      InitialContext ctx = new InitialContext();
-	      Object obj = InitialContext.doLookup(name);
-	      System.out.println(name + " bound to: " + obj);
-	    } catch (NamingException e) {
-	      // TODO Auto-generated catch block
-	    	e.printStackTrace();
-	    }
+      try {
+        String name = "java:app/jms/CargoHandledQueue";
+        InitialContext ctx = new InitialContext();
+        Object obj = InitialContext.doLookup(name);
+        System.out.println(name + " bound to: " + obj);
+      } catch (NamingException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       if (broadcaster == null) {
         broadcaster = sse.newBroadcaster();
       }
@@ -59,10 +57,10 @@ public class RealtimeCargoTrackingService {
 
   @PreDestroy
   public void close() {
-	if (broadcaster != null) {
-	    broadcaster.close();
-	    logger.log(Level.FINEST, "SSE broadcaster closed.");
-	}
+    if (broadcaster != null) {
+      broadcaster.close();
+      logger.log(Level.FINEST, "SSE broadcaster closed.");
+    }
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
