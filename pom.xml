@@ -286,7 +286,7 @@
 			</build>
 		</profile>
 		
-				<profile>
+		<profile>
 			<id>openliberty</id>
 		  	<activation>
 				<activeByDefault>false</activeByDefault>
@@ -331,7 +331,7 @@
 			<version>8.0</version>
 		</dependency>
       </dependencies>
-
+   
       <build>
       	<plugins>
             <!-- Enable liberty-maven plugin -->
