@@ -137,5 +137,5 @@ For further guidance on contributing including the project roadmap, please look 
 * Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the H2 database that 
   the application uses get's corrupted, resulting in strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
-  can do this by simply removing ./cargo-tracker-database from the file 
+  can do this by simply removing the cargo-tracker-data directory from the file 
   system and restarting the application. This directory will typically be under $your-payara-installation/glassfish/domains/domain1/config.
