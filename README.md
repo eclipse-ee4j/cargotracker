@@ -26,7 +26,7 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 The simplest steps are the following (no IDE required):
 
 * Get the project source code and download the HSQL DB version 2.6.1 .jar file: https://hsqldb.org/ -> "Download"
-* Ensure you are running Java SE 8 or Java SE 11.
+* Ensure you are running Java SE 8 or Java SE 11 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> "Java 11" from the version dropdown menu.
 * Make sure JAVA_HOME is set.
 * Navigate to the cargotracker directory and access the server.xml located in src/main/liberty/config.
 * Change the filler file path for the HSQL DB library (Line 96) to your unique file path. 

@@ -7,6 +7,7 @@
     <feature>wasJmsClient-2.0</feature>
     <feature>wasJmsServer-1.0</feature>
     <feature>jndi-1.0</feature>
+    <feature>batch-1.0</feature>
   </featureManager> 
 
   <logging  traceSpecification="*=info:EJBContainer=all:Injection=all:com.ibm.websphere.jaxrs*=all:com.ibm.ws.jaxrs*=all:logservice=all:org.apache.cxf.*=all:rarInstall=all:WAS.j2c=all:resource=all"
@@ -23,21 +24,13 @@
   <wasJmsEndpoint id="InboundJmsCommsEndpoint" host="*" wasJmsPort="7276" wasJmsSSLPort="9100"/> 
   
   <quickStartSecurity userName="usr" userPassword="pwd" />
-  
-  <!--  
-  
-  <basicRegistry id="basic" realm="ibm/api">
-    <user name="usr" password="pwd"/>
-  </basicRegistry>
 
   <authorization-roles id="com.ibm.ws.batch">
     <security-role name="batchAdmin" >	
-      <user name="usr" />	
+      <special-subject type="EVERYONE"/>	
     </security-role>
   </authorization-roles>
   
-  -->
-
   <connectionManager id="CargoCM" minPoolSize="1" maxPoolSize="400"/>
   
   <messagingEngine id="defaultME">
@@ -151,7 +144,7 @@
   	</web-bnd>
     <application-bnd>
       <security-role name="batchAdmin">
-          <user name="usr" />
+          <special-subject type="EVERYONE"/>
       </security-role>
     </application-bnd>
   </webApplication>
