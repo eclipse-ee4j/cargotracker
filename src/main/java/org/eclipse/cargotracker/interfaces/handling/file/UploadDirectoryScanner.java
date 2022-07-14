@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
-
+import javax.annotation.security.PermitAll;
+>>>>>>> 3e0937f8387af15fb3317bc4a17e351caa92300f
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Schedule;
@@ -14,6 +15,7 @@ import javax.ejb.TransactionManagementType;
  * <p>Files that fail to parse are moved into a separate directory, successful files are deleted.
  */
 @Stateless
+@PermitAll
 @TransactionManagement(TransactionManagementType.BEAN) // Batch steps manage their own transactions.
 public class UploadDirectoryScanner {
 
