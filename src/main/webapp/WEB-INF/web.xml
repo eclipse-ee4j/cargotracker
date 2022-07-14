@@ -66,13 +66,9 @@
 		<env-entry-type>java.lang.String</env-entry-type>
 		<env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
 	</env-entry>
-<<<<<<< HEAD
-	
-=======
 
 	<!-- Defining these at the application server level instead of here can 
 		be more operations friendly and help make deployment even faster. -->
->>>>>>> 3e0937f8387af15fb3317bc4a17e351caa92300f
 	<data-source>
 		<name>java:app/jdbc/CargoTrackerDatabase</name>
 		<class-name>${db.driverClass}</class-name>
@@ -80,10 +76,6 @@
 		<max-pool-size>32</max-pool-size>
 		<min-pool-size>2</min-pool-size>
 	</data-source>
-<<<<<<< HEAD
-
-=======
->>>>>>> 3e0937f8387af15fb3317bc4a17e351caa92300f
 	<jms-destination>
 		<name>java:app/jms/CargoHandledQueue</name>
 		<interface-name>javax.jms.Queue</interface-name>
