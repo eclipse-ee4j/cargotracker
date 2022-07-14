@@ -18,8 +18,7 @@
 		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 </h:head>
 
-<body>
-	<f:view>
+<h:body>
 	<div class="ui-g full-page">
 		<!-- MENU -->
 		<div class="ui-g-12 ui-md-2 side-panel">
@@ -29,21 +28,20 @@
 						class="side-panel-img" />
 					<p:menu>
 						<p:menuitem value="Dashboard"
-							outcome="/admin/dashboard.xhtml" />
+							url="#{request.contextPath}/admin/dashboard.xhtml" />
 						<p:menuitem value="Book" action="booking" />
 						<p:menuitem value="Track"
-							outcome="/admin/tracking/track.xhtml" />
+							url="#{request.contextPath}/admin/tracking/track.xhtml" />
 						<p:menuitem value="Live"
-							outcome="/admin/tracking/map.xhtml" />
+							url="#{request.contextPath}/admin/tracking/map.xhtml" />
 						<p:menuitem value="About"
-							outcome="/admin/about.xhtml" />
+							url="#{request.contextPath}/admin/about.xhtml" />
 					</p:menu>
 				</h:form>
 			</div>
 		</div>
 
 		<!-- Main Section -->
-		
 		<div class="ui-g-12 ui-md-10 ui-g-nopad">
 			<div class="ui-g-12 ui-g-nopad">
 				<div class="ui-g">
@@ -52,6 +50,5 @@
 			</div>
 		</div>
 	</div>
-	</f:view>
-	</body>
+</h:body>
 </html>
