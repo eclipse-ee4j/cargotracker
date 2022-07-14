@@ -1,4 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
+
 import javax.batch.operations.JobOperator;
 import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Schedule;
