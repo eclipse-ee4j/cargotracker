@@ -286,10 +286,6 @@
 				</plugins>
 			</build>
 		</profile>
-<<<<<<< HEAD
-=======
-		
->>>>>>> 345c410b4533e6b809c25fd461cd4929ce0331c5
 		<profile>
 			<id>openliberty</id>
 		  	<activation>
@@ -300,15 +296,8 @@
 				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 				<maven.compiler.source>1.8</maven.compiler.source>
 				<maven.compiler.target>1.8</maven.compiler.target>
-<<<<<<< HEAD
-				<!--> 
-				<db.driverClass> to be filled with HSQLDB driverClass. </db.driverClass>
-				<db.jdbcUrl> to be filled with HSQLDB JDBC URL. </db.jdbcUrl>
-				<-->
-=======
 				<db.driverClass> org.hsqldb.jdbc.JDBCDataSource </db.driverClass>
 				<db.jdbcUrl> jdbc:hsqldb:file:./cargo-tracker-data/cargo-tracker-database;create=true </db.jdbcUrl>
->>>>>>> 345c410b4533e6b809c25fd461cd4929ce0331c5
 			</properties>
 
       <dependencies>
@@ -378,10 +367,6 @@
             </plugin>
         </plugins>
       </build>
-<<<<<<< HEAD
-	  </profile>
-=======
 	  </profile>			
->>>>>>> 345c410b4533e6b809c25fd461cd4929ce0331c5
 	</profiles>
 </project>
