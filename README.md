@@ -23,6 +23,8 @@ Foundation [Jakarta EE SlideShare account](https://www.slideshare.net/Jakarta_EE
 
 The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed information on how to get started.
 
+Payara: 
+
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
@@ -38,6 +40,9 @@ To set up in Eclipse, follow these steps:
 * Import this code in Eclipse as a Maven project, 
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+
+Open Liberty: 
+
 
 ## Exploring the Application
 
