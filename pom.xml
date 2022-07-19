@@ -71,6 +71,7 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -289,13 +290,15 @@
 		<profile>
 			<id>openliberty</id>
 		  	<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 				<maven.compiler.source>1.8</maven.compiler.source>
 				<maven.compiler.target>1.8</maven.compiler.target>
+				<db.driverClass> org.hsqldb.jdbc.JDBCDataSource </db.driverClass>
+				<db.jdbcUrl> jdbc:hsqldb:file:./cargo-tracker-data/cargo-tracker-database;create=true </db.jdbcUrl>
 			</properties>
 
       <dependencies>
@@ -319,12 +322,12 @@
 			<version>3.0.3</version>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.14.2.0</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+		    <groupId>org.hsqldb</groupId>
+		    <artifactId>hsqldb</artifactId>
+		    <version>2.6.1</version>
+		    <scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -340,23 +343,23 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <looseApplication>false</looseApplication>
                     <copyDependencies>
-                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derby</artifactId>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derbytools</artifactId>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derbyshared</artifactId>
-                        </dependency>
-                    </copyDependencies>
-                </configuration>
+                    	<dependencyGroup>
+	                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+	                        <dependency>
+	                            <groupId>org.hsqldb</groupId>
+	                            <artifactId>hsqldb</artifactId>
+	                        </dependency>
+						</dependencyGroup>
+						<dependencyGroup>
+	                    	<location>${project.basedir}/src/main/webapp/WEB-INF/lib</location>
+	                    	<dependency>
+	                    		<groupId>org.apache.commons</groupId>
+	                    		<artifactId>commons-lang3</artifactId>
+	                    	</dependency>
+                    	</dependencyGroup>
+                    </copyDependencies>               
+               </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -365,7 +368,6 @@
             </plugin>
         </plugins>
       </build>
-	  </profile>
-			
+	  </profile>			
 	</profiles>
 </project>
