@@ -6,16 +6,16 @@
     <feature>appSecurity-2.0</feature>
     <feature>wasJmsClient-2.0</feature>
     <feature>wasJmsServer-1.0</feature>
+    <feature>jndi-1.0</feature>
+    <feature>batch-1.0</feature>
   </featureManager> 
-  
-  <!--
-  <logging  traceSpecification="com.ibm.ws.runtime.update*=all"
+
+  <logging traceSpecification="*=info:EJBContainer=all:Injection*=all:com.ibm.websphere.jaxrs*=all:com.ibm.ws.jaxrs*=all:logservice*=all:org.apache.cxf.*=all:rarInstall*=all:WAS.j2c*=all:runtime.update*=all:resource*=all"
     traceFileName="trace.log"
-    maxFileSize="20"
-    maxFiles="10"
+    maxFileSize="0"
+    maxFiles="0"
     traceFormat="BASIC" 
   />
-  -->
 
   <variable name="default.http.port" defaultValue="8080"/>
   <variable name="default.https.port" defaultValue="8081"/>
@@ -23,16 +23,14 @@
   <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
   <wasJmsEndpoint id="InboundJmsCommsEndpoint" host="*" wasJmsPort="7276" wasJmsSSLPort="9100"/> 
   
-  <basicRegistry id="basic" realm="ibm/api">
-    <user name="usr" password="pwd"/>
-  </basicRegistry>
+  <quickStartSecurity userName="usr" userPassword="pwd" />
 
   <authorization-roles id="com.ibm.ws.batch">
     <security-role name="batchAdmin" >	
-      <user name="usr" />	
+      <special-subject type="EVERYONE"/>	
     </security-role>
   </authorization-roles>
-
+  
   <connectionManager id="CargoCM" minPoolSize="1" maxPoolSize="400"/>
   
   <messagingEngine id="defaultME">
@@ -44,8 +42,7 @@
   </messagingEngine>
   
   <jmsQueueConnectionFactory 
-  	jndiName="jms/QueueConnectionFactory" connectionManagerRef="CargoCM">
-   	<properties.wasJms/>
+  	jndiName="java:app/jms/QueueConnectionFactory" connectionManagerRef="CargoCM">
   </jmsQueueConnectionFactory>
   
   <jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
@@ -53,7 +50,11 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
-    <properties.wasJms destinationRef="CargoHandledQueue" maxConcurrency="200"/>
+    <properties.wasJms
+    destinationRef="CargoHandledQueue" 
+    maxConcurrency="200" 
+    destinationType="javax.jms.Queue"
+    destinationLookup="java:app/jms/CargoHandledQueue" />
   </jmsActivationSpec>  
 
   <jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
@@ -61,7 +62,10 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
-    <properties.wasJms destinationRef="MisdirectedCargoQueue" maxConcurrency="200"/>
+    <properties.wasJms 
+    destinationRef="MisdirectedCargoQueue" 
+    maxConcurrency="200" 
+    destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
@@ -69,7 +73,10 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
-    <properties.wasJms destinationRef="DeliveredCargoQueue" maxConcurrency="200"/>
+    <properties.wasJms 
+    destinationRef="DeliveredCargoQueue" 
+    maxConcurrency="200" 
+    destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
@@ -77,7 +84,10 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
-    <properties.wasJms destinationRef="HandlingEventRegistrationAttemptQueue" maxConcurrency="200"/>
+    <properties.wasJms 
+    destinationRef="HandlingEventRegistrationAttemptQueue" 
+    maxConcurrency="200" 
+    destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>  
 
   <jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
@@ -85,7 +95,10 @@
   </jmsQueue>
 
   <jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
-    <properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue" maxConcurrency="200"/>
+    <properties.wasJms 
+    destinationRef="RejectedRegistrationAttemptsQueue" 
+    maxConcurrency="200" 
+    destinationType="javax.jms.Queue"/>
   </jmsActivationSpec>
   
   <jdbcDriver id="hsqldriver" libraryRef="hsqlLib"/>
@@ -94,7 +107,7 @@
   	   To work around this issue, replace the filler directory below with your unique file path. -->
   
   <library id="hsqlLib">
-  	<fileset dir="** YOUR FILEPATH HERE **" includes="hsqldb*.jar"/>
+  	<fileset dir="/Users/chanun/hsqldb" includes="hsqldb*.jar"/>
   </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">
@@ -109,9 +122,6 @@
       enableTaskExecution="true" retryInterval="300s" 
       retryLimit="-1" 
       ignore.minimum.for.test.use.only="true">
-        <contextService>
-            <securityContext/>
-        </contextService>
   </persistentExecutor>
 
   <databaseStore id="ejbTimerDataStore" keyGenerationStrategy="SEQUENCE"/>
@@ -131,8 +141,7 @@
   	</web-bnd>
     <application-bnd>
       <security-role name="batchAdmin">
-          <user name="usr" />
-          <run-as userid="usr" password="pwd"/>
+          <special-subject type="EVERYONE"/>
       </security-role>
     </application-bnd>
   </webApplication>
@@ -141,5 +150,6 @@
   <applicationMonitor updateTrigger="mbean"/>
   <applicationManager autoExpand="true"/>
   <httpSession cookieName="COOKIE"/>
+  <channelfw chainQuiesceTimeout="60s"/>
   
 </server>
