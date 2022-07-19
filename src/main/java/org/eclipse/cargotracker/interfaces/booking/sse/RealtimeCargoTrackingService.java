@@ -37,13 +37,6 @@ public class RealtimeCargoTrackingService {
   @Produces(MediaType.SERVER_SENT_EVENTS)
   public void tracking(@Context SseEventSink eventSink) {
     synchronized (RealtimeCargoTrackingService.class) {
-      try {
-        String name = "java:app/jms/CargoHandledQueue";
-        InitialContext ctx = new InitialContext();
-        Object obj = InitialContext.doLookup(name);
-      } catch (NamingException e) {
-        e.printStackTrace();
-      }
       if (broadcaster == null) {
         broadcaster = sse.newBroadcaster();
       }

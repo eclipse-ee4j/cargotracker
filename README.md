@@ -25,17 +25,8 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 
 The simplest steps are the following (no IDE required):
 
-* Get the project source code.
-* Ensure you are running Java SE 8, Java SE 11 or Java SE 17.
-* Make sure JAVA_HOME is set.
-* As long as you have Maven set up properly, navigate to the project source root and 
-  type: `mvn clean package cargo:run`
-* Go to http://localhost:8080/cargo-tracker
-
-To run using Maven with Open Liberty, follow these steps: 
-
 * Get the project source code and download the HSQL DB version 2.6.1 .jar file: https://hsqldb.org/ -> "Download"
-* Ensure you are running Java SE 8 or Java SE 11 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> "Java 11" from the version dropdown menu.
+* Ensure you are running Java SE 8 or Java SE 11.
 * Make sure JAVA_HOME is set.
 * Navigate to the cargotracker directory and access the server.xml located in src/main/liberty/config.
 * Change the filler file path for the HSQL DB library (Line 96) to your unique file path. 
@@ -46,14 +37,6 @@ _NOTE: OL currently cannot search for JDBC drivers using variable substitution. 
 You can safely ignore the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
 * The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker. 
-
-
-To set up in Eclipse, follow these steps:
-
-* Set up Java SE 8, Java SE 11 or Java SE 17, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
-* Import this code in Eclipse as a Maven project, 
-  Eclipse will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
 
 ## Exploring the Application
 
@@ -153,5 +136,5 @@ For further guidance on contributing including the project roadmap, please look 
 * Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the H2 database that 
   the application uses get's corrupted, resulting in strange database errors. If 
   this occurs, you will need to stop the application and clean the database. You 
-  can do this by simply removing the cargo-tracker-data directory from the file 
+  can do this by simply removing ./cargo-tracker-database from the file 
   system and restarting the application. This directory will typically be under $your-payara-installation/glassfish/domains/domain1/config.
