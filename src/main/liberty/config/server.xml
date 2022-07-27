@@ -10,12 +10,14 @@
     <feature>batch-1.0</feature>
   </featureManager> 
 
+<!--  
   <logging traceSpecification="*=info:EJBContainer=all:Injection*=all:com.ibm.websphere.jaxrs*=all:com.ibm.ws.jaxrs*=all:logservice*=all:org.apache.cxf.*=all:rarInstall*=all:WAS.j2c*=all:runtime.update*=all:resource*=all"
     traceFileName="trace.log"
     maxFileSize="0"
     maxFiles="0"
     traceFormat="BASIC" 
   />
+  -->
 
   <variable name="default.http.port" defaultValue="8080"/>
   <variable name="default.https.port" defaultValue="8081"/>
