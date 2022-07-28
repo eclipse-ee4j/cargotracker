@@ -73,6 +73,8 @@
 		<name>java:app/jdbc/CargoTrackerDatabase</name>
 		<class-name>${db.driverClass}</class-name>
 		<url>${db.jdbcUrl}</url>
+		<user>${db.user}</user>
+		<password>${db.password}</password>
 		<max-pool-size>32</max-pool-size>
 		<min-pool-size>2</min-pool-size>
 	</data-source>
