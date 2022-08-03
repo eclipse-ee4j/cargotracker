@@ -86,9 +86,6 @@
   
   <jdbcDriver id="dbDriver" libraryRef="dbLib"/>
   
-  <!-- Currently, OL cannot find JDBC drivers when using variable substitution.
-  	   To work around this issue, replace the filler directory below with your unique file path. -->
-  
   <library id="dbLib">
   	<fileset dir="${env.HOME}" includes="hsqldb*.jar"/>
   </library>
