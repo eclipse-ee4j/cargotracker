@@ -149,6 +149,8 @@
 				<!-- H2 file engine requires an absolute path, eg. ~/name, ./name or 
 					a full-qualified path name (it should include driver name under Windows). -->
 				<db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
+				<db.user></db.user>
+				<db.password></db.password>
 			</properties>
 
 			<dependencies>
@@ -216,8 +218,10 @@
 				<payara.version>5.2022.2</payara.version>
 				<webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
 				<db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
-				<!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres?user=postgres). -->
+				<!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
 				<db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
+				<db.user>${postgreSqlUsername}</db.user>
+				<db.password>${postgreSqlPassword}</db.password>				
 			</properties>
 
 			<dependencies>
