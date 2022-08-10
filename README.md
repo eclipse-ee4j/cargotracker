@@ -36,7 +36,7 @@ To run using Maven with Open Liberty, follow these steps:
 
 * Ensure you are running Java SE 8, Java SE 11, or Java SE 17 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> select from the version dropdown menu.
 * Make sure JAVA_HOME is set.
-* Navigate to the cargotracker directory and develop the application with Liberty Maven Plugin: `mvn -P openliberty liberty:dev -DserverStartTimeout=300`.
+* Navigate to the cargotracker directory and develop the application with Liberty Maven Plugin: `mvn -P openliberty liberty:dev`.
 
 You can safely ignore the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
