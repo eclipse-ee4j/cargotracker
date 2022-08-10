@@ -32,7 +32,16 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
-To run using Maven with Open Liberty, follow these steps: 
+To set up in Eclipse, follow these steps:
+
+* Set up Java SE 8, Java SE 11 or Java SE 17, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
+* Import this code in Eclipse as a Maven project, 
+  Eclipse will do the rest for you. Proceed with clean/building the application.
+* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+
+## Open Liberty
+
+To set up the project with Open Liberty and Maven: 
 
 * Ensure you are running Java SE 8, Java SE 11, or Java SE 17 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> select from the version dropdown menu.
 * Make sure JAVA_HOME is set.
@@ -40,14 +49,22 @@ To run using Maven with Open Liberty, follow these steps:
 
 You can safely ignore the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
-* The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker. 
+* The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker.
 
-To set up in Eclipse, follow these steps:
+To set up the project with Open Liberty and Eclipse IDE: 
 
-* Set up Java SE 8, Java SE 11 or Java SE 17, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
-* Import this code in Eclipse as a Maven project, 
-  Eclipse will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+* Ensure that you have either Eclipse version 2022-03 or 2022-06. 
+* Follow the instructions in the Github repository to install Liberty Tools for Eclipse. https://github.com/OpenLiberty/liberty-tools-eclipse/blob/main/docs/installation/installation.md
+* Import the Cargo Tracker project via File -> Import -> “Existing Maven Projects” and follow the rest of the steps in the configuration wizard.
+* Find the application on the Liberty dashboard through Liberty Tools.
+* Right click the project name and start the application with parameters (the second start option): 
+* Specify the Liberty profile by using ‘-Popenliberty’ and then starting the application by selecting ‘OK’.
+* The application should start without any further issues beside the cosmetic warnings related to DB setup and message endpoint initialization. 
+* You can view the app at http://localhost:8080/cargo-tracker.
+
+NOTE: On Mac OS, if the ‘mvn’ command is not found by Eclipse, users must start Eclipse through a folder by navigating to their Eclipse version (for example, eclipse/jee-2022-06), right-clicking the Eclipse icon, then selecting “Show Package Contents”.
+
+Then, navigate to Contents -> MacOS and start Eclipse using the executable file found there. The Maven path should be resolved. 
 
 ## Exploring the Application
 
