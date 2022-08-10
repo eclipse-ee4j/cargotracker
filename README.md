@@ -34,14 +34,13 @@ The simplest steps are the following (no IDE required):
 
 To run using Maven with Open Liberty, follow these steps: 
 
-* Ensure you are running Java SE 8 or Java SE 11 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> "Java 11" from the version dropdown menu.
+* Ensure you are running Java SE 8, Java SE 11, or Java SE 17 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> select from the version dropdown menu.
 * Make sure JAVA_HOME is set.
 * Navigate to the cargotracker directory and develop the application with Liberty Maven Plugin: `mvn -P openliberty liberty:dev -DserverStartTimeout=300`.
 
 You can safely ignore the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
 * The application should start without any additional errors and you can view it at http://localhost:8080/cargo-tracker. 
-
 
 To set up in Eclipse, follow these steps:
 
