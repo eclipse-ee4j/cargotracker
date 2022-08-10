@@ -39,7 +39,7 @@ To set up in Eclipse, follow these steps:
   Eclipse will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
 
-## Open Liberty
+## Getting Started with Open Liberty
 
 To set up the project with Open Liberty and Maven: 
 
