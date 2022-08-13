@@ -18,7 +18,7 @@
 		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 </h:head>
 
-<body>
+<h:body>
 	<div class="ui-g full-page">
 		<!-- MENU -->
 		<div class="ui-g-12 ui-md-2 side-panel">
@@ -28,9 +28,9 @@
 						class="side-panel-img" />
 					<p:menu>
 						<p:menuitem value="Tracking"
-							outcome="/public/track.xhtml" />
+							url="#{request.contextPath}/public/track.xhtml" />
 						<p:menuitem value="About"
-							outcome="/public/about.xhtml" />
+							url="#{request.contextPath}/public/about.xhtml" />
 					</p:menu>
 				</h:form>
 			</div>
@@ -45,5 +45,5 @@
 			</div>
 		</div>
 	</div>
-</body>
+</h:body>
 </html>

@@ -1,11 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <server description="Open Liberty server">
 
+  <!--The Liberty Maven Plugin has generated Liberty features necessary for your application in configDropins/overrides/generated-features.xml-->
+
   <featureManager>
-    <feature>jakartaee-8.0</feature>
     <feature>wasJmsClient-2.0</feature>
     <feature>wasJmsServer-1.0</feature>
+    <feature>jsonb-1.0</feature>
+    <feature>ejbLite-3.2</feature>
+    <feature>beanValidation-2.0</feature>
+    <feature>jsf-2.3</feature>
     <feature>jndi-1.0</feature>
-    <feature>localConnector-1.0</feature>
+    <feature>cdi-2.0</feature>
+    <feature>jdbc-4.2</feature>
+    <feature>jms-2.0</feature>
+    <feature>ejbPersistentTimer-3.2</feature>
+    <feature>jaxrs-2.1</feature>
+    <feature>jaxb-2.2</feature>
+    <feature>mdb-3.2</feature>
+    <feature>batch-1.0</feature>
+    <feature>jpa-2.2</feature>
   </featureManager> 
 
 <!--  
@@ -87,7 +101,7 @@
   <jdbcDriver id="dbDriver" libraryRef="dbLib"/>
   
   <library id="dbLib">
-  	<fileset dir="${env.HOME}" includes="hsqldb*.jar"/>
+  	<fileset dir="${env.HOME}/hsql" includes="hsqldb*.jar"/>
   </library>
   
   <dataSource id="cargoTrackerDataStore" jndiName="jdbc/CargoTrackerDatabase">

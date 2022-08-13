@@ -10,9 +10,6 @@
                 RAD, development, etc but likely not a good idea for production. -->
             <property name="javax.persistence.schema-generation.database.action"
                 value="create" />
-            <!-- This will fail if it's not invoked on a blank database - this is fine.
-                 What this does is insert a single record that the application settings
-                 check can place a pessimistic lock on. -->           
             <property name="javax.persistence.sql-load-script-source"
                 value="META-INF/initital-data.sql" />
             <!-- The default log level of info is best for production, want to see verbose output for 
