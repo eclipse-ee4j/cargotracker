@@ -45,7 +45,7 @@ To set up the project with Open Liberty and Maven:
 
 * Ensure you are running Java SE 8, Java SE 11, or Java SE 17 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> select from the version dropdown menu.
 * Make sure JAVA_HOME is set.
-* Navigate to the cargotracker directory and develop the application with Liberty Maven Plugin: `mvn -P openliberty liberty:dev`. 
+* Navigate to the cargotracker directory and develop the application with Liberty Maven Plugin: `mvn -P openliberty liberty:dev`.
 
 You can safely ignore the shrinkwrap features warning and the AggregateObjectMapping nested foreign key warning, as these don’t affect the application functionality. 
 
@@ -62,8 +62,7 @@ To set up the project with Open Liberty and Eclipse IDE:
 * The application should start without any further issues beside the cosmetic warnings related to DB setup and message endpoint initialization. 
 * You can view the app at http://localhost:8080/cargo-tracker.
 
-NOTE: On Mac OS, if the ‘mvn’ command is not found by Eclipse, users must start Eclipse through a folder by navigating to their Eclipse version (for example, eclipse/jee-2022-06), right-clicking the Eclipse icon, then selecting “Show Package Contents”.
-Then, navigate to Contents -> MacOS and start Eclipse using the executable file found there. The Maven path should be resolved.
+NOTE: On Mac OS, if the ‘mvn’ command is not found by Eclipse, users must start Eclipse through a folder by navigating to their Eclipse version (for example, eclipse/jee-2022-06), right-clicking the Eclipse icon, then selecting “Show Package Contents”. Then, navigate to Contents -> MacOS and start Eclipse using the executable file found there. The Maven path should be resolved.
 
 ## Exploring the Application
 
