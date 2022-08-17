@@ -62,9 +62,7 @@ To set up the project with Open Liberty and Eclipse IDE:
 * The application should start without any further issues beside the cosmetic warnings related to DB setup and message endpoint initialization. 
 * You can view the app at http://localhost:8080/cargo-tracker.
 
-NOTE: On Mac OS, if the ‘mvn’ command is not found by Eclipse, users must start Eclipse through a folder by navigating to their Eclipse version (for example, eclipse/jee-2022-06), right-clicking the Eclipse icon, then selecting “Show Package Contents”.
-
-Then, navigate to Contents -> MacOS and start Eclipse using the executable file found there. The Maven path should be resolved. 
+NOTE: On Mac OS, if the ‘mvn’ command is not found by Eclipse, users must start Eclipse through a folder by navigating to their Eclipse version (for example, eclipse/jee-2022-06), right-clicking the Eclipse icon, then selecting “Show Package Contents”. Then, navigate to Contents -> MacOS and start Eclipse using the executable file found there. The Maven path should be resolved.
 
 ## Exploring the Application
 
