@@ -41,7 +41,7 @@ To set up in Eclipse, follow these steps:
 
 ## Getting Started with Open Liberty
 
-To set up the project with Open Liberty and Maven: 
+To set up the project with Open Liberty and Maven:
 
 * Ensure you are running Java SE 8, Java SE 11, or Java SE 17 (IBM Semeru recommended with Open Liberty: https://developer.ibm.com/languages/java/semeru-runtimes/downloads/ -> select from the version dropdown menu.
 * Make sure JAVA_HOME is set.
