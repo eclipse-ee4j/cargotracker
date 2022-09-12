@@ -84,8 +84,8 @@
 			</p:tab>
 			<p:tab id="confirm" title="Confirmation">
 				<p:panel header="Confirmation">
-					<h:panelGrid id="confirmation" columns="3"
-						columnClasses="grid,grid,grid">
+					<h:panelGrid id="confirmation" columns="1"
+						columnClasses="grid">
 						<h:panelGrid columns="2" columnClasses="label, value">
 							<h:outputText value="Tracking ID: " />
 							<h:outputText value="#{eventLogger.trackingId}"
@@ -114,7 +114,7 @@
 	<div class="ui-g ui-g-12">
 		<div class="ui-g-offset-5 ui-g-1">
 			<h:graphicImage value="#{resource['/images/CTlogobadge128.png']}"
-				height="68" />
+				height="68" alt="Cargo Tracker logo badge"/>
 		</div>
 	</div>
 	<script>
