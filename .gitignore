@@ -17,3 +17,4 @@ cargo-tracker-test-data
 /.apt_generated/
 /.apt_generated_tests/
 *.jar
+.libertyls/
