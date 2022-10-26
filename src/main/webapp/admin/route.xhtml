@@ -5,17 +5,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
+	<f:metadata>
+		<f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />
+		<f:event type="preRenderView" listener="#{cargoDetails.load}" />
+		<f:viewParam name="trackingId"
+			value="#{itinerarySelection.trackingId}" />
+		<f:event type="preRenderView" listener="#{itinerarySelection.load}" />
+	</f:metadata>
 	<ui:define name="title">Route Cargo #{cargoDetails.trackingId}</ui:define>
 	<ui:define name="content">
-		<f:metadata>
-			<f:viewParam name="trackingId" value="#{cargoDetails.trackingId}" />
-			<f:event type="preRenderView" listener="#{cargoDetails.load}" />
-			<f:viewParam name="trackingId"
-				value="#{itinerarySelection.trackingId}" />
-			<f:event type="preRenderView" listener="#{itinerarySelection.load}" />
-		</f:metadata>
-		<div class="ui-grid-col-2" id="leftCol"></div>
-		<div class="ui-grid-col-8" id="mainCol">
+			<div class="ui-grid-col-2" id="leftCol"></div>
+			<div class="ui-grid-col-8" id="mainCol">
 			<br />
 			<p:outputLabel
 				value="Set Route for Cargo #{cargoDetails.cargo.trackingId}"
