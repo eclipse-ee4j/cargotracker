@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cargo-tracker
-        image: ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
+        image: ghcr.io/eclipse-ee4j/cargo-tracker:v2.2-SNAPSHOT
         imagePullPolicy: Always
 ---
 apiVersion: v1
