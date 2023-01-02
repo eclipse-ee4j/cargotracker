@@ -28,11 +28,7 @@ jobs:
     needs: [formatting]
     strategy:
       matrix:
-<<<<<<< HEAD
-        java: [11, 17]
-=======
-        java: [8, 11, 17]
->>>>>>> ee4j/master
+        java: [17,19]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Java
