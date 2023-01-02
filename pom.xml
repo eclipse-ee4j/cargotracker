@@ -28,17 +28,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
 
-        <maven.compiler.release>11</maven.compiler.release>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <cargo-maven3-plugin.version>1.10.4</cargo-maven3-plugin.version>
 
-        <jakartaee-api.version>9.1.0</jakartaee-api.version>
+        <jakartaee-api.version>10.0.0</jakartaee-api.version>
         <primefaces.version>10.0.0</primefaces.version>
+        <jersey.version>3.1.0</jersey.version>
 
         <!-- Test Utilities -->
-        <arquillian-bom.version>1.7.0.Alpha10</arquillian-bom.version>
-        <junit-jupiter.version>5.8.1</junit-jupiter.version>
+        <arquillian-bom.version>1.7.0.Alpha13</arquillian-bom.version>
+        <junit-jupiter.version>5.9.1</junit-jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.21.0</assertj.version>
     </properties>
@@ -105,7 +107,7 @@
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
-            <version>3.0.1</version>
+            <version>${jersey.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -194,8 +196,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.version>6.2021.1.Alpha1</payara.version>
-                <arquillian-payara.version>3.0.alpha1</arquillian-payara.version>
+                <payara.version>6.2022.2</payara.version>
+                <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
                 <!-- Application properties -->
                 <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
@@ -270,7 +272,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>1.9.6</version>
+                        <version>${cargo-maven3-plugin.version}</version>
                         <configuration>
                             <container>
                                 <containerId>payara</containerId>
@@ -293,7 +295,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <payara.version>6.2021.1.Alpha1</payara.version>
+                <payara.version>6.2022.2</payara.version>
                 <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
                 <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
@@ -305,7 +307,7 @@
                 <dependency>
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-server</artifactId>
-                    <version>2.33</version>
+                    <version>${jersey.version}</version>
                     <scope>provided</scope>
                 </dependency>
                 <!-- Embedding the JDBC driver in the WAR works in Payara Micro -->

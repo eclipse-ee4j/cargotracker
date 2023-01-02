@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
               
       - name: Delete Cargo Tracker Deployment
         uses: actions-hub/kubectl@master
@@ -43,33 +43,34 @@ jobs:
           args: create -f postgres.yml
       
       - name: Set up Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
-          java-version: '1.8'
+          distribution: 'temurin'
+          java-version: '8'
 
       - name: Cache Maven packages
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn clean package -Pcloud -DpostgreSqlJdbcUrl="jdbc:postgresql://postgres:5432/postgres?user=${{ secrets.POSTGRES_USER }}&amp;password=${{ secrets.POSTGRES_PASSWORD }}" --file pom.xml
+        run: mvn clean package -Pcloud -DpostgreSqlJdbcUrl="jdbc:postgresql://postgres:5432/postgres" -DpostgreSqlUsername="${{ secrets.POSTGRES_USER }}" -DpostgreSqlPassword="${{ secrets.POSTGRES_PASSWORD }}" --file pom.xml
         
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: eclipse-ee4j
           password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v2.1-SNAPSHOT
+          tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v2.2-SNAPSHOT
                       
       - name: Create Cargo Tracker Deployment
         uses: actions-hub/kubectl@master

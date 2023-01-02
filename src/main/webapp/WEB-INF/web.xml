@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="5.0"
+<web-app version="6.0"
 		 xmlns="https://jakarta.ee/xml/ns/jakartaee"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
+		 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
 
 	<!-- Overriding system level defaults is a decent usage of XML. -->
 	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-name>jakarta.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
 	<context-param>
-		<param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+		<param-name>jakarta.faces.CLIENT_WINDOW_MODE</param-name>
 		<param-value>url</param-value>
 	</context-param>
 	<context-param>
@@ -45,7 +45,7 @@
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -73,6 +73,8 @@
 		<name>java:app/jdbc/CargoTrackerDatabase</name>
 		<class-name>${db.driverClass}</class-name>
 		<url>${db.jdbcUrl}</url>
+		<user>${db.user}</user>
+		<password>${db.password}</password>
 		<max-pool-size>32</max-pool-size>
 		<min-pool-size>2</min-pool-size>
 	</data-source>

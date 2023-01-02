@@ -1,11 +1,13 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.batch.operations.JobOperator;
 import jakarta.batch.runtime.BatchRuntime;
 import jakarta.ejb.Schedule;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionManagement;
 import jakarta.ejb.TransactionManagementType;
+
 
 /**
  * Periodically scans a certain directory for files and attempts to parse handling event
@@ -14,6 +16,7 @@ import jakarta.ejb.TransactionManagementType;
  * <p>Files that fail to parse are moved into a separate directory, successful files are deleted.
  */
 @Stateless
+@PermitAll
 @TransactionManagement(TransactionManagementType.BEAN) // Batch steps manage their own transactions.
 public class UploadDirectoryScanner {
 

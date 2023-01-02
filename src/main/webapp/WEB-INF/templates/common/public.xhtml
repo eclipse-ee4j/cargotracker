@@ -2,9 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="jakarta.faces.html"
+	  xmlns:ui="jakarta.faces.facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title><ui:insert name="title">Title</ui:insert></title>
@@ -25,7 +24,7 @@
 			<div class="ui-g-12 menu-container">
 				<h:form>
 					<h:graphicImage value="#{resource['/images/CTlogobadge128.png']}"
-						class="side-panel-img" />
+						class="side-panel-img" alt="Cargo Tracker logo badge"/>
 					<p:menu>
 						<p:menuitem value="Tracking"
 							url="#{request.contextPath}/public/track.xhtml" />

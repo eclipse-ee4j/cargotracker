@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job id="EventFilesProcessorJob"
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+     xmlns="https://jakarta.ee/xml/ns/jakartaee"
+     version="2.0">
     <properties>
         <property name="upload_directory" value="/tmp/uploads"/>
         <property name="archive_directory" value="/tmp/archive"/>

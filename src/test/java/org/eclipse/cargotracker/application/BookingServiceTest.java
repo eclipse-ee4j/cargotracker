@@ -62,8 +62,10 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,12 +74,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
- *
- * <p>Ensure a Payara instance is running locally before this test is executed, with the default
- * user name and password.
  */
 
 @ExtendWith(ArquillianExtension.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BookingServiceTest {
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
