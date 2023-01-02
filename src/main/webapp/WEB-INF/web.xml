@@ -80,27 +80,27 @@
 	</data-source>
 	<jms-destination>
 		<name>java:app/jms/CargoHandledQueue</name>
-		<interface-name>javax.jms.Queue</interface-name>
+		<interface-name>jakarta.jms.Queue</interface-name>
 		<destination-name>CargoHandledQueue</destination-name>
 	</jms-destination>
 	<jms-destination>
 		<name>java:app/jms/MisdirectedCargoQueue</name>
-		<interface-name>javax.jms.Queue</interface-name>
+		<interface-name>jakarta.jms.Queue</interface-name>
 		<destination-name>MisdirectedCargoQueue</destination-name>
 	</jms-destination>
 	<jms-destination>
 		<name>java:app/jms/DeliveredCargoQueue</name>
-		<interface-name>javax.jms.Queue</interface-name>
+		<interface-name>jakarta.jms.Queue</interface-name>
 		<destination-name>DeliveredCargoQueue</destination-name>
 	</jms-destination>
 	<jms-destination>
 		<name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
-		<interface-name>javax.jms.Queue</interface-name>
+		<interface-name>jakarta.jms.Queue</interface-name>
 		<destination-name>RejectedRegistrationAttemptsQueue</destination-name>
 	</jms-destination>
 	<jms-destination>
 		<name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
-		<interface-name>javax.jms.Queue</interface-name>
+		<interface-name>jakarta.jms.Queue</interface-name>
 		<destination-name>HandlingEventRegistrationAttemptQueue
 		</destination-name>
 	</jms-destination>
