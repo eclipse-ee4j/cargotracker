@@ -37,17 +37,20 @@
 
                         <p>
                             Cargo <strong><h:link value="#{admin.track.trackingId}"
-                                                  id="trackingId" outcome="/admin/show.xhtml?faces-redirect=true"
+                                                  id="trackingId"
+                                                  outcome="/admin/show.xhtml?faces-redirect=true"
                                                   style="text-decoration: none;color: black;">
                             <f:param name="trackingId" value="#{admin.track.trackingId}"/>
-                        </h:link></strong> is currently <strong>#{admin.track.cargo.statusText}</strong>
+                        </h:link></strong> is currently
+                            <strong>#{admin.track.cargo.statusText}</strong>
                         </p>
 
                         <p:tooltip id="toolTipFade" for="trackingId"
                                    value="Click to see itinerary's details."/>
 
                         <p>
-                            Estimated time of arrival in <strong>#{admin.track.cargo.destination}</strong>:
+                            Estimated time of arrival in
+                            <strong>#{admin.track.cargo.destination}</strong>:
                             #{admin.track.cargo.eta}
                         </p>
                         <ui:fragment

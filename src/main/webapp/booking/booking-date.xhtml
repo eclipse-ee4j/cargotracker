@@ -36,7 +36,8 @@
                     <p:commandButton value="Back" action="booking-destination"/>
                     <p:commandButton value="Cancel" action="/admin/dashboard"/>
                     <p:commandButton value="Book Cargo" id="bookBtn"
-                                     action="#{booking.register()}" disabled="#{!booking.bookable}"/>
+                                     action="#{booking.register()}"
+                                     disabled="#{!booking.bookable}"/>
                 </h:panelGrid>
             </h:form>
         </div>

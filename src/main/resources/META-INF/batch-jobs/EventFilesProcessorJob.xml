@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job id="EventFilesProcessorJob"
-     xmlns="https://jakarta.ee/xml/ns/jakartaee"
-     version="2.0">
-    <properties>
-        <property name="upload_directory" value="/tmp/uploads"/>
-        <property name="archive_directory" value="/tmp/archive"/>
-        <property name="failed_directory" value="/tmp/failed"/>
-    </properties>
+  version="2.0"
+  xmlns="https://jakarta.ee/xml/ns/jakartaee">
+  <listeners>
+    <listener ref="FileProcessorJobListener"/>
+  </listeners>
+  <properties>
+    <property name="upload_directory" value="/tmp/uploads"/>
+    <property name="archive_directory" value="/tmp/archive"/>
+    <property name="failed_directory" value="/tmp/failed"/>
+  </properties>
+  <step id="ProcessEventFiles">
+    <chunk item-count="12">
+      <reader ref="EventItemReader"/>
+      <skippable-exception-classes>
+        <include
+          class="org.eclipse.cargotracker.interfaces.handling.file.EventLineParseException"/>
+      </skippable-exception-classes>
+      <writer ref="EventItemWriter"/>
+    </chunk>
     <listeners>
-        <listener ref="FileProcessorJobListener"/>
+      <listener ref="LineParseExceptionListener"/>
     </listeners>
-    <step id="ProcessEventFiles">
-        <listeners>
-            <listener ref="LineParseExceptionListener"/>
-        </listeners>
-        <chunk item-count="12">
-            <reader ref="EventItemReader"/>
-            <writer ref="EventItemWriter"/>
-            <skippable-exception-classes>
-                <include
-                        class="org.eclipse.cargotracker.interfaces.handling.file.EventLineParseException"/>
-            </skippable-exception-classes>
-        </chunk>
-    </step>
+  </step>
 </job>

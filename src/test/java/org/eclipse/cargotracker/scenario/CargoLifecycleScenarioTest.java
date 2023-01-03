@@ -1,5 +1,11 @@
 package org.eclipse.cargotracker.scenario;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,8 +37,6 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.domain.service.RoutingService;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CargoLifecycleScenarioTest {
 
@@ -196,8 +200,7 @@ public class CargoLifecycleScenarioTest {
           noSuchVoyageNumber,
           noSuchUnLocode,
           HandlingEvent.Type.LOAD);
-      fail(
-          "Should not be able to register a handling event with invalid location and voyage");
+      fail("Should not be able to register a handling event with invalid location and voyage");
     } catch (CannotCreateHandlingEventException expected) {
     }
 

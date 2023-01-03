@@ -14,6 +14,18 @@ public class RealtimeCargoTrackingViewAdapter {
   private static final Map<TransportStatus, String> transportStatusLabels =
       new EnumMap<>(TransportStatus.class);
 
+  static {
+    routingStatusLabels.put(RoutingStatus.NOT_ROUTED, "Not routed");
+    routingStatusLabels.put(RoutingStatus.ROUTED, "Routed");
+    routingStatusLabels.put(RoutingStatus.MISROUTED, "Misrouted");
+
+    transportStatusLabels.put(TransportStatus.NOT_RECEIVED, "Not received");
+    transportStatusLabels.put(TransportStatus.IN_PORT, "In port");
+    transportStatusLabels.put(TransportStatus.ONBOARD_CARRIER, "Onboard carrier");
+    transportStatusLabels.put(TransportStatus.CLAIMED, "Claimed");
+    transportStatusLabels.put(TransportStatus.UNKNOWN, "Unknown");
+  }
+
   private final Cargo cargo;
 
   public RealtimeCargoTrackingViewAdapter(Cargo cargo) {
@@ -70,17 +82,5 @@ public class RealtimeCargoTrackingViewAdapter {
     }
 
     return cargo.getDelivery().getTransportStatus().toString();
-  }
-
-  static {
-    routingStatusLabels.put(RoutingStatus.NOT_ROUTED, "Not routed");
-    routingStatusLabels.put(RoutingStatus.ROUTED, "Routed");
-    routingStatusLabels.put(RoutingStatus.MISROUTED, "Misrouted");
-
-    transportStatusLabels.put(TransportStatus.NOT_RECEIVED, "Not received");
-    transportStatusLabels.put(TransportStatus.IN_PORT, "In port");
-    transportStatusLabels.put(TransportStatus.ONBOARD_CARRIER, "Onboard carrier");
-    transportStatusLabels.put(TransportStatus.CLAIMED, "Claimed");
-    transportStatusLabels.put(TransportStatus.UNKNOWN, "Unknown");
   }
 }
