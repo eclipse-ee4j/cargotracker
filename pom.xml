@@ -30,8 +30,6 @@
 
         <maven.compiler.release>11</maven.compiler.release>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <cargo-maven3-plugin.version>1.10.4</cargo-maven3-plugin.version>
 
         <jakartaee-api.version>10.0.0</jakartaee-api.version>
@@ -165,7 +163,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -173,24 +170,6 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus Staging</name>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>payara-nexus</id>
-            <name>Payara Nexus Artifacts</name>
-            <url>https://nexus.payara.fish/repository/payara-artifacts/</url>
-        </repository>
-    </repositories>
     <profiles>
         <!-- The currently supported application servers are represented as profiles -->
         <profile>
@@ -264,7 +243,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
@@ -359,7 +337,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
