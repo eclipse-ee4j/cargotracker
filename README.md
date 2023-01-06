@@ -17,8 +17,8 @@ A slide deck introducing the
 fundamentals of the project is available on the official Eclipse 
 Foundation [Jakarta EE SlideShare account](https://www.slideshare.net/Jakarta_EE/applied-domaindriven-design-blueprints-for-jakarta-ee). A recording of the slide deck is available on the official [Jakarta EE YouTube account](https://www.youtube.com/watch?v=pKmmZd-3mhA).
 
-![Cargo Tracker cover](cargo_tracker_cover.png)
- 
+![Eclipse Cargo Tracker cover](cargo_tracker_cover.png)
+
 ## Getting Started
 
 The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed information on how to get started.
@@ -32,11 +32,11 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
-To set up in Eclipse, follow these steps:
+To set up in the Eclipse IDE, follow these steps:
 
-* Set up Java SE 8, Java SE 11, or Java SE 17, [Eclipse for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in Eclipse.
-* Import this code in Eclipse as a Maven project, 
-  Eclipse will do the rest for you. Proceed with clean/building the application.
+* Set up Java SE 8, Java SE 11, or Java SE 17, [the Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in the Eclipse IDE.
+* Import this code in the Eclipse IDE as a Maven project, 
+  the Eclipse IDE will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
 
 ## Exploring the Application
@@ -56,7 +56,7 @@ application is pre-populated with some sample data).
 The administrative interface is intended for the shipping company that manages
 cargo. The landing page of the interface is a dashboard providing an overall 
 view of registered cargo. You can book cargo using the booking interface.
-One cargo is booked, you can route it. When you initiate a routing request,
+Once cargo is booked, you can route it. When you initiate a routing request,
 the system will determine routes that might work for the cargo. Once you select
 a route, the cargo will be ready to process handling events at the port. You can
 also change the destination for cargo if needed or track cargo.
@@ -115,8 +115,6 @@ by simply digging into the code to see how things are implemented.
 ## Cloud Demo
 Cargo Tracker is deployed to Kubernetes on the cloud using GitHub Actions workflows. You can find the demo deployment on the Scaleforce cloud (https://cargo-tracker.j.scaleforce.net). This project is very thankful to our sponsors [Jelastic](https://jelastic.com) and [Scaleforce](https://www.scaleforce.net) for hosting the demo! The deployment and all data is refreshed nightly. On the cloud Cargo Tracker uses PostgreSQL as the database. The [GitHub Container Registry](https://ghcr.io/eclipse-ee4j/cargo-tracker) is used to publish Docker images.
 
-![Cargo Tracker sponsors](sponsors.png)
-
 ## Java EE 7
 A Java EE 7, Java SE 8, Payara 4.1 version of Cargo Tracker is available under the ['javaee7' branch](https://github.com/eclipse-ee4j/cargotracker/tree/javaee7).
 
@@ -128,7 +126,7 @@ In addition, for all XML, XHTML and HTML files we use a column/line width of 100
 For further guidance on contributing including the project roadmap, please look [here](CONTRIBUTING.md).
 
 ## Known Issues
-* When you load the project in the Eclipse IDE, you may get some spurious validation failure messages on the XML deployment descriptors (these are essentially bugs in Eclipse). These are harmless and the application is just fine. You can simply ignore these false validation messages or delete them by going to the Markers tab.
+* When you load the project in the Eclipse IDE, you may get some spurious validation failure messages on the XML deployment descriptors (these are essentially bugs in the Eclipse IDE). These are harmless and the application is just fine. You can simply ignore these false validation messages or delete them by going to the Markers tab.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as 
   explained [here](https://github.com/payara/Payara/issues/3038).
