@@ -142,7 +142,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<payara.version>5.2022.4</payara.version>
+				<payara.version>5.2022.5</payara.version>
 				<!-- Application properties -->
 				<webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
 				<db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -192,7 +192,7 @@
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven3-plugin</artifactId>
-						<version>1.9.9</version>
+						<version>1.10.4</version>
 						<configuration>
 							<container>
 								<containerId>payara</containerId>
@@ -215,7 +215,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<payara.version>5.2022.4</payara.version>
+				<payara.version>5.2022.5</payara.version>
 				<webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
 				<db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
 				<!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
