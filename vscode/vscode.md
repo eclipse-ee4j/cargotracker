@@ -1,16 +1,16 @@
-This section outlines how to set up the application in the VS CODE IDE.
+This section outlines how to set up the application in the Visual Studio Code.
 
 ## Prerequisites
 
 * Java SE 8, Java SE 11 or Java SE 17 is required.
 * Payara Server 5 is required. You can download Payara Server 5 from [here](https://www.payara.fish/downloads/).
-* The VS CODE IDE is required. You can download the VS CODE from [here](https://code.visualstudio.com/download).
+* The Visual Studio Code is required. You can download the Visual Studio Code from [here](https://code.visualstudio.com/download).
 
 ## Download
 
 [Download](https://github.com/eclipse-ee4j/cargotracker/archive/master.zip) the source code zip file and expand it somewhere in your file system. Note that this is a Maven project.
 
-## VSCODE IDE Setup
+## Visual Studio Code Setup
 
 Before going through this tutorial, you must install the following extensions from the Visual Studio Code marketplace:
 
