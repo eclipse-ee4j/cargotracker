@@ -12,9 +12,8 @@ This section outlines how to set up the application in the Visual Studio Code.
 
 ## Visual Studio Code Setup
 
-Before going through this tutorial, you must install the following extensions from the Visual Studio Code marketplace:
+Before going through this Documentation, you must install the following extensions from the Visual Studio Code marketplace:
 
-* [Java Extension Pack, by Microsoft](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
 * [Payara Tools, by Payara](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode)
 
 You can install extensions from Extensions view (Ctrl + Shift + X) in the activity bar of VS Code:
@@ -30,14 +29,6 @@ Let’s start:
  * Or in the explorer sidebar expand Maven Projects, Select the + sign to create a Maven Project:
 
   ![Maven](image/maven1.png)
-
- * Select More… option to find archetype available in remote catalog:
-
-  ![More](image/more.png)
-
- * Search for the javaee8-essentials-archetype or you may select any other archetype:
-
-  ![Javaee8](image/javaee8.png)
 
  * Select the destination folder, where the project folder will be generated and answer the prompts (groupId, artifactId, version etc) in the focused TERMINAL window to setup the maven project.
 
@@ -67,7 +58,7 @@ Let’s start:
  
  ![payara6](image/payara6.png)
 
- * Then, select the maven side-bar & righ-click to install:
+ * Then, select the maven side-bar & right-click to clean package & install or else you can run 'mvn clean package' in the terminal:
 
  ![Maveni](image/maveni.png)
 
