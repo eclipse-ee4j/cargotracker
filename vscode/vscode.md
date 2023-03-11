@@ -20,10 +20,7 @@ Before going through this tutorial, you must install the following extensions fr
 You can install extensions from Extensions view (Ctrl + Shift + X) in the activity bar of VS Code:
 
 ![Payara](image/payara_server.png)
-
-Maven is the most widely used project build and dependency management tool in the Java ecosystem. 
-Generate a Maven Web Application through the Maven archetypes and deploy the application to the Payara Server. 
-
+ 
 Let’s start:
 
  * Open the command pallet using Ctrl + Shift + P, type Maven and select the Create Maven Project option:
@@ -77,8 +74,6 @@ Let’s start:
  * After Build success. To start the Payara Server right click on the server in Payara Server explorer and select Start:
 
  ![payara7](image/payara7.png)
-
- * After starting the server, you may see the server log in the OUTPUT window:
 
  ## Running the Payara Server Application
 
