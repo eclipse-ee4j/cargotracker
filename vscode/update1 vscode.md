@@ -5,6 +5,7 @@ This section outlines how to set up the application in the Visual Studio Code.
 * Java SE 8, Java SE 11 or Java SE 17 is required.
 * Payara Server 5 is required. You can download Payara Server 5 from [here](https://www.payara.fish/downloads/).
 * The Visual Studio Code is required. You can download the Visual Studio Code from [here](https://code.visualstudio.com/download).
+* [Java Extension Pack, by Microsoft](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
 
 ## Download
 
@@ -12,23 +13,21 @@ This section outlines how to set up the application in the Visual Studio Code.
 
 ## Visual Studio Code Setup
 
-Before going through this Documentation, you must install the following extensions from the Visual Studio Code marketplace:
+You need to install the payara extensions from the Visual Studio Code marketplace :
 
 * [Payara Tools, by Payara](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode)
 
-You can install extensions from Extensions view (Ctrl + Shift + X) in the activity bar of VS Code:
+You can install extensions from Extensions view (Ctrl + Shift + X) in the activity bar of Visual Studio Code:
 
 ![Payara](image/payara_server.png)
  
 Let’s start:
 
- * Open the command pallet using Ctrl + Shift + P, type Maven and select the Create Maven Project option:
+ * Open the command pallet using Ctrl + Shift + P, type Maven and import the existing Maven Project :
 
   ![Maven](image/maven.png)
 
- * Or in the explorer sidebar expand Maven Projects, Select the + sign to create a Maven Project:
-
-  ![Maven](image/maven1.png)
+ * Or in the explorer sidebar expand Maven Projects, Select the + sign to create a Maven Project.
 
  * Select the destination folder, where the project folder will be generated and answer the prompts (groupId, artifactId, version etc) in the focused TERMINAL window to setup the maven project.
 
@@ -50,7 +49,7 @@ Let’s start:
 
  ![payara3](image/payara3.png)
 
- * Now name the server whatever you want. For this example I've named it 'Payara-Server-5.201'. Press Enter:
+ * Now name the server whatever you want. Press Enter:
 
  ![payara5](image/payara5.png)
 
@@ -58,7 +57,7 @@ Let’s start:
  
  ![payara6](image/payara6.png)
 
- * Then, select the maven side-bar & right-click to clean package & install or else you can run 'mvn clean package' in the terminal:
+ * Then, select the maven side-bar & right-click to clean packageg or else you can run 'mvn clean package' in the terminal:
 
  ![Maveni](image/maveni.png)
 
