@@ -17,22 +17,30 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
 }
 
+
+
 .lead {
-    font-size: 18px;
-    font-weight: 400;
+    font-family: Roboto,sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #3c3c3b;
+    /* font-size: 18px;
+    font-weight: 400; */
 }
 
+
 .intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-top: 50px;
+    /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
     /* background: url(../img/intro-bg.jpg) no-repeat center center; */
-    background: url(../img/cargo+tugEE.jpg) no-repeat center center;
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(../img/cargo+tugEE.jpg) no-repeat center center;
     background-size: cover;
 }
 
@@ -46,24 +54,42 @@ h6 {
     padding-bottom: 20%;
 }
 
-.intro-message > h1 {
+.intro-message>h1 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 5em;
 }
 
+.features {
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 3.2rem
+}
+
+.feature-item {
+    text-align: justify;
+}
+
+.feature-item:first-child {
+    grid-column:1/1;
+}
+
+.feature-item:nth-child(2) {
+    grid-column: 2/2;
+}
+
 .shadowme {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .intro-divider {
     width: 400px;
     border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(12, 12, 12, 0.2);
 }
 
-.intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+.intro-message>h3 {
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 @media(max-width:767px) {
@@ -71,17 +97,17 @@ h6 {
         padding-bottom: 15%;
     }
 
-    .intro-message > h1 {
+    .intro-message>h1 {
         font-size: 3em;
     }
 
-    ul.intro-social-buttons > li {
+    ul.intro-social-buttons>li {
         display: block;
         margin-bottom: 20px;
         padding: 0;
     }
 
-    ul.intro-social-buttons > li:last-child {
+    ul.intro-social-buttons>li:last-child {
         margin-bottom: 0;
     }
 
@@ -90,11 +116,11 @@ h6 {
     }
 }
 
-.anchor{
-  display: block; 
-  height: 100px; 
-  margin-top: -100px; 
-  visibility: hidden;
+.anchor {
+    display: block;
+    height: 100px;
+    margin-top: -100px;
+    visibility: hidden;
 }
 
 .network-name {
@@ -116,7 +142,9 @@ h6 {
 }
 
 .section-heading {
-    margin-bottom: 30px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
 }
 
 .section-heading-spacer {
@@ -124,6 +152,7 @@ h6 {
     width: 200px;
     border-top: 3px solid #e7e7e7;
 }
+
 
 .banner {
     padding: 100px 0;
@@ -133,9 +162,11 @@ h6 {
     background-size: cover;
 }
 
+
+
 .banner h2 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 3em;
 }
 
@@ -158,17 +189,17 @@ h6 {
 @media(max-width:767px) {
     .banner h2 {
         margin: 0;
-        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
         font-size: 3em;
     }
 
-    ul.banner-social-buttons > li {
+    ul.banner-social-buttons>li {
         display: block;
         margin-bottom: 20px;
         padding: 0;
     }
 
-    ul.banner-social-buttons > li:last-child {
+    ul.banner-social-buttons>li:last-child {
         margin-bottom: 0;
     }
 }
@@ -180,4 +211,23 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+.bg-grey-900 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(15 23 42/var(--tw-bg-opacity));
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.logo {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    max-height: 72px;
+    max-width: 250px;
+    float:left;
+    margin-right: 20px;
 }
