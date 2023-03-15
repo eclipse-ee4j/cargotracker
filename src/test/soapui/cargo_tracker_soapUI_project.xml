@@ -5,7 +5,7 @@
         <con:settings/>
 
 
-        
+
         <con:definitionCache type="TEXT" rootPart=""/><con:endpoints>
             <con:endpoint>http://localhost:8080/cargo-tracker/rest</con:endpoint>
         </con:endpoints>
