@@ -1,9 +1,5 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -11,6 +7,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.Location;
@@ -18,11 +18,9 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Embeddable
 public class Itinerary implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-
   // Null object pattern.
   public static final Itinerary EMPTY_ITINERARY = new Itinerary();
-
+  private static final long serialVersionUID = 1L;
   // TODO [Clean Code] Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "cargo_id")
@@ -115,7 +113,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return Date when cargo arrives at final destination. */
+  /**
+   * @return Date when cargo arrives at final destination.
+   */
   LocalDateTime getFinalArrivalDate() {
     Leg lastLeg = getLastLeg();
 
@@ -126,7 +126,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return The last leg on the itinerary. */
+  /**
+   * @return The last leg on the itinerary.
+   */
   Leg getLastLeg() {
     if (legs.isEmpty()) {
       return null;

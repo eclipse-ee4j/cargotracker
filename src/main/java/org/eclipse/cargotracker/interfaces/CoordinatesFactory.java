@@ -29,22 +29,6 @@ public class CoordinatesFactory {
 
   private static final Map<String, Coordinates> COORDINATES_MAP;
 
-  private CoordinatesFactory() {
-    /* Prevent instantiation. */
-  }
-
-  public static Coordinates find(Location location) {
-    return find(location.getUnLocode());
-  }
-
-  public static Coordinates find(UnLocode unLocode) {
-    return find(unLocode.getIdString());
-  }
-
-  public static Coordinates find(String unLocode) {
-    return COORDINATES_MAP.get(unLocode);
-  }
-
   static {
     Map<String, Coordinates> map = new HashMap<>();
 
@@ -65,5 +49,21 @@ public class CoordinatesFactory {
     map.put(UNKNOWN.getUnLocode().getIdString(), new Coordinates(-90, 0)); // The South Pole.
 
     COORDINATES_MAP = Collections.unmodifiableMap(map);
+  }
+
+  private CoordinatesFactory() {
+    /* Prevent instantiation. */
+  }
+
+  public static Coordinates find(Location location) {
+    return find(location.getUnLocode());
+  }
+
+  public static Coordinates find(UnLocode unLocode) {
+    return find(unLocode.getIdString());
+  }
+
+  public static Coordinates find(String unLocode) {
+    return COORDINATES_MAP.get(unLocode);
   }
 }

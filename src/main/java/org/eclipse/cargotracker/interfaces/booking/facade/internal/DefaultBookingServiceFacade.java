@@ -1,12 +1,12 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -127,8 +127,7 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
         bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 
     List<RouteCandidate> routeCandidates =
-        itineraries
-            .stream()
+        itineraries.stream()
             .map(itineraryCandidateDtoAssembler::toDto)
             .collect(Collectors.toList());
 

@@ -1,12 +1,15 @@
 package org.eclipse.cargotracker.application;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -55,25 +58,19 @@ import org.eclipse.pathfinder.api.GraphTraversalService;
 import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
 import org.eclipse.pathfinder.internal.GraphDao;
-import org.glassfish.grizzly.http.LZMAContentEncoding;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
  */
-
 @ExtendWith(ArquillianExtension.class)
 public class BookingServiceTest {
   private static TrackingId trackingId;
@@ -150,7 +147,7 @@ public class BookingServiceTest {
         .addAsWebInfResource("test-web.xml", "web.xml")
         // Library dependencies
         .addAsLibraries(
-                Maven.resolver()
+            Maven.resolver()
                 .loadPomFromFile("pom.xml")
                 .resolve("org.apache.commons:commons-lang3", "com.h2database:h2")
                 .withTransitivity()

@@ -1,12 +1,13 @@
-<faces-config version="2.3"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
-	<flow-definition id="booking">
-		<flow-return id="returnFromBookingFlow">
-			<!-- TODO: leave the flow properly -->
-			<from-outcome>#{booking.returnValue}</from-outcome>
-		</flow-return>
-	</flow-definition>
+<faces-config
+    version="4.0"
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+>
+    <flow-definition id="booking">
+        <flow-return id="returnFromBookingFlow">
+            <!-- TODO: leave the flow properly -->
+            <from-outcome>#{booking.returnValue}</from-outcome>
+        </flow-return>
+    </flow-definition>
 </faces-config>
