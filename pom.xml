@@ -32,6 +32,7 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
         <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <cargo-maven3-plugin.version>1.10.5</cargo-maven3-plugin.version>
 
         <jakartaee-api.version>10.0.0</jakartaee-api.version>
         <primefaces.version>12.0.0</primefaces.version>
@@ -195,7 +196,7 @@
             </activation>
             <properties>
                 <payara.version>6.2021.1.Alpha1</payara.version>
-                <arquillian-payara.version>3.0.alpha1</arquillian-payara.version>
+                <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
                 <!-- Application properties -->
                 <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
@@ -270,7 +271,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>1.9.6</version>
+                        <version>${cargo-maven3-plugin.version}</version>
                         <configuration>
                             <container>
                                 <containerId>payara</containerId>
@@ -316,7 +317,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>1.10.5</version>
+                        <version>${cargo-maven3-plugin.version}</version>
                         <configuration>
                             <container>
                                 <containerId>glassfish7x</containerId>
@@ -325,12 +326,10 @@
                                     <artifactId>glassfish</artifactId>
                                     <version>${glassfish.version}</version>
                                 </artifactInstaller>
-                            </container>
-                            <configuration>
                                 <properties>
                                     <cargo.glassfish.domain.debug>true</cargo.glassfish.domain.debug>
                                 </properties>
-                            </configuration>
+                            </container>
                         </configuration>
                     </plugin>
                 </plugins>
