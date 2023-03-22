@@ -168,6 +168,11 @@
                 <plugin>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <arquillian.launch>${arquillian.launch}</arquillian.launch>
+                        </systemPropertyVariables>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -221,7 +226,15 @@
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/*</include>
+                    <include>*.xml</include>
+                </includes>
+                <targetPath>${project.build.testOutputDirectory}</targetPath>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources/datasource/${db.type}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>test-web.xml</include>
                 </includes>
                 <targetPath>${project.build.testOutputDirectory}</targetPath>
             </testResource>
@@ -254,16 +267,19 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.version>6.2021.1.Alpha1</payara.version>
+                <arquillian.launch>payara</arquillian.launch>
+                <payara.version>6.2023.2</payara.version>
                 <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
-                <!-- Application properties -->
                 <webapp.graphTraversalUrl>
-                    http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+                    http://localhost:8080/cargo-tracker-test/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
                 <db.dsClassName>org.h2.jdbcx.JdbcDataSource</db.dsClassName>
-                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified
-                path name (it should include driver name under Windows). -->
-                <db.jdbcUrl>jdbc:h2:file:${project.build.directory}/cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
+                <db.user>sa</db.user>
+                <db.password>password</db.password>
+                <db.port>65515</db.port>
+                <db.jdbcUrl>jdbc:h2:mem:cargo-tracker-database</db.jdbcUrl>
+                <db.type>h2</db.type>
+                <payara.micro.jar>${project.build.directory}/payara-micro.jar</payara.micro.jar>
             </properties>
             <dependencies>
                 <dependency>
@@ -272,18 +288,16 @@
                     <version>${arquillian-payara.version}</version>
                     <scope>test</scope>
                 </dependency>
-                <!-- Payara Micro Managed Container Adaptor -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-micro-managed</artifactId>
                     <version>${arquillian-payara.version}</version>
                     <scope>test</scope>
                 </dependency>
-                <!-- Embedding the JDBC driver in the WAR works in Payara -->
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
-                    <version>1.4.200</version>
+                    <version>2.1.214</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -314,14 +328,6 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                    <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven3-plugin</artifactId>
                         <version>${cargo-maven3-plugin.version}</version>
@@ -347,13 +353,16 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <payara.version>6.2021.1.Alpha1</payara.version>
+                <arquillian.launch>payara</arquillian.launch>
+                <payara.version>6.2023.2</payara.version>
                 <webapp.graphTraversalUrl>
                     http://localhost:8080/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
                 <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres?user=postgres). -->
                 <db.dsClassName>org.postgresql.ds.PGSimpleDataSource</db.dsClassName>
                 <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
+                <db.type>postgress</db.type><!--TODO add the file -->
+                <payara.micro.jar>${project.build.directory}/payara-micro.jar</payara.micro.jar>
             </properties>
 
             <dependencies>
@@ -405,14 +414,6 @@
                             </artifactItems>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -423,15 +424,19 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <glassfish.version>7.0.2</glassfish.version>
+                <arquillian.launch>glassfish</arquillian.launch>
                 <arquillian-glassfish.version>3.0.alpha1</arquillian-glassfish.version>
+                <glassfish.version>7.0.2</glassfish.version>
                 <!-- Application properties -->
                 <webapp.graphTraversalUrl>
                     http://localhost:8080/cargo-tracker-test/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
                 <db.dsClassName>org.apache.derby.jdbc.EmbeddedXADataSource</db.dsClassName>
+                <db.port>1527</db.port>
+                <db.jdbcUrl>jdbc:derby://localhost:${db.port}</db.jdbcUrl>
                 <db.user>APP</db.user>
                 <db.password>APP</db.password>
+                <db.type>derby</db.type>
             </properties>
             <dependencies>
                 <dependency>

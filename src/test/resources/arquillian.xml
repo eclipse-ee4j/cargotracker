@@ -11,14 +11,14 @@
 
     <container qualifier="payara">
         <configuration>
-            <property name="microJar">${PAYARA_MICRO_JAR}</property>
+            <property name="microJar">${payara.micro.jar}</property>
             <property name="randomHttpPort">false</property>
             <property name="autoBindHttp">false</property>
-            <property name="extraMicroOptions">--port 9090 --contextroot cargo-tracker-test</property>
+            <property name="extraMicroOptions">--port 8080 --contextroot cargo-tracker-test</property>
         </configuration>
     </container>
 
-    <container qualifier="glassfish" default="true">
+    <container qualifier="glassfish">
         <configuration>
             <property name="adminHttps">false</property>
             <property name="adminHost">localhost</property>

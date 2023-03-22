@@ -14,7 +14,7 @@
         <name>java:app/jdbc/CargoTrackerDatabase</name>
         <class-name>${db.dsClassName}</class-name>
         <server-name>localhost</server-name>
-        <port-number>1527</port-number>
+        <port-number>${db.port}</port-number>
         <database-name>CargoTracker</database-name>
         <user>${db.user}</user>
         <password>${db.password}</password>

@@ -27,21 +27,6 @@
         <param-value>true</param-value>
     </context-param>
 
-    <data-source>
-        <name>java:app/jdbc/CargoTrackerDatabase</name>
-        <class-name>${db.dsClassName}</class-name>
-        <server-name>localhost</server-name>
-        <port-number>1527</port-number>
-        <database-name>CargoTracker</database-name>
-        <user>${db.user}</user>
-        <password>${db.password}</password>
-        <property>
-            <name>CreateDatabase</name>
-            <value>create</value>
-        </property>
-        <max-pool-size>32</max-pool-size>
-        <min-pool-size>2</min-pool-size>
-    </data-source>
     <env-entry>
         <env-entry-name>java:app/configuration/GraphTraversalUrl</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
