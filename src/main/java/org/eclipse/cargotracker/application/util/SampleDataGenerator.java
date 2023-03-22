@@ -13,6 +13,7 @@ import jakarta.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
@@ -42,20 +43,25 @@ public class SampleDataGenerator {
   @PostConstruct
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void loadSampleData() {
-    if (!isSampleLoaded()) {
-      logger.info("Loading sample data.");
-      loadSampleLocations();
-      loadSampleVoyages();
-      loadSampleCargos();
-    } else {
+    if (isSampleLoaded()) {
       logger.info("Sample data already loaded, skipping.");
+      return;
     }
+    logger.info("Loading sample data.");
+    loadSampleLocations();
+    loadSampleVoyages();
+    loadSampleCargos();
   }
 
   private boolean isSampleLoaded() {
-    ApplicationSettings settings = entityManager.find(ApplicationSettings.class, 1L, LockModeType.PESSIMISTIC_WRITE);
+    long primaryKey = 1L;
+    ApplicationSettings settings = entityManager.find(ApplicationSettings.class, primaryKey, LockModeType.PESSIMISTIC_WRITE);
     if (settings == null) {
-        throw new RuntimeException("Could not retrieve application settings.");
+        logger.log(Level.INFO, "Sample data record doesn't exist yet, so it will be created now.");
+        settings = new ApplicationSettings(primaryKey);
+        entityManager.merge(settings);
+    } else {
+        logger.log(Level.INFO, "Sample data already loaded: {0}", settings.isSampleLoaded());
     }
     final boolean sampleLoaded = settings.isSampleLoaded();
     settings.setSampleLoaded(true);

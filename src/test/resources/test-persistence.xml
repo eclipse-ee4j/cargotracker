@@ -14,8 +14,6 @@
             <property name="jakarta.persistence.schema-generation.database.action" value="create" />
             <!-- The default log level of info is best for production, want to see verbose output for
                 development. -->
-            <property name="jakarta.persistence.sql-load-script-source"
-                value="file://${project.build.outputDirectory}/META-INF/initital-data.sql" />
             <property name="eclipselink.logging.level" value="FINEST" />
         </properties>
     </persistence-unit>
