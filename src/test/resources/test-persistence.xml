@@ -3,17 +3,19 @@
     version="3.0"
     xmlns="https://jakarta.ee/xml/ns/persistence"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+>
     <persistence-unit name="CargoTrackerUnit">
         <jta-data-source>java:app/jdbc/CargoTrackerDatabase</jta-data-source>
         <shared-cache-mode>ALL</shared-cache-mode>
         <properties>
             <!-- The default behavior is not generating a schema. Schema generation is good for demos,
                 RAD, development, etc but likely not a good idea for production. -->
-            <property name="javax.persistence.schema-generation.database.action"
-                value="create" />
+            <property name="jakarta.persistence.schema-generation.database.action" value="create" />
             <!-- The default log level of info is best for production, want to see verbose output for
                 development. -->
+            <property name="jakarta.persistence.sql-load-script-source"
+                value="file://${project.build.outputDirectory}/META-INF/initital-data.sql" />
             <property name="eclipselink.logging.level" value="FINEST" />
         </properties>
     </persistence-unit>
