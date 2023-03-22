@@ -77,14 +77,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @ExtendWith(ArquillianExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class BookingServiceTest {
+public class BookingServiceIT {
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
   private static LocalDate deadline;
   private static Itinerary assigned;
 
-  @Inject private BookingService bookingService;
-  @PersistenceContext private EntityManager entityManager;
+  @Inject
+  private BookingService bookingService;
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @Deployment
   public static WebArchive createDeployment() {
@@ -154,8 +156,8 @@ public class BookingServiceTest {
         .addAsLibraries(
             Maven.resolver()
                 .loadPomFromFile("pom.xml")
-                .resolve("org.apache.commons:commons-lang3", "com.h2database:h2")
-                .withTransitivity()
+                .resolve("org.apache.commons:commons-lang3")
+                .withoutTransitivity()
                 .asFile());
   }
 

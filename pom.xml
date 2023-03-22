@@ -154,16 +154,12 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
-                    <configuration>
-                        <skipTests>true</skipTests>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-failsafe-plugin</artifactId>
@@ -175,7 +171,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven-war-plugin.version}</version>
                     <configuration>
@@ -184,7 +179,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.5.0</version>
                 </plugin>
@@ -198,11 +192,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                </configuration>
                 <executions>
                     <execution>
                         <id>run</id>
@@ -260,12 +249,18 @@
     </repositories>
 
     <profiles>
-        <!-- The currently supported application servers are represented as profiles -->
         <profile>
-            <id>payara</id>
+            <id>SkipIntegrationTests</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <skipITs>true</skipITs>
+            </properties>
+        </profile>
+        <!-- The currently supported application servers are represented as profiles -->
+        <profile>
+            <id>payara</id>
             <properties>
                 <arquillian.launch>payara</arquillian.launch>
                 <payara.version>6.2023.2</payara.version>
@@ -349,9 +344,6 @@
         <!-- Cloud/production deployment using Payara and PostgreSQL. -->
         <profile>
             <id>cloud</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
             <properties>
                 <arquillian.launch>payara</arquillian.launch>
                 <payara.version>6.2023.2</payara.version>
@@ -420,9 +412,6 @@
 
         <profile>
             <id>glassfish</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <arquillian.launch>glassfish</arquillian.launch>
                 <arquillian-glassfish.version>3.0.alpha1</arquillian-glassfish.version>
