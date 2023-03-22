@@ -8,12 +8,13 @@ import jakarta.ejb.TransactionAttributeType;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.logging.Logger;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -52,17 +53,12 @@ public class SampleDataGenerator {
   }
 
   private boolean isSampleLoaded() {
-    boolean sampleLoaded = false;
-
-    try {
-      ApplicationSettings settings =
-          entityManager.find(ApplicationSettings.class, 1L, LockModeType.PESSIMISTIC_WRITE);
-      sampleLoaded = settings.isSampleLoaded();
-      settings.setSampleLoaded(true);
-    } catch (NoResultException e) {
-      throw new RuntimeException("Could not retrieve application settings.", e);
+    ApplicationSettings settings = entityManager.find(ApplicationSettings.class, 1L, LockModeType.PESSIMISTIC_WRITE);
+    if (settings == null) {
+        throw new RuntimeException("Could not retrieve application settings.");
     }
-
+    final boolean sampleLoaded = settings.isSampleLoaded();
+    settings.setSampleLoaded(true);
     return sampleLoaded;
   }
 
