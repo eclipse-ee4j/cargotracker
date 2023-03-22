@@ -32,13 +32,16 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
         <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-        <cargo-maven3-plugin.version>1.10.5</cargo-maven3-plugin.version>
 
         <jakartaee-api.version>10.0.0</jakartaee-api.version>
         <primefaces.version>12.0.0</primefaces.version>
 
+        <payara.version>6.2023.2</payara.version>
+        <glassfish.version>7.0.2</glassfish.version>
+
         <!-- Test Utilities -->
         <arquillian-bom.version>1.7.0.Alpha14</arquillian-bom.version>
+        <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.21.0</assertj.version>
@@ -165,6 +168,7 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
+
                         <systemPropertyVariables>
                             <arquillian.launch>${arquillian.launch}</arquillian.launch>
                         </systemPropertyVariables>
@@ -263,8 +267,6 @@
             <id>payara</id>
             <properties>
                 <arquillian.launch>payara</arquillian.launch>
-                <payara.version>6.2023.2</payara.version>
-                <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
                 <webapp.graphTraversalUrl>
                     http://localhost:8080/cargo-tracker-test/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
@@ -275,6 +277,9 @@
                 <db.jdbcUrl>jdbc:h2:mem:cargo-tracker-database</db.jdbcUrl>
                 <db.type>h2</db.type>
                 <payara.micro.jar>${project.build.directory}/payara-micro.jar</payara.micro.jar>
+                <payara.micro.extraMicroOptions>
+                    --port 8080 --contextroot cargo-tracker-test
+                </payara.micro.extraMicroOptions>
             </properties>
             <dependencies>
                 <dependency>
@@ -322,53 +327,46 @@
                             </artifactItems>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>${cargo-maven3-plugin.version}</version>
-                        <configuration>
-                            <container>
-                                <containerId>payara</containerId>
-                                <artifactInstaller>
-                                    <groupId>fish.payara.distributions</groupId>
-                                    <artifactId>payara</artifactId>
-                                    <version>${payara.version}</version>
-                                </artifactInstaller>
-                            </container>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
 
-        <!-- Cloud/production deployment using Payara and PostgreSQL. -->
+        <!--
+        Deployment using Payara and PostgreSQL.
+        Requirements: create on your local or other machine a Postgresql database named CargoTracker protected with
+        user and password. You can use also docker run postgres.
+        Then except enabling the -Pcloud profile specify also remaining properties.
+        To avoid security issues the best place to do that is a special profile in settings.xml
+        where you encrypt sensitive properties, see https://maven.apache.org/guides/mini/guide-encryption.html for more.
+        -->
         <profile>
             <id>cloud</id>
             <properties>
                 <arquillian.launch>payara</arquillian.launch>
-                <payara.version>6.2023.2</payara.version>
                 <webapp.graphTraversalUrl>
-                    http://localhost:8080/rest/graph-traversal/shortest-path
+                    http://localhost:8080/cargo-tracker-test/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
-                <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres?user=postgres). -->
                 <db.dsClassName>org.postgresql.ds.PGSimpleDataSource</db.dsClassName>
-                <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
-                <db.type>postgress</db.type><!--TODO add the file -->
+                <db.jdbcUrl>jdbc:postgresql://localhost:5432/CargoTracker</db.jdbcUrl>
+                <db.user></db.user>
+                <db.password></db.password>
+                <db.type>postgresql</db.type>
                 <payara.micro.jar>${project.build.directory}/payara-micro.jar</payara.micro.jar>
+                <payara.micro.extraMicroOptions>
+                    --port 8080 --contextroot cargo-tracker-test --addJars ${project.build.directory}/postgresql.jar
+                </payara.micro.extraMicroOptions>
             </properties>
-
             <dependencies>
                 <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-server</artifactId>
-                    <version>2.33</version>
-                    <scope>provided</scope>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee9</artifactId>
+                    <version>${arquillian-payara.version}</version>
+                    <scope>test</scope>
                 </dependency>
-                <!-- Embedding the JDBC driver in the WAR works in Payara Micro -->
                 <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>1.4.200</version>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-micro-managed</artifactId>
+                    <version>${arquillian-payara.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -398,7 +396,7 @@
                                 <artifactItem>
                                     <groupId>org.postgresql</groupId>
                                     <artifactId>postgresql</artifactId>
-                                    <version>42.2.20</version>
+                                    <version>42.6.0</version>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <destFileName>postgresql.jar</destFileName>
@@ -415,8 +413,6 @@
             <properties>
                 <arquillian.launch>glassfish</arquillian.launch>
                 <arquillian-glassfish.version>3.0.alpha1</arquillian-glassfish.version>
-                <glassfish.version>7.0.2</glassfish.version>
-                <!-- Application properties -->
                 <webapp.graphTraversalUrl>
                     http://localhost:8080/cargo-tracker-test/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
@@ -523,21 +519,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>${cargo-maven3-plugin.version}</version>
-                        <configuration>
-                            <container>
-                                <containerId>glassfish7x</containerId>
-                                <systemPropertyVariables>
-                                    <cargo.glassfish.domain.debug>true</cargo.glassfish.domain.debug>
-                                    <extractDir>${project.build.directory}</extractDir>
-                                </systemPropertyVariables>
-                                <type>remote</type>
-                            </container>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

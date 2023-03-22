@@ -14,7 +14,7 @@
             <property name="microJar">${payara.micro.jar}</property>
             <property name="randomHttpPort">false</property>
             <property name="autoBindHttp">false</property>
-            <property name="extraMicroOptions">--port 8080 --contextroot cargo-tracker-test</property>
+            <property name="extraMicroOptions">${payara.micro.extraMicroOptions}</property>
         </configuration>
     </container>
 
