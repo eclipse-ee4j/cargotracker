@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="6.0"
-         xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<web-app
+    version="6.0"
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+>
     <env-entry>
         <env-entry-name>java:app/configuration/GraphTraversalUrl</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>http://localhost:9090/cargo-tracker-test/rest/graph-traversal/shortest-path</env-entry-value>
+        <env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
     </env-entry>
     <data-source>
         <name>java:app/jdbc/CargoTrackerDatabase</name>
-        <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
-        <url>jdbc:h2:file:./cargo-tracker-test-data/cargo-tracker-database;create=true</url>
+        <class-name>${db.dsClassName}</class-name>
+        <server-name>localhost</server-name>
+        <port-number>1527</port-number>
+        <database-name>CargoTracker</database-name>
+        <user>${db.user}</user>
+        <password>${db.password}</password>
+        <property>
+            <name>CreateDatabase</name>
+            <value>create</value>
+        </property>
+        <max-pool-size>32</max-pool-size>
+        <min-pool-size>2</min-pool-size>
     </data-source>
 </web-app>
