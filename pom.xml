@@ -151,22 +151,81 @@
 
     <build>
         <finalName>cargo-tracker</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
+                <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>run</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <targetPath>${project.build.testOutputDirectory}</targetPath>
+            </testResource>
+        </testResources>
     </build>
     <repositories>
         <repository>
@@ -186,6 +245,7 @@
             <url>https://nexus.payara.fish/repository/payara-artifacts/</url>
         </repository>
     </repositories>
+
     <profiles>
         <!-- The currently supported application servers are represented as profiles -->
         <profile>
@@ -197,14 +257,14 @@
                 <payara.version>6.2021.1.Alpha1</payara.version>
                 <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
                 <!-- Application properties -->
-                <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+                <webapp.graphTraversalUrl>
+                    http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
-                <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
+                <db.dsClassName>org.h2.jdbcx.JdbcDataSource</db.dsClassName>
                 <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified
                 path name (it should include driver name under Windows). -->
-                <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
+                <db.jdbcUrl>jdbc:h2:file:${project.build.directory}/cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
             </properties>
-
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -212,7 +272,6 @@
                     <version>${arquillian-payara.version}</version>
                     <scope>test</scope>
                 </dependency>
-
                 <!-- Payara Micro Managed Container Adaptor -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -220,7 +279,6 @@
                     <version>${arquillian-payara.version}</version>
                     <scope>test</scope>
                 </dependency>
-
                 <!-- Embedding the JDBC driver in the WAR works in Payara -->
                 <dependency>
                     <groupId>com.h2database</groupId>
@@ -232,13 +290,11 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.1.2</version>
                         <executions>
                             <execution>
                                 <id>copy</id>
-                                <phase>process-test-resources</phase>
+                                <phase>pre-integration-test</phase>
                                 <goals>
                                     <goal>copy</goal>
                                 </goals>
@@ -258,9 +314,7 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
@@ -286,55 +340,6 @@
             </build>
         </profile>
 
-        <profile>
-            <id>glassfish</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <glassfish.version>7.0.2</glassfish.version>
-                <arquillian-glassfish.version>3.0.alpha1</arquillian-glassfish.version>
-                <!-- Application properties -->
-                <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
-                </webapp.graphTraversalUrl>
-                <db.driverClass>org.apache.derby.jdbc.EmbeddedXADataSource</db.driverClass>
-                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified
-                path name (it should include driver name under Windows). -->
-                <db.jdbcUrl>jdbc:derby:directory:${project.build.directory}/derbydb;create=true</db.jdbcUrl>
-            </properties>
-
-            <dependencies>
-                <dependency>
-                    <groupId>org.omnifaces.arquillian</groupId>
-                    <artifactId>glassfish-client-ee10</artifactId>
-                    <version>1.2</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>${cargo-maven3-plugin.version}</version>
-                        <configuration>
-                            <container>
-                                <containerId>glassfish7x</containerId>
-                                <artifactInstaller>
-                                    <groupId>org.glassfish.main.distributions</groupId>
-                                    <artifactId>glassfish</artifactId>
-                                    <version>${glassfish.version}</version>
-                                </artifactInstaller>
-                                <properties>
-                                    <cargo.glassfish.domain.debug>true</cargo.glassfish.domain.debug>
-                                </properties>
-                            </container>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <!-- Cloud/production deployment using Payara and PostgreSQL. -->
         <profile>
             <id>cloud</id>
@@ -343,10 +348,11 @@
             </activation>
             <properties>
                 <payara.version>6.2021.1.Alpha1</payara.version>
-                <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path
+                <webapp.graphTraversalUrl>
+                    http://localhost:8080/rest/graph-traversal/shortest-path
                 </webapp.graphTraversalUrl>
-                <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
                 <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres?user=postgres). -->
+                <db.dsClassName>org.postgresql.ds.PGSimpleDataSource</db.dsClassName>
                 <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
             </properties>
 
@@ -368,13 +374,11 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.1.2</version>
                         <executions>
                             <execution>
                                 <id>copy</id>
-                                <phase>process-test-resources</phase>
+                                <phase>pre-integration-test</phase>
                                 <goals>
                                     <goal>copy</goal>
                                 </goals>
@@ -402,13 +406,143 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <PAYARA_MICRO_JAR>${project.build.directory}/payara-micro.jar</PAYARA_MICRO_JAR>
                             </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>glassfish</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <glassfish.version>7.0.2</glassfish.version>
+                <arquillian-glassfish.version>3.0.alpha1</arquillian-glassfish.version>
+                <!-- Application properties -->
+                <webapp.graphTraversalUrl>
+                    http://localhost:8080/cargo-tracker-test/rest/graph-traversal/shortest-path
+                </webapp.graphTraversalUrl>
+                <db.dsClassName>org.apache.derby.jdbc.EmbeddedXADataSource</db.dsClassName>
+                <db.user>APP</db.user>
+                <db.password>APP</db.password>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.omnifaces.arquillian</groupId>
+                    <artifactId>glassfish-client-ee10</artifactId>
+                    <version>1.2</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.omnifaces.arquillian</groupId>
+                    <artifactId>arquillian-glassfish-server-remote</artifactId>
+                    <version>1.2</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-glassfish</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.glassfish.main.distributions</groupId>
+                                    <artifactId>glassfish</artifactId>
+                                    <type>zip</type>
+                                    <version>${glassfish.version}</version>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <configuration>
+                            <executable>${project.build.directory}/glassfish7/glassfish/bin/asadmin</executable>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-domain</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>start-domain</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>start-database</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>start-database</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-database</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>stop-database</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-domain</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>stop-domain</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
+                        <version>${cargo-maven3-plugin.version}</version>
+                        <configuration>
+                            <container>
+                                <containerId>glassfish7x</containerId>
+                                <systemPropertyVariables>
+                                    <cargo.glassfish.domain.debug>true</cargo.glassfish.domain.debug>
+                                    <extractDir>${project.build.directory}</extractDir>
+                                </systemPropertyVariables>
+                                <type>remote</type>
+                            </container>
                         </configuration>
                     </plugin>
                 </plugins>
