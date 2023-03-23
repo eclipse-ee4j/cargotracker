@@ -109,7 +109,7 @@
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
-            <version>3.0.1</version>
+            <version>3.1.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -169,7 +169,6 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
-
                         <systemPropertyVariables>
                             <arquillian.launch>${arquillian.launch}</arquillian.launch>
                         </systemPropertyVariables>
@@ -442,15 +441,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-glassfish</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
@@ -463,6 +453,15 @@
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>unpack-glassfish</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -493,6 +492,147 @@
                                     <arguments>
                                         <argument>start-database</argument>
                                     </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-database</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>stop-database</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-domain</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>stop-domain</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>run-glassfish</id>
+            <properties>
+                <webapp.graphTraversalUrl>
+                    http://localhost:8080/rest/graph-traversal/shortest-path
+                </webapp.graphTraversalUrl>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.glassfish.main.distributions</groupId>
+                                    <artifactId>glassfish</artifactId>
+                                    <type>zip</type>
+                                    <version>${glassfish.version}</version>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>unpack-glassfish</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <configuration>
+                            <executable>${project.build.directory}/glassfish7/glassfish/bin/asadmin</executable>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-domain</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>start-domain</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>start-database</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>start-database</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-jdbc-reference</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>create-jdbc-resource</argument>
+                                        <argument>--connectionpoolid</argument>
+                                        <argument>DerbyPool</argument>
+                                        <argument>jdbc/CargoTrackerDatabase</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>deploy</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>
+                                        <argument>deploy</argument>
+                                        <argument>--contextroot</argument>
+                                        <argument>/</argument>
+                                        <argument>${project.build.directory}/${project.build.finalName}.war</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <phase>integration-test</phase>
+                                <configuration>
+                                    <mainClass>org.eclipse.cargotracker.manualtest.WaitForBreak</mainClass>
+                                    <classpathScope>test</classpathScope>
                                 </configuration>
                             </execution>
                             <execution>
