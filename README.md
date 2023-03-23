@@ -12,7 +12,7 @@ Hibernate and Jetty whereas the application is built on Jakarta EE.
 The application is an end-to-end system for keeping track of shipping cargo. It
 has several interfaces described in the following sections.
 
-For further details on the project, please visit: https://eclipse-ee4j.github.io/cargotracker/.
+For further details on the project, please visit: [https://eclipse-ee4j.github.io/cargotracker/].
 
 A slide deck introducing the
 fundamentals of the project is available on the official Eclipse
@@ -29,26 +29,34 @@ to get started.
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
-* Ensure you are running Java SE 8, Java SE 11 or Java SE 17.
-* Make sure JAVA_HOME is set.
+* Ensure you are running Java SE 11, 17, 19 or 20.
+* Make sure JAVA_HOME is set or use the `~/.mavenrc` file to configure it.
 * As long as you have Maven set up properly, navigate to the project source root and
-  type: `mvn clean package cargo:run`
-* Go to http://localhost:8080/cargo-tracker
+  type: `mvn clean install -Prun-glassfish`
+* Go to [http://localhost:8080](http://localhost:8080).
+* Except running the real application you can also run integration tests
+  * For GlassFish: `mvn clean install -Pglassfish`
+  * For Payara Micro: `mvn clean install -Ppayara`
+  * For Payara Micro with PostgreSQL database: `mvn clean install -Pcloud`
+    * In this case it is expected that the database already exists and you set also related properties:
+      * `db.jdbcUrl` - you don't need to change if it is the same as the default in the Maven profile
+      * `db.user` - also verify that the user is permitted to change the database scheme.
+      * `db.password`
 
 To set up in the Eclipse IDE, follow these steps:
 
-* Set up Java SE 11, or Java SE 17,
+* Set up Java SE 11, 17, 19, 20
   [the Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/)
-  and [Payara 5](https://www.payara.fish/downloads/).
-  You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in the Eclipse IDE.
+* Set up [GlassFish 7](https://glassfish.org/download_gf7.html) or [Payara 6](https://www.payara.fish/downloads/).
+* With Payara you can use also [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in the Eclipse IDE.
 * Import this code in the Eclipse IDE as a Maven project,
   the Eclipse IDE will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+* The Eclipse IDE will build the project in few minutes for the first time.
 
 ## Exploring the Application
 
 After the application runs, it will be available at:
-http://localhost:8080/cargo-tracker/. Under the hood, the application uses
+http://localhost:8080. Under the hood, the application uses
 a number of Jakarta EE features including Faces, CDI, Enterprise Beans, Persistence, REST, Batch, JSON Binding,
 Bean Validation and Messaging.
 
