@@ -20,15 +20,17 @@ jobs:
     - uses: actions/checkout@v3
     - uses: axel-op/googlejavaformat-action@v3
       with:
-          # This version works will all IDEs including Eclipse.
-        version: 1.6
-          # args: "--dry-run --set-exit-if-changed"        
+        version: 1.16
+        skip-commit: true
+    - name: Print diffs
+      run: git --no-pager diff --exit-code
+
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
     strategy:
       matrix:
-        java: [11, 17]
+        java: [11, 17, 20]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Java
@@ -44,5 +46,8 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Build with Maven
-      run: mvn clean package --file pom.xml
+    - name: Build and test with GlassFish
+      run: mvn clean verify -Pglassfish
+    - name: Build and test with Payara Micro
+      run: mvn clean verify -Ppayara
+
