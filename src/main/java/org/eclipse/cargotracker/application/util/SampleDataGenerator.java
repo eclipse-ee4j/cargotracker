@@ -59,12 +59,12 @@ public class SampleDataGenerator {
     if (settings == null) {
         logger.log(Level.INFO, "Sample data record doesn't exist yet, so it will be created now.");
         settings = new ApplicationSettings(primaryKey);
-        entityManager.merge(settings);
     } else {
         logger.log(Level.INFO, "Sample data already loaded: {0}", settings.isSampleLoaded());
     }
     final boolean sampleLoaded = settings.isSampleLoaded();
     settings.setSampleLoaded(true);
+    entityManager.merge(settings);
     return sampleLoaded;
   }
 
