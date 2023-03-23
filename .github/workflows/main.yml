@@ -30,7 +30,7 @@ jobs:
     needs: [formatting]
     strategy:
       matrix:
-        java: [11, 17, 20]
+        java: [11, 17, 19]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Java
