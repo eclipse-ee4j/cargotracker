@@ -1,13 +1,15 @@
 package org.eclipse.cargotracker.application;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -67,10 +69,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
@@ -83,10 +81,8 @@ public class BookingServiceIT {
   private static LocalDate deadline;
   private static Itinerary assigned;
 
-  @Inject
-  private BookingService bookingService;
-  @PersistenceContext
-  private EntityManager entityManager;
+  @Inject private BookingService bookingService;
+  @PersistenceContext private EntityManager entityManager;
 
   @Deployment
   public static WebArchive createDeployment() {

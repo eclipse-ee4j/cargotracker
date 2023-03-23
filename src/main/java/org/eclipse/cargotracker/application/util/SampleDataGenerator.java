@@ -9,13 +9,11 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.PersistenceContext;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -55,12 +53,13 @@ public class SampleDataGenerator {
 
   private boolean isSampleLoaded() {
     long primaryKey = 1L;
-    ApplicationSettings settings = entityManager.find(ApplicationSettings.class, primaryKey, LockModeType.PESSIMISTIC_WRITE);
+    ApplicationSettings settings =
+        entityManager.find(ApplicationSettings.class, primaryKey, LockModeType.PESSIMISTIC_WRITE);
     if (settings == null) {
-        logger.log(Level.INFO, "Sample data record doesn't exist yet, so it will be created now.");
-        settings = new ApplicationSettings(primaryKey);
+      logger.log(Level.INFO, "Sample data record doesn't exist yet, so it will be created now.");
+      settings = new ApplicationSettings(primaryKey);
     } else {
-        logger.log(Level.INFO, "Sample data already loaded: {0}", settings.isSampleLoaded());
+      logger.log(Level.INFO, "Sample data already loaded: {0}", settings.isSampleLoaded());
     }
     final boolean sampleLoaded = settings.isSampleLoaded();
     settings.setSampleLoaded(true);
