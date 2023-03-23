@@ -1,49 +1,36 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head>
-	<title>Eclipse Cargo Tracker</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-	<h:outputStylesheet name="css/title.css" />
-
-	<link rel="stylesheet"
-		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-	<link
-		href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
-		rel="stylesheet" type="text/css" />
-</h:head>
-<h:body>
-	<div class="intro-header">
-		<div class="row">
-			<div class="intro-message">
-				<hr class="intro-divider" />
-				<h1 class="shadowme">Eclipse Cargo Tracker</h1>
-				<a href="https://github.com/eclipse-ee4j/cargotracker/"> <h:graphicImage
-						value="#{resource['/images/CTlogobadge128.png']}"
-						style="height: 64px; width: 64px;" alt="Cargo Tracker logo badge"/>
-				</a>
-				<h2 class="shadowme">Applied domain-driven design blueprints
-					for Jakarta EE</h2>
-				<h2>
-					<a class="shadowme" style="color: orange; text-decoration: none;"
-						href="public/track.xhtml">Public Tracking Interface</a>
-				</h2>
-				<h2>
-					<a class="shadowme" style="color: orange; text-decoration: none;"
-						href="admin/dashboard.xhtml">Administration Interface</a>
-				</h2>
-				<h2>
-					<a class="shadowme" style="color: orange; text-decoration: none;"
-						href="javascript:void(0)"
-						onclick="window.open('event-logger/index.xhtml', '_blank', 'width=320,height=440,popup=yes,menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes,titlebar=yes,statusbar=no')">Mobile
-						Event Logger</a>
-				</h2>
-				<hr class="intro-divider" />
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Eclipse Cargo Tracker</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/title.css" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="intro-header">
+			<div class="row">
+				<div class="intro-message">
+					<hr class="intro-divider" />
+					<h1 class="shadowme">Eclipse Cargo Tracker</h1>
+					<a href="https://github.com/eclipse-ee4j/cargotracker/">
+						<img src="#{resource['/images/CTlogobadge128.png']}" alt="Cargo Tracker logo badge" style="height: 64px; width: 64px;" class="shadowme" />
+					</a>
+					<h2 class="shadowme">Applied domain-driven design blueprints for Jakarta EE</h2>
+					<h2>
+						<a href="public/track.xhtml" class="shadowme" style="color: orange; text-decoration: none;">Public Tracking Interface</a>
+					</h2>
+					<h2>
+						<a href="admin/dashboard.xhtml" class="shadowme" style="color: orange; text-decoration: none;">Administration Interface</a>
+					</h2>
+					<h2>
+						<a href="javascript:void(0)" onclick="window.open('event-logger/index.xhtml', '_blank', 'width=320,height=440,popup=yes,menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes,titlebar=yes,statusbar=no')" class="shadowme" style="color: orange; text-decoration: none;">Mobile Event Logger</a>
+					</h2>
+					<hr class="intro-divider" />
+				</div>
 			</div>
 		</div>
-	</div>
-</h:body>
+	</body>
 </html>
