@@ -56,32 +56,31 @@
 					</h:panelGrid>
 				</p:panel>
 			</p:tab>
-
 			<p:tab id="voyageTab" title="Voyage">
-				<p:panel header="Voyage">
-					<p:messages />
-					<h:panelGrid columns="1">
-						<p:selectOneMenu id="voyage" value="#{eventLogger.voyageNumber}"
-							required="false">
-							<f:selectItem itemLabel="Voyage" itemValue=""
-								noSelectionOption="true" />
-							<f:selectItems value="#{eventLogger.voyages}" />
-						</p:selectOneMenu>
-					</h:panelGrid>
-				</p:panel>
-			</p:tab>
-			<p:tab id="dateTab" title="Completion Date">
-				<p:panel header="Completion Date">
-					<p:messages />
-					<h:panelGrid columns="1">
-						<p:calendar id="completionDate"
-							value="#{eventLogger.completionTime}"
-							pattern="#{eventLogger.completionTimePattern}"
-							requiredMessage="A date is needed" required="true">
-						</p:calendar>
-					</h:panelGrid>
-				</p:panel>
-			</p:tab>
+                <p:panel header="Voyage">
+                    <p:messages />
+                    <h:panelGrid columns="1">
+                        <p:selectOneMenu id="voyage" value="#{eventLogger.voyageNumber}"
+                                          required="false">
+                            <f:selectItem itemLabel="Voyage" itemValue=""
+                                          noSelectionOption="true" />
+                            <f:selectItems value="#{eventLogger.voyages}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </p:panel>
+            </p:tab>
+            <p:tab id="dateTab" title="Completion Date">
+                <p:panel header="Completion Date">
+                    <p:messages />
+                    <h:panelGrid columns="1">
+                        <p:calendar id="completionDate" value="#{eventLogger.completionTime}"
+                                    pattern="#{eventLogger.completionTimePattern}"
+                                    requiredMessage="A date is needed" required="true" />
+                    </h:panelGrid>
+                </p:panel>
+            </p:tab>
+         
+
 			<p:tab id="confirm" title="Confirmation">
 				<p:panel header="Confirmation">
 					<h:panelGrid id="confirmation" columns="1"
@@ -113,7 +112,7 @@
 	</h:form>
 	<div class="ui-g ui-g-12">
 		<div class="ui-g-offset-5 ui-g-1">
-			<h:graphicImage value="#{resource['/images/CTlogobadge128.png']}"
+			<h:graphicImage library="images" name="CTlogobadge128.png"
 				height="68" alt="Cargo Tracker logo badge"/>
 		</div>
 	</div>
@@ -125,3 +124,8 @@
 	</script>
 </h:body>
 </html>
+
+//Note that you may need to adjust the library and name attributes for the h:outputStylesheet and h:outputScript tags to match your file structure.
+
+
+
