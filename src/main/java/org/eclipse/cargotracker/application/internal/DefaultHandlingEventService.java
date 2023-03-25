@@ -2,10 +2,8 @@ package org.eclipse.cargotracker.application.internal;
 
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.HandlingEventService;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;

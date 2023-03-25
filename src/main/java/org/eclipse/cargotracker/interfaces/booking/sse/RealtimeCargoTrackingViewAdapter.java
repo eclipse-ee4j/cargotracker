@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.interfaces.booking.sse;
 
 import java.util.EnumMap;
 import java.util.Map;
-
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
