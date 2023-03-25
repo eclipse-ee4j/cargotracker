@@ -39,6 +39,86 @@ To set up in the Eclipse IDE, follow these steps:
   the Eclipse IDE will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
 
+## Using WildFly with CargoTracker
+
+
+The CargoTracker project can be run on WildFly, which is a fast, lightweight, and flexible open-source application server. Follow the steps below to set up WildFly as the runtime for your CargoTracker application.
+
+Prerequisites
+Before you begin, ensure that you have the following:
+
+Java 11 or later installed
+WildFly 20.0.1.Final or later installed
+
+Setting up WildFly
+
+Download WildFly: You can download the latest version of WildFly from the official website (https://www.wildfly.org/downloads/). Choose the appropriate version for your operating system and download it.
+
+Extract the downloaded file: Once the download is complete, extract the contents of the downloaded file to a location of your choice. You should see a directory named wildfly-<version>.
+
+Configure WildFly: WildFly needs to be configured to run the CargoTracker project. To do this, open a terminal or command prompt and navigate to the wildfly-<version> directory.
+
+Configure the database: The CargoTracker project uses a database to store its data. WildFly comes with an embedded H2 database, which is suitable for development purposes. To configure the database, open the standalone.xml file located in the wildfly-<version>/standalone/configuration directory.
+
+Add a new datasource: Under the <datasources> element, add the following code to create a new datasource for the CargoTracker project:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<subsystem xmlns="urn:jboss:domain:datasources:5.0">
+    <datasources>
+        <datasource jndi-name="java:jboss/datasources/CargoTrackerDS" pool-name="CargoTrackerPool" enabled="true" use-java-context="true">
+            <connection-url>jdbc:h2:mem:cargotracker</connection-url>
+            <driver>h2</driver>
+            <security>
+                <user-name>sa</user-name>
+                <password>sa</password>
+            </security>
+        </datasource>
+        <drivers>
+            <driver name="h2" module="com.h2database.h2">
+                <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+            </driver>
+        </drivers>
+    </datasources>
+</subsystem>
+
+This creates a new datasource with the JNDI name java:jboss/datasources/CargoTrackerDS that uses the H2 database driver and connects to a memory database named cargotracker. The default username and password for the H2 database is sa.
+
+Start WildFly: To start WildFly, open a terminal or command prompt and navigate to the wildfly-<version>/bin directory. Run the following command to start WildFly:
+./standalone.sh
+This starts WildFly and makes it available at http://localhost:8080
+
+Building and Deploying CargoTracker
+Clone the CargoTracker repository: To get started with the CargoTracker project, you need to clone the project's repository from GitHub. Open a terminal or command prompt and run the following command
+git clone https://github.com/myusername/cargotracker.git
+Replace myusername with your GitHub username.
+
+Build the project: Once you have cloned the repository, navigate to the cargotracker directory and run the following command to build the project:mvn clean install
+
+Modify the following configuration settings:
+
+datasource.jndi.name - Set the JNDI name for the CargoTracker datasource. By default, this is set to java:jboss/datasources/CargoTrackerDS.
+datasource.username - Set the username for the database user that CargoTracker will use to connect to the database.
+datasource.password - Set the password for the database user.
+datasource.url - Set the URL for the database. By default, this is set to jdbc:h2:mem:cargotracker.
+Save the file.
+
+This builds the CargoTracker project and creates a deployable WAR file.
+
+Navigate to the config directory and open the wildfly-standalone.xml file.
+
+Deploy the project: To deploy the project to WildFly, run the following command:mvn wildfly:deploy
+
+This deploys the cargotracker.war file to WildFly and makes it available at http://localhost:8080/cargotracker.
+
+Access the CargoTracker web application: To access the CargoTracker web application, open a web browser and navigate to http://localhost:8080/cargotracker. You should see the CargoTracker home page.
+
+Stopping WildFly
+To stop WildFly, press Ctrl-C in the terminal or command prompt where WildFly is running.
+
+Conclusion
+By following these steps, you can set up and run the CargoTracker application on WildFly. If you encounter any issues or have questions, please refer to the WildFly documentation or reach out to the CargoTracker community for support.
+
+
 ## Exploring the Application
 
 After the application runs, it will be available at:
