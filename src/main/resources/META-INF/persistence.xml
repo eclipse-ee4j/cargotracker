@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1"
-    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="CargoTrackerUnit">
         <jta-data-source>java:app/jdbc/CargoTrackerDatabase</jta-data-source>
@@ -10,9 +10,8 @@
                 RAD, development, etc but likely not a good idea for production. -->
             <property name="javax.persistence.schema-generation.database.action"
                 value="create" />
-            <!-- This will fail if it's not invoked on a blank database - this is fine.
-                 What this does is insert a single record that the application settings
-                 check can place a pessimistic lock on. -->           
+            <!-- This will fail if it's not invoked on a blank database - this is fine. What this does 
+                is insert a single record that the application settings check can place a pessimistic lock on. -->
             <property name="javax.persistence.sql-load-script-source"
                 value="META-INF/initital-data.sql" />
             <!-- The default log level of info is best for production, want to see verbose output for 
