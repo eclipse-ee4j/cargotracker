@@ -27,16 +27,8 @@ body {
  *************************************/
 
 .side-panel {
-  background-color: var(--background-panel-main-color);
-
   padding: 0;
   margin: 0;
-}
-
-/*this is for overriding Primefaces' background and color */
-.side-panel * {
-  background-color: var(--background-panel-main-color);
-  color: var(--secondary-text-color);
 }
 
 .side-panel .side-panel-img {
