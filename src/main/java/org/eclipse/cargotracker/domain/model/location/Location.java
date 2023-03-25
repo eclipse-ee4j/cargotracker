@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.domain.model.location;
 
 import java.io.Serializable;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.Validate;
 
 /**

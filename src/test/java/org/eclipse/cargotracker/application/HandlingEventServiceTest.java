@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.application;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import org.eclipse.cargotracker.application.internal.DefaultHandlingEventService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;

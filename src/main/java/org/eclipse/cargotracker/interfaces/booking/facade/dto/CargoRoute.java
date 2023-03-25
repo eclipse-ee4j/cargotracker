@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-
 import org.eclipse.cargotracker.application.util.DateConverter;
 
 /** DTO for registering and routing a cargo. */

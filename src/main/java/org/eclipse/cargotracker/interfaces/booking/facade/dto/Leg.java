@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import org.eclipse.cargotracker.application.util.DateConverter;
 
 /** DTO for a leg in an itinerary. */

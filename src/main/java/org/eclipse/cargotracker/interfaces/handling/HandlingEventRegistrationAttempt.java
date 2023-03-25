@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.interfaces.handling;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
