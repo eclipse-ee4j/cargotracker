@@ -121,7 +121,7 @@ A Java EE 7, Java SE 8, Payara 4.1 version of Cargo Tracker is available under t
 ## Contributing
 This project complies with the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). You can use the [google-java-format](https://github.com/google/google-java-format) tool to help you comply with the Google Java Style Guide. You can use the tool with most major IDEs such as Eclipse and IntelliJ.
 
-In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
+In addition, for all CSS, XML, XHTML, HTML and YAML files we use a column/line width of 100 and we use 4 spaces for indentation. All files must end with a new line. Please adjust the formatting settings of your IDE accordingly. You are encouraged but not required to use HTML Tidy and CSS Tidy to help format your code.
 
 For further guidance on contributing including the project roadmap, please look [here](CONTRIBUTING.md).
 
