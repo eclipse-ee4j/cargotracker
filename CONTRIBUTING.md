@@ -18,7 +18,7 @@ Issues are tracked on GitHub. Please look through the issues before proposing a 
 
 * https://github.com/eclipse-ee4j/cargotracker/issues
 
-The following are the project website and documentation. Please look through them before proposing a change.
+The following are the project web site and documentation. Please look through them before proposing a change.
 
 * https://eclipse-ee4j.github.io/cargotracker
 * https://github.com/eclipse-ee4j/cargotracker/wiki
@@ -30,7 +30,7 @@ The project complies with the [Google Java Style Guide](https://google.github.io
 In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
 
 ## Roadmap
-The project is currently working on Jakarta EE 8 support. The associated issues are under the jakartaee8 milestone: https://github.com/eclipse-ee4j/cargotracker/milestone/2. The project will then work on Jakarta EE 9 support. The associated issues are under the jakartaee9 milestone: https://github.com/eclipse-ee4j/cargotracker/milestone/3.
+The project is currently working on Jakarta EE 10 support. The associated issues are under the jakartaee10 milestone: https://github.com/eclipse-ee4j/cargotracker/milestone/4.
 
 Work on any other issues or other changes are welcome, especially issues marked with the 'good first issue' (https://github.com/eclipse-ee4j/cargotracker/labels/good%20first%20issue) and 'help wanted' (https://github.com/eclipse-ee4j/cargotracker/labels/help%20wanted) labels.
 
