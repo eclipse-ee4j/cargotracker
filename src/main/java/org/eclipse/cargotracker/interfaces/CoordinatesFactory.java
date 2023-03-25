@@ -18,6 +18,7 @@ import static org.eclipse.cargotracker.domain.model.location.SampleLocations.TOK
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 

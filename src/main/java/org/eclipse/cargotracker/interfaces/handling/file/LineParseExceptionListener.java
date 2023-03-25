@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.batch.api.chunk.listener.SkipReadListener;
 import javax.batch.runtime.context.JobContext;
 import javax.enterprise.context.Dependent;

@@ -2,9 +2,11 @@ package org.eclipse.cargotracker.interfaces.booking.web;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;

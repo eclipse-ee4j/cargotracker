@@ -3,10 +3,12 @@ package org.eclipse.cargotracker.interfaces.booking.web;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 

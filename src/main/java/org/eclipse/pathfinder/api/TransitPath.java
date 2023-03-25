@@ -3,6 +3,7 @@ package org.eclipse.pathfinder.api;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement

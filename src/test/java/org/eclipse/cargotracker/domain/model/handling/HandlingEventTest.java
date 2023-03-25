@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
