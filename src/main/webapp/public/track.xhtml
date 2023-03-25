@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <head>
 	<title>Track Cargo</title>
 </head>
+
 <body>
 	<ui:composition template="/WEB-INF/templates/common/public.xhtml">
 		<ui:define name="title">Track Cargo</ui:define>
@@ -17,7 +21,8 @@
 						<h:form id="trackingForm">
 							<h:panelGrid columns="3" cellpadding="15">
 								<p>Enter your tracking ID:</p>
-								<p:inputText id="trackingIdInput" value="#{public.track.trackingId}" required="true" placeholder="XYZ789" title="Valid tracking ID" />
+								<p:inputText id="trackingIdInput" value="#{public.track.trackingId}" required="true"
+									placeholder="XYZ789" title="Valid tracking ID" />
 								<h:commandButton value="Track!" action="#{public.track.onTrackById()}" />
 							</h:panelGrid>
 						</h:form>
@@ -32,11 +37,13 @@
 					<h:panelGroup rendered="#{not empty public.track.cargo}">
 						<div id="result">
 							<p>
-								Cargo <strong>#{public.track.cargo.trackingId}</strong> is currently <strong>#{public.track.cargo.statusText}</strong>
+								Cargo <strong>#{public.track.cargo.trackingId}</strong> is currently
+								<strong>#{public.track.cargo.statusText}</strong>
 							</p>
 
 							<p>
-								Estimated time of arrival in <strong>#{public.track.cargo.destinationName}</strong>: #{public.track.cargo.eta}
+								Estimated time of arrival in <strong>#{public.track.cargo.destinationName}</strong>:
+								#{public.track.cargo.eta}
 							</p>
 							<ui:fragment rendered="#{not empty public.track.cargo.nextExpectedActivity}">
 								<p>#{public.track.cargo.nextExpectedActivity}</p>
@@ -44,13 +51,15 @@
 
 							<h:panelGroup rendered="#{public.track.cargo.misdirected}">
 								<p>
-									<i class="fa fa-exclamation-triangle" style="color: #9b2332"></i> Cargo is misdirected.
+									<i class="fa fa-exclamation-triangle" style="color: #9b2332"></i> Cargo is
+									misdirected.
 								</p>
 							</h:panelGroup>
 						</div>
 					</h:panelGroup>
 
-					<h:outputLabel value="Cargo with tracking ID #{public.track.trackingId} not found." rendered="#{empty public.track.cargo and not empty public.track.trackingId}" />
+					<h:outputLabel value="Cargo with tracking ID #{public.track.trackingId} not found."
+						rendered="#{empty public.track.cargo and not empty public.track.trackingId}" />
 				</div>
 
 				<h:panelGroup rendered="#{not empty public.track.cargo}">
@@ -64,36 +73,36 @@
 							<br /> <br />
 						</div>
 
-						
-														<div class="ui-g-12">
-															<ui:repeat value="#{public.track.cargo.events}" var="leg">
-																<div>
-																	<ui:fragment rendered="#{leg.expected}">
-																		&#160;&#160;<i class="fa fa-check"
-																			style="color: green" />&#160;#{leg.description}, at #{leg.time}
-																	</ui:fragment>
-																	<ui:fragment rendered="#{!leg.expected}">
-																		&#160;&#160;<em class="fa fa-flag"
-																			style="color: #9b2332" />&#160;#{leg.description}, at #{leg.time}
-																	</ui:fragment>
-																</div>
-															</ui:repeat>
-										
-															<h:outputLabel
-																value="There are no events recorded for the tracking ID #{public.track.cargo.trackingId}."
-																rendered="#{empty public.track.cargo.events}" />
-														</div>
-													</div>
-										
-													<div class="ui-g">
-														<div id="map" class="ui-g-12">
-															<iframe class="mapFrame" width="100%" height="960"
-																src="#{request.contextPath}/public/mapFrame.xhtml?cargo=#{public.track.cargoAsJson}">
-															</iframe>
-														</div>
-													</div>
-												</ui:define>
-											</ui:composition>
-										</body>
-										</html>
-										
+
+						<div class="ui-g-12">
+							<ui:repeat value="#{public.track.cargo.events}" var="leg">
+								<div>
+									<ui:fragment rendered="#{leg.expected}">
+										&#160;&#160;<i class="fa fa-check"
+											style="color: green" />&#160;#{leg.description}, at #{leg.time}
+									</ui:fragment>
+									<ui:fragment rendered="#{!leg.expected}">
+										&#160;&#160;<em class="fa fa-flag"
+											style="color: #9b2332" />&#160;#{leg.description}, at #{leg.time}
+									</ui:fragment>
+								</div>
+							</ui:repeat>
+
+							<h:outputLabel
+								value="There are no events recorded for the tracking ID #{public.track.cargo.trackingId}."
+								rendered="#{empty public.track.cargo.events}" />
+						</div>
+					</div>
+
+					<div class="ui-g">
+						<div id="map" class="ui-g-12">
+							<iframe class="mapFrame" width="100%" height="960"
+								src="#{request.contextPath}/public/mapFrame.xhtml?cargo=#{public.track.cargoAsJson}">
+							</iframe>
+						</div>
+					</div>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>
