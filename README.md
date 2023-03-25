@@ -39,6 +39,49 @@ To set up in the Eclipse IDE, follow these steps:
   the Eclipse IDE will do the rest for you. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
 
+## Support For VS Code
+
+Install Java Development Kit (JDK) 11 or later on your machine.
+
+Install the latest version of VS Code and the Java Extension Pack.
+
+Clone the CargoTracker repository to your local machine using Git. Open a terminal or command prompt, navigate to the directory where you want to clone 
+
+Open VS Code and select "File" -> "Open Folder" to open the CargoTracker project.
+
+In VS Code, you can specify the Java version using a configuration file called "settings.json". Here's how to do it:
+
+Open VS Code and navigate to your project's root directory.
+
+Create a new file called "settings.json" in the ".vscode" directory.
+
+Open the "settings.json" file and add the following JSON object:
+"java.configuration.runtimes": [
+    {
+        "name": "JavaSE-17",
+        "path": "<path to your JavaSE-17 installation directory>"
+    }
+]
+
+Replace <path to your JavaSE-1.8 installation directory> with the actual path to the directory where you installed JavaSE-1.8.
+
+Save the "settings.json" file.
+
+Reload VS Code to apply the changes
+
+Once you have specified the Java version in "settings.json", you can build and run your project using the appropriate Java version. You may also need to update the project's build configuration to use the correct Java version.
+
+Once the project is open, click on the "Run" icon on the left-hand side of the VS Code window. Click on "Create a launch.json file" in the top right corner of the "Run and Debug" pane.
+
+In the "Select Environment" dropdown, select "Java". VS Code should automatically detect the main class of the project, org.eclipse.cargotracker.CargoTrackerApplication.
+
+In the "launch.json" file that is generated, you can customize the run configuration of the project. For example, you can set the environment variables or JVM arguments. Save the file when you are done.
+
+Click the "Run" button again to start the application.
+
+You can access the CargoTracker application by visiting http://localhost:8080 in your web browser.
+
+
 ## Exploring the Application
 
 After the application runs, it will be available at:
