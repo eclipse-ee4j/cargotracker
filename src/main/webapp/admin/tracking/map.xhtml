@@ -1,12 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
-	<ui:define name="title">Live Map</ui:define>
-	<ui:define name="content">
-		<div id="map" class="ui-g-10 ui-g-offset-1">
-			<iframe class="mapFrame" width="100%" height="960"
-				src="#{request.contextPath}/admin/tracking/mapFrame.xhtml" />
-		</div>
-	</ui:define>
+  <ui:define name="title">Live Map</ui:define>
+  <ui:define name="content">
+    <div id="map" class="ui-g-10 ui-g-offset-1">
+      <iframe class="mapFrame" width="100%" height="960"
+        src="#{request.contextPath}/admin/tracking/mapFrame.xhtml" />
+    </div>
+  </ui:define>
 </ui:composition>
 </html>

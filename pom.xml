@@ -1,270 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.eclipse.ee4j</groupId>
-    <artifactId>cargo-tracker</artifactId>
-    <version>2.2-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>Eclipse Cargo Tracker</name>
-    <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD).</description>
-    <url>https://eclipse-ee4j.github.io/cargotracker/</url>
-    <organization>
-        <name>Eclipse Foundation</name>
-        <url>https://www.eclipse.org/org/foundation/</url>
-    </organization>
-    <issueManagement>
-        <system>github</system>
-        <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
-    </issueManagement>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <jakartaee-api.version>8.0.0</jakartaee-api.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <!-- Arquillian Bill Of Management used to reduce collision between testing dependencies. 
-                Using a dependency manager we don't need to specify the version of each Arquillian dependency. -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>1.6.0.Final</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eclipse.ee4j</groupId>
+  <artifactId>cargo-tracker</artifactId>
+  <version>2.2-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Eclipse Cargo Tracker</name>
+  <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD).</description>
+  <url>https://eclipse-ee4j.github.io/cargotracker/</url>
+  <organization>
+    <name>Eclipse Foundation</name>
+    <url>https://www.eclipse.org/org/foundation/</url>
+  </organization>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
+  </issueManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <jakartaee-api.version>8.0.0</jakartaee-api.version>
+  </properties>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>${jakartaee-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Required by Java SE 9+ -->
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.6</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- The third-party dependencies this application has -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>8.0</version>
-        </dependency>
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Arquillian dependencies -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- Resolvers are needed in the Arquillian tests. This is used for adding all the runtime dependencies 
-            inside a testing war. -->
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- Needed for Arquillian to log -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <scope>test</scope>
-        </dependency>
+      <!-- Arquillian Bill Of Management used to reduce collision between testing 
+        dependencies. Using a dependency manager we don't need to specify the version of 
+        each Arquillian dependency. -->
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.6.0.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
     </dependencies>
-    <build>
-        <finalName>cargo-tracker</finalName>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>${jakartaee-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Required by Java SE 9+ -->
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>2.3.6</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- The third-party dependencies this application has -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.primefaces</groupId>
+      <artifactId>primefaces</artifactId>
+      <version>8.0</version>
+    </dependency>
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.22.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Arquillian dependencies -->
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Resolvers are needed in the Arquillian tests. This is used for adding all 
+      the runtime dependencies inside a testing war. -->
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Needed for Arquillian to log -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>cargo-tracker</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <!-- The currently supported application servers are represented as profiles -->
+    <profile>
+      <id>payara</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <payara.version>5.2022.5</payara.version>
+        <!-- Application properties -->
+        <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+        <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
+        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
+          path name (it should include driver name under Windows). -->
+        <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
+        <db.user />
+        <db.password />
+      </properties>
+      <dependencies>
+        <!-- We need a Jersey specific dependency -->
+        <dependency>
+          <groupId>org.glassfish.jersey.core</groupId>
+          <artifactId>jersey-server</artifactId>
+          <version>3.0.3</version>
+          <scope>provided</scope>
+        </dependency>
+        <!-- Embedding the JDBC driver in the WAR works in Payara -->
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <version>2.0.206</version>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>fish.payara.extras</groupId>
+          <artifactId>payara-micro</artifactId>
+          <version>${payara.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>fish.payara.arquillian</groupId>
+          <artifactId>arquillian-payara-micro-managed</artifactId>
+          <version>2.4.5</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-                </configuration>
-            </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven3-plugin</artifactId>
+            <version>1.10.4</version>
+            <configuration>
+              <container>
+                <containerId>payara</containerId>
+                <artifactInstaller>
+                  <groupId>fish.payara.distributions</groupId>
+                  <artifactId>payara</artifactId>
+                  <version>${payara.version}</version>
+                </artifactInstaller>
+              </container>
+            </configuration>
+          </plugin>
         </plugins>
-    </build>
-    <profiles>
-        <!-- The currently supported application servers are represented as profiles -->
-        <profile>
-            <id>payara</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <payara.version>5.2022.5</payara.version>
-                <!-- Application properties -->
-                <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
-                <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
-                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
-                    path name (it should include driver name under Windows). -->
-                <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
-                <db.user />
-                <db.password />
-            </properties>
-            <dependencies>
-                <!-- We need a Jersey specific dependency -->
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-server</artifactId>
-                    <version>3.0.3</version>
-                    <scope>provided</scope>
-                </dependency>
-                <!-- Embedding the JDBC driver in the WAR works in Payara -->
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>2.0.206</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-micro</artifactId>
-                    <version>${payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>2.4.5</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.2</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>1.10.4</version>
-                        <configuration>
-                            <container>
-                                <containerId>payara</containerId>
-                                <artifactInstaller>
-                                    <groupId>fish.payara.distributions</groupId>
-                                    <artifactId>payara</artifactId>
-                                    <version>${payara.version}</version>
-                                </artifactInstaller>
-                            </container>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- Cloud/production deployment using Payara and PostgreSQL. -->
-        <profile>
-            <id>cloud</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <payara.version>5.2022.5</payara.version>
-                <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
-                <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
-                <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
-                    -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
-                <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
-                <db.user>${postgreSqlUsername}</db.user>
-                <db.password>${postgreSqlPassword}</db.password>
-            </properties>
-            <dependencies>
-                <!-- We need a Jersey specific dependency -->
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-server</artifactId>
-                    <version>3.0.3</version>
-                    <scope>provided</scope>
-                </dependency>
-                <!-- Embedding the JDBC driver in the WAR works in Payara Micro -->
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>2.0.206</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-micro</artifactId>
-                    <version>${payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>2.4.5</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.2.0</version>
-                        <executions>
-                            <execution>
-                                <id>copy</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.postgresql</groupId>
-                                    <artifactId>postgresql</artifactId>
-                                    <version>42.3.1</version>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <destFileName>postgresql.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.2</version>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+      </build>
+    </profile>
+    <!-- Cloud/production deployment using Payara and PostgreSQL. -->
+    <profile>
+      <id>cloud</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <payara.version>5.2022.5</payara.version>
+        <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+        <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
+        <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
+          -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
+        <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
+        <db.user>${postgreSqlUsername}</db.user>
+        <db.password>${postgreSqlPassword}</db.password>
+      </properties>
+      <dependencies>
+        <!-- We need a Jersey specific dependency -->
+        <dependency>
+          <groupId>org.glassfish.jersey.core</groupId>
+          <artifactId>jersey-server</artifactId>
+          <version>3.0.3</version>
+          <scope>provided</scope>
+        </dependency>
+        <!-- Embedding the JDBC driver in the WAR works in Payara Micro -->
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <version>2.0.206</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>fish.payara.extras</groupId>
+          <artifactId>payara-micro</artifactId>
+          <version>${payara.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>fish.payara.arquillian</groupId>
+          <artifactId>arquillian-payara-micro-managed</artifactId>
+          <version>2.4.5</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.2.0</version>
+            <executions>
+              <execution>
+                <id>copy</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.postgresql</groupId>
+                  <artifactId>postgresql</artifactId>
+                  <version>42.3.1</version>
+                  <overWrite>true</overWrite>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
+                  <destFileName>postgresql.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

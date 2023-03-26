@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.3"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
-    <flow-definition id="booking">
-        <flow-return id="returnFromBookingFlow">
-            <!-- TODO: leave the flow properly -->
-            <from-outcome>#{booking.returnValue}</from-outcome>
-        </flow-return>
-    </flow-definition>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.3"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+  <flow-definition id="booking">
+    <flow-return id="returnFromBookingFlow">
+      <!-- TODO: leave the flow properly -->
+      <from-outcome>#{booking.returnValue}</from-outcome>
+    </flow-return>
+  </flow-definition>
 </faces-config>
