@@ -51,7 +51,7 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" id="mainNav">
           <li><a href="#overview">OVERVIEW</a></li>
           <li><a href="#getstarted">GETTING STARTED</a></li>
           <li><a href="#eeddd">JAKARTA EE</a></li>
@@ -601,17 +601,43 @@
     </div>
   </footer>
 
-  <!-- jQuery Version 1.11.0 -->
+ <!-- jQuery Version 1.11.0 -->
   <script src="js/jquery-1.11.0.js"></script>
   <script>
+			var lastId, topMenu = $("#mainNav"), topMenuHeight = topMenu
+					.outerHeight() + 1,
+			// All list items
+			menuItems = topMenu.find('a');
+			var scrollItems = topMenu.find("a[href^='#']");
+			scrollItems = scrollItems.map(function() {
+				var item = $($(this).attr("href"));
+				if (item.length) {
+					return item;
+				}
+			});
 			$('a').click(function() {
 				$('html, body').animate({
 					scrollTop : $($.attr(this, 'href')).offset().top
 				}, 500);
 				return false;
 			});
+			$(window).scroll(
+					function() {
+						var fromTop = $(this).scrollTop() + topMenuHeight;
+						var cur = scrollItems.map(function() {
+							if ($(this).offset().top < fromTop)
+								return this;
+						});
+						cur = cur[cur.length - 1];
+						var id = cur && cur.length ? cur[0].id : "";
+						if (lastId !== id) {
+							lastId = id;
+							menuItems.parent().removeClass("active").end()
+									.filter('[href="#' + id + '"]').parent()
+									.addClass("active");
+						}
+					});
 		</script>
-
   <!-- Bootstrap Core JavaScript -->
   <script src="js/bootstrap.min.js"></script>
 </body>

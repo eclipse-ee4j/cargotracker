@@ -1174,12 +1174,6 @@ a {
    text-decoration: none
 }
 
-a:hover,
-a:focus {
-   color: #2a6496;
-   text-decoration: underline
-}
-
 a:focus {
    outline: thin dotted;
    outline: 5px auto -webkit-focus-ring-color;
@@ -4502,7 +4496,6 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 .nav>li>a:hover,
 .nav>li>a:focus {
    text-decoration: none;
-   background-color: #eee
 }
 
 .nav>li.disabled>a {
@@ -5120,8 +5113,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
    color: #777
 }
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
+.navbar-default .navbar-brand:hover {
    color: #f5e403;
    background-color: transparent
 }
@@ -5134,8 +5126,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
    color: #ffffff
 }
 
-.navbar-default .navbar-nav>li>a:hover,
-.navbar-default .navbar-nav>li>a:focus {
+.navbar-default .navbar-nav>li>a:hover {
    color: #f1d904;
    background-color: transparent
 }
@@ -5143,8 +5134,8 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>.active>a:focus {
-   color: #f2c602;
-   background-color: #e7e7e7
+  color: #f2c602;
+  border-bottom: 3px solid #f2c602;
 }
 
 .navbar-default .navbar-nav>.disabled>a,
