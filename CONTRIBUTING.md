@@ -25,9 +25,9 @@ The following are the project web site and documentation. Please look through th
 
 ## Development Standards/Style
 
-The project complies with the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). You can use the [google-java-format](https://github.com/google/google-java-format) tool to help you comply with the Google Java Style Guide. You can use the tool with most major IDEs such as Eclipse and IntelliJ.
+This project complies with the Google Style Guides for [Java](https://google.github.io/styleguide/javaguide.html), [JavaScript](https://google.github.io/styleguide/jsguide.html), and [HTML/CSS](https://google.github.io/styleguide/htmlcssguide.html). You can use the [google-java-format](https://github.com/google/google-java-format) tool to help you comply with the Google Java Style Guide. You can use the tool with most major IDEs such as Eclipse and IntelliJ.
 
-In addition, for all XML, XHTML and HTML files we use a column/line width of 100 and we use 4 spaces for indentation. Please adjust the formatting settings of your IDE accordingly.
+In general for all files we use a column/line width of 80 whenever possible and we use 2 spaces for indentation. All files must end with a new line. Please adjust the formatting settings of your IDE accordingly. You are encouraged but not required to use HTML Tidy and CSS Tidy to help format your code.
 
 ## Roadmap
 The project is currently working on Jakarta EE 10 support. The associated issues are under the jakartaee10 milestone: https://github.com/eclipse-ee4j/cargotracker/milestone/4.
