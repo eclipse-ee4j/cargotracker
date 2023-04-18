@@ -28,25 +28,28 @@ public class GraphTraversalService {
           + "the first two must be alphabetic and "
           + "the last three must be alphanumeric (excluding 0 and 1).";
   private final Random random = new Random();
-  @Inject
-  private GraphDao dao;
-
+  @Inject  private GraphDao dao;
 
   @GET
   @Path("/shortest-path")
   @Produces({"application/json", "application/xml; qs=.75"})
   public List<TransitPath> findShortestPath(
-      @NotNull(message = "Missing origin UN location code.") @Pattern(
+      @NotNull(message = "Missing origin UN location code.")
+      @Pattern(
           regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}",
-          message = "Origin "
-              + UNLOCODE_PATTERN_VIOLATION_MESSAGE) @QueryParam("origin") String originUnLocode,
-      @NotNull(message = "Missing destination UN location code.") @Pattern(
+          message = "Origin " + UNLOCODE_PATTERN_VIOLATION_MESSAGE)
+      @QueryParam("origin")
+      String originUnLocode,
+  @NotNull(message = "Missing destination UN location code.")
+      @Pattern(
           regexp = "[a-zA-Z]{2}[a-zA-Z2-9]{3}",
-          message = "Destination "
-              + UNLOCODE_PATTERN_VIOLATION_MESSAGE) @QueryParam("destination") String destinationUnLocode,
-      // TODO [DDD] Apply regular expression validation.
-      @Size(min = 8, max = 8,
-          message = "Deadline value must be eight characters long.") @QueryParam("deadline") String deadline) {
+          message = "Destination " + UNLOCODE_PATTERN_VIOLATION_MESSAGE)
+      @QueryParam("destination")
+      String destinationUnLocode,
+  // TODO [DDD] Apply regular expression validation.
+  @Size(min = 8, max = 8, message = "Deadline value must be eight characters long.")
+      @QueryParam("deadline")
+      String deadline) {
 
     List<String> allVertices = dao.listLocations();
     allVertices.remove(originUnLocode);
@@ -91,4 +94,3 @@ public class GraphTraversalService {
     return allLocations.subList(0, chunk);
   }
 }
-
