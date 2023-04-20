@@ -56,11 +56,11 @@ public class GraphTraversalService {
     allVertices.remove(destinationUnLocode);
 
     int candidateCount = getRandomNumberOfCandidates();
-    List<TransitPath> candidates = new ArrayList<>();
+    List<TransitPath> candidates = new ArrayList<>(candidateCount);
 
     for (int i = 0; i < candidateCount; i++) {
       allVertices = getRandomChunkOfLocations(allVertices);
-      List<TransitEdge> transitEdges = new ArrayList<>();
+      List<TransitEdge> transitEdges = new ArrayList<>(allVertices.size() - 1);
       String fromUnLocode = originUnLocode;
       LocalDateTime date = LocalDateTime.now();
 
@@ -80,7 +80,6 @@ public class GraphTraversalService {
       }
       candidates.add(new TransitPath(transitEdges));
     }
-
     return candidates;
   }
 
