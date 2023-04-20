@@ -2,7 +2,7 @@ name: Nightly Build
 
 on:
   schedule:
-    - cron: '0 0 * * *' # run at midnight UTC
+    - cron: '0 9 * * *' # run at 9 AM UTC
   workflow_dispatch:
 
 jobs:
