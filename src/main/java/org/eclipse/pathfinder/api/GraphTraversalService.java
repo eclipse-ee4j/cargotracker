@@ -50,7 +50,6 @@ public class GraphTraversalService {
       @Size(min = 8, max = 8, message = "Deadline value must be eight characters long.")
           @QueryParam("deadline")
           String deadline) {
-    LocalDateTime date = nextDate(LocalDateTime.now());
 
     List<String> allVertices = dao.listLocations();
     allVertices.remove(originUnLocode);
@@ -62,44 +61,25 @@ public class GraphTraversalService {
     for (int i = 0; i < candidateCount; i++) {
       allVertices = getRandomChunkOfLocations(allVertices);
       List<TransitEdge> transitEdges = new ArrayList<>(allVertices.size() - 1);
-      String firstLegTo = allVertices.get(0);
+      String fromUnLocode = originUnLocode;
+      LocalDateTime date = LocalDateTime.now();
 
-      LocalDateTime fromDate = nextDate(date);
-      LocalDateTime toDate = nextDate(fromDate);
-      date = nextDate(toDate);
-
-      transitEdges.add(
-          new TransitEdge(
-              dao.getVoyageNumber(originUnLocode, firstLegTo),
-              originUnLocode,
-              firstLegTo,
-              fromDate,
-              toDate));
-
-      for (int j = 0; j < allVertices.size() - 1; j++) {
-        String current = allVertices.get(j);
-        String next = allVertices.get(j + 1);
-        fromDate = nextDate(date);
-        toDate = nextDate(fromDate);
-        date = nextDate(toDate);
+      for (int j = 0; j <= allVertices.size(); ++j) {
+        LocalDateTime fromDate = nextDate(date);
+        LocalDateTime toDate = nextDate(fromDate);
+        String toUnLocode = (j >= allVertices.size() ? destinationUnLocode : allVertices.get(j));
         transitEdges.add(
-            new TransitEdge(dao.getVoyageNumber(current, next), current, next, fromDate, toDate));
+            new TransitEdge(
+                dao.getVoyageNumber(fromUnLocode, toUnLocode),
+                fromUnLocode,
+                toUnLocode,
+                fromDate,
+                toDate));
+        fromUnLocode = toUnLocode;
+        date = nextDate(toDate);
       }
-
-      String lastLegFrom = allVertices.get(allVertices.size() - 1);
-      fromDate = nextDate(date);
-      toDate = nextDate(fromDate);
-      transitEdges.add(
-          new TransitEdge(
-              dao.getVoyageNumber(lastLegFrom, destinationUnLocode),
-              lastLegFrom,
-              destinationUnLocode,
-              fromDate,
-              toDate));
-
       candidates.add(new TransitPath(transitEdges));
     }
-
     return candidates;
   }
 
@@ -114,7 +94,7 @@ public class GraphTraversalService {
   private List<String> getRandomChunkOfLocations(List<String> allLocations) {
     Collections.shuffle(allLocations);
     int total = allLocations.size();
-    int chunk = total > 4 ? 1 + new Random().nextInt(5) : total;
+    int chunk = total > 4 ? 1 + random.nextInt(5) : total;
     return allLocations.subList(0, chunk);
   }
 }
