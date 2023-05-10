@@ -29,20 +29,20 @@
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
 
         <maven.compiler.release>11</maven.compiler.release>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
 
         <jakartaee-api.version>10.0.0</jakartaee-api.version>
         <primefaces.version>12.0.0</primefaces.version>
 
-        <payara.version>6.2023.2</payara.version>
-        <glassfish.version>7.0.2</glassfish.version>
+        <payara.version>6.2023.4</payara.version>
+        <glassfish.version>7.0.4</glassfish.version>
 
         <!-- Test Utilities -->
-        <arquillian-bom.version>1.7.0.Alpha14</arquillian-bom.version>
-        <arquillian-payara.version>3.0.alpha7</arquillian-payara.version>
-        <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <arquillian.version>1.7.0.Final</arquillian.version>
+        <arquillian-payara.version>3.0.alpha8</arquillian-payara.version>
+        <junit-jupiter.version>5.9.3</junit-jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
         <assertj.version>3.21.0</assertj.version>
     </properties>
@@ -54,16 +54,6 @@
                 <artifactId>jakarta.jakartaee-api</artifactId>
                 <version>${jakartaee-api.version}</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <!-- Arquillian Bill Of Management used to reduce collision between testing dependencies.
-            Using a dependency manager we don't need to specify the version of each Arquillian dependency. -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian-bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
 
             <dependency>
@@ -98,6 +88,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -117,16 +108,19 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-container</artifactId>
+            <version>${arquillian.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <version>${arquillian.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>3.1.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -149,6 +143,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
+            <version>2.0.7</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
