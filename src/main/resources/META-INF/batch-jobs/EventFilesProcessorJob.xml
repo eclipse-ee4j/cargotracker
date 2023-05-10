@@ -4,14 +4,14 @@
     version="2.0"
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
 >
-    <listeners>
-        <listener ref="FileProcessorJobListener" />
-    </listeners>
     <properties>
         <property name="upload_directory" value="/tmp/uploads" />
         <property name="archive_directory" value="/tmp/archive" />
         <property name="failed_directory" value="/tmp/failed" />
     </properties>
+    <listeners>
+        <listener ref="FileProcessorJobListener" />
+    </listeners>
     <step id="ProcessEventFiles">
         <chunk item-count="12">
             <reader ref="EventItemReader" />
