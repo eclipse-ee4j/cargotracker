@@ -37,9 +37,10 @@
         <primefaces.version>12.0.0</primefaces.version>
 
         <payara.version>6.2023.4</payara.version>
-        <glassfish.version>7.0.4</glassfish.version>
+        <glassfish.version>7.0.5</glassfish.version>
 
         <!-- Test Utilities -->
+        <asadmin.command>asadmin</asadmin.command>
         <arquillian.version>1.7.0.Final</arquillian.version>
         <arquillian-payara.version>3.0.alpha8</arquillian-payara.version>
         <junit-jupiter.version>5.9.3</junit-jupiter.version>
@@ -257,6 +258,18 @@
                 <skipITs>true</skipITs>
             </properties>
         </profile>
+        <profile>
+            <id>asadmin.bat</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <asadmin.command>asadmin.bat</asadmin.command>
+            </properties>
+        </profile>
+
         <!-- The currently supported application servers are represented as profiles -->
         <profile>
             <id>payara</id>
@@ -453,7 +466,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <configuration>
-                            <executable>${project.build.directory}/payara6/glassfish/bin/asadmin</executable>
+                            <executable>${project.build.directory}/payara6/glassfish/bin/${asadmin.command}</executable>
                         </configuration>
                         <executions>
                             <execution>
@@ -586,7 +599,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <configuration>
-                            <executable>${project.build.directory}/glassfish7/glassfish/bin/asadmin</executable>
+                            <executable>${project.build.directory}/glassfish7/glassfish/bin/${asadmin.command}</executable>
                         </configuration>
                         <executions>
                             <execution>
@@ -687,7 +700,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <configuration>
-                            <executable>${project.build.directory}/glassfish7/glassfish/bin/asadmin</executable>
+                            <executable>${project.build.directory}/glassfish7/glassfish/bin/${asadmin.command}</executable>
                         </configuration>
                         <executions>
                             <execution>
