@@ -1,4 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
   <ui:define name="title">Cargo Administration</ui:define>
@@ -7,7 +8,7 @@
     <div class="ui-grid-col-3"></div>
     <div class="ui-grid-col-6">
       <br />
-      <div id="container" class="panel">
+      <div id="container" style="display: none" class="panel">
         <h3>This interface includes several features for Cargo
           Administrators:</h3>
         <ul>
@@ -28,6 +29,9 @@
         <hr />
       </div>
     </div>
+    <h:outputScript name="js/topbar.min.js" />
+    <h:outputScript name="js/topbar.js" />
+    <h:outputScript name="js/progress.js" />
   </ui:define>
 </ui:composition>
 </html>

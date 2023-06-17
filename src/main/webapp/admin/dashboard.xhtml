@@ -9,7 +9,7 @@
   <ui:define name="title">Cargo Dashboard</ui:define>
   <ui:define name="content">
     <div class="ui-g-2"></div>
-    <div class="ui-g-8">
+    <div class="ui-g-8" id="container" style="display: none">
       <h:form id="mainDash">
         <ui:include src="/admin/tables/list_routed.xhtml" class="clearCargoBkg" />
         <br />
@@ -20,6 +20,9 @@
         <ui:include src="/admin/tables/list_claimed.xhtml" />
       </h:form>
     </div>
+    <h:outputScript name="js/topbar.min.js" />
+    <h:outputScript name="js/topbar.js" />
+    <h:outputScript name="js/progress.js" />
   </ui:define>
 </ui:composition>
 </html>
