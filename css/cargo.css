@@ -10,6 +10,16 @@ html {
   height: 100%;
 }
 
+.add-padd {
+  padding-top: 412px;
+  transition: 0.2s linear; 
+}
+
+.del-padd {
+  padding-top: 72px;
+  transition: 0.2s linear; 
+}
+
 body,
 h1,
 h2,
