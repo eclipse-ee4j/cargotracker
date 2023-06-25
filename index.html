@@ -637,6 +637,16 @@
 									.addClass("active");
 						}
 					});
+			var button = document.getElementsByClassName("navbar-toggle")[0];
+			button.onclick = function() {
+				var clsName = document.getElementsByTagName("body")[0].className;
+				console.log(clsName);
+				if (clsName === "add-padd") {
+					document.getElementsByTagName("body")[0].className = "del-padd";
+				} else {
+					document.getElementsByTagName("body")[0].className = "add-padd";
+				}
+			}
 		</script>
   <!-- Bootstrap Core JavaScript -->
   <script src="js/bootstrap.min.js"></script>
