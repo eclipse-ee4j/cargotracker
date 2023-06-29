@@ -20,7 +20,7 @@ Start the VS Code IDE
 
 Go to ->Extensions (Ctrl+Shift+ X)
 
-Search for "Payara Tools" [https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode] and  "Extension Pack for Java" [https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack] and install Payara Tools and Extension Pack for Java.
+Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) and [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and install Payara Tools and Extension Pack for Java.
 
  ![Payara Tools](<images/payara tools.PNG>)
 
@@ -34,7 +34,7 @@ Once the Payara Tools plugin is installed,
 ![Adding Server](<images/adding payara server 1.PNG>)
 
 * Before doing the next step,please make sure that you have properly set up JAVA_HOME on your PC.
-2. choose local domain -> browse the payara server,then select the directory where you installed the Payara 5. 
+2. choose local domain -> browse the Payara server,then select the directory where you installed the Payara 5. 
 
 ![Local Domain](<images/Adding payara server 2.png>)
 
@@ -86,7 +86,7 @@ Once the Payara Tools plugin is installed,
 
 ![sucess](<images/sucess 1.png>)
 
-There is a tracking interface to track the current status of cargo and a booking interface to book and route cargo. You should explore both interfaces before diving into the code. You should also check out the REST(https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java) and file processing(https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java) interfaces to register handling events as well as the mobile web interface. You can test against the REST interfaces using our soapUI tests(https://github.com/eclipse-ee4j/cargotracker/tree/master/src/test/soapui).
+There is a tracking interface to track the current status of cargo and a booking interface to book and route cargo. You should explore both interfaces before diving into the code. You should also check out the [REST](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java) and [file processing](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java) interfaces to register handling events as well as the mobile web interface. You can test against the REST interfaces using our [soapUI tests](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/test/soapui).
 
 ![tracking](images/tracking.png)
 
