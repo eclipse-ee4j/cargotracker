@@ -37,7 +37,7 @@ To set up in the VS Code IDE, follow these steps:
 * Set up Java SE 8, Java SE 11, or Java SE 17, [VS Code IDE](https://code.visualstudio.com/download) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) and  [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) in the VS Code IDE.
 * Make sure JAVA_HOME is set.
 * Open the folder that contains the code in the Visual Studio Code IDE.The VS Code IDE will do the rest for you,it will automatically configure it as a Maven project.Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated cargotracker.war file under target folder via Payara 5.
+* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated cargotracker.war file under the target folder via Payara 5.
 
 ## Exploring the Application
 
