@@ -45,13 +45,14 @@ After the project loads, go to the Maven tab on the left bottom side. You will s
 
 ![build](<images/vs_build.png>)
 
-2. After this a war file of the name cargo-tracker.war will be built under the target section.
+After this, a war file named 'cargo-tracker.war' will be built under the 'target' directory.
 
-![target](<images/deployment_1.png>)
+![target](<images/vs_deployment_1.png>)
 
-3. Right-click on that war file,select run on Payara server option
+Right-click on the war file and select the 'Run on Payara Server' option.
 
-![cargo_tracker_war](<images/deployment_2.png>)
+![cargo_tracker_war](<images/vs_deployment_2.png>)
+
 4. The first-time startup might take a bit of time. After this, Visual Studio Code will automatically open up a default browser window with the application. 
 
 ![launch](<images/deployment_3.png>)
