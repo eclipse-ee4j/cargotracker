@@ -1,26 +1,26 @@
-# VS Code IDE
+# Visual Studio Code IDE
 
-This section outlines how to set up the application in the VS Code IDE.
+This section outlines how to set up the application in the Visual Studio Code IDE.
 
 ## Prerequisites
 
 * Java SE 8, Java SE 11 or Java SE 17 is required.
 * Payara Server 5 is required. You can download Payara Server 5 from https://www.payara.fish/downloads/ 
-* The VS Code IDE is required. You can download the VS Code IDE from https://code.visualstudio.com/download
+* The Visual Studio Code IDE is required. You can download the Visual Studio Code IDE from https://code.visualstudio.com/download
 
 ## Download
 
 Download the source code zip file and expand it somewhere in your file system. Note that this is a Maven project. https://github.com/eclipse-ee4j/cargotracker/archive/master.zip
 
-## VS Code IDE Set-up
+## Visual Studio Code IDE Set-up
 
 ### Installing Necessary Tools
 
-Start the VS Code IDE
+Start the Visual Studio Code IDE
 
 Go to ->Extensions (Ctrl+Shift+ X)
 
-Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) and [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and install Payara Tools and Extension Pack for Java.
+Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-Visual Studiocode) and [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=Visual Studiocjava.Visual Studiocode-java-pack) and install Payara Tools and Extension Pack for Java.
 
  ![Payara_Tools](<images/payara_tools.PNG>)
 
@@ -57,7 +57,7 @@ Once the Payara Tools plugin is installed,
 
 ### Importing Code
 
-1. Go to File -> Open Folder ->Select the root directory of the Cargo Tracker project in your file system, and Hit finish.VS Code will automatically identify it as a Maven project.
+1. Go to File -> Open Folder ->Select the root directory of the Cargo Tracker project in your file system, and Hit finish.Visual Studio Code will automatically identify it as a Maven project.
 
 ![import](<images/importing_cargotracker_1.png>)
 
@@ -81,7 +81,7 @@ Once the Payara Tools plugin is installed,
 3. Right-click on that war file,select run on Payara server option
 
 ![cargo_tracker_war](<images/deployment_2.png>)
-4. The first-time startup might take a bit of time. After this, VS Code will automatically open up a default browser window with the application. 
+4. The first-time startup might take a bit of time. After this, Visual Studio Code will automatically open up a default browser window with the application. 
 
 ![launch](<images/deployment_3.png>)
 
