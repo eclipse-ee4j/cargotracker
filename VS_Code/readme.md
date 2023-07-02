@@ -19,11 +19,11 @@ Start Visual Studio Code. Go to -> Extensions (Ctrl+Shift+X). Search for [Payara
 
  ![Payara_Tools](<images/vs_payara_tools.PNG>)
 
-Once the Payara Tools plugin is installed, click on the Payara icon on the left side bar below the Extensions icon, then click on the '+' icon on the Servers. Choose 'Local Domain' -> browse the Payara server, then select the directory where you installed Payara 5. 
+Once the Payara Tools plugin is installed, click on the Payara icon on the left side bar below the Extensions icon, then click on the '+' icon on the Servers. Choose 'Local Domain' -> 'Browse the Payara Server', then select the directory where you installed Payara 5.
 
 ![Local_Domain](<images/vs_adding_payara_server_2.png>)
 
-![browse](<images/vs_adding_payara_server_3.png>)
+![Browse](<images/vs_adding_payara_server_3.png>)
 
 3. Name it Payara5 and hit next. Select default domain1.
 
