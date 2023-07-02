@@ -49,11 +49,11 @@ After this, a war file named 'cargo-tracker.war' will be built under the 'target
 
 ![deploy](<images/vs_deploy.png>)
 
-4. The first-time startup might take a bit of time. After this, Visual Studio Code will automatically open up a default browser window with the application. 
+The first time start up might take a bit of time. Once the deployement is done, Visual Studio Code will automatically open up a default browser window with the application. 
 
-![launch](<images/deployment_3.png>)
+![launch](<images/vs_deployment_3.png>)
 
-![sucess](<images/sucess_1.png>)
+![sucess](<images/vs_sucess_1.png>)
 
 There is a tracking interface to track the current status of cargo and a booking interface to book and route cargo. You should explore both interfaces before diving into the code. You should also check out the [REST](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java) and [file processing](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java) interfaces to register handling events as well as the mobile web interface. You can test against the REST interfaces using our [soapUI tests](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/test/soapui).
 
