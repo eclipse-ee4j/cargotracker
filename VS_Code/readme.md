@@ -19,12 +19,9 @@ Start Visual Studio Code. Go to -> Extensions (Ctrl+Shift+X). Search for [Payara
 
  ![Payara_Tools](<images/vs_payara_tools.PNG>)
 
-### Adding Payara Server
+Once the Payara Tools plugin is installed, click on the Payara icon on the left side bar below the Extensions icon, then click on the '+' icon on the Servers.
 
-Once the Payara Tools plugin is installed, 
-1. Click on the Payara icon on the left side bar below the Extensions icon,then click on the '+' icon on the Servers.
-
-![Adding_Server](<images/adding_payara_server_1.PNG>)
+![Adding_Server](<images/vs_adding_payara_server_1.PNG>)
 
 
 2. choose local domain -> browse the Payara server,then select the directory where you installed the Payara 5. 
