@@ -37,15 +37,9 @@ Now you will see the instance under Servers. Right-click on the instance and sel
 
 ## Running the Application
 
-You will now need to get the application into Visual Studio Code. Go to File -> Open Folder -> Select the root directory of the Cargo Tracker project in your file system, and hit finish. Visual Studio Code will automatically identify it as a Maven project.
+You will now need to get the application into Visual Studio Code. Go to File -> Open Folder -> Select the root directory of the Cargo Tracker project in your file system, and hit finish. Visual Studio Code will automatically identify it as a Maven project. It will take a few minutes to import the project for the first time.
 
-![import](<images/vs_importing_cargotracker_1.png>)
-
-It will take a few minutes to import the project for the first time.
-
-![import2](<images/vs_importing_cargotracker_2.png>)
-
-![import3](<images/vs_importing_cargotracker_3.png>)
+![import](<images/vs_import.png>)
 
 ### Building and Running on Payara 5
 1. After the project loads,Go under the maven tab on the left bottom side,the eclipse cargo tracker name will be shown.Right-click on it and proceed with run maven commands clean and package(which will take a while the very first time as Maven downloads dependencies)
