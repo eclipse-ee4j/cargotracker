@@ -41,12 +41,11 @@ You will now need to get the application into Visual Studio Code. Go to File -> 
 
 ![import](<images/vs_import.png>)
 
-### Building and Running on Payara 5
-1. After the project loads,Go under the maven tab on the left bottom side,the eclipse cargo tracker name will be shown.Right-click on it and proceed with run maven commands clean and package(which will take a while the very first time as Maven downloads dependencies)
+After the project loads, go to the Maven tab on the left bottom side. You will see that Eclipse Cargo Tracker is a recognized Maven project. Right click on it and run the 'clean' Maven command. Finally, run the 'package' Maven command. It will take a while the very first time as Maven downloads dependencies.
 
-![build1](<images/building_cargotracker_1.png>)
+![build1](<images/vs_building_cargotracker_1.png>)
 
-![build2](<images/building_cargotracker_2.png>)
+![build2](<images/vs_building_cargotracker_2.png>)
 
 2. After this a war file of the name cargo-tracker.war will be built under the target section.
 
