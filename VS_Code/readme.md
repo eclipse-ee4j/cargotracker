@@ -31,13 +31,13 @@ Name the instance Payara 5 and hit next. Select the default domain1.
 
 ![domain1](<images/vs_add_payara_4.png>)
 
-4. Now ,a payara5 name icon with the Payara logo comes under the servers.Right-click on that icon,and select start,it will automatically start the Payara 5.
+Now you will see the instance under Servers. Right-click on the instance and select start.
 
-![running](<images/Running_payara_server_1.png>)
+![running](<images/vs_running_payara_server_1.png>)
 
-5. A small green color triangle comes under the Payara5 logo in the servers,this means your Payara server has been successfully started.You can verify if you wanted by visiting localhost:8080
+Once Payara starts, you can verify it is up by visiting http://localhost:8080.
 
-![running_sucessful](<images/Running_payara_server_2.png>)
+![run sucess](<images/vs_running_payara_server_2.png>)
 
 ### Importing Code
 
