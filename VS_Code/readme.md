@@ -5,8 +5,8 @@ This section outlines how to set up the application in Visual Studio Code.
 ## Prerequisites
 
 * Java SE 8, Java SE 11, or Java SE 17 is required. Please make sure that you have properly set up the JAVA_HOME environment variable.
-* Payara Server 5 is required. You can download Payara Server 5 from https://mvnrepository.com/artifact/fish.payara.distributions/payara.
-* Visual Studio Code is required. You can download Visual Studio Code from https://code.visualstudio.com/download.
+* Payara Server 5 is required. You can download Payara Server 5 from [here](https://mvnrepository.com/artifact/fish.payara.distributions/payara).
+* Visual Studio Code is required. You can download Visual Studio Code from [here](https://code.visualstudio.com/download).
 
 ## Download
 
