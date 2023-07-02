@@ -1,6 +1,6 @@
 # Visual Studio Code
 
-This section outlines how to set up the application in the Visual Studio Code.
+This section outlines how to set up the application in Visual Studio Code.
 
 ## Prerequisites
 
