@@ -80,7 +80,7 @@ Once the Payara Tools plugin is installed,
 
 3. Right-click on that war file,select run on Payara server option
 
-![cargo-tracker.war](<images/deployment_2.png>)
+![cargo_tracker_war](<images/deployment_2.png>)
 4. The first-time startup might take a bit of time. After this, VS Code will automatically open up a default browser window with the application. 
 
 ![launch](<images/deployment_3.png>)
