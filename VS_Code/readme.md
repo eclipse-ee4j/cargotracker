@@ -10,7 +10,7 @@ This section outlines how to set up the application in Visual Studio Code.
 
 ## Download
 
-Download the source code zip file and expand it somewhere in your file system. Note that this is a Maven project. https://github.com/eclipse-ee4j/cargotracker/archive/master.zip
+[Download](https://github.com/eclipse-ee4j/cargotracker/archive/master.zip) the source code zip file and expand it somewhere in your file system. Note that this is a Maven project.
 
 ## Visual Studio Code Set-up
 
