@@ -25,11 +25,11 @@ Once the Payara Tools plugin is installed, click on the Payara icon on the left 
 
 ![Browse](<images/vs_add_payara_2.png>)
 
-3. Name it Payara5 and hit next. Select default domain1.
+Name the instance Payara 5 and hit next. Select the default domain1.
 
-![Payara5](<images/Adding_payara_server_4.png>)
+![Payara 5](<images/vs_adding_payara_server_4.png>)
 
-![Local_domain1](<images/Adding_payara_server_5.png>)
+![domain1](<images/vs_adding_payara_server_5.png>)
 
 4. Now ,a payara5 name icon with the Payara logo comes under the servers.Right-click on that icon,and select start,it will automatically start the Payara 5.
 
