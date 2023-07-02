@@ -1,22 +1,22 @@
-# Visual Studio Code IDE
+# Visual Studio Code
 
-This section outlines how to set up the application in the Visual Studio Code IDE.
+This section outlines how to set up the application in the Visual Studio Code.
 
 ## Prerequisites
 
 * Java SE 8, Java SE 11 or Java SE 17 is required.
 * Payara Server 5 is required. You can download Payara Server 5 from https://www.payara.fish/downloads/ 
-* The Visual Studio Code IDE is required. You can download the Visual Studio Code IDE from https://code.visualstudio.com/download
+* The Visual Studio Code is required. You can download the Visual Studio Code from https://code.visualstudio.com/download
 
 ## Download
 
 Download the source code zip file and expand it somewhere in your file system. Note that this is a Maven project. https://github.com/eclipse-ee4j/cargotracker/archive/master.zip
 
-## Visual Studio Code IDE Set-up
+## Visual Studio Code Set-up
 
 ### Installing Necessary Tools
 
-Start the Visual Studio Code IDE
+Start the Visual Studio Code
 
 Go to ->Extensions (Ctrl+Shift+ X)
 
@@ -57,7 +57,7 @@ Once the Payara Tools plugin is installed,
 
 ### Importing Code
 
-1. Go to File -> Open Folder ->Select the root directory of the Cargo Tracker project in your file system, and Hit finish.Visual Studio Code will automatically identify it as a Maven project.
+1. Go to File -> Open Folder ->Select the root directory of the Cargo Tracker project in your file system, and Hit finish.Visual Studio Code will automaticallyntify it as a Maven project.
 
 ![import](<images/importing_cargotracker_1.png>)
 
