@@ -31,7 +31,7 @@ Name the instance Payara 5 and hit next. Select the default domain1.
 
 ![domain1](<images/vs_add_payara_4.png>)
 
-Now you will see the instance under Servers. Right-click on the instance and select start.
+Now you will see the instance under Servers. Right-click on the instance and select 'Start'.
 
 ![running](<images/vs_running_payara_server_1.png>)
 
