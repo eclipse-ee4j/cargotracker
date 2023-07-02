@@ -4,9 +4,9 @@ This section outlines how to set up the application in Visual Studio Code.
 
 ## Prerequisites
 
-* Java SE 8, Java SE 11 or Java SE 17 is required.
-* Payara Server 5 is required. You can download Payara Server 5 from https://www.payara.fish/downloads/ 
-* The Visual Studio Code is required. You can download the Visual Studio Code from https://code.visualstudio.com/download
+* Java SE 8, Java SE 11, or Java SE 17 is required. Please make sure that you have properly set up the JAVA_HOME environment variable.
+* Payara Server 5 is required. You can download Payara Server 5 from: https://www.payara.fish/downloads/.
+* Visual Studio Code is required. You can download Visual Studio Code from: https://code.visualstudio.com/download.
 
 ## Download
 
@@ -33,7 +33,7 @@ Once the Payara Tools plugin is installed,
 
 ![Adding_Server](<images/adding_payara_server_1.PNG>)
 
-* Before doing the next step,please make sure that you have properly set up JAVA_HOME on your PC.
+
 2. choose local domain -> browse the Payara server,then select the directory where you installed the Payara 5. 
 
 ![Local_Domain](<images/Adding_payara_server_2.png>)
