@@ -13,15 +13,9 @@ This section outlines how to set up the application in Visual Studio Code.
 
 [Download](https://github.com/eclipse-ee4j/cargotracker/archive/master.zip) the source code zip file and expand it somewhere in your file system. Note that this is a Maven project.
 
-## Visual Studio Code Set-up
+## Visual Studio Code Setup
 
-### Installing Necessary Tools
-
-Start the Visual Studio Code
-
-Go to ->Extensions (Ctrl+Shift+ X)
-
-Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-Visual Studiocode) and [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=Visual Studiocjava.Visual Studiocode-java-pack) and install Payara Tools and Extension Pack for Java.
+Start Visual Studio Code. Go to -> Extensions (Ctrl+Shift+ X). Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode). Install Payara Tools.
 
  ![Payara_Tools](<images/payara_tools.PNG>)
 
