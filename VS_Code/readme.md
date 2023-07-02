@@ -68,7 +68,7 @@ Once the Payara Tools plugin is installed,
 ![import3](<images/importing_cargotracker_3.png>)
 
 ### Building and Running on Payara 5
-1. After the project loads,Go under the maven tab on the left bottom side,the eclipse cargo tracker name will be shown.Right-click on it and proceed with run maven commands clean,package,install and compile(which will take a while the very first time as Maven downloads dependencies)
+1. After the project loads,Go under the maven tab on the left bottom side,the eclipse cargo tracker name will be shown.Right-click on it and proceed with run maven commands clean and package(which will take a while the very first time as Maven downloads dependencies)
 
 ![build1](<images/building_cargotracker_1.png>)
 
