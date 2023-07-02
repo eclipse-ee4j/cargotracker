@@ -22,69 +22,70 @@ Go to ->Extensions (Ctrl+Shift+ X)
 
 Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) and [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and install Payara Tools and Extension Pack for Java.
 
- ![Payara Tools](<images/payara tools.PNG>)
+ ![Payara_Tools](<images/payara_tools.PNG>)
 
- ![Extension Pack for Java](<images/extension pack for java.PNG>)
+ ![Extension_Pack_for_Java](<images/extension_pack_for_java.PNG>)
 
 ### Adding Payara Server
 
 Once the Payara Tools plugin is installed, 
 1. Click on the Payara icon on the left side bar below the Extensions icon,then click on the '+' icon on the Servers.
 
-![Adding Server](<images/adding payara server 1.PNG>)
+![Adding_Server](<images/adding_payara_server_1.PNG>)
 
 * Before doing the next step,please make sure that you have properly set up JAVA_HOME on your PC.
 2. choose local domain -> browse the Payara server,then select the directory where you installed the Payara 5. 
 
-![Local Domain](<images/Adding payara server 2.png>)
+![Local_Domain](<images/Adding_payara_server_2.png>)
 
-![browse](<images/Adding payara server 3.png>)
+
+![browse](<images/Adding_payara_server_3.png>)
 
 3. Name it Payara5 and hit next. Select default domain1.
 
-![Payara5](<images/Adding payara server 4.png>)
+![Payara5](<images/Adding_payara_server_4.png>)
 
-![Local domain1](<images/Adding payara server 5.png>)
+![Local_domain1](<images/Adding_payara_server_5.png>)
 
 4. Now ,a payara5 name icon with the Payara logo comes under the servers.Right-click on that icon,and select start,it will automatically start the Payara 5.
 
-![running](<images/Running payara server 1.png>)
+![running](<images/Running_payara_server_1.png>)
 
 5. A small green color triangle comes under the Payara5 logo in the servers,this means your Payara server has been successfully started.You can verify if you wanted by visiting localhost:8080
 
-![running sucessful](<images/Running payara server 2.png>)
+![running_sucessful](<images/Running_payara_server_2.png>)
 
 ### Importing Code
 
 1. Go to File -> Open Folder ->Select the root directory of the Cargo Tracker project in your file system, and Hit finish.VS Code will automatically identify it as a Maven project.
 
-![import](<images/importing cargotracker 1.png>)
+![import](<images/importing_cargotracker_1.png>)
 
 2. This will take a few minutes to import the project for the first time.
 
-![import2](<images/importing cargotracker 2.png>)
+![import2](<images/importing_cargotracker_2.png>)
 
-![import3](<images/importing cargotracker 3.png>)
+![import3](<images/importing_cargotracker_3.png>)
 
 ### Building and Running on Payara 5
 1. After the project loads,Go under the maven tab on the left bottom side,the eclipse cargo tracker name will be shown.Right-click on it and proceed with run maven commands clean,package,install and compile(which will take a while the very first time as Maven downloads dependencies)
 
-![build1](<images/building cargotracker 1.png>)
+![build1](<images/building_cargotracker_1.png>)
 
-![build2](<images/building cargotracker 2.png>)
+![build2](<images/building_cargotracker_2.png>)
 
 2. After this a war file of the name cargo-tracker.war will be built under the target section.
 
-![target](<images/deployment 1.png>)
+![target](<images/deployment_1.png>)
 
 3. Right-click on that war file,select run on Payara server option
 
-![cargo-tracker.war](<images/deployment 2.png>)
+![cargo-tracker.war](<images/deployment_2.png>)
 4. The first-time startup might take a bit of time. After this, VS Code will automatically open up a default browser window with the application. 
 
-![launch](<images/deployment 3.png>)
+![launch](<images/deployment_3.png>)
 
-![sucess](<images/sucess 1.png>)
+![sucess](<images/sucess_1.png>)
 
 There is a tracking interface to track the current status of cargo and a booking interface to book and route cargo. You should explore both interfaces before diving into the code. You should also check out the [REST](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java) and [file processing](https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java) interfaces to register handling events as well as the mobile web interface. You can test against the REST interfaces using our [soapUI tests](https://github.com/eclipse-ee4j/cargotracker/tree/master/src/test/soapui).
 
