@@ -15,7 +15,7 @@ This section outlines how to set up the application in Visual Studio Code.
 
 ## Visual Studio Code Setup
 
-Start Visual Studio Code. Go to -> Extensions (Ctrl+Shift+ X). Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode). Install Payara Tools.
+Start Visual Studio Code. Go to -> Extensions (Ctrl+Shift+X). Search for [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode). Install Payara Tools.
 
  ![Payara_Tools](<images/payara_tools.PNG>)
 
