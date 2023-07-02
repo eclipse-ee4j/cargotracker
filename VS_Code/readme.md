@@ -43,9 +43,7 @@ You will now need to get the application into Visual Studio Code. Go to File -> 
 
 After the project loads, go to the Maven tab on the left bottom side. You will see that Eclipse Cargo Tracker is a recognized Maven project. Right click on it and run the 'clean' Maven command. Finally, run the 'package' Maven command. It will take a while the very first time as Maven downloads dependencies.
 
-![build1](<images/vs_building_cargotracker_1.png>)
-
-![build2](<images/vs_building_cargotracker_2.png>)
+![build](<images/vs_build.png>)
 
 2. After this a war file of the name cargo-tracker.war will be built under the target section.
 
