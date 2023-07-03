@@ -126,6 +126,7 @@ In general for all files we use a column/line width of 80 whenever possible and 
 For further guidance on contributing including the project roadmap, please look [here](CONTRIBUTING.md).
 
 ## Known Issues
+* When using Visual Studio Code IDE, please make sure that the JAVA_HOME environment variable is correctly set up on your computer. If it is not configured properly, you will be unable to select the domain when adding the Payara Server in VS Code IDE. As a result, you won't be able to add the Payara Server to Visual Studio Code IDE.
 * When you load the project in the Eclipse IDE, you may get some spurious validation failure messages on the XML deployment descriptors (these are essentially bugs in the Eclipse IDE). These are harmless and the application is just fine. You can simply ignore these false validation messages or delete them by going to the Markers tab.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
