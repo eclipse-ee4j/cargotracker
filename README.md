@@ -32,12 +32,12 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
-To set up in the Eclipse IDE, follow these steps:
+To set up in the VS Code IDE, follow these steps:
 
-* Set up Java SE 8, Java SE 11, or Java SE 17, [the Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.eclipse.org/content/payara-tools) in the Eclipse IDE.
-* Import this code in the Eclipse IDE as a Maven project,
-  the Eclipse IDE will do the rest for you. Proceed with clean/building the application.
-* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run it via Payara 5.
+* Set up Java SE 8, Java SE 11, or Java SE 17, [VS Code IDE](https://code.visualstudio.com/download) and [Payara 5](https://www.payara.fish/downloads/). You will also need to set up [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) and  [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) in the VS Code IDE.
+* Make sure JAVA_HOME is set.
+* Open the folder that contains the code in the Visual Studio Code IDE. The VS Code IDE will do the rest for you, it will automatically configure it as a Maven project. Proceed with clean/building the application.
+* After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated cargo-tracker.war file under the target folder via Payara 5.
 
 ## Exploring the Application
 
@@ -119,13 +119,14 @@ Cargo Tracker is deployed to Kubernetes on the cloud using GitHub Actions workfl
 A Java EE 7, Java SE 8, Payara 4.1 version of Cargo Tracker is available under the ['javaee7' branch](https://github.com/eclipse-ee4j/cargotracker/tree/javaee7).
 
 ## Contributing
-This project complies with the Google Style Guides for [Java](https://google.github.io/styleguide/javaguide.html), [JavaScript](https://google.github.io/styleguide/jsguide.html), and [HTML/CSS](https://google.github.io/styleguide/htmlcssguide.html). You can use the [google-java-format](https://github.com/google/google-java-format) tool to help you comply with the Google Java Style Guide. You can use the tool with most major IDEs such as Eclipse and IntelliJ.
+This project complies with the Google Style Guides for [Java](https://google.github.io/styleguide/javaguide.html), [JavaScript](https://google.github.io/styleguide/jsguide.html), and [HTML/CSS](https://google.github.io/styleguide/htmlcssguide.html). You can use the [google-java-format](https://github.com/google/google-java-format) tool to help you comply with the Google Java Style Guide. You can use the tool with most major IDEs such as Eclipse,VS Code and IntelliJ.
 
 In general for all files we use a column/line width of 80 whenever possible and we use 2 spaces for indentation. All files must end with a new line. Please adjust the formatting settings of your IDE accordingly. You are encouraged but not required to use HTML Tidy and CSS Tidy to help format your code.
 
 For further guidance on contributing including the project roadmap, please look [here](CONTRIBUTING.md).
 
 ## Known Issues
+* When using Visual Studio Code IDE, please make sure that the JAVA_HOME environment variable is correctly set up on your computer. If it is not configured properly, you will be unable to select the domain when adding the Payara Server in VS Code IDE. As a result, you won't be able to add the Payara Server to Visual Studio Code IDE.
 * When you load the project in the Eclipse IDE, you may get some spurious validation failure messages on the XML deployment descriptors (these are essentially bugs in the Eclipse IDE). These are harmless and the application is just fine. You can simply ignore these false validation messages or delete them by going to the Markers tab.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
