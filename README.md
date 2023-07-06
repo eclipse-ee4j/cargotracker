@@ -107,7 +107,7 @@ For the most part, it's fine if you are new to Jakarta EE. As long as you have a
 basic understanding of server-side applications, the code should be good enough to get started. For learning Jakarta EE further,
 we have recommended a few links in the resources section of the project site. Of
 course, the ideal user of the project is someone who has a basic working
-understanding both Jakarta EE and DDD. Though it's not our goal to become a kitchen
+understanding of both Jakarta EE and DDD. Though it's not our goal to become a kitchen
 sink example for demonstrating the vast amount of APIs and features in Jakarta EE,
 we do use a very representative set. You'll find that you'll learn a fair amount
 by simply digging into the code to see how things are implemented.
