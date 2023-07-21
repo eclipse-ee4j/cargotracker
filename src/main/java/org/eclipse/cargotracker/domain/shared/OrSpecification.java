@@ -1,7 +1,8 @@
 package org.eclipse.cargotracker.domain.shared;
 
 /**
- * OR specification, used to create a new specification that is the OR of two other specifications.
+ * OR specification, used to create a new specification that is the OR of two
+ * other specifications.
  */
 public class OrSpecification<T> extends AbstractSpecification<T> {
 
@@ -19,7 +20,9 @@ public class OrSpecification<T> extends AbstractSpecification<T> {
     this.spec2 = spec2;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isSatisfiedBy(T t) {
     return spec1.isSatisfiedBy(t) || spec2.isSatisfiedBy(t);

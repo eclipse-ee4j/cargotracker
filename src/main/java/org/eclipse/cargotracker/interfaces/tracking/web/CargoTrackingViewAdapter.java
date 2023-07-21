@@ -12,7 +12,9 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.interfaces.Coordinates;
 import org.eclipse.cargotracker.interfaces.CoordinatesFactory;
 
-/** View adapter for displaying a cargo in a tracking context. */
+/**
+ * View adapter for displaying a cargo in a tracking context.
+ */
 public class CargoTrackingViewAdapter {
 
   private final Cargo cargo;
@@ -55,8 +57,8 @@ public class CargoTrackingViewAdapter {
 
   public String getLastKnownLocationName() {
     return cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString().equals("XXXXX")
-        ? "Unknown"
-        : cargo.getDelivery().getLastKnownLocation().getName();
+            ? "Unknown"
+            : cargo.getDelivery().getLastKnownLocation().getName();
   }
 
   public String getLastKnownLocationCode() {
@@ -83,7 +85,9 @@ public class CargoTrackingViewAdapter {
     return cargo.getDelivery().getTransportStatus().name();
   }
 
-  /** @return A readable string describing the cargo status. */
+  /**
+   * @return A readable string describing the cargo status.
+   */
   public String getStatusText() {
     Delivery delivery = cargo.getDelivery();
 
@@ -129,29 +133,33 @@ public class CargoTrackingViewAdapter {
 
     if (type.sameValueAs(HandlingEvent.Type.LOAD)) {
       return text
-          + type.name().toLowerCase()
-          + " cargo onto voyage "
-          + activity.getVoyage().getVoyageNumber()
-          + " in "
-          + activity.getLocation().getName();
+              + type.name().toLowerCase()
+              + " cargo onto voyage "
+              + activity.getVoyage().getVoyageNumber()
+              + " in "
+              + activity.getLocation().getName();
     } else if (type.sameValueAs(HandlingEvent.Type.UNLOAD)) {
       return text
-          + type.name().toLowerCase()
-          + " cargo off of "
-          + activity.getVoyage().getVoyageNumber()
-          + " in "
-          + activity.getLocation().getName();
+              + type.name().toLowerCase()
+              + " cargo off of "
+              + activity.getVoyage().getVoyageNumber()
+              + " in "
+              + activity.getLocation().getName();
     } else {
       return text + type.name().toLowerCase() + " cargo in " + activity.getLocation().getName();
     }
   }
 
-  /** @return An unmodifiable list of handling event view adapters. */
+  /**
+   * @return An unmodifiable list of handling event view adapters.
+   */
   public List<HandlingEventViewAdapter> getEvents() {
     return Collections.unmodifiableList(events);
   }
 
-  /** Handling event view adapter component. */
+  /**
+   * Handling event view adapter component.
+   */
   public class HandlingEventViewAdapter {
 
     private final HandlingEvent handlingEvent;
@@ -172,14 +180,14 @@ public class CargoTrackingViewAdapter {
       switch (handlingEvent.getType()) {
         case LOAD:
           return "Loaded onto voyage "
-              + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-              + " in "
-              + handlingEvent.getLocation().getName();
+                  + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+                  + " in "
+                  + handlingEvent.getLocation().getName();
         case UNLOAD:
           return "Unloaded off voyage "
-              + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-              + " in "
-              + handlingEvent.getLocation().getName();
+                  + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+                  + " in "
+                  + handlingEvent.getLocation().getName();
         case RECEIVE:
           return "Received in " + handlingEvent.getLocation().getName();
         case CLAIM:

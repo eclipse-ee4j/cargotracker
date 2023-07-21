@@ -6,7 +6,9 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ServerProperties;
 
-/** Jakarta REST configuration. */
+/**
+ * Jakarta REST configuration.
+ */
 @ApplicationPath("rest")
 public class RestConfiguration extends Application {
 

@@ -13,7 +13,9 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/** A voyage schedule. */
+/**
+ * A voyage schedule.
+ */
 @Embeddable
 public class Schedule implements Serializable {
 

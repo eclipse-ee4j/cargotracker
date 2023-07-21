@@ -4,7 +4,9 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.interfaces.Coordinates;
 import org.eclipse.cargotracker.interfaces.CoordinatesFactory;
 
-/** View adapter for displaying a location in a real-time tracking context. */
+/**
+ * View adapter for displaying a location in a real-time tracking context.
+ */
 public class LocationViewAdapter {
 
   private final Location location;

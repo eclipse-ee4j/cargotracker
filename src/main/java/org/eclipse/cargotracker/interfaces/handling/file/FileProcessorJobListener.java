@@ -12,7 +12,8 @@ import javax.inject.Named;
 @Named("FileProcessorJobListener")
 public class FileProcessorJobListener implements JobListener {
 
-  @Inject private Logger logger;
+  @Inject
+  private Logger logger;
 
   @Override
   public void beforeJob() throws Exception {

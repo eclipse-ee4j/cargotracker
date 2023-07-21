@@ -16,8 +16,9 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 
 /**
- * A handling activity represents how and where a cargo can be handled, and can be used to express
- * predictions about what is expected to happen to a cargo in the future.
+ * A handling activity represents how and where a cargo can be handled, and can
+ * be used to express predictions about what is expected to happen to a cargo in
+ * the future.
  */
 @Embeddable
 public class HandlingActivity implements Serializable {
@@ -38,7 +39,8 @@ public class HandlingActivity implements Serializable {
   @JoinColumn(name = "next_expected_voyage_id")
   private Voyage voyage;
 
-  public HandlingActivity() {}
+  public HandlingActivity() {
+  }
 
   public HandlingActivity(HandlingEvent.Type type, Location location) {
     Validate.notNull(type, "Handling event type is required.");
@@ -72,20 +74,20 @@ public class HandlingActivity implements Serializable {
 
   private boolean sameValueAs(HandlingActivity other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.type, other.type)
-            .append(this.location, other.location)
-            .append(this.voyage, other.voyage)
-            .isEquals();
+            && new EqualsBuilder()
+                    .append(this.type, other.type)
+                    .append(this.location, other.location)
+                    .append(this.voyage, other.voyage)
+                    .isEquals();
   }
 
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-        .append(this.type)
-        .append(this.location)
-        .append(this.voyage)
-        .toHashCode();
+            .append(this.type)
+            .append(this.location)
+            .append(this.voyage)
+            .toHashCode();
   }
 
   @Override

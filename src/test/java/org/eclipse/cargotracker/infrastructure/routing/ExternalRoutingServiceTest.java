@@ -42,36 +42,35 @@ public class ExternalRoutingServiceTest {
   // TODO [TDD] this test belongs in com.pathfinder
   public void testCalculatePossibleRoutes() {
     TrackingId trackingId = new TrackingId("ABC");
-    RouteSpecification routeSpecification =
-        new RouteSpecification(SampleLocations.HONGKONG, SampleLocations.HELSINKI, LocalDate.now());
+    RouteSpecification routeSpecification
+            = new RouteSpecification(SampleLocations.HONGKONG, SampleLocations.HELSINKI, LocalDate.now());
     Cargo cargo = new Cargo(trackingId, routeSpecification);
 
     //
     // expect(voyageRepository.find(isA(VoyageNumber.class))).andStubReturn(SampleVoyages.CM002);
     //
     //        replay(voyageRepository);
-
-    List<Itinerary> candidates =
-        externalRoutingService.fetchRoutesForSpecification(routeSpecification);
+    List<Itinerary> candidates
+            = externalRoutingService.fetchRoutesForSpecification(routeSpecification);
     assertNotNull(candidates);
 
     // Cargo origin and start of first leg should match
     // Cargo final destination and last leg stop should match
     // Assert that all legs are connected
     candidates
-        .stream()
-        .map(Itinerary::getLegs)
-        .forEach(
-            legs -> {
-              assertNotNull(legs);
-              assertFalse(legs.isEmpty());
-              assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
-              Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
-              assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
-              for (int i = 0; i < legs.size() - 1; i++) {
-                assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());
-              }
-            });
+            .stream()
+            .map(Itinerary::getLegs)
+            .forEach(
+                    legs -> {
+                      assertNotNull(legs);
+                      assertFalse(legs.isEmpty());
+                      assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
+                      Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
+                      assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
+                      for (int i = 0; i < legs.size() - 1; i++) {
+                        assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());
+                      }
+                    });
 
     //        verify(voyageRepository);
   }

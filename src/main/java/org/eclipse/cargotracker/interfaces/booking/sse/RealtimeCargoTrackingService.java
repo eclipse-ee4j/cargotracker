@@ -20,15 +20,21 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.infrastructure.events.cdi.CargoUpdated;
 
-/** Sever-sent events service for tracking all cargo in real time. */
+/**
+ * Sever-sent events service for tracking all cargo in real time.
+ */
 @Singleton
 @Path("/cargo")
 public class RealtimeCargoTrackingService {
-  @Inject private Logger logger;
 
-  @Inject private CargoRepository cargoRepository;
+  @Inject
+  private Logger logger;
 
-  @Context private Sse sse;
+  @Inject
+  private CargoRepository cargoRepository;
+
+  @Context
+  private Sse sse;
   private SseBroadcaster broadcaster;
 
   @PostConstruct
@@ -59,8 +65,8 @@ public class RealtimeCargoTrackingService {
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
     return sse.newEventBuilder()
-        .mediaType(MediaType.APPLICATION_JSON_TYPE)
-        .data(new RealtimeCargoTrackingViewAdapter(cargo))
-        .build();
+            .mediaType(MediaType.APPLICATION_JSON_TYPE)
+            .data(new RealtimeCargoTrackingViewAdapter(cargo))
+            .build();
   }
 }

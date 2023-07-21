@@ -39,8 +39,8 @@ import org.junit.Assert;
 public class CargoLifecycleScenarioTest {
 
   /**
-   * Repository implementations are part of the infrastructure layer, which in this test is stubbed
-   * out by in-memory replacements.
+   * Repository implementations are part of the infrastructure layer, which in
+   * this test is stubbed out by in-memory replacements.
    */
   HandlingEventRepository handlingEventRepository;
 
@@ -49,17 +49,19 @@ public class CargoLifecycleScenarioTest {
   VoyageRepository voyageRepository;
 
   /**
-   * This interface is part of the application layer, and defines a number of events that occur
-   * during aplication execution. It is used for message-driving and is implemented using JMS.
+   * This interface is part of the application layer, and defines a number of
+   * events that occur during aplication execution. It is used for
+   * message-driving and is implemented using JMS.
    *
-   * <p>In this test it is stubbed with synchronous calls.
+   * <p>
+   * In this test it is stubbed with synchronous calls.
    */
   ApplicationEvents applicationEvents;
 
   /**
-   * These three components all belong to the application layer, and map against use cases of the
-   * application. The "real" implementations are used in this lifecycle test, but wired with stubbed
-   * infrastructure.
+   * These three components all belong to the application layer, and map against
+   * use cases of the application. The "real" implementations are used in this
+   * lifecycle test, but wired with stubbed infrastructure.
    */
   BookingService bookingService;
 
@@ -67,17 +69,18 @@ public class CargoLifecycleScenarioTest {
   CargoInspectionService cargoInspectionService;
 
   /**
-   * This factory is part of the handling aggregate and belongs to the domain layer. Similar to the
-   * application layer components, the "real" implementation is used here too, wired with stubbed
-   * infrastructure.
+   * This factory is part of the handling aggregate and belongs to the domain
+   * layer. Similar to the application layer components, the "real"
+   * implementation is used here too, wired with stubbed infrastructure.
    */
   HandlingEventFactory handlingEventFactory;
 
   /**
-   * This is a domain service interface, whose implementation is part of the infrastructure layer
-   * (remote call to external system).
+   * This is a domain service interface, whose implementation is part of the
+   * infrastructure layer (remote call to external system).
    *
-   * <p>It is stubbed in this test.
+   * <p>
+   * It is stubbed in this test.
    */
   RoutingService routingService;
 
@@ -95,9 +98,9 @@ public class CargoLifecycleScenarioTest {
      *
      * A new cargo is booked, and the unique tracking id is assigned to the cargo.
      */
-    TrackingId trackingId =
-        bookingService.bookNewCargo(
-            origin.getUnLocode(), destination.getUnLocode(), arrivalDeadline);
+    TrackingId trackingId
+            = bookingService.bookNewCargo(
+                    origin.getUnLocode(), destination.getUnLocode(), arrivalDeadline);
 
     /*
      * The tracking id can be used to lookup the cargo in the repository.
@@ -135,8 +138,8 @@ public class CargoLifecycleScenarioTest {
     assertEquals(RoutingStatus.ROUTED, cargo.getDelivery().getRoutingStatus());
     org.junit.Assert.assertNotNull(cargo.getDelivery().getEstimatedTimeOfArrival());
     assertEquals(
-        new HandlingActivity(HandlingEvent.Type.RECEIVE, SampleLocations.HONGKONG),
-        cargo.getDelivery().getNextExpectedActivity());
+            new HandlingActivity(HandlingEvent.Type.RECEIVE, SampleLocations.HONGKONG),
+            cargo.getDelivery().getNextExpectedActivity());
 
     /*
      * Use case 3: handling
@@ -153,22 +156,22 @@ public class CargoLifecycleScenarioTest {
      * Handling begins: cargo is received in Hongkong.
      */
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(1),
-        trackingId,
-        null,
-        SampleLocations.HONGKONG.getUnLocode(),
-        HandlingEvent.Type.RECEIVE);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(1),
+            trackingId,
+            null,
+            SampleLocations.HONGKONG.getUnLocode(),
+            HandlingEvent.Type.RECEIVE);
 
     assertEquals(TransportStatus.IN_PORT, cargo.getDelivery().getTransportStatus());
     assertEquals(SampleLocations.HONGKONG, cargo.getDelivery().getLastKnownLocation());
 
     // Next event: Load onto voyage SampleVoyages.CM003 in Hongkong
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(3),
-        trackingId,
-        SampleVoyages.v100.getVoyageNumber(),
-        SampleLocations.HONGKONG.getUnLocode(),
-        HandlingEvent.Type.LOAD);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(3),
+            trackingId,
+            SampleVoyages.v100.getVoyageNumber(),
+            SampleLocations.HONGKONG.getUnLocode(),
+            HandlingEvent.Type.LOAD);
 
     // Check current state - should be ok
     assertEquals(SampleVoyages.v100, cargo.getDelivery().getCurrentVoyage());
@@ -176,9 +179,9 @@ public class CargoLifecycleScenarioTest {
     assertEquals(TransportStatus.ONBOARD_CARRIER, cargo.getDelivery().getTransportStatus());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertEquals(
-        new HandlingActivity(
-            HandlingEvent.Type.UNLOAD, SampleLocations.NEWYORK, SampleVoyages.v100),
-        cargo.getDelivery().getNextExpectedActivity());
+            new HandlingActivity(
+                    HandlingEvent.Type.UNLOAD, SampleLocations.NEWYORK, SampleVoyages.v100),
+            cargo.getDelivery().getNextExpectedActivity());
 
     /*
      * Here's an attempt to register a handling event that's not valid because there
@@ -193,23 +196,23 @@ public class CargoLifecycleScenarioTest {
 
     try {
       handlingEventService.registerHandlingEvent(
-          LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),
-          trackingId,
-          noSuchVoyageNumber,
-          noSuchUnLocode,
-          HandlingEvent.Type.LOAD);
+              LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),
+              trackingId,
+              noSuchVoyageNumber,
+              noSuchUnLocode,
+              HandlingEvent.Type.LOAD);
       org.junit.Assert.fail(
-          "Should not be able to register a handling event with invalid location and voyage");
+              "Should not be able to register a handling event with invalid location and voyage");
     } catch (CannotCreateHandlingEventException expected) {
     }
 
     // Cargo is now (incorrectly) unloaded in Tokyo
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),
-        trackingId,
-        SampleVoyages.v100.getVoyageNumber(),
-        SampleLocations.TOKYO.getUnLocode(),
-        HandlingEvent.Type.UNLOAD);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(5),
+            trackingId,
+            SampleVoyages.v100.getVoyageNumber(),
+            SampleLocations.TOKYO.getUnLocode(),
+            HandlingEvent.Type.UNLOAD);
 
     // Check current state - cargo is misdirected!
     Assert.assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
@@ -223,8 +226,8 @@ public class CargoLifecycleScenarioTest {
     // originates"
     // Specify a new route, this time from Tokyo (where it was incorrectly unloaded)
     // to SampleLocations.STOCKHOLM
-    RouteSpecification fromTokyo =
-        new RouteSpecification(SampleLocations.TOKYO, SampleLocations.STOCKHOLM, arrivalDeadline);
+    RouteSpecification fromTokyo
+            = new RouteSpecification(SampleLocations.TOKYO, SampleLocations.STOCKHOLM, arrivalDeadline);
     cargo.specifyNewRoute(fromTokyo);
 
     // The old itinerary does not satisfy the new specification
@@ -233,8 +236,8 @@ public class CargoLifecycleScenarioTest {
 
     // Repeat procedure of selecting one out of a number of possible routes
     // satisfying the route spec
-    List<Itinerary> newItineraries =
-        bookingService.requestPossibleRoutesForCargo(cargo.getTrackingId());
+    List<Itinerary> newItineraries
+            = bookingService.requestPossibleRoutesForCargo(cargo.getTrackingId());
     Itinerary newItinerary = selectPreferedItinerary(newItineraries);
     cargo.assignToRoute(newItinerary);
 
@@ -249,11 +252,11 @@ public class CargoLifecycleScenarioTest {
     // -- Cargo has been rerouted, shipping continues --
     // Load in Tokyo
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(8),
-        trackingId,
-        SampleVoyages.v300.getVoyageNumber(),
-        SampleLocations.TOKYO.getUnLocode(),
-        HandlingEvent.Type.LOAD);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(8),
+            trackingId,
+            SampleVoyages.v300.getVoyageNumber(),
+            SampleLocations.TOKYO.getUnLocode(),
+            HandlingEvent.Type.LOAD);
 
     // Check current state - should be ok
     assertEquals(SampleVoyages.v300, cargo.getDelivery().getCurrentVoyage());
@@ -261,17 +264,17 @@ public class CargoLifecycleScenarioTest {
     assertEquals(TransportStatus.ONBOARD_CARRIER, cargo.getDelivery().getTransportStatus());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertEquals(
-        new HandlingActivity(
-            HandlingEvent.Type.UNLOAD, SampleLocations.HAMBURG, SampleVoyages.v300),
-        cargo.getDelivery().getNextExpectedActivity());
+            new HandlingActivity(
+                    HandlingEvent.Type.UNLOAD, SampleLocations.HAMBURG, SampleVoyages.v300),
+            cargo.getDelivery().getNextExpectedActivity());
 
     // Unload in Hamburg
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(12),
-        trackingId,
-        SampleVoyages.v300.getVoyageNumber(),
-        SampleLocations.HAMBURG.getUnLocode(),
-        HandlingEvent.Type.UNLOAD);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(12),
+            trackingId,
+            SampleVoyages.v300.getVoyageNumber(),
+            SampleLocations.HAMBURG.getUnLocode(),
+            HandlingEvent.Type.UNLOAD);
 
     // Check current state - should be ok
     assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
@@ -279,16 +282,16 @@ public class CargoLifecycleScenarioTest {
     assertEquals(TransportStatus.IN_PORT, cargo.getDelivery().getTransportStatus());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertEquals(
-        new HandlingActivity(HandlingEvent.Type.LOAD, SampleLocations.HAMBURG, SampleVoyages.v400),
-        cargo.getDelivery().getNextExpectedActivity());
+            new HandlingActivity(HandlingEvent.Type.LOAD, SampleLocations.HAMBURG, SampleVoyages.v400),
+            cargo.getDelivery().getNextExpectedActivity());
 
     // Load in Hamburg
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(14),
-        trackingId,
-        SampleVoyages.v400.getVoyageNumber(),
-        SampleLocations.HAMBURG.getUnLocode(),
-        HandlingEvent.Type.LOAD);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(14),
+            trackingId,
+            SampleVoyages.v400.getVoyageNumber(),
+            SampleLocations.HAMBURG.getUnLocode(),
+            HandlingEvent.Type.LOAD);
 
     // Check current state - should be ok
     assertEquals(SampleVoyages.v400, cargo.getDelivery().getCurrentVoyage());
@@ -296,17 +299,17 @@ public class CargoLifecycleScenarioTest {
     assertEquals(TransportStatus.ONBOARD_CARRIER, cargo.getDelivery().getTransportStatus());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertEquals(
-        new HandlingActivity(
-            HandlingEvent.Type.UNLOAD, SampleLocations.STOCKHOLM, SampleVoyages.v400),
-        cargo.getDelivery().getNextExpectedActivity());
+            new HandlingActivity(
+                    HandlingEvent.Type.UNLOAD, SampleLocations.STOCKHOLM, SampleVoyages.v400),
+            cargo.getDelivery().getNextExpectedActivity());
 
     // Unload in SampleLocations.STOCKHOLM
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(15),
-        trackingId,
-        SampleVoyages.v400.getVoyageNumber(),
-        SampleLocations.STOCKHOLM.getUnLocode(),
-        HandlingEvent.Type.UNLOAD);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(15),
+            trackingId,
+            SampleVoyages.v400.getVoyageNumber(),
+            SampleLocations.STOCKHOLM.getUnLocode(),
+            HandlingEvent.Type.UNLOAD);
 
     // Check current state - should be ok
     assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
@@ -314,17 +317,17 @@ public class CargoLifecycleScenarioTest {
     assertEquals(TransportStatus.IN_PORT, cargo.getDelivery().getTransportStatus());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertEquals(
-        new HandlingActivity(HandlingEvent.Type.CLAIM, SampleLocations.STOCKHOLM),
-        cargo.getDelivery().getNextExpectedActivity());
+            new HandlingActivity(HandlingEvent.Type.CLAIM, SampleLocations.STOCKHOLM),
+            cargo.getDelivery().getNextExpectedActivity());
 
     // Finally, cargo is claimed in SampleLocations.STOCKHOLM. This ends the cargo
     // lifecycle from our perspective.
     handlingEventService.registerHandlingEvent(
-        LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(16),
-        trackingId,
-        null,
-        SampleLocations.STOCKHOLM.getUnLocode(),
-        HandlingEvent.Type.CLAIM);
+            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(16),
+            trackingId,
+            null,
+            SampleLocations.STOCKHOLM.getUnLocode(),
+            HandlingEvent.Type.CLAIM);
 
     // Check current state - should be ok
     assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
@@ -342,52 +345,52 @@ public class CargoLifecycleScenarioTest {
   }
 
   protected void setUp() throws Exception {
-    routingService =
-        routeSpecification -> {
-          if (routeSpecification.getOrigin().equals(SampleLocations.HONGKONG)) {
-            // Hongkong - NYC - Chicago - SampleLocations.STOCKHOLM, initial routing
-            return Arrays.asList(
-                new Itinerary(
-                    Arrays.asList(
-                        new Leg(
-                            SampleVoyages.v100,
-                            SampleLocations.HONGKONG,
-                            SampleLocations.NEWYORK,
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(3),
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(9)),
-                        new Leg(
-                            SampleVoyages.v200,
-                            SampleLocations.NEWYORK,
-                            SampleLocations.CHICAGO,
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(10),
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(14)),
-                        new Leg(
-                            SampleVoyages.v200,
-                            SampleLocations.CHICAGO,
-                            SampleLocations.STOCKHOLM,
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(7),
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(11)))));
-          } else {
-            // Tokyo - Hamburg - SampleLocations.STOCKHOLM, rerouting misdirected cargo
-            // from
-            // Tokyo
-            return Arrays.asList(
-                new Itinerary(
-                    Arrays.asList(
-                        new Leg(
-                            SampleVoyages.v300,
-                            SampleLocations.TOKYO,
-                            SampleLocations.HAMBURG,
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(8),
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(12)),
-                        new Leg(
-                            SampleVoyages.v400,
-                            SampleLocations.HAMBURG,
-                            SampleLocations.STOCKHOLM,
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(14),
-                            LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(15)))));
-          }
-        };
+    routingService
+            = routeSpecification -> {
+              if (routeSpecification.getOrigin().equals(SampleLocations.HONGKONG)) {
+                // Hongkong - NYC - Chicago - SampleLocations.STOCKHOLM, initial routing
+                return Arrays.asList(
+                        new Itinerary(
+                                Arrays.asList(
+                                        new Leg(
+                                                SampleVoyages.v100,
+                                                SampleLocations.HONGKONG,
+                                                SampleLocations.NEWYORK,
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(3),
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(9)),
+                                        new Leg(
+                                                SampleVoyages.v200,
+                                                SampleLocations.NEWYORK,
+                                                SampleLocations.CHICAGO,
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(10),
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(14)),
+                                        new Leg(
+                                                SampleVoyages.v200,
+                                                SampleLocations.CHICAGO,
+                                                SampleLocations.STOCKHOLM,
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(7),
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(11)))));
+              } else {
+                // Tokyo - Hamburg - SampleLocations.STOCKHOLM, rerouting misdirected cargo
+                // from
+                // Tokyo
+                return Arrays.asList(
+                        new Itinerary(
+                                Arrays.asList(
+                                        new Leg(
+                                                SampleVoyages.v300,
+                                                SampleLocations.TOKYO,
+                                                SampleLocations.HAMBURG,
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(8),
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(12)),
+                                        new Leg(
+                                                SampleVoyages.v400,
+                                                SampleLocations.HAMBURG,
+                                                SampleLocations.STOCKHOLM,
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(14),
+                                                LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(15)))));
+              }
+            };
 
     //        applicationEvents = new SynchronousApplicationEventsStub();
     // In-memory implementations of the repositories

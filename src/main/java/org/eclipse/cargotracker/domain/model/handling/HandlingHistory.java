@@ -11,10 +11,10 @@ import org.apache.commons.lang3.Validate;
 public class HandlingHistory {
 
   // Null object pattern.
-  public static final HandlingHistory EMPTY =
-      new HandlingHistory(Collections.<HandlingEvent>emptyList());
-  private static final Comparator<HandlingEvent> BY_COMPLETION_TIME_COMPARATOR =
-      Comparator.comparing(HandlingEvent::getCompletionTime);
+  public static final HandlingHistory EMPTY
+          = new HandlingHistory(Collections.<HandlingEvent>emptyList());
+  private static final Comparator<HandlingEvent> BY_COMPLETION_TIME_COMPARATOR
+          = Comparator.comparing(HandlingEvent::getCompletionTime);
 
   private final List<HandlingEvent> handlingEvents;
 
@@ -29,8 +29,8 @@ public class HandlingHistory {
   }
 
   /**
-   * @return A distinct list (no duplicate registrations) of handling events, ordered by completion
-   *     time.
+   * @return A distinct list (no duplicate registrations) of handling events,
+   * ordered by completion time.
    */
   public List<HandlingEvent> getDistinctEventsByCompletionTime() {
     List<HandlingEvent> ordered = new ArrayList<>(new HashSet<>(handlingEvents));
@@ -39,7 +39,10 @@ public class HandlingHistory {
     return Collections.unmodifiableList(ordered);
   }
 
-  /** @return Most recently completed event, or null if the delivery history is empty. */
+  /**
+   * @return Most recently completed event, or null if the delivery history is
+   * empty.
+   */
   public HandlingEvent getMostRecentlyCompletedEvent() {
     List<HandlingEvent> distinctEvents = getDistinctEventsByCompletionTime();
 

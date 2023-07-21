@@ -9,10 +9,12 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
 /**
- * Periodically scans a certain directory for files and attempts to parse handling event
- * registrations from the contents by calling a batch job.
+ * Periodically scans a certain directory for files and attempts to parse
+ * handling event registrations from the contents by calling a batch job.
  *
- * <p>Files that fail to parse are moved into a separate directory, successful files are deleted.
+ * <p>
+ * Files that fail to parse are moved into a separate directory, successful
+ * files are deleted.
  */
 @Stateless
 @PermitAll

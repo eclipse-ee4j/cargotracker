@@ -15,13 +15,13 @@ public class CargoStatus {
   private final List<TrackingEvents> events;
 
   public CargoStatus(
-      String trackigId,
-      String destination,
-      String statusText,
-      boolean misdirected,
-      String eta,
-      String nextExpectedActivity,
-      List<TrackingEvents> handlingEvents) {
+          String trackigId,
+          String destination,
+          String statusText,
+          boolean misdirected,
+          String eta,
+          String nextExpectedActivity,
+          List<TrackingEvents> handlingEvents) {
     this.trackingId = trackigId;
     this.destination = destination;
     this.statusText = statusText;
@@ -41,7 +41,9 @@ public class CargoStatus {
     return destination;
   }
 
-  /** @return A readable string describing the cargo status. */
+  /**
+   * @return A readable string describing the cargo status.
+   */
   public String getStatusText() {
     return statusText;
   }

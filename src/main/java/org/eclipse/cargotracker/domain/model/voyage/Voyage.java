@@ -15,16 +15,19 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 
 @Entity
 @NamedQuery(
-    name = "Voyage.findByVoyageNumber",
-    query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
+        name = "Voyage.findByVoyageNumber",
+        query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
 @NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")
 public class Voyage implements Serializable {
+
   private static final long serialVersionUID = 1L;
 
   // Null object pattern
   public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
 
-  @Id @GeneratedValue private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @Embedded
   @NotNull(message = "Voyage number is required.")
@@ -88,8 +91,8 @@ public class Voyage implements Serializable {
   }
 
   /**
-   * Builder pattern is used for incremental construction of a Voyage aggregate. This serves as an
-   * aggregate factory.
+   * Builder pattern is used for incremental construction of a Voyage aggregate.
+   * This serves as an aggregate factory.
    */
   public static class Builder {
 
@@ -106,9 +109,9 @@ public class Voyage implements Serializable {
     }
 
     public Builder addMovement(
-        Location arrivalLocation, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+            Location arrivalLocation, LocalDateTime departureTime, LocalDateTime arrivalTime) {
       carrierMovements.add(
-          new CarrierMovement(departureLocation, arrivalLocation, departureTime, arrivalTime));
+              new CarrierMovement(departureLocation, arrivalLocation, departureTime, arrivalTime));
 
       // Next departure location is the same as this arrival location
       this.departureLocation = arrivalLocation;

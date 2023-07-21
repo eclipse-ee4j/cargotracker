@@ -16,7 +16,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
-/** A carrier movement is a vessel voyage from one location to another. */
+/**
+ * A carrier movement is a vessel voyage from one location to another.
+ */
 @Entity
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
@@ -24,10 +26,12 @@ public class CarrierMovement implements Serializable {
   private static final long serialVersionUID = 1L;
 
   // Null object pattern
-  public static final CarrierMovement NONE =
-      new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
+  public static final CarrierMovement NONE
+          = new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
 
-  @Id @GeneratedValue private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @ManyToOne
   @JoinColumn(name = "departure_location_id")
@@ -52,12 +56,12 @@ public class CarrierMovement implements Serializable {
   }
 
   public CarrierMovement(
-      Location departureLocation,
-      Location arrivalLocation,
-      LocalDateTime departureTime,
-      LocalDateTime arrivalTime) {
+          Location departureLocation,
+          Location arrivalLocation,
+          LocalDateTime departureTime,
+          LocalDateTime arrivalTime) {
     Validate.noNullElements(
-        new Object[] {departureLocation, arrivalLocation, departureTime, arrivalTime});
+            new Object[]{departureLocation, arrivalLocation, departureTime, arrivalTime});
 
     // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
     // the DB, and retrieved from the DB, the values are different by nanoseconds.
@@ -101,20 +105,20 @@ public class CarrierMovement implements Serializable {
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-        .append(this.departureLocation)
-        .append(this.departureTime)
-        .append(this.arrivalLocation)
-        .append(this.arrivalTime)
-        .toHashCode();
+            .append(this.departureLocation)
+            .append(this.departureTime)
+            .append(this.arrivalLocation)
+            .append(this.arrivalTime)
+            .toHashCode();
   }
 
   private boolean sameValueAs(CarrierMovement other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.departureLocation, other.departureLocation)
-            .append(this.departureTime, other.departureTime)
-            .append(this.arrivalLocation, other.arrivalLocation)
-            .append(this.arrivalTime, other.arrivalTime)
-            .isEquals();
+            && new EqualsBuilder()
+                    .append(this.departureLocation, other.departureLocation)
+                    .append(this.departureTime, other.departureTime)
+                    .append(this.arrivalLocation, other.arrivalLocation)
+                    .append(this.arrivalTime, other.arrivalTime)
+                    .isEquals();
   }
 }

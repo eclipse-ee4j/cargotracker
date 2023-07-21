@@ -16,9 +16,9 @@ public class GraphDao implements Serializable {
 
   public List<String> listLocations() {
     return new ArrayList<>(
-        Arrays.asList(
-            "CNHKG", "AUMEL", "SESTO", "FIHEL", "USCHI", "JNTKO", "DEHAM", "CNSHA", "NLRTM",
-            "SEGOT", "CNHGH", "USNYC", "USDAL"));
+            Arrays.asList(
+                    "CNHKG", "AUMEL", "SESTO", "FIHEL", "USCHI", "JNTKO", "DEHAM", "CNSHA", "NLRTM",
+                    "SEGOT", "CNHGH", "USNYC", "USDAL"));
   }
 
   public String getVoyageNumber(String from, String to) {

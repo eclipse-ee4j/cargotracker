@@ -4,15 +4,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/** Transfer object for handling reports. */
+/**
+ * Transfer object for handling reports.
+ */
 @XmlRootElement
 public class HandlingReport {
 
   @NotBlank(message = "Missing completion time.")
   @Size(
-      min = 15,
-      max = 19,
-      message = "Completion time value must be between fifteen and nineteen characters long.")
+          min = 15,
+          max = 19,
+          message = "Completion time value must be between fifteen and nineteen characters long.")
   // TODO [DDD] Apply regular expression validation.
   private String completionTime;
 
@@ -22,9 +24,9 @@ public class HandlingReport {
 
   @NotBlank(message = "Missing event type.")
   @Size(
-      min = 4,
-      max = 7,
-      message = "Event type value must be one of: RECEIVE, LOAD, UNLOAD, CUSTOMS, CLAIM")
+          min = 4,
+          max = 7,
+          message = "Event type value must be one of: RECEIVE, LOAD, UNLOAD, CUSTOMS, CLAIM")
   // TODO [DDD] Apply regular expression validation.
   private String eventType;
 
@@ -33,9 +35,9 @@ public class HandlingReport {
   private String unLocode;
 
   @Size(
-      min = 4,
-      max = 5,
-      message = "Voyage number value must be between four and five characters long.")
+          min = 4,
+          max = 5,
+          message = "Voyage number value must be between four and five characters long.")
   private String voyageNumber;
 
   public String getCompletionTime() {

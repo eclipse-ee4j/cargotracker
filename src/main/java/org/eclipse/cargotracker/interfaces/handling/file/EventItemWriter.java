@@ -22,8 +22,10 @@ public class EventItemWriter extends AbstractItemWriter {
 
   private static final String ARCHIVE_DIRECTORY = "archive_directory";
 
-  @Inject private JobContext jobContext;
-  @Inject private ApplicationEvents applicationEvents;
+  @Inject
+  private JobContext jobContext;
+  @Inject
+  private ApplicationEvents applicationEvents;
 
   @Override
   public void open(Serializable checkpoint) throws Exception {
@@ -37,37 +39,37 @@ public class EventItemWriter extends AbstractItemWriter {
   @Override
   @Transactional
   public void writeItems(List<Object> items) throws Exception {
-    try (PrintWriter archive =
-        new PrintWriter(
-            new BufferedWriter(
-                new FileWriter(
-                    jobContext.getProperties().getProperty(ARCHIVE_DIRECTORY)
-                        + "/archive_"
-                        + jobContext.getJobName()
-                        + "_"
-                        + jobContext.getInstanceId()
-                        + ".csv",
-                    true)))) {
+    try (PrintWriter archive
+            = new PrintWriter(
+                    new BufferedWriter(
+                            new FileWriter(
+                                    jobContext.getProperties().getProperty(ARCHIVE_DIRECTORY)
+                                    + "/archive_"
+                                    + jobContext.getJobName()
+                                    + "_"
+                                    + jobContext.getInstanceId()
+                                    + ".csv",
+                                    true)))) {
 
       items
-          .stream()
-          .map(item -> (HandlingEventRegistrationAttempt) item)
-          .forEach(
-              attempt -> {
-                applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
-                archive.println(
-                    DateConverter.toString(attempt.getRegistrationTime())
-                        + ","
-                        + DateConverter.toString(attempt.getCompletionTime())
-                        + ","
-                        + attempt.getTrackingId()
-                        + ","
-                        + attempt.getVoyageNumber()
-                        + ","
-                        + attempt.getUnLocode()
-                        + ","
-                        + attempt.getType());
-              });
+              .stream()
+              .map(item -> (HandlingEventRegistrationAttempt) item)
+              .forEach(
+                      attempt -> {
+                        applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
+                        archive.println(
+                                DateConverter.toString(attempt.getRegistrationTime())
+                                + ","
+                                + DateConverter.toString(attempt.getCompletionTime())
+                                + ","
+                                + attempt.getTrackingId()
+                                + ","
+                                + attempt.getVoyageNumber()
+                                + ","
+                                + attempt.getUnLocode()
+                                + ","
+                                + attempt.getType());
+                      });
     }
   }
 }

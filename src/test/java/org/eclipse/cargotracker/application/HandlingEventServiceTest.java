@@ -18,10 +18,10 @@ public class HandlingEventServiceTest {
   //	private VoyageRepository voyageRepository;
   //	private HandlingEventRepository handlingEventRepository;
   //	private LocationRepository locationRepository;
-  private Cargo cargo =
-      new Cargo(
-          new TrackingId("ABC"),
-          new RouteSpecification(SampleLocations.HAMBURG, SampleLocations.TOKYO, LocalDate.now()));
+  private Cargo cargo
+          = new Cargo(
+                  new TrackingId("ABC"),
+                  new RouteSpecification(SampleLocations.HAMBURG, SampleLocations.TOKYO, LocalDate.now()));
 
   protected void setUp() throws Exception {
     //        cargoRepository = createMock(CargoRepository.class);
@@ -52,12 +52,11 @@ public class HandlingEventServiceTest {
 
     //        replay(cargoRepository, voyageRepository, handlingEventRepository,
     //                locationRepository, applicationEvents);
-
     service.registerHandlingEvent(
-        LocalDateTime.now(),
-        cargo.getTrackingId(),
-        SampleVoyages.CM001.getVoyageNumber(),
-        SampleLocations.STOCKHOLM.getUnLocode(),
-        HandlingEvent.Type.LOAD);
+            LocalDateTime.now(),
+            cargo.getTrackingId(),
+            SampleVoyages.CM001.getVoyageNumber(),
+            SampleLocations.STOCKHOLM.getUnLocode(),
+            HandlingEvent.Type.LOAD);
   }
 }

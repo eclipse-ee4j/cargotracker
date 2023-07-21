@@ -21,22 +21,26 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Inject private Logger logger;
+  @Inject
+  private Logger logger;
 
-  @PersistenceContext private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
-  @Inject @CargoUpdated private Event<Cargo> cargoUpdated;
+  @Inject
+  @CargoUpdated
+  private Event<Cargo> cargoUpdated;
 
   @Override
   public Cargo find(TrackingId trackingId) {
     Cargo cargo;
 
     try {
-      cargo =
-          entityManager
-              .createNamedQuery("Cargo.findByTrackingId", Cargo.class)
-              .setParameter("trackingId", trackingId)
-              .getSingleResult();
+      cargo
+              = entityManager
+                      .createNamedQuery("Cargo.findByTrackingId", Cargo.class)
+                      .setParameter("trackingId", trackingId)
+                      .getSingleResult();
     } catch (NoResultException e) {
       logger.log(Level.FINE, "Find called on non-existant tracking ID.", e);
       cargo = null;

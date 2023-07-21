@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.eclipse.cargotracker.application.util.DateConverter;
 
-/** DTO for a leg in an itinerary. */
+/**
+ * DTO for a leg in an itinerary.
+ */
 public class Leg implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -15,11 +17,11 @@ public class Leg implements Serializable {
   private final String unloadTime;
 
   public Leg(
-      String voyageNumber,
-      Location from,
-      Location to,
-      LocalDateTime loadTime,
-      LocalDateTime unloadTime) {
+          String voyageNumber,
+          Location from,
+          Location to,
+          LocalDateTime loadTime,
+          LocalDateTime unloadTime) {
     this.voyageNumber = voyageNumber;
     this.from = from;
     this.to = to;
@@ -66,16 +68,16 @@ public class Leg implements Serializable {
   @Override
   public String toString() {
     return "Leg{"
-        + "voyageNumber="
-        + voyageNumber
-        + ", from="
-        + from.getUnLocode()
-        + ", to="
-        + to.getUnLocode()
-        + ", loadTime="
-        + loadTime
-        + ", unloadTime="
-        + unloadTime
-        + '}';
+            + "voyageNumber="
+            + voyageNumber
+            + ", from="
+            + from.getUnLocode()
+            + ", to="
+            + to.getUnLocode()
+            + ", loadTime="
+            + loadTime
+            + ", unloadTime="
+            + unloadTime
+            + '}';
   }
 }

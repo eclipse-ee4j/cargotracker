@@ -16,25 +16,26 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.TrackingEvents;
 @ApplicationScoped
 public class CargoStatusDtoAssembler {
 
-  @Inject private TrackingEventsDtoAssembler assembler;
+  @Inject
+  private TrackingEventsDtoAssembler assembler;
 
   public CargoStatus toDto(Cargo cargo, List<HandlingEvent> handlingEvents) {
     List<TrackingEvents> trackingEvents;
 
-    trackingEvents =
-        handlingEvents
-            .stream()
-            .map(handlingEvent -> assembler.toDto(cargo, handlingEvent))
-            .collect(Collectors.toList());
+    trackingEvents
+            = handlingEvents
+                    .stream()
+                    .map(handlingEvent -> assembler.toDto(cargo, handlingEvent))
+                    .collect(Collectors.toList());
 
     return new CargoStatus(
-        cargo.getTrackingId().getIdString(),
-        cargo.getRouteSpecification().getDestination().getName(),
-        getCargoStatusText(cargo),
-        cargo.getDelivery().isMisdirected(),
-        getEta(cargo),
-        getNextExpectedActivity(cargo),
-        trackingEvents);
+            cargo.getTrackingId().getIdString(),
+            cargo.getRouteSpecification().getDestination().getName(),
+            getCargoStatusText(cargo),
+            cargo.getDelivery().isMisdirected(),
+            getEta(cargo),
+            getNextExpectedActivity(cargo),
+            trackingEvents);
   }
 
   private String getCargoStatusText(Cargo cargo) {
@@ -78,18 +79,18 @@ public class CargoStatusDtoAssembler {
 
     if (type.sameValueAs(HandlingEvent.Type.LOAD)) {
       return text
-          + type.name().toLowerCase()
-          + " cargo onto voyage "
-          + activity.getVoyage().getVoyageNumber()
-          + " in "
-          + activity.getLocation().getName();
+              + type.name().toLowerCase()
+              + " cargo onto voyage "
+              + activity.getVoyage().getVoyageNumber()
+              + " in "
+              + activity.getLocation().getName();
     } else if (type.sameValueAs(HandlingEvent.Type.UNLOAD)) {
       return text
-          + type.name().toLowerCase()
-          + " cargo off of "
-          + activity.getVoyage().getVoyageNumber()
-          + " in "
-          + activity.getLocation().getName();
+              + type.name().toLowerCase()
+              + " cargo off of "
+              + activity.getVoyage().getVoyageNumber()
+              + " in "
+              + activity.getLocation().getName();
     } else {
       return text + type.name().toLowerCase() + " cargo in " + activity.getLocation().getName();
     }

@@ -14,13 +14,17 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.SampleVoyages;
 
-/** Loads sample data for demo. */
+/**
+ * Loads sample data for demo.
+ */
 @Singleton
 @Startup
 public class BookingServiceTestDataGenerator {
 
-  @Inject private Logger logger;
-  @PersistenceContext private EntityManager entityManager;
+  @Inject
+  private Logger logger;
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @PostConstruct
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -38,13 +42,13 @@ public class BookingServiceTestDataGenerator {
     // Dropping cargo first won't work since handling events have references
     // to it.
     // TODO [Clean Code] See if there is a better way to do this.
-    List<Cargo> cargos =
-        entityManager.createQuery("Select c from Cargo c", Cargo.class).getResultList();
+    List<Cargo> cargos
+            = entityManager.createQuery("Select c from Cargo c", Cargo.class).getResultList();
     cargos.forEach(
-        cargo -> {
-          cargo.getDelivery().setLastEvent(null);
-          entityManager.merge(cargo);
-        });
+            cargo -> {
+              cargo.getDelivery().setLastEvent(null);
+              entityManager.merge(cargo);
+            });
 
     // Delete all entities
     // TODO [Clean Code] See why cascade delete is not working.

@@ -10,14 +10,16 @@ import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 
 /**
- * Handles tracking cargo. Operates against a dedicated service facade, and could easily be
- * rewritten as a thick Swing client. Completely separated from the domain layer, unlike the public
- * tracking user interface.
+ * Handles tracking cargo. Operates against a dedicated service facade, and
+ * could easily be rewritten as a thick Swing client. Completely separated from
+ * the domain layer, unlike the public tracking user interface.
  *
- * <p>In order to successfully keep the domain model shielded from user interface considerations,
- * this approach is generally preferred to the one taken in the public tracking controller. However,
- * there is never any one perfect solution for all situations, so we've chosen to demonstrate two
- * polarized ways to build user interfaces.
+ * <p>
+ * In order to successfully keep the domain model shielded from user interface
+ * considerations, this approach is generally preferred to the one taken in the
+ * public tracking controller. However, there is never any one perfect solution
+ * for all situations, so we've chosen to demonstrate two polarized ways to
+ * build user interfaces.
  */
 @Named("admin.track")
 @ViewScoped
@@ -25,7 +27,8 @@ public class Track implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
+  @Inject
+  private BookingServiceFacade bookingServiceFacade;
 
   private List<String> trackingIds;
   private String trackingId;

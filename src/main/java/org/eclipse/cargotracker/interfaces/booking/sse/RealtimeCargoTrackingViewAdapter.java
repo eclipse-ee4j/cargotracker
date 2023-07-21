@@ -6,13 +6,15 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
 
-/** View adapter for displaying a cargo in a realtime tracking context. */
+/**
+ * View adapter for displaying a cargo in a realtime tracking context.
+ */
 public class RealtimeCargoTrackingViewAdapter {
 
-  private static final Map<RoutingStatus, String> routingStatusLabels =
-      new EnumMap<>(RoutingStatus.class);
-  private static final Map<TransportStatus, String> transportStatusLabels =
-      new EnumMap<>(TransportStatus.class);
+  private static final Map<RoutingStatus, String> routingStatusLabels
+          = new EnumMap<>(RoutingStatus.class);
+  private static final Map<TransportStatus, String> transportStatusLabels
+          = new EnumMap<>(TransportStatus.class);
 
   private final Cargo cargo;
 
@@ -50,8 +52,8 @@ public class RealtimeCargoTrackingViewAdapter {
 
   public LocationViewAdapter getLocation() {
     return cargo.getDelivery().getTransportStatus() == TransportStatus.NOT_RECEIVED
-        ? getOrigin()
-        : getLastKnownLocation();
+            ? getOrigin()
+            : getLastKnownLocation();
   }
 
   public String getStatusCode() {

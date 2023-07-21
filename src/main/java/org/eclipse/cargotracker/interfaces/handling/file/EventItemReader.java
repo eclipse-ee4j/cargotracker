@@ -26,9 +26,11 @@ public class EventItemReader extends AbstractItemReader {
 
   private static final String UPLOAD_DIRECTORY = "upload_directory";
 
-  @Inject private Logger logger;
+  @Inject
+  private Logger logger;
 
-  @Inject private JobContext jobContext;
+  @Inject
+  private JobContext jobContext;
   private EventFilesCheckpoint checkpoint;
   private RandomAccessFile currentFile;
 
@@ -73,7 +75,7 @@ public class EventItemReader extends AbstractItemReader {
         return parseLine(line);
       } else {
         logger.log(
-            Level.INFO, "Finished processing file, deleting: {0}", this.checkpoint.currentFile());
+                Level.INFO, "Finished processing file, deleting: {0}", this.checkpoint.currentFile());
         currentFile.close();
         this.checkpoint.currentFile().delete();
         File nextFile = this.checkpoint.nextFile();
@@ -141,9 +143,9 @@ public class EventItemReader extends AbstractItemReader {
       throw new EventLineParseException("Cannot parse event type", e, line);
     }
 
-    HandlingEventRegistrationAttempt attempt =
-        new HandlingEventRegistrationAttempt(
-            LocalDateTime.now(), completionTime, trackingId, voyageNumber, eventType, unLocode);
+    HandlingEventRegistrationAttempt attempt
+            = new HandlingEventRegistrationAttempt(
+                    LocalDateTime.now(), completionTime, trackingId, voyageNumber, eventType, unLocode);
 
     return attempt;
   }

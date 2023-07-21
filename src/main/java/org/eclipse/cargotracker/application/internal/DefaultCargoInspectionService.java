@@ -15,10 +15,14 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
 @Stateless
 public class DefaultCargoInspectionService implements CargoInspectionService {
 
-  @Inject private Logger logger;
-  @Inject private ApplicationEvents applicationEvents;
-  @Inject private CargoRepository cargoRepository;
-  @Inject private HandlingEventRepository handlingEventRepository;
+  @Inject
+  private Logger logger;
+  @Inject
+  private ApplicationEvents applicationEvents;
+  @Inject
+  private CargoRepository cargoRepository;
+  @Inject
+  private HandlingEventRepository handlingEventRepository;
 
   @Override
   public void inspectCargo(TrackingId trackingId) {
@@ -29,8 +33,8 @@ public class DefaultCargoInspectionService implements CargoInspectionService {
       return;
     }
 
-    HandlingHistory handlingHistory =
-        handlingEventRepository.lookupHandlingHistoryOfCargo(trackingId);
+    HandlingHistory handlingHistory
+            = handlingEventRepository.lookupHandlingHistoryOfCargo(trackingId);
 
     cargo.deriveDeliveryProgress(handlingHistory);
 

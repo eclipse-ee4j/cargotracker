@@ -19,13 +19,17 @@ public class HandlingEventFactory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Inject private CargoRepository cargoRepository;
-  @Inject private VoyageRepository voyageRepository;
-  @Inject private LocationRepository locationRepository;
+  @Inject
+  private CargoRepository cargoRepository;
+  @Inject
+  private VoyageRepository voyageRepository;
+  @Inject
+  private LocationRepository locationRepository;
 
   /**
    * @param registrationTime time when this event was received by the system
-   * @param completionTime when the event was completed, for example finished loading
+   * @param completionTime when the event was completed, for example finished
+   * loading
    * @param trackingId cargo tracking id
    * @param voyageNumber voyage number
    * @param unlocode United Nations Location Code for the location of the event
@@ -37,13 +41,13 @@ public class HandlingEventFactory implements Serializable {
    */
   // TODO [Clean Code] Look at the exception handling more seriously.
   public HandlingEvent createHandlingEvent(
-      LocalDateTime registrationTime,
-      LocalDateTime completionTime,
-      TrackingId trackingId,
-      VoyageNumber voyageNumber,
-      UnLocode unlocode,
-      HandlingEvent.Type type)
-      throws CannotCreateHandlingEventException {
+          LocalDateTime registrationTime,
+          LocalDateTime completionTime,
+          TrackingId trackingId,
+          VoyageNumber voyageNumber,
+          UnLocode unlocode,
+          HandlingEvent.Type type)
+          throws CannotCreateHandlingEventException {
     Cargo cargo = findCargo(trackingId);
     Voyage voyage = findVoyage(voyageNumber);
     Location location = findLocation(unlocode);

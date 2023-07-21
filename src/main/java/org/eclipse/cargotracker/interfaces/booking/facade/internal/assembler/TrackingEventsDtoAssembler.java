@@ -15,9 +15,9 @@ public class TrackingEventsDtoAssembler {
     HandlingEvent.Type type = handlingEvent.getType();
     String voyageNumber = voyageNumberFrom(handlingEvent);
     return new TrackingEvents(
-        cargo.getItinerary().isExpected(handlingEvent),
-        descriptionFrom(type, location, voyageNumber),
-        timeFrom(handlingEvent));
+            cargo.getItinerary().isExpected(handlingEvent),
+            descriptionFrom(type, location, voyageNumber),
+            timeFrom(handlingEvent));
   }
 
   private String timeFrom(HandlingEvent event) {

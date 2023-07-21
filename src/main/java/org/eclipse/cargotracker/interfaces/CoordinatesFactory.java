@@ -22,8 +22,8 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 
 /**
- * At the moment, coordinates are produced by a simple factory. It may be converted to a repository
- * if coordinates become a domain layer concern.
+ * At the moment, coordinates are produced by a simple factory. It may be
+ * converted to a repository if coordinates become a domain layer concern.
  */
 public class CoordinatesFactory {
 

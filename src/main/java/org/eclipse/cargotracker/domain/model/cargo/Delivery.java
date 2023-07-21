@@ -31,8 +31,8 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 
 /**
- * The actual transportation of the cargo, as opposed to the customer requirement
- * (RouteSpecification) and the plan (Itinerary).
+ * The actual transportation of the cargo, as opposed to the customer
+ * requirement (RouteSpecification) and the plan (Itinerary).
  */
 @Embeddable
 public class Delivery implements Serializable {
@@ -56,11 +56,13 @@ public class Delivery implements Serializable {
   @JoinColumn(name = "current_voyage_id")
   private Voyage currentVoyage;
 
-  @NotNull private boolean misdirected;
+  @NotNull
+  private boolean misdirected;
 
   private LocalDateTime eta;
 
-  @Embedded private HandlingActivity nextExpectedActivity;
+  @Embedded
+  private HandlingActivity nextExpectedActivity;
 
   @Column(name = "unloaded_at_dest")
   @NotNull
@@ -84,7 +86,7 @@ public class Delivery implements Serializable {
   }
 
   public Delivery(
-      HandlingEvent lastEvent, Itinerary itinerary, RouteSpecification routeSpecification) {
+          HandlingEvent lastEvent, Itinerary itinerary, RouteSpecification routeSpecification) {
     // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
     // the DB, and retrieved from the DB, the values are different by nanoseconds.
     this.calculatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
@@ -101,8 +103,8 @@ public class Delivery implements Serializable {
   }
 
   /**
-   * Creates a new delivery snapshot based on the complete handling history of a cargo, as well as
-   * its route specification and itinerary.
+   * Creates a new delivery snapshot based on the complete handling history of a
+   * cargo, as well as its route specification and itinerary.
    *
    * @param routeSpecification route specification
    * @param itinerary itinerary
@@ -110,7 +112,7 @@ public class Delivery implements Serializable {
    * @return An up to date delivery.
    */
   static Delivery derivedFrom(
-      RouteSpecification routeSpecification, Itinerary itinerary, HandlingHistory handlingHistory) {
+          RouteSpecification routeSpecification, Itinerary itinerary, HandlingHistory handlingHistory) {
     Validate.notNull(routeSpecification, "Route specification is required");
     Validate.notNull(handlingHistory, "Delivery history is required");
 
@@ -120,9 +122,9 @@ public class Delivery implements Serializable {
   }
 
   /**
-   * Creates a new delivery snapshot to reflect changes in routing, i.e. when the route
-   * specification or the itinerary has changed but no additional handling of the cargo has been
-   * performed.
+   * Creates a new delivery snapshot to reflect changes in routing, i.e. when
+   * the route specification or the itinerary has changed but no additional
+   * handling of the cargo has been performed.
    */
   Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
     Validate.notNull(routeSpecification, "Route specification is required");
@@ -160,9 +162,10 @@ public class Delivery implements Serializable {
    * <p>
    *
    * <ul>
-   *   <li>A cargo is misdirected if it is in a location that's not in the itinerary.
-   *   <li>A cargo with no itinerary can not be misdirected.
-   *   <li>A cargo that has received no handling events can not be misdirected.
+   * <li>A cargo is misdirected if it is in a location that's not in the
+   * itinerary.
+   * <li>A cargo with no itinerary can not be misdirected.
+   * <li>A cargo that has received no handling events can not be misdirected.
    * </ul>
    *
    * @return <code>true</code> if the cargo has been misdirected,
@@ -183,7 +186,9 @@ public class Delivery implements Serializable {
     return nextExpectedActivity;
   }
 
-  /** @return True if the cargo has been unloaded at the final destination. */
+  /**
+   * @return True if the cargo has been unloaded at the final destination.
+   */
   public boolean isUnloadedAtDestination() {
     return isUnloadedAtDestination;
   }
@@ -262,7 +267,7 @@ public class Delivery implements Serializable {
   }
 
   private HandlingActivity calculateNextExpectedActivity(
-      RouteSpecification routeSpecification, Itinerary itinerary) {
+          RouteSpecification routeSpecification, Itinerary itinerary) {
     if (!onTrack()) {
       return NO_ACTIVITY;
     }
@@ -276,21 +281,21 @@ public class Delivery implements Serializable {
         for (Leg leg : itinerary.getLegs()) {
           if (leg.getLoadLocation().sameIdentityAs(lastEvent.getLocation())) {
             return new HandlingActivity(
-                HandlingEvent.Type.UNLOAD, leg.getUnloadLocation(), leg.getVoyage());
+                    HandlingEvent.Type.UNLOAD, leg.getUnloadLocation(), leg.getVoyage());
           }
         }
 
         return NO_ACTIVITY;
 
       case UNLOAD:
-        for (Iterator<Leg> iterator = itinerary.getLegs().iterator(); iterator.hasNext(); ) {
+        for (Iterator<Leg> iterator = itinerary.getLegs().iterator(); iterator.hasNext();) {
           Leg leg = iterator.next();
 
           if (leg.getUnloadLocation().sameIdentityAs(lastEvent.getLocation())) {
             if (iterator.hasNext()) {
               Leg nextLeg = iterator.next();
               return new HandlingActivity(
-                  HandlingEvent.Type.LOAD, nextLeg.getLoadLocation(), nextLeg.getVoyage());
+                      HandlingEvent.Type.LOAD, nextLeg.getLoadLocation(), nextLeg.getVoyage());
             } else {
               return new HandlingActivity(HandlingEvent.Type.CLAIM, leg.getUnloadLocation());
             }
@@ -303,7 +308,7 @@ public class Delivery implements Serializable {
         Leg firstLeg = itinerary.getLegs().iterator().next();
 
         return new HandlingActivity(
-            HandlingEvent.Type.LOAD, firstLeg.getLoadLocation(), firstLeg.getVoyage());
+                HandlingEvent.Type.LOAD, firstLeg.getLoadLocation(), firstLeg.getVoyage());
 
       case CLAIM:
       default:
@@ -312,7 +317,7 @@ public class Delivery implements Serializable {
   }
 
   private RoutingStatus calculateRoutingStatus(
-      Itinerary itinerary, RouteSpecification routeSpecification) {
+          Itinerary itinerary, RouteSpecification routeSpecification) {
     if (itinerary == null || itinerary == Itinerary.EMPTY_ITINERARY) {
       return NOT_ROUTED;
     } else {
@@ -326,8 +331,8 @@ public class Delivery implements Serializable {
 
   private boolean calculateUnloadedAtDestination(RouteSpecification routeSpecification) {
     return lastEvent != null
-        && HandlingEvent.Type.UNLOAD.sameValueAs(lastEvent.getType())
-        && routeSpecification.getDestination().sameIdentityAs(lastEvent.getLocation());
+            && HandlingEvent.Type.UNLOAD.sameValueAs(lastEvent.getType())
+            && routeSpecification.getDestination().sameIdentityAs(lastEvent.getLocation());
   }
 
   private boolean onTrack() {
@@ -336,18 +341,18 @@ public class Delivery implements Serializable {
 
   private boolean sameValueAs(Delivery other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.transportStatus, other.transportStatus)
-            .append(this.lastKnownLocation, other.lastKnownLocation)
-            .append(this.currentVoyage, other.currentVoyage)
-            .append(this.misdirected, other.misdirected)
-            .append(this.eta, other.eta)
-            .append(this.nextExpectedActivity, other.nextExpectedActivity)
-            .append(this.isUnloadedAtDestination, other.isUnloadedAtDestination)
-            .append(this.routingStatus, other.routingStatus)
-            .append(this.calculatedAt, other.calculatedAt)
-            .append(this.lastEvent, other.lastEvent)
-            .isEquals();
+            && new EqualsBuilder()
+                    .append(this.transportStatus, other.transportStatus)
+                    .append(this.lastKnownLocation, other.lastKnownLocation)
+                    .append(this.currentVoyage, other.currentVoyage)
+                    .append(this.misdirected, other.misdirected)
+                    .append(this.eta, other.eta)
+                    .append(this.nextExpectedActivity, other.nextExpectedActivity)
+                    .append(this.isUnloadedAtDestination, other.isUnloadedAtDestination)
+                    .append(this.routingStatus, other.routingStatus)
+                    .append(this.calculatedAt, other.calculatedAt)
+                    .append(this.lastEvent, other.lastEvent)
+                    .isEquals();
   }
 
   @Override
@@ -367,16 +372,16 @@ public class Delivery implements Serializable {
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-        .append(transportStatus)
-        .append(lastKnownLocation)
-        .append(currentVoyage)
-        .append(misdirected)
-        .append(eta)
-        .append(nextExpectedActivity)
-        .append(isUnloadedAtDestination)
-        .append(routingStatus)
-        .append(calculatedAt)
-        .append(lastEvent)
-        .toHashCode();
+            .append(transportStatus)
+            .append(lastKnownLocation)
+            .append(currentVoyage)
+            .append(misdirected)
+            .append(eta)
+            .append(nextExpectedActivity)
+            .append(isUnloadedAtDestination)
+            .append(routingStatus)
+            .append(calculatedAt)
+            .append(lastEvent)
+            .toHashCode();
   }
 }

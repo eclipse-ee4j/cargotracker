@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0"
-  xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee https://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0"
+         xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee https://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
   <!-- Overriding system level defaults is a decent usage of XML. -->
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -53,14 +53,14 @@
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   <!-- Application resource dependencies like JMS queues and data sources are still 
-    good candidates for XML, as is application configuration. -->
+  good candidates for XML, as is application configuration. -->
   <env-entry>
     <env-entry-name>java:app/configuration/GraphTraversalUrl</env-entry-name>
     <env-entry-type>java.lang.String</env-entry-type>
     <env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
   </env-entry>
   <!-- Defining these at the application server level instead of here can be more 
-    operations friendly and help make deployment even faster. -->
+  operations friendly and help make deployment even faster. -->
   <data-source>
     <name>java:app/jdbc/CargoTrackerDatabase</name>
     <class-name>${db.driverClass}</class-name>

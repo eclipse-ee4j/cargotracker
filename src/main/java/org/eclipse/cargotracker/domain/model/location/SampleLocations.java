@@ -1,6 +1,8 @@
 package org.eclipse.cargotracker.domain.model.location;
 
-/** Sample locations, for test purposes. */
+/**
+ * Sample locations, for test purposes.
+ */
 public class SampleLocations {
 
   public static final Location HONGKONG = new Location(new UnLocode("CNHKG"), "Hong Kong");

@@ -8,8 +8,8 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 
 /**
- * This facade shields the domain layer - model, services, repositories - from concerns about such
- * things as the user interface and remote communication.
+ * This facade shields the domain layer - model, services, repositories - from
+ * concerns about such things as the user interface and remote communication.
  */
 public interface BookingServiceFacade {
 

@@ -2,7 +2,9 @@ package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
 import java.io.Serializable;
 
-/** Location DTO. */
+/**
+ * Location DTO.
+ */
 public class Location implements Serializable {
 
   private static final long serialVersionUID = 1L;

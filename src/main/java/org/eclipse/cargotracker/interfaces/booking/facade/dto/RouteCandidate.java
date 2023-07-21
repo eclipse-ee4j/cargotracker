@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-/** DTO for presenting and selecting an itinerary from a collection of candidates. */
+/**
+ * DTO for presenting and selecting an itinerary from a collection of
+ * candidates.
+ */
 public class RouteCandidate implements Serializable {
 
   private static final long serialVersionUID = 1L;

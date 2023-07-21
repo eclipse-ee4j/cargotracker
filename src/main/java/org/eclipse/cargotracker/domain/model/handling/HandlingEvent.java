@@ -24,29 +24,38 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 
 /**
- * A HandlingEvent is used to register the event when, for instance, a cargo is unloaded from a
- * carrier at a some location at a given time.
+ * A HandlingEvent is used to register the event when, for instance, a cargo is
+ * unloaded from a carrier at a some location at a given time.
  *
- * <p>The HandlingEvent's are sent from different Incident Logging Applications some time after the
- * event occurred and contain information about the null {@link TrackingId}, {@link Location}, time
- * stamp of the completion of the event, and possibly, if applicable a {@link Voyage}.
+ * <p>
+ * The HandlingEvent's are sent from different Incident Logging Applications
+ * some time after the event occurred and contain information about the null
+ * {@link TrackingId}, {@link Location}, time stamp of the completion of the
+ * event, and possibly, if applicable a {@link Voyage}.
  *
- * <p>This class is the only member, and consequently the root, of the HandlingEvent aggregate.
+ * <p>
+ * This class is the only member, and consequently the root, of the
+ * HandlingEvent aggregate.
  *
- * <p>HandlingEvent's could contain information about a {@link Voyage} and if so, the event type
- * must be either {@link Type#LOAD} or {@link Type#UNLOAD}.
+ * <p>
+ * HandlingEvent's could contain information about a {@link Voyage} and if so,
+ * the event type must be either {@link Type#LOAD} or {@link Type#UNLOAD}.
  *
- * <p>All other events must be of {@link Type#RECEIVE}, {@link Type#CLAIM} or {@link Type#CUSTOMS}.
+ * <p>
+ * All other events must be of {@link Type#RECEIVE}, {@link Type#CLAIM} or
+ * {@link Type#CUSTOMS}.
  */
 @Entity
 @NamedQuery(
-    name = "HandlingEvent.findByTrackingId",
-    query = "Select e from HandlingEvent e where e.cargo.trackingId = :trackingId")
+        name = "HandlingEvent.findByTrackingId",
+        query = "Select e from HandlingEvent e where e.cargo.trackingId = :trackingId")
 public class HandlingEvent implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Id @GeneratedValue private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @Enumerated(EnumType.STRING)
   @NotNull
@@ -74,7 +83,8 @@ public class HandlingEvent implements Serializable {
   @NotNull
   private Cargo cargo;
 
-  @Transient private String summary;
+  @Transient
+  private String summary;
 
   public HandlingEvent() {
     // Nothing to initialize.
@@ -82,20 +92,20 @@ public class HandlingEvent implements Serializable {
 
   /**
    * @param cargo The cargo
-   * @param completionTime completion time, the reported time that the event actually happened (e.g.
-   *     the receive took place).
+   * @param completionTime completion time, the reported time that the event
+   * actually happened (e.g. the receive took place).
    * @param registrationTime registration time, the time the message is received
    * @param type type of event
    * @param location where the event took place
    * @param voyage the voyage
    */
   public HandlingEvent(
-      Cargo cargo,
-      LocalDateTime completionTime,
-      LocalDateTime registrationTime,
-      Type type,
-      Location location,
-      Voyage voyage) {
+          Cargo cargo,
+          LocalDateTime completionTime,
+          LocalDateTime registrationTime,
+          Type type,
+          Location location,
+          Voyage voyage) {
     Validate.notNull(cargo, "Cargo is required");
     Validate.notNull(completionTime, "Completion time is required");
     Validate.notNull(registrationTime, "Registration time is required");
@@ -120,18 +130,18 @@ public class HandlingEvent implements Serializable {
 
   /**
    * @param cargo cargo
-   * @param completionTime completion time, the reported time that the event actually happened (e.g.
-   *     the receive took place).
+   * @param completionTime completion time, the reported time that the event
+   * actually happened (e.g. the receive took place).
    * @param registrationTime registration time, the time the message is received
    * @param type type of event
    * @param location where the event took place
    */
   public HandlingEvent(
-      Cargo cargo,
-      LocalDateTime completionTime,
-      LocalDateTime registrationTime,
-      Type type,
-      Location location) {
+          Cargo cargo,
+          LocalDateTime completionTime,
+          LocalDateTime registrationTime,
+          Type type,
+          Location location) {
     Validate.notNull(cargo, "Cargo is required");
     Validate.notNull(completionTime, "Completion time is required");
     Validate.notNull(registrationTime, "Registration time is required");
@@ -177,17 +187,17 @@ public class HandlingEvent implements Serializable {
   }
 
   public String getSummary() {
-    StringBuilder builder =
-        new StringBuilder(location.getName())
-            .append("\n")
-            .append(completionTime)
-            .append("\n")
-            .append("Type: ")
-            .append(type)
-            .append("\n")
-            .append("Reg.: ")
-            .append(registrationTime)
-            .append("\n");
+    StringBuilder builder
+            = new StringBuilder(location.getName())
+                    .append("\n")
+                    .append(completionTime)
+                    .append("\n")
+                    .append("Type: ")
+                    .append(type)
+                    .append("\n")
+                    .append("Reg.: ")
+                    .append(registrationTime)
+                    .append("\n");
 
     if (voyage != null) {
       builder.append("Voyage: ").append(voyage.getVoyageNumber());
@@ -213,45 +223,45 @@ public class HandlingEvent implements Serializable {
 
   private boolean sameEventAs(HandlingEvent other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.cargo, other.cargo)
-            .append(this.voyage, other.voyage)
-            .append(this.completionTime, other.completionTime)
-            .append(this.location, other.location)
-            .append(this.type, other.type)
-            .isEquals();
+            && new EqualsBuilder()
+                    .append(this.cargo, other.cargo)
+                    .append(this.voyage, other.voyage)
+                    .append(this.completionTime, other.completionTime)
+                    .append(this.location, other.location)
+                    .append(this.type, other.type)
+                    .isEquals();
   }
 
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-        .append(cargo)
-        .append(voyage)
-        .append(completionTime)
-        .append(location)
-        .append(type)
-        .toHashCode();
+            .append(cargo)
+            .append(voyage)
+            .append(completionTime)
+            .append(location)
+            .append(type)
+            .toHashCode();
   }
 
   @Override
   public String toString() {
-    StringBuilder builder =
-        new StringBuilder("\n--- Handling event ---\n")
-            .append("Cargo: ")
-            .append(cargo.getTrackingId())
-            .append("\n")
-            .append("Type: ")
-            .append(type)
-            .append("\n")
-            .append("Location: ")
-            .append(location.getName())
-            .append("\n")
-            .append("Completed on: ")
-            .append(completionTime)
-            .append("\n")
-            .append("Registered on: ")
-            .append(registrationTime)
-            .append("\n");
+    StringBuilder builder
+            = new StringBuilder("\n--- Handling event ---\n")
+                    .append("Cargo: ")
+                    .append(cargo.getTrackingId())
+                    .append("\n")
+                    .append("Type: ")
+                    .append(type)
+                    .append("\n")
+                    .append("Location: ")
+                    .append(location.getName())
+                    .append("\n")
+                    .append("Completed on: ")
+                    .append(completionTime)
+                    .append("\n")
+                    .append("Registered on: ")
+                    .append(registrationTime)
+                    .append("\n");
 
     if (voyage != null) {
       builder.append("Voyage: ").append(voyage.getVoyageNumber()).append("\n");
@@ -261,8 +271,8 @@ public class HandlingEvent implements Serializable {
   }
 
   /**
-   * Handling event type. Either requires or prohibits a carrier movement association, it's never
-   * optional.
+   * Handling event type. Either requires or prohibits a carrier movement
+   * association, it's never optional.
    */
   public enum Type {
 
@@ -282,18 +292,23 @@ public class HandlingEvent implements Serializable {
     /**
      * Private enum constructor.
      *
-     * @param voyageRequired whether or not a voyage is associated with this event type
+     * @param voyageRequired whether or not a voyage is associated with this
+     * event type
      */
     private Type(boolean voyageRequired) {
       this.voyageRequired = voyageRequired;
     }
 
-    /** @return True if a voyage association is required for this event type. */
+    /**
+     * @return True if a voyage association is required for this event type.
+     */
     public boolean requiresVoyage() {
       return voyageRequired;
     }
 
-    /** @return True if a voyage association is prohibited for this event type. */
+    /**
+     * @return True if a voyage association is prohibited for this event type.
+     */
     public boolean prohibitsVoyage() {
       return !requiresVoyage();
     }

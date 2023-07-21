@@ -18,9 +18,11 @@ public class LineParseExceptionListener implements SkipReadListener {
 
   private static final String FAILED_DIRECTORY = "failed_directory";
 
-  @Inject private Logger logger;
+  @Inject
+  private Logger logger;
 
-  @Inject private JobContext jobContext;
+  @Inject
+  private JobContext jobContext;
 
   @Override
   public void onSkipReadItem(Exception e) throws Exception {
@@ -34,18 +36,18 @@ public class LineParseExceptionListener implements SkipReadListener {
 
     logger.log(Level.WARNING, "Problem parsing event file line", parseException);
 
-    try (PrintWriter failed =
-        new PrintWriter(
-            new BufferedWriter(
-                new FileWriter(
-                    new File(
-                        failedDirectory,
-                        "failed_"
-                            + jobContext.getJobName()
-                            + "_"
-                            + jobContext.getInstanceId()
-                            + ".csv"),
-                    true)))) {
+    try (PrintWriter failed
+            = new PrintWriter(
+                    new BufferedWriter(
+                            new FileWriter(
+                                    new File(
+                                            failedDirectory,
+                                            "failed_"
+                                            + jobContext.getJobName()
+                                            + "_"
+                                            + jobContext.getInstanceId()
+                                            + ".csv"),
+                                    true)))) {
       failed.println(parseException.getLine());
     }
   }

@@ -21,7 +21,9 @@ public class Leg implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Id @GeneratedValue private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @ManyToOne
   @JoinColumn(name = "voyage_id")
@@ -51,13 +53,13 @@ public class Leg implements Serializable {
   }
 
   public Leg(
-      Voyage voyage,
-      Location loadLocation,
-      Location unloadLocation,
-      LocalDateTime loadTime,
-      LocalDateTime unloadTime) {
+          Voyage voyage,
+          Location loadLocation,
+          Location unloadLocation,
+          LocalDateTime loadTime,
+          LocalDateTime unloadTime) {
     Validate.noNullElements(
-        new Object[] {voyage, loadLocation, unloadLocation, loadTime, unloadTime});
+            new Object[]{voyage, loadLocation, unloadLocation, loadTime, unloadTime});
 
     this.voyage = voyage;
     this.loadLocation = loadLocation;
@@ -91,13 +93,13 @@ public class Leg implements Serializable {
 
   private boolean sameValueAs(Leg other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.voyage, other.voyage)
-            .append(this.loadLocation, other.loadLocation)
-            .append(this.unloadLocation, other.unloadLocation)
-            .append(this.loadTime, other.loadTime)
-            .append(this.unloadTime, other.unloadTime)
-            .isEquals();
+            && new EqualsBuilder()
+                    .append(this.voyage, other.voyage)
+                    .append(this.loadLocation, other.loadLocation)
+                    .append(this.unloadLocation, other.unloadLocation)
+                    .append(this.loadTime, other.loadTime)
+                    .append(this.unloadTime, other.unloadTime)
+                    .isEquals();
   }
 
   @Override
@@ -118,29 +120,29 @@ public class Leg implements Serializable {
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-        .append(voyage)
-        .append(loadLocation)
-        .append(unloadLocation)
-        .append(loadTime)
-        .append(unloadTime)
-        .toHashCode();
+            .append(voyage)
+            .append(loadLocation)
+            .append(unloadLocation)
+            .append(loadTime)
+            .append(unloadTime)
+            .toHashCode();
   }
 
   @Override
   public String toString() {
     return "Leg{"
-        + "id="
-        + id
-        + ", voyage="
-        + voyage
-        + ", loadLocation="
-        + loadLocation
-        + ", unloadLocation="
-        + unloadLocation
-        + ", loadTime="
-        + loadTime
-        + ", unloadTime="
-        + unloadTime
-        + '}';
+            + "id="
+            + id
+            + ", voyage="
+            + voyage
+            + ", loadLocation="
+            + loadLocation
+            + ", unloadLocation="
+            + unloadLocation
+            + ", loadTime="
+            + loadTime
+            + ", unloadTime="
+            + unloadTime
+            + '}';
   }
 }

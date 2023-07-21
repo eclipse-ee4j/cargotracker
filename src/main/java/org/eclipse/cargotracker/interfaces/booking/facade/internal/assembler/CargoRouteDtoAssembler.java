@@ -14,33 +14,34 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg;
 @ApplicationScoped
 public class CargoRouteDtoAssembler {
 
-  @Inject private LocationDtoAssembler locationDtoAssembler;
+  @Inject
+  private LocationDtoAssembler locationDtoAssembler;
 
   public CargoRoute toDto(Cargo cargo) {
-    List<Leg> legs =
-        cargo
-            .getItinerary()
-            .getLegs()
-            .stream()
-            .map(
-                leg ->
-                    new Leg(
-                        leg.getVoyage().getVoyageNumber().getIdString(),
-                        locationDtoAssembler.toDto(leg.getLoadLocation()),
-                        locationDtoAssembler.toDto(leg.getUnloadLocation()),
-                        leg.getLoadTime(),
-                        leg.getUnloadTime()))
-            .collect(toList());
+    List<Leg> legs
+            = cargo
+                    .getItinerary()
+                    .getLegs()
+                    .stream()
+                    .map(
+                            leg
+                            -> new Leg(
+                                    leg.getVoyage().getVoyageNumber().getIdString(),
+                                    locationDtoAssembler.toDto(leg.getLoadLocation()),
+                                    locationDtoAssembler.toDto(leg.getUnloadLocation()),
+                                    leg.getLoadTime(),
+                                    leg.getUnloadTime()))
+                    .collect(toList());
 
     return new CargoRoute(
-        cargo.getTrackingId().getIdString(),
-        locationDtoAssembler.toDto(cargo.getOrigin()),
-        locationDtoAssembler.toDto(cargo.getRouteSpecification().getDestination()),
-        cargo.getRouteSpecification().getArrivalDeadline(),
-        cargo.getDelivery().getRoutingStatus().sameValueAs(RoutingStatus.MISROUTED),
-        cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED),
-        locationDtoAssembler.toDto(cargo.getDelivery().getLastKnownLocation()),
-        cargo.getDelivery().getTransportStatus().name(),
-        legs);
+            cargo.getTrackingId().getIdString(),
+            locationDtoAssembler.toDto(cargo.getOrigin()),
+            locationDtoAssembler.toDto(cargo.getRouteSpecification().getDestination()),
+            cargo.getRouteSpecification().getArrivalDeadline(),
+            cargo.getDelivery().getRoutingStatus().sameValueAs(RoutingStatus.MISROUTED),
+            cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED),
+            locationDtoAssembler.toDto(cargo.getDelivery().getLastKnownLocation()),
+            cargo.getDelivery().getTransportStatus().name(),
+            legs);
   }
 }

@@ -7,16 +7,18 @@ import java.time.format.DateTimeFormatter;
 
 // TODO [Clean Code] Make this a CDI singleton?
 public class DateConverter {
+
   public static final String DATE_FORMAT = "M/d/yyyy";
   public static final String DATE_TIME_FORMAT = "M/d/yyyy h:m a";
 
-  private static final DateTimeFormatter DATE_FORMATTER =
-      DateTimeFormatter.ofPattern(DATE_FORMAT).withZone(ZoneId.systemDefault());
+  private static final DateTimeFormatter DATE_FORMATTER
+          = DateTimeFormatter.ofPattern(DATE_FORMAT).withZone(ZoneId.systemDefault());
 
-  private static final DateTimeFormatter DATE_TIME_FORMATTER =
-      DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withZone(ZoneId.systemDefault());
+  private static final DateTimeFormatter DATE_TIME_FORMATTER
+          = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withZone(ZoneId.systemDefault());
 
-  private DateConverter() {}
+  private DateConverter() {
+  }
 
   public static LocalDate toDate(String date) {
     return LocalDate.parse(date, DATE_FORMATTER);

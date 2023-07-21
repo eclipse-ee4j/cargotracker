@@ -11,4 +11,5 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RUNTIME)
 @Target({FIELD, PARAMETER})
-public @interface CargoUpdated {}
+public @interface CargoUpdated {
+}

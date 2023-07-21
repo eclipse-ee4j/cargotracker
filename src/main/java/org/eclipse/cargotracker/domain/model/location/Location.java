@@ -11,16 +11,17 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 
 /**
- * A location in our model is stops on a journey, such as cargo origin or destination, or carrier
- * movement end points.
+ * A location in our model is stops on a journey, such as cargo origin or
+ * destination, or carrier movement end points.
  *
- * <p>It is uniquely identified by a UN location code.
+ * <p>
+ * It is uniquely identified by a UN location code.
  */
 @Entity
 @NamedQuery(name = "Location.findAll", query = "Select l from Location l")
 @NamedQuery(
-    name = "Location.findByUnLocode",
-    query = "Select l from Location l where l.unLocode = :unLocode")
+        name = "Location.findByUnLocode",
+        query = "Select l from Location l where l.unLocode = :unLocode")
 public class Location implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -28,9 +29,14 @@ public class Location implements Serializable {
   // Special Location object that marks an unknown location.
   public static final Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");
 
-  @Id @GeneratedValue private Long id;
-  @Embedded @NotNull private UnLocode unLocode;
-  @NotEmpty private String name;
+  @Id
+  @GeneratedValue
+  private Long id;
+  @Embedded
+  @NotNull
+  private UnLocode unLocode;
+  @NotEmpty
+  private String name;
 
   public Location() {
     // Nothing to do.
@@ -49,12 +55,16 @@ public class Location implements Serializable {
     this.name = name;
   }
 
-  /** @return UN location code for this location. */
+  /**
+   * @return UN location code for this location.
+   */
   public UnLocode getUnLocode() {
     return unLocode;
   }
 
-  /** @return Actual name of this location, e.g. "Stockholm". */
+  /**
+   * @return Actual name of this location, e.g. "Stockholm".
+   */
   public String getName() {
     return name;
   }
@@ -86,7 +96,9 @@ public class Location implements Serializable {
     return this.unLocode.sameValueAs(other.unLocode);
   }
 
-  /** @return Hash code of UN locode. */
+  /**
+   * @return Hash code of UN locode.
+   */
   @Override
   public int hashCode() {
     return unLocode.hashCode();

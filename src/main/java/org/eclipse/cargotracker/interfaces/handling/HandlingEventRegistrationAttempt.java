@@ -8,10 +8,11 @@ import org.eclipse.cargotracker.domain.model.location.UnLocode;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 
 /**
- * This is a simple transfer object for passing incoming handling event registration attempts to the
- * proper registration procedure.
+ * This is a simple transfer object for passing incoming handling event
+ * registration attempts to the proper registration procedure.
  *
- * <p>It is used as a message queue element.
+ * <p>
+ * It is used as a message queue element.
  */
 public class HandlingEventRegistrationAttempt implements Serializable {
 
@@ -25,12 +26,12 @@ public class HandlingEventRegistrationAttempt implements Serializable {
   private final UnLocode unLocode;
 
   public HandlingEventRegistrationAttempt(
-      LocalDateTime registrationDate,
-      LocalDateTime completionDate,
-      TrackingId trackingId,
-      VoyageNumber voyageNumber,
-      HandlingEvent.Type type,
-      UnLocode unLocode) {
+          LocalDateTime registrationDate,
+          LocalDateTime completionDate,
+          TrackingId trackingId,
+          VoyageNumber voyageNumber,
+          HandlingEvent.Type type,
+          UnLocode unLocode) {
     this.registrationTime = registrationDate;
     this.completionTime = completionDate;
     this.trackingId = trackingId;
@@ -66,18 +67,18 @@ public class HandlingEventRegistrationAttempt implements Serializable {
   @Override
   public String toString() {
     return "HandlingEventRegistrationAttempt{"
-        + "registrationTime="
-        + registrationTime
-        + ", completionTime="
-        + completionTime
-        + ", trackingId="
-        + trackingId
-        + ", voyageNumber="
-        + voyageNumber
-        + ", type="
-        + type
-        + ", unLocode="
-        + unLocode
-        + '}';
+            + "registrationTime="
+            + registrationTime
+            + ", completionTime="
+            + completionTime
+            + ", trackingId="
+            + trackingId
+            + ", voyageNumber="
+            + voyageNumber
+            + ", type="
+            + type
+            + ", unLocode="
+            + unLocode
+            + '}';
   }
 }

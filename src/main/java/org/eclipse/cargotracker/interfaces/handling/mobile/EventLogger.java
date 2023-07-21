@@ -39,11 +39,16 @@ public class EventLogger implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Inject private CargoRepository cargoRepository;
-  @Inject private LocationRepository locationRepository;
-  @Inject private VoyageRepository voyageRepository;
-  @Inject private ApplicationEvents applicationEvents;
-  @Inject private FacesContext context;
+  @Inject
+  private CargoRepository cargoRepository;
+  @Inject
+  private LocationRepository locationRepository;
+  @Inject
+  private VoyageRepository voyageRepository;
+  @Inject
+  private ApplicationEvents applicationEvents;
+  @Inject
+  private FacesContext context;
 
   private List<SelectItem> trackingIds;
   private List<SelectItem> locations;
@@ -82,9 +87,9 @@ public class EventLogger implements Serializable {
   // Move this to a separate utility if it is used in other parts of the UI.
   public Map<HandlingEvent.Type, HandlingEvent.Type> getEventTypes() {
     return Collections.unmodifiableMap(
-        Arrays.asList(HandlingEvent.Type.values())
-            .stream()
-            .collect(toMap(Function.identity(), Function.identity())));
+            Arrays.asList(HandlingEvent.Type.values())
+                    .stream()
+                    .collect(toMap(Function.identity(), Function.identity())));
   }
 
   public HandlingEvent.Type getEventType() {
@@ -131,38 +136,38 @@ public class EventLogger implements Serializable {
 
     // List only routed cargo that is not claimed yet.
     cargos
-        .stream()
-        .filter(
-            cargo ->
-                !cargo.getItinerary().getLegs().isEmpty()
+            .stream()
+            .filter(
+                    cargo
+                    -> !cargo.getItinerary().getLegs().isEmpty()
                     && !(cargo
-                        .getDelivery()
-                        .getTransportStatus()
-                        .sameValueAs(TransportStatus.CLAIMED)))
-        .map(cargo -> cargo.getTrackingId().getIdString())
-        .forEachOrdered(trackingId -> trackingIds.add(new SelectItem(trackingId, trackingId)));
+                            .getDelivery()
+                            .getTransportStatus()
+                            .sameValueAs(TransportStatus.CLAIMED)))
+            .map(cargo -> cargo.getTrackingId().getIdString())
+            .forEachOrdered(trackingId -> trackingIds.add(new SelectItem(trackingId, trackingId)));
 
     List<Location> locations = locationRepository.findAll();
 
     this.locations = new ArrayList<>(locations.size());
 
     locations.forEach(
-        location -> {
-          String locationCode = location.getUnLocode().getIdString();
-          this.locations.add(
-              new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
-        });
+            location -> {
+              String locationCode = location.getUnLocode().getIdString();
+              this.locations.add(
+                      new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
+            });
 
     List<Voyage> voyages = voyageRepository.findAll();
 
     this.voyages = new ArrayList<>(voyages.size());
 
     voyages.forEach(
-        voyage ->
-            this.voyages.add(
-                new SelectItem(
-                    voyage.getVoyageNumber().getIdString(),
-                    voyage.getVoyageNumber().getIdString())));
+            voyage
+            -> this.voyages.add(
+                    new SelectItem(
+                            voyage.getVoyageNumber().getIdString(),
+                            voyage.getVoyageNumber().getIdString())));
   }
 
   public String onFlowProcess(FlowEvent event) {
@@ -179,11 +184,11 @@ public class EventLogger implements Serializable {
 
   private boolean validate(final String step) {
     if ("voyageTab".equals(step) && eventType.requiresVoyage() && voyageNumber == null) {
-      FacesMessage message =
-          new FacesMessage(
-              FacesMessage.SEVERITY_ERROR,
-              "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
-              "");
+      FacesMessage message
+              = new FacesMessage(
+                      FacesMessage.SEVERITY_ERROR,
+                      "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
+                      "");
       context.addMessage(null, message);
       return false;
     }
@@ -203,9 +208,9 @@ public class EventLogger implements Serializable {
       voyage = null;
     }
 
-    HandlingEventRegistrationAttempt attempt =
-        new HandlingEventRegistrationAttempt(
-            LocalDateTime.now(), completionTime, trackingId, voyage, eventType, location);
+    HandlingEventRegistrationAttempt attempt
+            = new HandlingEventRegistrationAttempt(
+                    LocalDateTime.now(), completionTime, trackingId, voyage, eventType, location);
 
     applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 

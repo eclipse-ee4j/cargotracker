@@ -19,44 +19,45 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 @ApplicationScoped
 public class ItineraryCandidateDtoAssembler {
 
-  @Inject private LocationDtoAssembler locationDtoAssembler;
+  @Inject
+  private LocationDtoAssembler locationDtoAssembler;
 
   public RouteCandidate toDto(Itinerary itinerary) {
-    List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs =
-        itinerary.getLegs().stream().map(this::toLegDTO).collect(Collectors.toList());
+    List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs
+            = itinerary.getLegs().stream().map(this::toLegDTO).collect(Collectors.toList());
     return new RouteCandidate(legDTOs);
   }
 
   protected org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg toLegDTO(Leg leg) {
     VoyageNumber voyageNumber = leg.getVoyage().getVoyageNumber();
     return new org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg(
-        voyageNumber.getIdString(),
-        locationDtoAssembler.toDto(leg.getLoadLocation()),
-        locationDtoAssembler.toDto(leg.getUnloadLocation()),
-        leg.getLoadTime(),
-        leg.getUnloadTime());
+            voyageNumber.getIdString(),
+            locationDtoAssembler.toDto(leg.getLoadLocation()),
+            locationDtoAssembler.toDto(leg.getUnloadLocation()),
+            leg.getLoadTime(),
+            leg.getUnloadTime());
   }
 
   public Itinerary fromDTO(
-      RouteCandidate routeCandidateDTO,
-      VoyageRepository voyageRepository,
-      LocationRepository locationRepository) {
+          RouteCandidate routeCandidateDTO,
+          VoyageRepository voyageRepository,
+          LocationRepository locationRepository) {
     List<Leg> legs = new ArrayList<>(routeCandidateDTO.getLegs().size());
 
-    for (org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg legDTO :
-        routeCandidateDTO.getLegs()) {
+    for (org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg legDTO
+            : routeCandidateDTO.getLegs()) {
       VoyageNumber voyageNumber = new VoyageNumber(legDTO.getVoyageNumber());
       Voyage voyage = voyageRepository.find(voyageNumber);
       Location from = locationRepository.find(new UnLocode(legDTO.getFromUnLocode()));
       Location to = locationRepository.find(new UnLocode(legDTO.getToUnLocode()));
 
       legs.add(
-          new Leg(
-              voyage,
-              from,
-              to,
-              DateConverter.toDateTime(legDTO.getLoadTime()),
-              DateConverter.toDateTime(legDTO.getUnloadTime())));
+              new Leg(
+                      voyage,
+                      from,
+                      to,
+                      DateConverter.toDateTime(legDTO.getLoadTime()),
+                      DateConverter.toDateTime(legDTO.getUnloadTime())));
     }
 
     return new Itinerary(legs);

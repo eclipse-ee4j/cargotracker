@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.domain.shared;
 
 /**
- * AND specification, used to create a new specification that is the AND of two other
- * specifications.
+ * AND specification, used to create a new specification that is the AND of two
+ * other specifications.
  */
 public class AndSpecification<T> extends AbstractSpecification<T> {
 
@@ -20,7 +20,9 @@ public class AndSpecification<T> extends AbstractSpecification<T> {
     this.spec2 = spec2;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isSatisfiedBy(T t) {
     return spec1.isSatisfiedBy(t) && spec2.isSatisfiedBy(t);

@@ -17,21 +17,23 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
 
 /**
- * This REST end-point implementation performs basic validation and parsing of incoming data, and in
- * case of a valid registration attempt, sends an asynchronous message with the information to the
- * handling event registration system for proper registration.
+ * This REST end-point implementation performs basic validation and parsing of
+ * incoming data, and in case of a valid registration attempt, sends an
+ * asynchronous message with the information to the handling event registration
+ * system for proper registration.
  */
 @Stateless
 @Path("/handling")
 public class HandlingReportService {
 
-  @Inject private ApplicationEvents applicationEvents;
+  @Inject
+  private ApplicationEvents applicationEvents;
 
   @POST
   @Path("/reports")
   @Consumes({"application/json", "application/xml"})
   public void submitReport(
-      @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
+          @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
     LocalDateTime completionTime = DateConverter.toDateTime(handlingReport.getCompletionTime());
     VoyageNumber voyageNumber = null;
 
@@ -44,9 +46,9 @@ public class HandlingReportService {
 
     TrackingId trackingId = new TrackingId(handlingReport.getTrackingId());
 
-    HandlingEventRegistrationAttempt attempt =
-        new HandlingEventRegistrationAttempt(
-            LocalDateTime.now(), completionTime, trackingId, voyageNumber, type, unLocode);
+    HandlingEventRegistrationAttempt attempt
+            = new HandlingEventRegistrationAttempt(
+                    LocalDateTime.now(), completionTime, trackingId, voyageNumber, type, unLocode);
 
     applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
   }

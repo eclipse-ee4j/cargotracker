@@ -46,53 +46,50 @@ public class Itinerary implements Serializable {
     return Collections.unmodifiableList(legs);
   }
 
-  /** Test if the given handling event is expected when executing this itinerary. */
+  /**
+   * Test if the given handling event is expected when executing this itinerary.
+   */
   public boolean isExpected(HandlingEvent event) {
     if (legs.isEmpty()) {
       return true;
     }
 
     switch (event.getType()) {
-      case RECEIVE:
-        {
-          // Check that the first leg's origin is the event's location
-          Leg leg = legs.get(0);
-          return leg.getLoadLocation().equals(event.getLocation());
-        }
+      case RECEIVE: {
+        // Check that the first leg's origin is the event's location
+        Leg leg = legs.get(0);
+        return leg.getLoadLocation().equals(event.getLocation());
+      }
 
-      case LOAD:
-        {
-          return legs.stream()
-              .anyMatch(
-                  leg ->
-                      leg.getLoadLocation().equals(event.getLocation())
-                          && leg.getVoyage().equals(event.getVoyage()));
-        }
+      case LOAD: {
+        return legs.stream()
+                .anyMatch(
+                        leg
+                        -> leg.getLoadLocation().equals(event.getLocation())
+                        && leg.getVoyage().equals(event.getVoyage()));
+      }
 
-      case UNLOAD:
-        {
-          // Check that the there is one leg with same unload location and
-          // voyage
-          return legs.stream()
-              .anyMatch(
-                  leg ->
-                      leg.getUnloadLocation().equals(event.getLocation())
-                          && leg.getVoyage().equals(event.getVoyage()));
-        }
+      case UNLOAD: {
+        // Check that the there is one leg with same unload location and
+        // voyage
+        return legs.stream()
+                .anyMatch(
+                        leg
+                        -> leg.getUnloadLocation().equals(event.getLocation())
+                        && leg.getVoyage().equals(event.getVoyage()));
+      }
 
-      case CLAIM:
-        {
-          // Check that the last leg's destination is from the event's
-          // location
-          Leg leg = getLastLeg();
+      case CLAIM: {
+        // Check that the last leg's destination is from the event's
+        // location
+        Leg leg = getLastLeg();
 
-          return leg.getUnloadLocation().equals(event.getLocation());
-        }
+        return leg.getUnloadLocation().equals(event.getLocation());
+      }
 
-      case CUSTOMS:
-        {
-          return true;
-        }
+      case CUSTOMS: {
+        return true;
+      }
 
       default:
         throw new RuntimeException("Event case is not handled");
@@ -115,7 +112,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return Date when cargo arrives at final destination. */
+  /**
+   * @return Date when cargo arrives at final destination.
+   */
   LocalDateTime getFinalArrivalDate() {
     Leg lastLeg = getLastLeg();
 
@@ -126,7 +125,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return The last leg on the itinerary. */
+  /**
+   * @return The last leg on the itinerary.
+   */
   Leg getLastLeg() {
     if (legs.isEmpty()) {
       return null;

@@ -3,7 +3,10 @@ package org.eclipse.pathfinder.api;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/** Represents an edge in a path through a graph, describing the route of a cargo. */
+/**
+ * Represents an edge in a path through a graph, describing the route of a
+ * cargo.
+ */
 public class TransitEdge implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -19,11 +22,11 @@ public class TransitEdge implements Serializable {
   }
 
   public TransitEdge(
-      String voyageNumber,
-      String fromUnLocode,
-      String toUnLocode,
-      LocalDateTime fromDate,
-      LocalDateTime toDate) {
+          String voyageNumber,
+          String fromUnLocode,
+          String toUnLocode,
+          LocalDateTime fromDate,
+          LocalDateTime toDate) {
     this.voyageNumber = voyageNumber;
     this.fromUnLocode = fromUnLocode;
     this.toUnLocode = toUnLocode;
@@ -74,16 +77,16 @@ public class TransitEdge implements Serializable {
   @Override
   public String toString() {
     return "TransitEdge{"
-        + "voyageNumber="
-        + voyageNumber
-        + ", fromUnLocode="
-        + fromUnLocode
-        + ", toUnLocode="
-        + toUnLocode
-        + ", fromDate="
-        + fromDate
-        + ", toDate="
-        + toDate
-        + '}';
+            + "voyageNumber="
+            + voyageNumber
+            + ", fromUnLocode="
+            + fromUnLocode
+            + ", toUnLocode="
+            + toUnLocode
+            + ", fromDate="
+            + fromDate
+            + ", toDate="
+            + toDate
+            + '}';
   }
 }

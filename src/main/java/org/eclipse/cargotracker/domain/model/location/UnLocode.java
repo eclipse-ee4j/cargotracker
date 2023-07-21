@@ -9,7 +9,8 @@ import org.apache.commons.lang3.Validate;
 /**
  * United nations location code.
  *
- * <p>http://www.unece.org/cefact/locode/
+ * <p>
+ * http://www.unece.org/cefact/locode/
  * http://www.unece.org/cefact/locode/DocColumnDescription.htm#LOCODE
  */
 @Embeddable
@@ -17,8 +18,8 @@ public class UnLocode implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private static final java.util.regex.Pattern VALID_PATTERN =
-      java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
+  private static final java.util.regex.Pattern VALID_PATTERN
+          = java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
 
   @NotEmpty(message = "Location code must not be empty.")
   // Country code is exactly two letters.
@@ -31,17 +32,21 @@ public class UnLocode implements Serializable {
     // Nothing to initialize.
   }
 
-  /** @param countryAndLocation Location string. */
+  /**
+   * @param countryAndLocation Location string.
+   */
   public UnLocode(String countryAndLocation) {
     Validate.notNull(countryAndLocation, "Country and location may not be null.");
     Validate.isTrue(
-        VALID_PATTERN.matcher(countryAndLocation).matches(),
-        countryAndLocation + " is not a valid UN/LOCODE (does not match pattern)");
+            VALID_PATTERN.matcher(countryAndLocation).matches(),
+            countryAndLocation + " is not a valid UN/LOCODE (does not match pattern)");
 
     this.unlocode = countryAndLocation.toUpperCase();
   }
 
-  /** @return country code and location code concatenated, always upper case. */
+  /**
+   * @return country code and location code concatenated, always upper case.
+   */
   public String getIdString() {
     return unlocode;
   }

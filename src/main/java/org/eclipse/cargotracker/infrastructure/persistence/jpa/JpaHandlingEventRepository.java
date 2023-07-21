@@ -14,7 +14,8 @@ public class JpaHandlingEventRepository implements HandlingEventRepository, Seri
 
   private static final long serialVersionUID = 1L;
 
-  @PersistenceContext private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @Override
   public void store(HandlingEvent event) {
@@ -24,9 +25,9 @@ public class JpaHandlingEventRepository implements HandlingEventRepository, Seri
   @Override
   public HandlingHistory lookupHandlingHistoryOfCargo(TrackingId trackingId) {
     return new HandlingHistory(
-        entityManager
-            .createNamedQuery("HandlingEvent.findByTrackingId", HandlingEvent.class)
-            .setParameter("trackingId", trackingId)
-            .getResultList());
+            entityManager
+                    .createNamedQuery("HandlingEvent.findByTrackingId", HandlingEvent.class)
+                    .setParameter("trackingId", trackingId)
+                    .getResultList());
   }
 }

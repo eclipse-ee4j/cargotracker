@@ -17,19 +17,23 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 @Stateless
 public class DefaultHandlingEventService implements HandlingEventService {
 
-  @Inject private ApplicationEvents applicationEvents;
-  @Inject private HandlingEventRepository handlingEventRepository;
-  @Inject private HandlingEventFactory handlingEventFactory;
-  @Inject private Logger logger;
+  @Inject
+  private ApplicationEvents applicationEvents;
+  @Inject
+  private HandlingEventRepository handlingEventRepository;
+  @Inject
+  private HandlingEventFactory handlingEventFactory;
+  @Inject
+  private Logger logger;
 
   @Override
   public void registerHandlingEvent(
-      LocalDateTime completionTime,
-      TrackingId trackingId,
-      VoyageNumber voyageNumber,
-      UnLocode unLocode,
-      HandlingEvent.Type type)
-      throws CannotCreateHandlingEventException {
+          LocalDateTime completionTime,
+          TrackingId trackingId,
+          VoyageNumber voyageNumber,
+          UnLocode unLocode,
+          HandlingEvent.Type type)
+          throws CannotCreateHandlingEventException {
     LocalDateTime registrationTime = LocalDateTime.now();
 
     /*
@@ -37,9 +41,9 @@ public class DefaultHandlingEventService implements HandlingEventService {
      * determined wether the incoming data, the attempt, actually is capable of
      * representing a real handling event.
      */
-    HandlingEvent event =
-        handlingEventFactory.createHandlingEvent(
-            registrationTime, completionTime, trackingId, voyageNumber, unLocode, type);
+    HandlingEvent event
+            = handlingEventFactory.createHandlingEvent(
+                    registrationTime, completionTime, trackingId, voyageNumber, unLocode, type);
 
     /*
      * Store the new handling event, which updates the persistent state of the

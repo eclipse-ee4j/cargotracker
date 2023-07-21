@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
 
-/** DTO for registering and routing a cargo. */
+/**
+ * DTO for registering and routing a cargo.
+ */
 public class CargoRoute implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -23,15 +25,15 @@ public class CargoRoute implements Serializable {
   private String nextLocation;
 
   public CargoRoute(
-      String trackingId,
-      Location origin,
-      Location finalDestination,
-      LocalDate arrivalDeadline,
-      boolean misrouted,
-      boolean claimed,
-      Location lastKnownLocation,
-      String transportStatus,
-      List<Leg> legs) {
+          String trackingId,
+          Location origin,
+          Location finalDestination,
+          LocalDate arrivalDeadline,
+          boolean misrouted,
+          boolean claimed,
+          Location lastKnownLocation,
+          String transportStatus,
+          List<Leg> legs) {
     this.trackingId = trackingId;
     this.origin = origin;
     this.finalDestination = finalDestination;

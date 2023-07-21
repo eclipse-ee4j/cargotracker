@@ -13,25 +13,29 @@ import org.eclipse.cargotracker.application.CargoInspectionService;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 
 /**
- * Consumes JMS messages and delegates notification of misdirected cargo to the tracking service.
+ * Consumes JMS messages and delegates notification of misdirected cargo to the
+ * tracking service.
  *
- * <p>This is a programmatic hook into the JMS infrastructure to make cargo inspection
- * message-driven.
+ * <p>
+ * This is a programmatic hook into the JMS infrastructure to make cargo
+ * inspection message-driven.
  */
 @MessageDriven(
-    activationConfig = {
-      @ActivationConfigProperty(
-          propertyName = "destinationType",
-          propertyValue = "javax.jms.Queue"),
-      @ActivationConfigProperty(
-          propertyName = "destinationLookup",
-          propertyValue = "java:app/jms/CargoHandledQueue")
-    })
+        activationConfig = {
+          @ActivationConfigProperty(
+                  propertyName = "destinationType",
+                  propertyValue = "javax.jms.Queue"),
+          @ActivationConfigProperty(
+                  propertyName = "destinationLookup",
+                  propertyValue = "java:app/jms/CargoHandledQueue")
+        })
 public class CargoHandledConsumer implements MessageListener {
 
-  @Inject private Logger logger;
+  @Inject
+  private Logger logger;
 
-  @Inject private CargoInspectionService cargoInspectionService;
+  @Inject
+  private CargoInspectionService cargoInspectionService;
 
   @Override
   public void onMessage(Message message) {

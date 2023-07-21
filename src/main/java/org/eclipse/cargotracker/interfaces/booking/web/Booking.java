@@ -16,14 +16,16 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
 
 /**
- * Handles booking cargo. Operates against a dedicated service facade, and could easily be rewritten
- * as a thick client. Completely separated from the domain layer, unlike the tracking user
- * interface.
+ * Handles booking cargo. Operates against a dedicated service facade, and could
+ * easily be rewritten as a thick client. Completely separated from the domain
+ * layer, unlike the tracking user interface.
  *
- * <p>In order to successfully keep the domain model shielded from user interface considerations,
- * this approach is generally preferred to the one taken in the tracking controller. However, there
- * is never any one perfect solution for all situations, so we've chosen to demonstrate two
- * polarized ways to build user interfaces.
+ * <p>
+ * In order to successfully keep the domain model shielded from user interface
+ * considerations, this approach is generally preferred to the one taken in the
+ * tracking controller. However, there is never any one perfect solution for all
+ * situations, so we've chosen to demonstrate two polarized ways to build user
+ * interfaces.
  */
 @Named
 @FlowScoped("booking")
@@ -33,8 +35,10 @@ public class Booking implements Serializable {
 
   private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
 
-  @Inject private BookingServiceFacade bookingServiceFacade;
-  @Inject private FacesContext context;
+  @Inject
+  private BookingServiceFacade bookingServiceFacade;
+  @Inject
+  private FacesContext context;
 
   private LocalDate today = null;
   private List<Location> locations;
@@ -82,13 +86,13 @@ public class Booking implements Serializable {
 
   public void setOriginUnlocode(String originUnlocode) {
     this.originUnlocode = originUnlocode;
-    this.originName =
-        locations
-            .stream()
-            .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
-            .findAny()
-            .get()
-            .getName();
+    this.originName
+            = locations
+                    .stream()
+                    .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
+                    .findAny()
+                    .get()
+                    .getName();
   }
 
   public String getOriginName() {
@@ -101,13 +105,13 @@ public class Booking implements Serializable {
 
   public void setDestinationUnlocode(String destinationUnlocode) {
     this.destinationUnlocode = destinationUnlocode;
-    this.destinationName =
-        locations
-            .stream()
-            .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
-            .findAny()
-            .get()
-            .getName();
+    this.destinationName
+            = locations
+                    .stream()
+                    .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
+                    .findAny()
+                    .get()
+                    .getName();
   }
 
   public String getDestinationName() {

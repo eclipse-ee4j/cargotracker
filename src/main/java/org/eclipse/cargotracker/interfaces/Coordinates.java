@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.interfaces;
 
 /**
- * At the moment, coordinates are effectively a shared DTO in the interface layer. It may be
- * converted to a domain level concern at some point. *
+ * At the moment, coordinates are effectively a shared DTO in the interface
+ * layer. It may be converted to a domain level concern at some point. *
  */
 public class Coordinates {
 

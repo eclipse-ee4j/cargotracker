@@ -30,11 +30,12 @@ public class ChangeArrivalDeadlineDialog implements Serializable {
     params.put("trackingId", values);
 
     PrimeFaces.current()
-        .dialog()
-        .openDynamic("/admin/dialogs/change_arrival_deadline.xhtml", options, params);
+            .dialog()
+            .openDynamic("/admin/dialogs/change_arrival_deadline.xhtml", options, params);
   }
 
-  public void handleReturn(@SuppressWarnings("rawtypes") SelectEvent event) {}
+  public void handleReturn(@SuppressWarnings("rawtypes") SelectEvent event) {
+  }
 
   public void cancel() {
     // just kill the dialog
