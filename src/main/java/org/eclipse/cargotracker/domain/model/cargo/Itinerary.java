@@ -21,6 +21,7 @@ public class Itinerary implements Serializable {
   // Null object pattern.
   public static final Itinerary EMPTY_ITINERARY = new Itinerary();
   private static final long serialVersionUID = 1L;
+
   // TODO [Clean Code] Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "cargo_id")

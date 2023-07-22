@@ -76,6 +76,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(ArquillianExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
 public class BookingServiceIT {
+
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
   private static LocalDate deadline;

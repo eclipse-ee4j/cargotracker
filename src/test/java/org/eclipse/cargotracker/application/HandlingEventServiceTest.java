@@ -52,7 +52,6 @@ public class HandlingEventServiceTest {
 
     //        replay(cargoRepository, voyageRepository, handlingEventRepository,
     //                locationRepository, applicationEvents);
-
     service.registerHandlingEvent(
         LocalDateTime.now(),
         cargo.getTrackingId(),

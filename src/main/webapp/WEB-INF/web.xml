@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  version="6.0"
-  xmlns="https://jakarta.ee/xml/ns/jakartaee"
-  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+         version="6.0"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
 
   <!-- Overriding system level defaults is a decent usage of XML. -->
   <context-param>
@@ -14,7 +14,7 @@
     <param-value>url</param-value>
   </context-param>
   <context-param>
-    
+
     <param-name>primefaces.FONT_AWESOME</param-name>
     <param-value>true</param-value>
   </context-param>
@@ -24,9 +24,9 @@
   </context-param>
 
   <data-source>
-     <name>java:app/jdbc/CargoTrackerDatabase</name>
+    <name>java:app/jdbc/CargoTrackerDatabase</name>
     <class-name>${db.driverClass}</class-name>
-    
+
     <url>${db.jdbcUrl}</url>
     <user>${db.user}</user>
     <password>${db.password}</password>
@@ -40,56 +40,56 @@
     <env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
   </env-entry>
   <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
   <jms-destination>
     <name>java:app/jms/CargoHandledQueue</name>
     <interface-name>jakarta.jms.Queue</interface-name>
     <destination-name>CargoHandledQueue</destination-name>
-   
+
   </jms-destination>
   <jms-destination>
 
-   <name>java:app/jms/MisdirectedCargoQueue</name>
-   <interface-name>jakarta.jms.Queue</interface-name>
-  
+    <name>java:app/jms/MisdirectedCargoQueue</name>
+    <interface-name>jakarta.jms.Queue</interface-name>
+
 
     <destination-name>MisdirectedCargoQueue</destination-name>
-    
+
   </jms-destination>
 
   <jms-destination>
-       <name>java:app/jms/DeliveredCargoQueue</name>
-        <interface-name>jakarta.jms.Queue</interface-name>
-        <destination-name>DeliveredCargoQueue</destination-name>
+    <name>java:app/jms/DeliveredCargoQueue</name>
+    <interface-name>jakarta.jms.Queue</interface-name>
+    <destination-name>DeliveredCargoQueue</destination-name>
   </jms-destination>
   <jms-destination>
-   <name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
-        <interface-name>jakarta.jms.Queue</interface-name>
-        <destination-name>RejectedRegistrationAttemptsQueue</destination-name>
+    <name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
+    <interface-name>jakarta.jms.Queue</interface-name>
+    <destination-name>RejectedRegistrationAttemptsQueue</destination-name>
   </jms-destination>
 
   <jms-destination>
-     <name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
-        <interface-name>jakarta.jms.Queue</interface-name>
-        <destination-name>HandlingEventRegistrationAttemptQueue</destination-name>
+    <name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
+    <interface-name>jakarta.jms.Queue</interface-name>
+    <destination-name>HandlingEventRegistrationAttemptQueue</destination-name>
   </jms-destination>
 
   <!-- Application resource dependencies like JMS queues and data sources
-    are still good candidates for XML, as is application configuration. -->
+  are still good candidates for XML, as is application configuration. -->
   <mime-mapping>
     <extension>ttf</extension>
     <mime-type>application/font-sfnt</mime-type>
   </mime-mapping>
 
   <!-- Defining these at the application server level instead of here can
-    be more operations friendly and help make deployment even faster. -->
+  be more operations friendly and help make deployment even faster. -->
   <mime-mapping>
     <extension>woff</extension>
     <mime-type>application/font-woff</mime-type>
@@ -102,7 +102,7 @@
     <extension>eot</extension>
     <mime-type>application/vnd.ms-fontobject</mime-type>
   </mime-mapping>
- 
+
   <welcome-file-list>
     <welcome-file>index.xhtml</welcome-file>
     <welcome-file>index.html</welcome-file>

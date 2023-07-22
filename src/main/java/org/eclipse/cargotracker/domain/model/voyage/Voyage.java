@@ -19,6 +19,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
     query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
 @NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")
 public class Voyage implements Serializable {
+
   // Null object pattern
   public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
   private static final long serialVersionUID = 1L;

@@ -20,6 +20,7 @@ public class Schedule implements Serializable {
   // Null object pattern.
   public static final Schedule EMPTY = new Schedule();
   private static final long serialVersionUID = 1L;
+
   // TODO [Clean Code] Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "voyage_id")

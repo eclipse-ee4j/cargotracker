@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 <arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://jboss.org/schema/arquillian"
-    xsi:schemaLocation="http://jboss.org/schema/arquillian
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
                 http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
-    <defaultProtocol type="Servlet 5.0" />
+  <defaultProtocol type="Servlet 5.0" />
 
-    <engine>
-        <property name="deploymentExportPath">target/</property>
-    </engine>
+  <engine>
+    <property name="deploymentExportPath">target/</property>
+  </engine>
 
-    <container qualifier="payara">
-        <configuration>
-            <property name="microJar">${payara.micro.jar}</property>
-            <property name="randomHttpPort">false</property>
-            <property name="autoBindHttp">false</property>
-            <property name="extraMicroOptions">${payara.micro.extraMicroOptions}</property>
-        </configuration>
-    </container>
+  <container qualifier="payara">
+    <configuration>
+      <property name="microJar">${payara.micro.jar}</property>
+      <property name="randomHttpPort">false</property>
+      <property name="autoBindHttp">false</property>
+      <property name="extraMicroOptions">${payara.micro.extraMicroOptions}</property>
+    </configuration>
+  </container>
 
-    <container qualifier="glassfish">
-        <configuration>
-            <property name="adminHttps">false</property>
-            <property name="adminHost">localhost</property>
-            <property name="adminPort">4848</property>
-            <property name="debug">true</property>
-            <property name="target">server</property>
-        </configuration>
-    </container>
+  <container qualifier="glassfish">
+    <configuration>
+      <property name="adminHttps">false</property>
+      <property name="adminHost">localhost</property>
+      <property name="adminPort">4848</property>
+      <property name="debug">true</property>
+      <property name="target">server</property>
+    </configuration>
+  </container>
 </arquillian>

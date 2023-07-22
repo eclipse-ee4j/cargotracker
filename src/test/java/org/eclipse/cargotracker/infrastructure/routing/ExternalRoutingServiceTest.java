@@ -16,6 +16,7 @@ import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 public class ExternalRoutingServiceTest {
 
   private ExternalRoutingService externalRoutingService;
+
   //    private VoyageRepository voyageRepository;
 
   //    protected void setUp() throws Exception {
@@ -50,7 +51,6 @@ public class ExternalRoutingServiceTest {
     // expect(voyageRepository.find(isA(VoyageNumber.class))).andStubReturn(SampleVoyages.CM002);
     //
     //        replay(voyageRepository);
-
     List<Itinerary> candidates =
         externalRoutingService.fetchRoutesForSpecification(routeSpecification);
     assertNotNull(candidates);

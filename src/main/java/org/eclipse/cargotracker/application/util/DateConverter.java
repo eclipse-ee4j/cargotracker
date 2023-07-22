@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 // TODO [Clean Code] Make this a CDI singleton?
 public class DateConverter {
+
   public static final String DATE_FORMAT = "M/d/yyyy";
   public static final String DATE_TIME_FORMAT = "M/d/yyyy h:m a";
 

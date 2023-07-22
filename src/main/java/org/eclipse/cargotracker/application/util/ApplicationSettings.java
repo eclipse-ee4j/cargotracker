@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 public class ApplicationSettings implements Serializable {
+
   private static final long serialVersionUID = 1L;
 
   @Id private long id;
