@@ -11,7 +11,8 @@
   padding: 0em 0em !important;
 }
 
-.ui-widget, .ui-widget .ui-widget {
+.ui-widget,
+.ui-widget .ui-widget {
   font-size: 100% !important;
 }
 
@@ -53,7 +54,12 @@
 }
 
 
-.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
+.ui-layout,
+.ui-layout-doc,
+.ui-layout-unit,
+.ui-layout-wrap,
+.ui-layout-bd,
+.ui-layout-hd {
   border: none;
   background-color: white;
   background: none;
@@ -67,7 +73,8 @@
 }
 
 .decoration .ui-layout-unit-content {
-  height: 48px !important; /* woraround header heigh bug in Chrome & Safari */
+  height: 48px !important;
+ /* woraround header heigh bug in Chrome & Safari */
   color: white;
   font-weight: 100;
   background-image: -webkit-linear-gradient(bottom, rgb(43, 50, 64), rgb(80, 80, 140));
@@ -77,14 +84,20 @@
 }
 
 .decorationPublic .ui-layout-unit-content {
-  height: 48px !important; /* woraround header heigh bug in Chrome & Safari */
+  height: 48px !important;
+  /* woraround header heigh bug in Chrome & Safari */
   color: white;
   font-weight: 100;
-  background: -webkit-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* Chrome 10+, Saf5.1+ */
-  background: -moz-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* FF3.6+ */
-  background: -ms-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* IE10 */
-  background: -o-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* Opera 11.10+ */
-  background: linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%); /* W3C */
+  background: -webkit-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%);
+  /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%);
+  /* IE10 */
+  background: -o-linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%);
+  /* Opera 11.10+ */
+  background: linear-gradient(90deg, #403B4A 10%, #E7E9BB 90%);
+  /* W3C */
 }
 
 
@@ -119,15 +132,18 @@
 
 /* Live Map : On/Offline status */
 div.wrapper {
-  float: left; /* important */
+  float: left;
+  /* important */
   position: relative;
 }
 
 div.status {
   position: absolute;
   /* bottom:0px; */
-  top: 85px; /* yes 85! */
-  left: 17px; /* yes 17! */
+  top: 85px;
+  /* yes 85! */
+  left: 17px;
+  /* yes 17! */
   width: 44px;
   background-color: black;
   font-family: 'tahoma';

@@ -1,13 +1,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:ui="jakarta.faces.facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="jakarta.faces.core">
   <ui:composition template="/WEB-INF/templates/common/public.xhtml">
     <ui:define name="title">Track Cargo</ui:define>
     <ui:define name="content">
 
       <div class="ui-grid-col-2" id="leftCol"></div>
-      <div class="ui-grid-col-8" id="mainCol">
+      <div class="ui-grid-col-8" id="container" style="display: none">
 
         <br />
         <div class="ui-g ui-g-12">
@@ -19,7 +19,9 @@
                              value="#{public.track.trackingId}" required="true"
                              placeholder="XYZ789" title="Valid tracking ID" />
                 <h:commandButton value="Track!"
-                                 action="#{public.track.onTrackById()}" />
+                                 action="#{public.track.onTrackById()}">
+                                 <f:ajax execute="trackingIdInput" render="cargo-status" />
+              </h:commandButton>
               </h:panelGrid>
             </h:form>
           </div>
@@ -28,6 +30,7 @@
         <div class="ui-g-12">
           <p:separator />
         </div>
+        <h:panelGroup id="cargo-status">
 
         <div class="ui-g-12">
           <h:panelGroup rendered="#{not empty public.track.cargo}">
@@ -46,16 +49,16 @@
                 <p>#{public.track.cargo.nextExpectedActivity}</p>
               </ui:fragment>
 
-              <h:panelGroup rendered="#{public.track.cargo.misdirected}">
+              <p:panel rendered="#{public.track.cargo.misdirected}">
                 <p>
                   <i class="fa fa-exclamation-triangle" style="color: #9b2332"></i>
                   Cargo is misdirected.
                 </p>
-              </h:panelGroup>
+              </p:panel>
             </div>
           </h:panelGroup>
 
-          <h:outputLabel
+          <p:outputLabel
             value="Cargo with tracking ID #{public.track.trackingId} not found."
             rendered="#{empty public.track.cargo and not empty public.track.trackingId}" />
         </div>
@@ -86,7 +89,7 @@
                 </div>
               </ui:repeat>
 
-              <h:outputLabel
+              <p:outputLabel
                 value="There are no events recorded for the tracking ID #{public.track.cargo.trackingId}."
                 rendered="#{empty public.track.cargo.events}" />
             </div>
@@ -97,7 +100,11 @@
                     src="#{request.contextPath}/public/mapFrame.xhtml?cargo=#{public.track.cargoAsJson}" />
           </div>
         </h:panelGroup>
+        </h:panelGroup>
       </div>
+      <h:outputScript name="js/topbar.min.js" />
+      <h:outputScript name="js/topbar.js" />
+      <h:outputScript name="js/progress.js" />
     </ui:define>
   </ui:composition>
 </html>

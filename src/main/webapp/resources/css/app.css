@@ -27,8 +27,16 @@ body {
  *************************************/
 
 .side-panel {
+  background-color: var(--background-panel-main-color);
+
   padding: 0;
   margin: 0;
+}
+
+/*this is for overriding Primefaces' background and color */
+.side-panel * {
+  background-color: var(--background-panel-main-color);
+  color: var(--secondary-text-color);
 }
 
 .side-panel .side-panel-img {
@@ -42,7 +50,7 @@ body {
   margin-bottom: 50px;
 }
 
-.side-panel > .menu-container {
+.side-panel>.menu-container {
   width: 100%;
   margin: 0;
 
@@ -69,7 +77,8 @@ body {
 }
 
 .side-panel .menu-container .ui-menu .ui-state-hover {
-  background: inherit; /* remove default Primefaces background on hover */
+  background: inherit;
+  /* remove default Primefaces background on hover */
 }
 
 .side-panel .menu-container .ui-menu .ui-state-hover span {
@@ -129,16 +138,21 @@ body {
   border-left: 0 none;
 }
 
-.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tfoot td {
   padding: 4px 10px;
   white-space: pre-line;
 }
 
-.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tfoot td,
+.ui-datatable tfoot th {
   border: 0 none !important;
 }
 
-.ui-datatable tbody > tr.ui-widget-content {
+.ui-datatable tbody>tr.ui-widget-content {
   border: 0 none;
 }
 
@@ -150,7 +164,7 @@ body {
              Calendar style
  *************************************/
 .ui-datepicker .ui-datepicker-header,
-.ui-datepicker .ui-timepicker-div > .ui-widget-header {
+.ui-datepicker .ui-timepicker-div>.ui-widget-header {
   background: var(--background-panel-main-color);
   background: -webkit-linear-gradient(top, var(--background-panel-main-color) 0, #474a4b 100%);
 
@@ -158,7 +172,8 @@ body {
   border-radius: 0;
 }
 
-.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div > .ui-widget-header {
+.ui-datepicker .ui-datepicker-header,
+.ui-datepicker .ui-timepicker-div>.ui-widget-header {
   border: 1px solid #3b3e40;
 }
 
@@ -180,7 +195,9 @@ body {
              Components style
  *************************************/
 
-.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+.ui-button,
+button.ui-button.ui-state-default,
+.ui-button.ui-state-default {
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color-darker);
 
@@ -188,7 +205,9 @@ body {
 
 }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
   background: var(--primary-color-darker);
   color: var(--secondary-text-color);
 }

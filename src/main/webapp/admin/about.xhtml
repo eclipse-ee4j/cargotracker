@@ -1,4 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.face.html"
       xmlns:ui="jakarta.faces.facelets">
   <ui:composition template="/WEB-INF/templates/common/admin.xhtml">
     <ui:define name="title">Cargo Administration</ui:define>
@@ -31,6 +32,9 @@
           <hr/>
         </div>
       </div>
+      <h:outputScript name="js/topbar.min.js" />
+      <h:outputScript name="js/topbar.js" />
+      <h:outputScript name="js/progress.js" />
     </ui:define>
   </ui:composition>
 </html>

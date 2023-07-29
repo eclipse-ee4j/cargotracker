@@ -1,12 +1,12 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 

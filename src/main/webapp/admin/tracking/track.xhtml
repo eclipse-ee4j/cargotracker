@@ -8,7 +8,7 @@
     <ui:define name="content">
 
       <div class="ui-grid-col-2" id="leftCol"></div>
-      <div class="ui-grid-col-8" id="mainCol">
+      <div class="ui-grid-col-8" id="container" >
         <br />
         <div class="ui-g ui-g-12">
           <div class="ui-g-6 ui-g-offset-3">
@@ -21,7 +21,10 @@
                                 title="Valid tracking ID"
                                 completeMethod="#{admin.track.getTrackingIds}" />
                 <h:commandButton value="Track!"
-                                 action="#{admin.track.onTrackById()}" />
+                                 action="#{admin.track.onTrackById()}">
+                                 <f:ajax execute="trackingIdInput" render="cargo-status" />
+                                
+              </h:commandButton>
               </h:panelGrid>
             </h:form>
           </div>
@@ -30,6 +33,7 @@
         <div class="ui-g-12">
           <p:separator />
         </div>
+        <h:panelGroup id="cargo-status">
 
         <div class="ui-g-12">
           <h:panelGroup rendered="#{not empty admin.track.cargo}">
@@ -101,7 +105,11 @@
             </div>
           </div>
         </h:panelGroup>
-      </div>
+      </h:panelGroup>
+    </div>
+    <h:outputScript name="js/topbar.min.js" />
+    <h:outputScript name="js/topbar.js" />
+    <h:outputScript name="js/progress.js" />
     </ui:define>
   </ui:composition>
 </html>

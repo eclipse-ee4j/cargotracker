@@ -9,7 +9,7 @@
     <property name="deploymentExportPath">target/</property>
   </engine>
 
-  <container qualifier="payara">
+  <container qualifier="payara" default="true">
     <configuration>
       <property name="microJar">${payara.micro.jar}</property>
       <property name="randomHttpPort">false</property>

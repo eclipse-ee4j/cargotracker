@@ -15,23 +15,23 @@
     <div class="ui-g full-page">
       <h:form>
         <h:panelGrid columns="2" cellpadding="15">
-          <p:outputLabel value="Origin:"/>
+          <p:outputLabel value="Origin:" />
           <p:outputLabel value="#{changeArrivalDeadline.cargo.originName}"/>
 
-          <p:outputLabel value="Destination: "/>
+          <p:outputLabel value="Destination: " />
           <p:outputLabel
             value="#{changeArrivalDeadline.cargo.finalDestinationName}"/>
 
-          <p:outputLabel value="Deadline: "/>
+          <p:outputLabel value="Deadline: " />
           <p:datePicker
-            value="#{changeArrivalDeadline.arrivalDeadline}"/>
+            value="#{changeArrivalDeadline.arrivalDeadline}" />
 
           <p:commandButton value="Cancel"
-                           action="#{changeArrivalDeadlineDialog.cancel()}"/>
+                           action="#{changeArrivalDeadlineDialog.cancel()}" />
 
           <p:commandButton value="Update"
                            action="#{changeArrivalDeadline.changeArrivalDeadline()}"
-                           oncomplete="window.location.replace(window.location.href);"/>
+                           oncomplete="window.location.replace(window.location.href);" />
         </h:panelGrid>
       </h:form>
     </div>

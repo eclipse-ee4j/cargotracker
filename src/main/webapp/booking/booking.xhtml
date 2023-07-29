@@ -9,7 +9,7 @@
       <div class="ui-g-2" id="leftCol"></div>
       <div class="ui-g-8" id="mainCol">
         <br/>
-        <h:form>
+        <h:form id="continer" >
           <p:outputLabel value="1. Choose the origin of the new cargo"/>
           <hr/>
           <p:selectOneMenu id="origin" value="#{booking.originUnlocode}">
@@ -22,6 +22,9 @@
             <p:commandButton value="Next" action="booking-destination"/>
           </h:panelGrid>
         </h:form>
+        <h:outputScript name="js/topbar.min.js" />
+        <h:outputScript name="js/topbar.js" />
+        <h:outputScript name="js/progress.js" />
       </div>
     </ui:define>
   </ui:composition>
