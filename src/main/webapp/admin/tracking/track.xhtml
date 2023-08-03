@@ -8,27 +8,23 @@
     <ui:define name="content">
 
       <div class="ui-grid-col-2" id="leftCol"></div>
+      <br />
       <div class="ui-grid-col-8" id="container" >
         <br />
-        <div class="ui-g ui-g-12">
-          <div class="ui-g-6 ui-g-offset-3">
-            <h:form id="trackingForm">
-              <h:panelGrid columns="3" cellpadding="15">
-                <p>Enter your tracking ID:</p>
-                <p:autoComplete id="trackingIdInput"
-                                value="#{admin.track.trackingId}" required="true"
-                                forceSelection="true" placeholder="XYZ789"
-                                title="Valid tracking ID"
-                                completeMethod="#{admin.track.getTrackingIds}" />
-                <h:commandButton value="Track!"
-                                 action="#{admin.track.onTrackById()}">
-                                 <f:ajax execute="trackingIdInput" render="cargo-status" />
-                                
-              </h:commandButton>
-              </h:panelGrid>
-            </h:form>
-          </div>
-        </div>
+        <p:card>
+        <h:form id="trackingForm">
+          <h:panelGrid columns="3" cellpadding="15">
+            <p>Enter your tracking ID:</p>
+            <p:autoComplete id="trackingIdInput"
+              value="#{admin.track.trackingId}" required="true"
+              forceSelection="true" placeholder="XYZ789"
+              title="Valid tracking ID"
+              completeMethod="#{admin.track.getTrackingIds}" />
+            <p:commandButton value="Track!"
+              action="#{admin.track.onTrackById()}" update="cargo-status" />
+          </h:panelGrid>
+        </h:form>
+      </p:card>
 
         <div class="ui-g-12">
           <p:separator />

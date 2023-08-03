@@ -20,28 +20,29 @@
   <h:body>
     <div class="ui-g full-page">
       <!-- MENU -->
-      <div class="ui-g-12 ui-md-2 side-panel">
-        <div class="ui-g-12 menu-container">
-          <h:form>
+      <div id="ui-sd-1" class="ui-g-12 ui-md-2 side-panel">
+        <h:form id="ui-form-0">
+          <div class="ui-g-12 menu-container">
             <h:graphicImage value="#{resource['/images/CTlogobadge128.png']}"
                             class="side-panel-img" alt="Cargo Tracker logo badge"/>
-            <p:menu>
-              <p:menuitem value="Dashboard"
-                          url="#{request.contextPath}/admin/dashboard.xhtml"/>
+              <p:menu id="side-sub-menu" styleClass="sub-menu">
+                              <p:menuitem value="Live"
+                                url="#{request.contextPath}/admin/tracking/map.xhtml" />
               <p:menuitem value="Book" action="booking"/>
               <p:menuitem value="Track"
                           url="#{request.contextPath}/admin/tracking/track.xhtml"/>
-              <p:menuitem value="Live"
-                          url="#{request.contextPath}/admin/tracking/map.xhtml"/>
               <p:menuitem value="About"
                           url="#{request.contextPath}/admin/about.xhtml"/>
+              <p:menuitem value="Dashboard"
+                          url="#{request.contextPath}/admin/dashboard.xhtml" />
             </p:menu>
-          </h:form>
-        </div>
+          </div>
+        </h:form>
       </div>
 
       <!-- Main Section -->
       <div class="ui-g-12 ui-md-10 ui-g-nopad">
+        <p:commandButton type="button" value="Home" styleClass="ui-button-flat" />
         <div class="ui-g-12 ui-g-nopad">
           <div class="ui-g">
             <ui:insert name="content">Default Content</ui:insert>
@@ -49,5 +50,17 @@
         </div>
       </div>
     </div>
+    <script>
+			$('.side-panel-img').css('cursor', 'pointer');
+			document.getElementsByClassName("side-panel-img")[0].onclick = function() {
+				var target = window.location.origin + "/cargo-tracker";
+				location.href = target;
+			};
+
+			document.getElementsByClassName("ui-button-flat")[0].onclick = function() {
+				var target = window.location.origin + "/cargo-tracker";
+				location.href = target;
+			};
+	</script>
   </h:body>
 </html>

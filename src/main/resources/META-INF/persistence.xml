@@ -11,6 +11,8 @@
     <properties>
       <!-- See https://jakarta.ee/specifications/persistence/ -->
       <property name="jakarta.persistence.schema-generation.database.action" value="create" />
+      <property name="jakarta.persistence.sql-load-script-source"
+        value="META-INF/initital-data.sql" />
       <property name="eclipselink.logging.level" value="CONFIG" />
     </properties>
   </persistence-unit>
