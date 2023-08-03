@@ -1,6 +1,6 @@
 /* Variables */
 :root {
-  --secondary-text-color: #f5f5f5;
+  --secondary-text-color: #ffffff;
 
 
   --primary-color: #FFA500;
@@ -16,6 +16,7 @@
 body {
   height: 100vh;
   margin: 0;
+  background-color: #f8f9fa;  
 }
 
 .full-page {
@@ -26,34 +27,78 @@ body {
              Side panel style
  *************************************/
 
-.side-panel {
-  background-color: var(--background-panel-main-color);
+.ui-button.ui-state-default.ui-button-flat {
+  background-color: transparent;
+  border-style: none;
+  float: right;
+  color: #00ace6;
+  font-size: 1rem;
+}
 
+#ui-sd-1 {
+  padding: 0;
+}
+    
+.side-panel {
+  background-color: #1a1a1a;
   padding: 0;
   margin: 0;
+  width: 150%;
 }
 
-/*this is for overriding Primefaces' background and color */
-.side-panel * {
-  background-color: var(--background-panel-main-color);
-  color: var(--secondary-text-color);
+#ui-form-0\:side-sub-menu li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 3px solid orange;
 }
+
+#ui-form-0\:side-sub-menu li a {
+  font-family: 'Lato', sans-serif;
+  padding: 10% 0 10% 15%;
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+#side-sub-menu li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 3px solid orange;
+}
+
+#side-sub-menu li a {
+  font-family: 'Lato', sans-serif;
+  padding: 10% 0 10% 15%;
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+    float: none;
+    vertical-align: middle;
+    color: rgb(245,245,245);
+}
+
+body .ui-menu {
+  background-color: transparent;
+}
+/*this is for overriding Primefaces' background and color */
+
 
 .side-panel .side-panel-img {
   display: block;
-
-  width: 80%;
-
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
-
   margin-bottom: 50px;
 }
 
 .side-panel>.menu-container {
   width: 100%;
   margin: 0;
-
+  padding: 0;
   font-size: 25px;
 }
 
@@ -112,10 +157,8 @@ body {
 .ui-datatable .ui-datatable-header {
   background: var(--primary-color);
   color: #ffffff;
-
   font-weight: bold;
   font-size: 2em;
-
   border-bottom: 0 none;
 }
 
@@ -157,7 +200,7 @@ body {
 }
 
 .ui-datatable-odd {
-  background-color: var(--primary-color-lighten);
+  background-color: var(--primary-color-lighten) !important;
 }
 
 /*************************************
