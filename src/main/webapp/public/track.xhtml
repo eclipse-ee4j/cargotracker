@@ -8,22 +8,18 @@
     <div class="ui-grid-col-2" id="leftCol"></div>
     <div class="ui-grid-col-8" id="container" style="display: none">
       <br />
-      <div class="ui-g ui-g-12">
-        <div class="ui-g-6 ui-g-offset-3">
+      <p:card>
           <h:form id="trackingForm">
             <h:panelGrid columns="3" cellpadding="15">
               <p>Enter your tracking ID:</p>
               <p:inputText id="trackingIdInput"
                 value="#{public.track.trackingId}" required="true"
                 placeholder="XYZ789" title="Valid tracking ID" />
-              <h:commandButton value="Track!"
-                action="#{public.track.onTrackById()}">
-                <f:ajax execute="trackingIdInput" render="cargo-status" />
-              </h:commandButton>
+              <p:commandButton value="Track!"
+                  action="#{public.track.onTrackById()}" update="cargo-status" />
             </h:panelGrid>
           </h:form>
-        </div>
-      </div>
+      </p:card>
       <div class="ui-g-12">
         <p:separator />
       </div>
