@@ -1,4 +1,3 @@
-
 .alignRight {
   text-align: right;
 }
@@ -74,7 +73,7 @@
 
 .decoration .ui-layout-unit-content {
   height: 48px !important;
- /* woraround header heigh bug in Chrome & Safari */
+  /* woraround header heigh bug in Chrome & Safari */
   color: white;
   font-weight: 100;
   background-image: -webkit-linear-gradient(bottom, rgb(43, 50, 64), rgb(80, 80, 140));

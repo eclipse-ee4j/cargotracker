@@ -1,6 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.rest;
 
-
 import java.time.LocalDateTime;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;

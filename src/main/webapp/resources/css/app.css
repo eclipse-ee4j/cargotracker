@@ -16,7 +16,7 @@
 body {
   height: 100vh;
   margin: 0;
-  background-color: #f8f9fa;
+  background-color: #f8f9fa;  
 }
 
 .full-page {
@@ -38,7 +38,7 @@ body {
 #ui-sd-1 {
   padding: 0;
 }
-
+    
 .side-panel {
   background-color: #1a1a1a;
   padding: 0;
@@ -74,6 +74,7 @@ body {
   font-size: 1.1rem;
 }
 
+
 body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
   float: none;
   vertical-align: middle;
@@ -85,13 +86,12 @@ background-color: transparent;
 }
 /*this is for overriding Primefaces' background and color */
 
+
 .side-panel .side-panel-img {
   display: block;
   width: 60%;
-
   margin-left: auto;
   margin-right: auto;
-
   margin-bottom: 50px;
 }
 
@@ -99,7 +99,6 @@ background-color: transparent;
   width: 100%;
   margin: 0;
   padding: 0;
-
   font-size: 25px;
 }
 
@@ -158,10 +157,8 @@ background-color: transparent;
 .ui-datatable .ui-datatable-header {
   background: var(--primary-color);
   color: #ffffff;
-
   font-weight: bold;
   font-size: 2em;
-
   border-bottom: 0 none;
 }
 
