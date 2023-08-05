@@ -18,9 +18,10 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Embeddable
 public class Itinerary implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern.
   public static final Itinerary EMPTY_ITINERARY = new Itinerary();
-  private static final long serialVersionUID = 1L;
 
   // TODO [Clean Code] Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)
@@ -114,9 +115,7 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /**
-   * @return Date when cargo arrives at final destination.
-   */
+  /** @return Date when cargo arrives at final destination. */
   LocalDateTime getFinalArrivalDate() {
     Leg lastLeg = getLastLeg();
 
@@ -127,9 +126,7 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /**
-   * @return The last leg on the itinerary.
-   */
+  /** @return The last leg on the itinerary. */
   Leg getLastLeg() {
     if (legs.isEmpty()) {
       return null;

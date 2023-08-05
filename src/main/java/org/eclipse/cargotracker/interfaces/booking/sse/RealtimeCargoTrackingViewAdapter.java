@@ -72,7 +72,7 @@ public class RealtimeCargoTrackingViewAdapter {
     return cargo.getDelivery().getTransportStatus().toString();
   }
 
-    static {
+  static {
     routingStatusLabels.put(RoutingStatus.NOT_ROUTED, "Not routed");
     routingStatusLabels.put(RoutingStatus.ROUTED, "Routed");
     routingStatusLabels.put(RoutingStatus.MISROUTED, "Misrouted");

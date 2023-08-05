@@ -23,9 +23,11 @@ import org.apache.commons.lang3.Validate;
     query = "Select l from Location l where l.unLocode = :unLocode")
 public class Location implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Special Location object that marks an unknown location.
   public static final Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");
-  private static final long serialVersionUID = 1L;
+
   @Id @GeneratedValue private Long id;
   @Embedded @NotNull private UnLocode unLocode;
   @NotEmpty private String name;
@@ -47,16 +49,12 @@ public class Location implements Serializable {
     this.name = name;
   }
 
-  /**
-   * @return UN location code for this location.
-   */
+  /** @return UN location code for this location. */
   public UnLocode getUnLocode() {
     return unLocode;
   }
 
-  /**
-   * @return Actual name of this location, e.g. "Stockholm".
-   */
+  /** @return Actual name of this location, e.g. "Stockholm". */
   public String getName() {
     return name;
   }
@@ -88,9 +86,7 @@ public class Location implements Serializable {
     return this.unLocode.sameValueAs(other.unLocode);
   }
 
-  /**
-   * @return Hash code of UN locode.
-   */
+  /** @return Hash code of UN locode. */
   @Override
   public int hashCode() {
     return unLocode.hashCode();

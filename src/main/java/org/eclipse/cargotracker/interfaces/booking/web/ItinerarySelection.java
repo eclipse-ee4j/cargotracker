@@ -24,8 +24,10 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 public class ItinerarySelection implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  List<RouteCandidate> routeCandidates;
+
   @Inject private BookingServiceFacade bookingServiceFacade;
+
+  List<RouteCandidate> routeCandidates;
   private String trackingId;
   private CargoRoute cargo;
 

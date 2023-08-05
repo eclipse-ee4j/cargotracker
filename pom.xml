@@ -1,37 +1,29 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>org.eclipse.ee4j</groupId>
   <artifactId>cargo-tracker</artifactId>
   <version>2.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Eclipse Cargo Tracker</name>
-  <description>
-    The project demonstrates how you can develop applications with the Jakarta EE platform using
-    widely adopted architectural best practices like Domain-Driven Design (DDD).
-  </description>
+  <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD).</description>
   <url>https://eclipse-ee4j.github.io/cargotracker/</url>
-
   <organization>
     <name>Eclipse Foundation</name>
     <url>https://www.eclipse.org/org/foundation/</url>
   </organization>
-
   <issueManagement>
     <system>github</system>
     <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
   </issueManagement>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
-
     <maven.compiler.release>11</maven.compiler.release>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
     <cargo-maven3-plugin.version>1.10.7</cargo-maven3-plugin.version>
-
     <jakartaee-api.version>10.0.0</jakartaee-api.version>
     <primefaces.version>12.0.0</primefaces.version>
     <jersey.version>3.1.2</jersey.version>
@@ -45,19 +37,11 @@
     <hamcrest.version>2.2</hamcrest.version>
     <assertj.version>3.24.2</assertj.version>
   </properties>
-
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>jakarta.platform</groupId>
-        <artifactId>jakarta.jakartaee-api</artifactId>
-        <version>${jakartaee-api.version}</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <!-- Arquillian Bill Of Management used to reduce collision between testing
-  dependencies.
-      Using a dependency manager we don't need to specify the version of each Arquillian dependency. -->
+      <!-- Arquillian Bill Of Management used to reduce collision between testing 
+        dependencies. Using a dependency manager we don't need to specify the version of 
+        each Arquillian dependency. -->
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
@@ -65,7 +49,6 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
-
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -87,13 +70,13 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>${jakartaee-api.version}</version>
+      <scope>provided</scope>
     </dependency>
-
     <!-- The third-party dependencies this application has -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -112,7 +95,6 @@
       <version>${jersey.version}</version>
       <scope>provided</scope>
     </dependency>
-
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.jboss.arquillian.junit5</groupId>
@@ -144,7 +126,6 @@
       <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
-
     <!-- Needed for Arquillian to log -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -152,7 +133,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <finalName>cargo-tracker</finalName>
     <plugins>
@@ -180,21 +160,18 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2022.2</payara.version>
+        <payara.version>6.2023.4</payara.version>
         <!-- Application properties -->
-        <webapp.graphTraversalUrl>
-          http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
-        </webapp.graphTraversalUrl>
+        <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
-        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a
-    full-qualified
-        path name (it should include driver name under Windows). -->
+        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
+          path name (it should include driver name under Windows). -->
         <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
         <db.user />
         <db.password />
       </properties>
-
       <dependencies>
+        <!-- We need a Jersey specific dependency -->
         <dependency>
           <groupId>org.glassfish.jersey.core</groupId>
           <artifactId>jersey-server</artifactId>
@@ -214,9 +191,7 @@
           <version>${payara.version}</version>
           <scope>test</scope>
         </dependency>
-
-
-        <!-- Payara Micro Managed Container Adaptor -->
+  <!-- Payara Micro Managed Container Adaptor -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
@@ -230,8 +205,6 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.1.2</version>
-
-
           </plugin>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
@@ -245,13 +218,13 @@
                   <artifactId>payara</artifactId>
                   <version>${payara.version}</version>
                 </artifactInstaller>
+                <timeout>180000</timeout>
               </container>
             </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
-
     <!-- Cloud/production deployment using Payara and PostgreSQL. -->
     <profile>
       <id>cloud</id>
@@ -260,18 +233,16 @@
       </activation>
       <properties>
         <payara.version>6.2022.2</payara.version>
-
-        <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path
-        </webapp.graphTraversalUrl>
+        <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
-        <!-- Pass in via command line (e.g. mvn clean package -Pcloud
-        -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres?user=postgres). -->
+        <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
+          -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
         <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
         <db.user>${postgreSqlUsername}</db.user>
         <db.password>${postgreSqlPassword}</db.password>
       </properties>
-
       <dependencies>
+        <!-- We need a Jersey specific dependency -->
         <dependency>
           <groupId>org.glassfish.jersey.core</groupId>
           <artifactId>jersey-server</artifactId>
@@ -307,7 +278,7 @@
             <executions>
               <execution>
                 <id>copy</id>
-                <phase>process-test-resources</phase>
+                <phase>prepare-package</phase>
                 <goals>
                   <goal>copy</goal>
                 </goals>
@@ -316,7 +287,6 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-
                   <groupId>org.postgresql</groupId>
                   <artifactId>postgresql</artifactId>
                   <version>42.6.0</version>

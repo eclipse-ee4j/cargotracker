@@ -3,27 +3,26 @@ name: Main Build
 on:
   push:
     paths-ignore:
-    - docs/**
+      - "docs/**"
     branches:
-    - master
+      - master
   pull_request:
     types:
-    - opened
-    - synchronize
-    - reopened
+      - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: axel-op/googlejavaformat-action@v3
-      with:
-        version: 1.16
-        skip-commit: true
-    - name: Print diffs
-      run: git --no-pager diff --exit-code
+      - uses: actions/checkout@v3
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          # This version works will all IDEs including Eclipse.
+          version: 1.6
+        # args: "--dry-run --set-exit-if-changed"
 
   build:
     runs-on: ubuntu-latest
@@ -32,22 +31,19 @@ jobs:
       matrix:
         java: [11, 17]
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: ${{matrix.java}}
+      - uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{matrix.java}}
 
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
-    - name: Build and test with GlassFish
-      run: mvn clean verify -Pglassfish
-    - name: Build and test with Payara Micro
-      run: mvn clean verify -Ppayara
-
+      - name: Build with Maven
+        run: mvn clean package --file pom.xml

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         version="6.0"
-         xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.0"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
 
   <!-- Overriding system level defaults is a decent usage of XML. -->
   <context-param>
@@ -54,16 +53,15 @@
     <welcome-file>index.xhtml</welcome-file>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-   <!-- Application resource dependencies like JMS queues and data sources
-  are still good candidates for XML, as is application configuration. -->
+  <!-- Application resource dependencies like JMS queues and data sources are still 
+    good candidates for XML, as is application configuration. -->
   <env-entry>
-    <env-entry-name>java:app/configuration/GraphTraversalUrl
-    </env-entry-name>
+    <env-entry-name>java:app/configuration/GraphTraversalUrl</env-entry-name>
     <env-entry-type>java.lang.String</env-entry-type>
     <env-entry-value>${webapp.graphTraversalUrl}</env-entry-value>
   </env-entry>
- <!-- Defining these at the application server level instead of here can
-  be more operations friendly and help make deployment even faster. -->
+  <!-- Defining these at the application server level instead of here can be more 
+    operations friendly and help make deployment even faster. -->
   <data-source>
     <name>java:app/jdbc/CargoTrackerDatabase</name>
     <class-name>${db.driverClass}</class-name>

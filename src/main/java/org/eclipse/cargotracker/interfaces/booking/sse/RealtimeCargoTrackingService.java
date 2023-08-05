@@ -24,7 +24,6 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoUpdated;
 @Singleton
 @Path("/cargo")
 public class RealtimeCargoTrackingService {
-
   @Inject private Logger logger;
 
   @Inject private CargoRepository cargoRepository;

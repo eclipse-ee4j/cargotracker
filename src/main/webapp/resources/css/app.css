@@ -27,7 +27,7 @@ body {
              Side panel style
  *************************************/
 
- .ui-button.ui-state-default.ui-button-flat {
+.ui-button.ui-state-default.ui-button-flat {
   background-color: transparent;
   border-style: none;
   float: right;
@@ -76,13 +76,13 @@ body {
 
 
 body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
-  float: none;
-  vertical-align: middle;
-  color: rgb(245,245,245);
+    float: none;
+    vertical-align: middle;
+    color: rgb(245,245,245);
 }
 
 body .ui-menu {
-background-color: transparent;
+  background-color: transparent;
 }
 /*this is for overriding Primefaces' background and color */
 

@@ -50,6 +50,7 @@ public class ExternalRoutingServiceTest {
     // expect(voyageRepository.find(isA(VoyageNumber.class))).andStubReturn(SampleVoyages.CM002);
     //
     //        replay(voyageRepository);
+
     List<Itinerary> candidates =
         externalRoutingService.fetchRoutesForSpecification(routeSpecification);
     assertNotNull(candidates);
@@ -57,7 +58,8 @@ public class ExternalRoutingServiceTest {
     // Cargo origin and start of first leg should match
     // Cargo final destination and last leg stop should match
     // Assert that all legs are connected
-    candidates.stream()
+    candidates
+        .stream()
         .map(Itinerary::getLegs)
         .forEach(
             legs -> {

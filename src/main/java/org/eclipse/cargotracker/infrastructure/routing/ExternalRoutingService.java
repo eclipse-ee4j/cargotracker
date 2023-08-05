@@ -44,8 +44,7 @@ public class ExternalRoutingService implements RoutingService {
 
   @PostConstruct
   public void init() {
-    graphTraversalResource = ClientBuilder.newClient().target(graphTraversalUrl);
-    logger.log(
+    graphTraversalResource = ClientBuilder.newClient().target(graphTraversalUrl);logger.log(
         Level.INFO, "Graph traversal URL to be used for the REST client: {0}", graphTraversalUrl);
   }
 
@@ -66,7 +65,8 @@ public class ExternalRoutingService implements RoutingService {
     List<Itinerary> itineraries = new ArrayList<>();
 
     // Use the specification to safe-guard against invalid itineraries
-    transitPaths.stream()
+    transitPaths
+        .stream()
         .map(this::toItinerary)
         .forEach(
             itinerary -> {

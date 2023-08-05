@@ -82,7 +82,8 @@ public class EventLogger implements Serializable {
   // Move this to a separate utility if it is used in other parts of the UI.
   public Map<HandlingEvent.Type, HandlingEvent.Type> getEventTypes() {
     return Collections.unmodifiableMap(
-        Arrays.asList(HandlingEvent.Type.values()).stream()
+        Arrays.asList(HandlingEvent.Type.values())
+            .stream()
             .collect(toMap(Function.identity(), Function.identity())));
   }
 
@@ -129,7 +130,8 @@ public class EventLogger implements Serializable {
     trackingIds = new ArrayList<>(cargos.size());
 
     // List only routed cargo that is not claimed yet.
-    cargos.stream()
+    cargos
+        .stream()
         .filter(
             cargo ->
                 !cargo.getItinerary().getLegs().isEmpty()
@@ -180,8 +182,7 @@ public class EventLogger implements Serializable {
       FacesMessage message =
           new FacesMessage(
               FacesMessage.SEVERITY_ERROR,
-              "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to"
-                  + " continue.",
+              "When a cargo is LOADed or UNLOADed a Voyage should be selected, please fix errors to continue.",
               "");
       context.addMessage(null, message);
       return false;

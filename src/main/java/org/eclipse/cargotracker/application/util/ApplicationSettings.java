@@ -11,13 +11,9 @@ import jakarta.persistence.Id;
  */
 @Entity
 public class ApplicationSettings implements Serializable {
-
   private static final long serialVersionUID = 1L;
 
-  @Id private long id;
-
-  // Fixes EclipseLink 4.0.1 mapping to Derby 10.15.2.0
-  // Note that this table is not used in tests!!!
+  @Id private Long id;
   @Column(columnDefinition = "boolean not null")
   private boolean sampleLoaded = false;
 

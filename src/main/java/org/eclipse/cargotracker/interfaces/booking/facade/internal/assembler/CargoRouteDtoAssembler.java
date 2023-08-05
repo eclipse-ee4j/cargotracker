@@ -18,7 +18,10 @@ public class CargoRouteDtoAssembler {
 
   public CargoRoute toDto(Cargo cargo) {
     List<Leg> legs =
-        cargo.getItinerary().getLegs().stream()
+        cargo
+            .getItinerary()
+            .getLegs()
+            .stream()
             .map(
                 leg ->
                     new Leg(

@@ -1,33 +1,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="jakarta.faces.core">
-  <ui:composition template="/WEB-INF/templates/common/public.xhtml">
-    <ui:define name="title">Track Cargo</ui:define>
-    <ui:define name="content">
-
-      <div class="ui-grid-col-2" id="leftCol"></div>
-      <div class="ui-grid-col-8" id="container" style="display: none">
-
-        <br />
-        <p:card>
-            <h:form id="trackingForm">
-              <h:panelGrid columns="3" cellpadding="15">
-                <p>Enter your tracking ID:</p>
-                <p:inputText id="trackingIdInput"
-                             value="#{public.track.trackingId}" required="true"
-                             placeholder="XYZ789" title="Valid tracking ID" />
-                <p:commandButton value="Track!"
-                             action="#{public.track.onTrackById()}" update="cargo-status" />
-              </h:panelGrid>
-            </h:form>
-          </p:card>
-
-        <div class="ui-g-12">
-          <p:separator />
-        </div>
-        <h:panelGroup id="cargo-status">
-
+  xmlns:h="jakarta.faces.html"
+  xmlns:ui="jakarta.faces.facelets"
+  xmlns:p="http://primefaces.org/ui" xmlns:f="jakarta.faces.core">
+<ui:composition template="/WEB-INF/templates/common/public.xhtml">
+  <ui:define name="title">Track Cargo</ui:define>
+  <ui:define name="content">
+    <div class="ui-grid-col-2" id="leftCol"></div>
+    <div class="ui-grid-col-8" id="container" style="display: none">
+      <br />
+      <p:card>
+          <h:form id="trackingForm">
+            <h:panelGrid columns="3" cellpadding="15">
+              <p>Enter your tracking ID:</p>
+              <p:inputText id="trackingIdInput"
+                value="#{public.track.trackingId}" required="true"
+                placeholder="XYZ789" title="Valid tracking ID" />
+              <p:commandButton value="Track!"
+                  action="#{public.track.onTrackById()}" update="cargo-status" />
+            </h:panelGrid>
+          </h:form>
+      </p:card>
+      <div class="ui-g-12">
+        <p:separator />
+      </div>
+      <h:panelGroup id="cargo-status">
         <div class="ui-g-12">
           <h:panelGroup rendered="#{not empty public.track.cargo}">
             <div id="result">
@@ -63,7 +59,7 @@
           <div class="ui-g ui-g-12">
             <div class="ui-g-3">
               <p:outputLabel value="Handling History"
-                             style="font-size: 2em; font-weight: bold" />
+                style="font-size: 2em; font-weight: bold" />
             </div>
 
             <div class="ui-g-12">
@@ -75,13 +71,13 @@
               <ui:repeat value="#{public.track.cargo.events}" var="leg">
                 <div>
                   <ui:fragment rendered="#{leg.expected}">
-                    &#160;&#160;<i class="fa fa-check"
-                                   style="color: green" />&#160;#{leg.description}, at #{leg.time}
-                  </ui:fragment>
+                                &#160;&#160;<i class="fa fa-check"
+                      style="color: green" />&#160;#{leg.description}, at #{leg.time}
+                            </ui:fragment>
                   <ui:fragment rendered="#{!leg.expected}">
-                    &#160;&#160;<em class="fa fa-flag"
-                                    style="color: #9b2332" />&#160;#{leg.description}, at #{leg.time}
-                  </ui:fragment>
+                                &#160;&#160;<em class="fa fa-flag"
+                      style="color: #9b2332" />&#160;#{leg.description}, at #{leg.time}
+                            </ui:fragment>
                 </div>
               </ui:repeat>
 
@@ -93,14 +89,14 @@
 
           <div id="map" class="ui-g-12">
             <iframe class="mapFrame" width="100%" height="960"
-                    src="#{request.contextPath}/public/mapFrame.xhtml?cargo=#{public.track.cargoAsJson}" />
+              src="#{request.contextPath}/public/mapFrame.xhtml?cargo=#{public.track.cargoAsJson}" />
           </div>
         </h:panelGroup>
-        </h:panelGroup>
-      </div>
-      <h:outputScript name="js/topbar.min.js" />
-      <h:outputScript name="js/topbar.js" />
-      <h:outputScript name="js/progress.js" />
-    </ui:define>
-  </ui:composition>
+      </h:panelGroup>
+    </div>
+    <h:outputScript name="js/topbar.min.js" />
+    <h:outputScript name="js/topbar.js" />
+    <h:outputScript name="js/progress.js" />
+  </ui:define>
+</ui:composition>
 </html>

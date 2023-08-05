@@ -37,10 +37,11 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 @Embeddable
 public class Delivery implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern.
   public static final LocalDateTime ETA_UNKOWN = null;
   public static final HandlingActivity NO_ACTIVITY = new HandlingActivity();
-  private static final long serialVersionUID = 1L;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "transport_status")
@@ -182,9 +183,7 @@ public class Delivery implements Serializable {
     return nextExpectedActivity;
   }
 
-  /**
-   * @return True if the cargo has been unloaded at the final destination.
-   */
+  /** @return True if the cargo has been unloaded at the final destination. */
   public boolean isUnloadedAtDestination() {
     return isUnloadedAtDestination;
   }

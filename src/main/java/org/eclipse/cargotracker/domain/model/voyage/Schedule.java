@@ -17,9 +17,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Embeddable
 public class Schedule implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern.
   public static final Schedule EMPTY = new Schedule();
-  private static final long serialVersionUID = 1L;
 
   // TODO [Clean Code] Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)

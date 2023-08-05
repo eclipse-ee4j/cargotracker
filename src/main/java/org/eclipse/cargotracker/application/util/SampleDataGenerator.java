@@ -3,7 +3,6 @@ package org.eclipse.cargotracker.application.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
@@ -13,6 +12,7 @@ import jakarta.ejb.TransactionAttributeType;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
@@ -41,29 +41,28 @@ public class SampleDataGenerator {
   @PostConstruct
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void loadSampleData() {
-    if (isSampleLoaded()) {
+    if (!isSampleLoaded()) {
+      logger.info("Loading sample data.");
+      loadSampleLocations();
+      loadSampleVoyages();
+      loadSampleCargos();
+    } else {
       logger.info("Sample data already loaded, skipping.");
-      return;
     }
-    logger.info("Loading sample data.");
-    loadSampleLocations();
-    loadSampleVoyages();
-    loadSampleCargos();
   }
 
   private boolean isSampleLoaded() {
-    long primaryKey = 1L;
-    ApplicationSettings settings =
-        entityManager.find(ApplicationSettings.class, primaryKey, LockModeType.PESSIMISTIC_WRITE);
-    if (settings == null) {
-      logger.log(Level.INFO, "Sample data record doesn't exist yet, so it will be created now.");
-      settings = new ApplicationSettings(primaryKey);
-    } else {
-      logger.log(Level.INFO, "Sample data already loaded: {0}", settings.isSampleLoaded());
+    boolean sampleLoaded = false;
+
+    try {
+      ApplicationSettings settings =
+          entityManager.find(ApplicationSettings.class, 1L, LockModeType.PESSIMISTIC_WRITE);
+      sampleLoaded = settings.isSampleLoaded();
+      settings.setSampleLoaded(true);
+    } catch (NoResultException e) {
+      throw new RuntimeException("Could not retrieve application settings.", e);
     }
-    final boolean sampleLoaded = settings.isSampleLoaded();
-    settings.setSampleLoaded(true);
-    entityManager.merge(settings);
+
     return sampleLoaded;
   }
 

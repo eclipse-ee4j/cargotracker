@@ -1,13 +1,10 @@
 # Contributing to Eclipse Cargo Tracker
 
-Thanks for your interest in this project. Your feedback and contributions are most welcome. Please
-consider contacting the developers of the project before proposing a change, ideally via
-the [mailing list](https://accounts.eclipse.org/mailing-list/cargotracker-dev).
+Thanks for your interest in this project. Your feedback and contributions are most welcome. Please consider contacting the developers of the project before proposing a change, ideally via the [mailing list](https://accounts.eclipse.org/mailing-list/cargotracker-dev).
 
 ## Project description
 
-The project demonstrates how you can develop applications with Jakarta EE using widely adopted
-architectural best practices like Domain-Driven Design (DDD).
+The project demonstrates how you can develop applications with Jakarta EE using widely adopted architectural best practices like Domain-Driven Design (DDD).
 
 * https://projects.eclipse.org/projects/ee4j.cargotracker
 

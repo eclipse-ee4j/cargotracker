@@ -21,10 +21,12 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   // Null object pattern
   public static final CarrierMovement NONE =
       new CarrierMovement(Location.UNKNOWN, Location.UNKNOWN, LocalDateTime.MIN, LocalDateTime.MIN);
-  private static final long serialVersionUID = 1L;
+
   @Id @GeneratedValue private Long id;
 
   @ManyToOne

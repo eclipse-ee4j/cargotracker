@@ -39,9 +39,7 @@ public class HandlingHistory {
     return Collections.unmodifiableList(ordered);
   }
 
-  /**
-   * @return Most recently completed event, or null if the delivery history is empty.
-   */
+  /** @return Most recently completed event, or null if the delivery history is empty. */
   public HandlingEvent getMostRecentlyCompletedEvent() {
     List<HandlingEvent> distinctEvents = getDistinctEventsByCompletionTime();
 

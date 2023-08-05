@@ -22,7 +22,8 @@ public class CargoStatusDtoAssembler {
     List<TrackingEvents> trackingEvents;
 
     trackingEvents =
-        handlingEvents.stream()
+        handlingEvents
+            .stream()
             .map(handlingEvent -> assembler.toDto(cargo, handlingEvent))
             .collect(Collectors.toList());
 
