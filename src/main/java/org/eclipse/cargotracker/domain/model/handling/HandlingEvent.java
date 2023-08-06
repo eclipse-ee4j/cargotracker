@@ -288,16 +288,12 @@ public class HandlingEvent implements Serializable {
       this.voyageRequired = voyageRequired;
     }
 
-    /**
-     * @return True if a voyage association is required for this event type.
-     */
+    /** @return True if a voyage association is required for this event type. */
     public boolean requiresVoyage() {
       return voyageRequired;
     }
 
-    /**
-     * @return True if a voyage association is prohibited for this event type.
-     */
+    /** @return True if a voyage association is prohibited for this event type. */
     public boolean prohibitsVoyage() {
       return !requiresVoyage();
     }
