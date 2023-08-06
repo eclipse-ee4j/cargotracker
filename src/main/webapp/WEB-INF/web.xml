@@ -2,7 +2,6 @@
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.0"
   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-
   <!-- Overriding system level defaults is a decent usage of XML. -->
   <context-param>
     <param-name>jakarta.faces.PROJECT_STAGE</param-name>
