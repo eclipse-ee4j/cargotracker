@@ -1,6 +1,5 @@
 package org.eclipse.cargotracker.domain.model.location;
 
-import java.io.Serializable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -49,12 +49,16 @@ public class Location implements Serializable {
     this.name = name;
   }
 
-  /** @return UN location code for this location. */
+  /**
+   * @return UN location code for this location.
+   */
   public UnLocode getUnLocode() {
     return unLocode;
   }
 
-  /** @return Actual name of this location, e.g. "Stockholm". */
+  /**
+   * @return Actual name of this location, e.g. "Stockholm".
+   */
   public String getName() {
     return name;
   }
@@ -86,7 +90,9 @@ public class Location implements Serializable {
     return this.unLocode.sameValueAs(other.unLocode);
   }
 
-  /** @return Hash code of UN locode. */
+  /**
+   * @return Hash code of UN locode.
+   */
   @Override
   public int hashCode() {
     return unLocode.hashCode();
