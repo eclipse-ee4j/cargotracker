@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - "docs/**"
     branches:
-      - master
+      - all
   pull_request:
     types:
       - opened
