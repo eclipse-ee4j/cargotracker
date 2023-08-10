@@ -13,9 +13,19 @@ on:
       - reopened
   workflow_dispatch:
 
-jobs:       
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          # This version works will all IDEs including Eclipse.
+          version: 1.6
+          # args: "--dry-run --set-exit-if-changed"        
   build:
     runs-on: ubuntu-latest
+    needs: [formatting]
     strategy:
       matrix:
         java: [11, 17]
