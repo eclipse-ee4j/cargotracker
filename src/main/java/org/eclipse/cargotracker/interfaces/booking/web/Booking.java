@@ -83,8 +83,7 @@ public class Booking implements Serializable {
   public void setOriginUnlocode(String originUnlocode) {
     this.originUnlocode = originUnlocode;
     this.originName =
-        locations
-            .stream()
+        locations.stream()
             .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
             .findAny()
             .get()
@@ -102,8 +101,7 @@ public class Booking implements Serializable {
   public void setDestinationUnlocode(String destinationUnlocode) {
     this.destinationUnlocode = destinationUnlocode;
     this.destinationName =
-        locations
-            .stream()
+        locations.stream()
             .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
             .findAny()
             .get()

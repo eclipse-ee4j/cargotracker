@@ -17,8 +17,7 @@ public class LocationDtoAssembler {
   public List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Location> toDtoList(
       List<Location> allLocations) {
     List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Location> dtoList =
-        allLocations
-            .stream()
+        allLocations.stream()
             .map(this::toDto)
             .sorted(
                 Comparator.comparing(
