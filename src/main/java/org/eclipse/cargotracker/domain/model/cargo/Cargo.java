@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
+import java.io.Serializable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serializable;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
@@ -113,16 +113,12 @@ public class Cargo implements Serializable {
     return routeSpecification;
   }
 
-  /**
-   * @return The delivery. Never null.
-   */
+  /** @return The delivery. Never null. */
   public Delivery getDelivery() {
     return delivery;
   }
 
-  /**
-   * @return The itinerary. Never null.
-   */
+  /** @return The itinerary. Never null. */
   public Itinerary getItinerary() {
     return DomainObjectUtils.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
   }
@@ -184,9 +180,7 @@ public class Cargo implements Serializable {
     return other != null && trackingId.sameValueAs(other.trackingId);
   }
 
-  /**
-   * @return Hash code of tracking id.
-   */
+  /** @return Hash code of tracking id. */
   @Override
   public int hashCode() {
     return trackingId.hashCode();

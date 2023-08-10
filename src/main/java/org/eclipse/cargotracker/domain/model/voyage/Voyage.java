@@ -1,15 +1,15 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.location.Location;
 

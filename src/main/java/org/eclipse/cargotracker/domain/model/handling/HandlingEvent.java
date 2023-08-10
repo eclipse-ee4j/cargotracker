@@ -1,5 +1,8 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,9 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -288,16 +288,12 @@ public class HandlingEvent implements Serializable {
       this.voyageRequired = voyageRequired;
     }
 
-    /**
-     * @return True if a voyage association is required for this event type.
-     */
+    /** @return True if a voyage association is required for this event type. */
     public boolean requiresVoyage() {
       return voyageRequired;
     }
 
-    /**
-     * @return True if a voyage association is prohibited for this event type.
-     */
+    /** @return True if a voyage association is prohibited for this event type. */
     public boolean prohibitsVoyage() {
       return !requiresVoyage();
     }

@@ -83,9 +83,7 @@ public class CargoTrackingViewAdapter {
     return cargo.getDelivery().getTransportStatus().name();
   }
 
-  /**
-   * @return A readable string describing the cargo status.
-   */
+  /** @return A readable string describing the cargo status. */
   public String getStatusText() {
     Delivery delivery = cargo.getDelivery();
 
@@ -148,9 +146,7 @@ public class CargoTrackingViewAdapter {
     }
   }
 
-  /**
-   * @return An unmodifiable list of handling event view adapters.
-   */
+  /** @return An unmodifiable list of handling event view adapters. */
   public List<HandlingEventViewAdapter> getEvents() {
     return Collections.unmodifiableList(events);
   }

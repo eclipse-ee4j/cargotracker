@@ -1,13 +1,13 @@
 package org.eclipse.cargotracker.infrastructure.messaging.jms;
 
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.jms.Destination;
 import jakarta.jms.JMSContext;
-import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;

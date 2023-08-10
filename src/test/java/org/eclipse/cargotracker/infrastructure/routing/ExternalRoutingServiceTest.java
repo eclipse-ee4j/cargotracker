@@ -16,7 +16,6 @@ import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 public class ExternalRoutingServiceTest {
 
   private ExternalRoutingService externalRoutingService;
-
   //    private VoyageRepository voyageRepository;
 
   //    protected void setUp() throws Exception {
