@@ -127,7 +127,8 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
         bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 
     List<RouteCandidate> routeCandidates =
-        itineraries.stream()
+        itineraries
+            .stream()
             .map(itineraryCandidateDtoAssembler::toDto)
             .collect(Collectors.toList());
 

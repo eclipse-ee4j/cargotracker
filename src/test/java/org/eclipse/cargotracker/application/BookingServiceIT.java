@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -76,7 +76,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(ArquillianExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
 public class BookingServiceIT {
-
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
   private static LocalDate deadline;

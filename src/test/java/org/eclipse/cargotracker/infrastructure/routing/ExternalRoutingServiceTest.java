@@ -58,7 +58,8 @@ public class ExternalRoutingServiceTest {
     // Cargo origin and start of first leg should match
     // Cargo final destination and last leg stop should match
     // Assert that all legs are connected
-    candidates.stream()
+    candidates
+        .stream()
         .map(Itinerary::getLegs)
         .forEach(
             legs -> {

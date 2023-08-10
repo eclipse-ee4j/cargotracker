@@ -183,9 +183,7 @@ public class Delivery implements Serializable {
     return nextExpectedActivity;
   }
 
-  /**
-   * @return True if the cargo has been unloaded at the final destination.
-   */
+  /** @return True if the cargo has been unloaded at the final destination. */
   public boolean isUnloadedAtDestination() {
     return isUnloadedAtDestination;
   }

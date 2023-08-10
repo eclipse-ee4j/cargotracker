@@ -66,7 +66,8 @@ public class ExternalRoutingService implements RoutingService {
     List<Itinerary> itineraries = new ArrayList<>();
 
     // Use the specification to safe-guard against invalid itineraries
-    transitPaths.stream()
+    transitPaths
+        .stream()
         .map(this::toItinerary)
         .forEach(
             itinerary -> {
