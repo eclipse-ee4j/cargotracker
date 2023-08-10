@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.application.util;
 
 import java.io.Serializable;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -14,14 +13,8 @@ public class ApplicationSettings implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id private Long id;
-  @Column(columnDefinition = "boolean not null")
+
   private boolean sampleLoaded = false;
-
-  public ApplicationSettings(long id) {
-    this.id = id;
-  }
-
-  public ApplicationSettings() {}
 
   public boolean isSampleLoaded() {
     return sampleLoaded;

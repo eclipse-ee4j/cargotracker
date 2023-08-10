@@ -153,8 +153,9 @@ public class BookingServiceIT {
         .addAsLibraries(
             Maven.resolver()
                 .loadPomFromFile("pom.xml")
-                .resolve("org.apache.commons:commons-lang3")
-                .withoutTransitivity()
+                .resolve("org.apache.commons:commons-lang3", 
+                "com.h2database:h2")
+                .withTransitivity()
                 .asFile());
   }
 

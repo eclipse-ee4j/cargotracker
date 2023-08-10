@@ -29,7 +29,7 @@
     <jersey.version>3.1.2</jersey.version>
     <h2.version>2.1.214</h2.version>
     <postgresql.version>42.6.0</postgresql.version>
-    <payara.version>6.2023.7</payara.version>
+    <payara.version>6.2023.6</payara.version>
 
     <!-- Test Utilities -->
     <arquillian-bom.version>1.7.0.Alpha13</arquillian-bom.version>
@@ -81,12 +81,11 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
-      <version>${primefaces.version}</version>
+      <version>12.0.0</version>
       <classifier>jakarta</classifier>
     </dependency>
     <dependency>
@@ -160,7 +159,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.7</payara.version>
+        <payara.version>6.2023.6</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -232,7 +231,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.7</payara.version>
+        <payara.version>6.2023.6</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
