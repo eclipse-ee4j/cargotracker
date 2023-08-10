@@ -21,7 +21,10 @@ jobs:
       - uses: axel-op/googlejavaformat-action@v3
         with:
           # This version works will all IDEs including Eclipse.
-          version: 1.6
+          version: 1.16
+          skip-commit: true
+      - name: Print diffs
+        run: git --no-pager diff --exit-code
           # args: "--dry-run --set-exit-if-changed"        
   build:
     runs-on: ubuntu-latest
