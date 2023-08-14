@@ -88,7 +88,7 @@
 	};
 </script>
 </head>
-<body style="background-color: white">
+<body id="iframe-box">
   <div>
     <div id="map"
       style="height: 600px; border: #FFF; border-style: solid; border-width: 8px;">
@@ -140,7 +140,7 @@
 								'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 								{
 									maxZoom : 19,
-									attribution : '&#xA9;; &lt;a href="https://openstreetmap.org/copyright">OpenStreetMap contributors&lt;/a>'
+									attribution: '&lt;a target="_blank" href="https://openstreetmap.org/copyright">&#xA9; OpenStreetMap Contributors&lt;/a>'
 								}).addTo(map);
 
 				// show the scale bar on the lower left corner

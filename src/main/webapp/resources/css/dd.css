@@ -2,6 +2,10 @@
   text-align: right;
 }
 
+#iframe-box {
+  background-color: #f8f9fa;
+}
+
 .ui-panel {
   margin: 8px;
 }
