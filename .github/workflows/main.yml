@@ -22,7 +22,7 @@ jobs:
         with:
           # This version works will all IDEs including Eclipse.
           version: 1.6
-      #    skip-commit: true
+          skip-commit: true
           # args: "--dry-run --set-exit-if-changed"        
   build:
     runs-on: ubuntu-latest
