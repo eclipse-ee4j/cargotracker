@@ -1,15 +1,15 @@
 package org.eclipse.cargotracker.application;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.application.util.RestConfiguration;
@@ -59,21 +59,23 @@ import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
 import org.eclipse.pathfinder.internal.GraphDao;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
  */
-@RunWith(Arquillian.class)
-public class BookingServiceTest {
+@ExtendWith(ArquillianExtension.class)
+@TestMethodOrder(OrderAnnotation.class)
+public class BookingServiceIT {
   private static TrackingId trackingId;
   private static List<Itinerary> candidates;
   private static LocalDate deadline;
@@ -156,7 +158,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(1)
+  @Order(1)
   public void testRegisterNew() {
     UnLocode fromUnlocode = new UnLocode("USCHI");
     UnLocode toUnlocode = new UnLocode("SESTO");
@@ -186,7 +188,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(2)
+  @Order(2)
   public void testRouteCandidates() {
     candidates = bookingService.requestPossibleRoutesForCargo(trackingId);
 
@@ -194,7 +196,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(3)
+  @Order(3)
   public void testAssignRoute() {
     assigned = candidates.get(new Random().nextInt(candidates.size()));
 
@@ -212,17 +214,17 @@ public class BookingServiceTest {
     assertEquals(Voyage.NONE, cargo.getDelivery().getCurrentVoyage());
     assertFalse(cargo.getDelivery().isMisdirected());
     assertTrue(cargo.getDelivery().getEstimatedTimeOfArrival().isBefore(deadline.atStartOfDay()));
-    Assert.assertEquals(
+    assertEquals(
         HandlingEvent.Type.RECEIVE, cargo.getDelivery().getNextExpectedActivity().getType());
-    Assert.assertEquals(
+    assertEquals(
         SampleLocations.CHICAGO, cargo.getDelivery().getNextExpectedActivity().getLocation());
-    Assert.assertEquals(null, cargo.getDelivery().getNextExpectedActivity().getVoyage());
+    assertEquals(null, cargo.getDelivery().getNextExpectedActivity().getVoyage());
     assertFalse(cargo.getDelivery().isUnloadedAtDestination());
     assertEquals(RoutingStatus.ROUTED, cargo.getDelivery().getRoutingStatus());
   }
 
   @Test
-  @InSequence(4)
+  @Order(4)
   public void testChangeDestination() {
     bookingService.changeDestination(trackingId, new UnLocode("FIHEL"));
 
@@ -247,7 +249,7 @@ public class BookingServiceTest {
   }
 
   @Test
-  @InSequence(5)
+  @Order(5)
   public void testChangeDeadline() {
     LocalDate newDeadline = deadline.plusMonths(1);
     bookingService.changeDeadline(trackingId, newDeadline);

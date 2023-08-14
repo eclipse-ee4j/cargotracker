@@ -1,9 +1,9 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotEmpty;
 import org.apache.commons.lang3.Validate;
 
 @Embeddable

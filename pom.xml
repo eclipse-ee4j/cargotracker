@@ -21,9 +21,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <jakartaee-api.version>8.0.0</jakartaee-api.version>
+    <maven.compiler.release>11</maven.compiler.release>
+    <jakartaee-api.version>10.0.0</jakartaee-api.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -37,6 +36,13 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.9.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -44,13 +50,6 @@
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-api</artifactId>
       <version>${jakartaee-api.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- Required by Java SE 9+ -->
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-      <version>2.3.8</version>
       <scope>provided</scope>
     </dependency>
     <!-- The third-party dependencies this application has -->
@@ -62,12 +61,12 @@
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
       <version>12.0.0</version>
+      <classifier>jakarta</classifier>
     </dependency>
     <!-- Test dependencies -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -84,8 +83,8 @@
     </dependency>
     <!-- Arquillian dependencies -->
     <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
+      <groupId>org.jboss.arquillian.junit5</groupId>
+      <artifactId>arquillian-junit5-container</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- Resolvers are needed in the Arquillian tests. This is used for adding all 
@@ -93,6 +92,12 @@
     <dependency>
       <groupId>org.jboss.shrinkwrap.resolver</groupId>
       <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+     <version>3.1.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.protocol</groupId>
+      <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- Needed for Arquillian to log -->
@@ -105,6 +110,11 @@
   <build>
     <finalName>cargo-tracker</finalName>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -124,13 +134,13 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>5.2022.5</payara.version>
+        <payara.version>6.2023.7</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
         <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
           path name (it should include driver name under Windows). -->
-        <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
+        <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
         <db.user />
         <db.password />
       </properties>
@@ -146,7 +156,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.0.206</version>
+          <version>2.1.214</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -155,6 +165,7 @@
           <version>${payara.version}</version>
           <scope>test</scope>
         </dependency>
+  <!-- Payara Micro Managed Container Adaptor -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
@@ -195,7 +206,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <payara.version>5.2022.5</payara.version>
+        <payara.version>6.2023.7</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
@@ -216,7 +227,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.0.206</version>
+          <version>2.1.214</version>
           <scope>test</scope>
         </dependency>
         <dependency>

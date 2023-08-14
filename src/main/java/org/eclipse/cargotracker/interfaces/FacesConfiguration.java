@@ -1,10 +1,9 @@
 package org.eclipse.cargotracker.interfaces;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.annotation.FacesConfig;
-import javax.faces.annotation.FacesConfig.Version;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.annotation.FacesConfig;
 
 /** Jakarta Faces configuration. * */
-@FacesConfig(version = Version.JSF_2_3)
+@FacesConfig()
 @ApplicationScoped
 public class FacesConfiguration {}

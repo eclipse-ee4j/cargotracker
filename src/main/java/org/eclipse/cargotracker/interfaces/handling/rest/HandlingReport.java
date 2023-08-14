@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.interfaces.handling.rest;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /** Transfer object for handling reports. */
 @XmlRootElement

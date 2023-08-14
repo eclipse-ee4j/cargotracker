@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0"
-  xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee https://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.0"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
   <!-- Overriding system level defaults is a decent usage of XML. -->
   <context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-name>jakarta.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
   <context-param>
-    <param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+    <param-name>jakarta.faces.CLIENT_WINDOW_MODE</param-name>
     <param-value>url</param-value>
   </context-param>
   <context-param>
@@ -41,7 +41,7 @@
   </mime-mapping>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
@@ -72,27 +72,27 @@
   </data-source>
   <jms-destination>
     <name>java:app/jms/CargoHandledQueue</name>
-    <interface-name>javax.jms.Queue</interface-name>
+    <interface-name>jakarta.jms.Queue</interface-name>
     <destination-name>CargoHandledQueue</destination-name>
   </jms-destination>
   <jms-destination>
     <name>java:app/jms/MisdirectedCargoQueue</name>
-    <interface-name>javax.jms.Queue</interface-name>
+    <interface-name>jakarta.jms.Queue</interface-name>
     <destination-name>MisdirectedCargoQueue</destination-name>
   </jms-destination>
   <jms-destination>
     <name>java:app/jms/DeliveredCargoQueue</name>
-    <interface-name>javax.jms.Queue</interface-name>
+    <interface-name>jakarta.jms.Queue</interface-name>
     <destination-name>DeliveredCargoQueue</destination-name>
   </jms-destination>
   <jms-destination>
     <name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
-    <interface-name>javax.jms.Queue</interface-name>
+    <interface-name>jakarta.jms.Queue</interface-name>
     <destination-name>RejectedRegistrationAttemptsQueue</destination-name>
   </jms-destination>
   <jms-destination>
     <name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
-    <interface-name>javax.jms.Queue</interface-name>
+    <interface-name>jakarta.jms.Queue</interface-name>
     <destination-name>HandlingEventRegistrationAttemptQueue</destination-name>
   </jms-destination>
 </web-app>

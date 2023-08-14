@@ -1,6 +1,6 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 /**
  * If a {@link HandlingEvent} can't be created from a given set of parameters.

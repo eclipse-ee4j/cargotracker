@@ -1,12 +1,12 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
-import javax.annotation.security.PermitAll;
-import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
-import javax.ejb.Schedule;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import jakarta.annotation.security.PermitAll;
+import jakarta.batch.operations.JobOperator;
+import jakarta.batch.runtime.BatchRuntime;
+import jakarta.ejb.Schedule;
+import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionManagement;
+import jakarta.ejb.TransactionManagementType;
 
 /**
  * Periodically scans a certain directory for files and attempts to parse handling event

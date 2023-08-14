@@ -26,7 +26,7 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
-* Ensure you are running Java SE 8, Java SE 11 or Java SE 17.
+* Ensure you are running Java SE 11 or Java SE 17.
 * Make sure JAVA_HOME is set.
 * As long as you have Maven set up properly, navigate to the project source root and
   type: `mvn clean package cargo:run`
@@ -34,7 +34,7 @@ The simplest steps are the following (no IDE required):
 
 To set up in Visual Studio Code, follow these steps:
 
-* Set up Java SE 8, Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 5](https://mvnrepository.com/artifact/fish.payara.distributions/payara). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
+* Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 6](https://mvnrepository.com/artifact/fish.payara.distributions/payara). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
 * Make sure JAVA_HOME is set.
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it will automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
@@ -127,7 +127,8 @@ For further guidance on contributing including the project roadmap, please look 
 
 ## Known Issues
 * When using Visual Studio Code, please make sure that the JAVA_HOME environment variable is correctly set up. If it is not configured properly, you will be unable to select a domain when adding a Payara Server instance in Visual Studio Code.
-* When you load the project in the Eclipse IDE, you may get some spurious validation failure messages on the XML deployment descriptors (these are essentially bugs in the Eclipse IDE). These are harmless and the application is just fine. You can simply ignore these false validation messages or delete them by going to the Markers tab.
+* Currently, we are utilizing the most recent Payara version, which is 6.2023.7. It is important to note that this particular version is functioning correctly when paired with JDK 11. However, it is experiencing compatibility issues with JDK 17. Therefore, we recommend continuing to use JDK 11 in conjunction with Payara 6.2023.7 for optimal performance and stability.
+* Presently, Jakarta EE 10 and Payara 6 encounters operational challenges within Eclipse IDE. Consequently, we have adopted Visual Studio Code as an alternative. We wholeheartedly welcome contributions aimed at rectifying the compatibility disparity within Eclipse IDE. Your input towards resolving this issue would be greatly appreciated.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
   explained [here](https://github.com/payara/Payara/issues/3038).

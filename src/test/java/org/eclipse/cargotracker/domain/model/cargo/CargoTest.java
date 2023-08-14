@@ -1,8 +1,8 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,8 +16,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CargoTest {
 
@@ -84,35 +83,35 @@ public class CargoTest {
             new RouteSpecification(
                 SampleLocations.STOCKHOLM, SampleLocations.MELBOURNE, LocalDate.now()));
 
-    Assert.assertEquals(Location.UNKNOWN, cargo.getDelivery().getLastKnownLocation());
+    assertEquals(Location.UNKNOWN, cargo.getDelivery().getLastKnownLocation());
   }
 
   @Test
   public void testLastKnownLocationReceived() throws Exception {
     Cargo cargo = populateCargoReceivedStockholm();
 
-    Assert.assertEquals(SampleLocations.STOCKHOLM, cargo.getDelivery().getLastKnownLocation());
+    assertEquals(SampleLocations.STOCKHOLM, cargo.getDelivery().getLastKnownLocation());
   }
 
   @Test
   public void testLastKnownLocationClaimed() throws Exception {
     Cargo cargo = populateCargoClaimedMelbourne();
 
-    Assert.assertEquals(SampleLocations.MELBOURNE, cargo.getDelivery().getLastKnownLocation());
+    assertEquals(SampleLocations.MELBOURNE, cargo.getDelivery().getLastKnownLocation());
   }
 
   @Test
   public void testLastKnownLocationUnloaded() throws Exception {
     Cargo cargo = populateCargoOffHongKong();
 
-    Assert.assertEquals(SampleLocations.HONGKONG, cargo.getDelivery().getLastKnownLocation());
+    assertEquals(SampleLocations.HONGKONG, cargo.getDelivery().getLastKnownLocation());
   }
 
   @Test
   public void testLastKnownLocationloaded() throws Exception {
     Cargo cargo = populateCargoOnHamburg();
 
-    Assert.assertEquals(SampleLocations.HAMBURG, cargo.getDelivery().getLastKnownLocation());
+    assertEquals(SampleLocations.HAMBURG, cargo.getDelivery().getLastKnownLocation());
   }
 
   @Test

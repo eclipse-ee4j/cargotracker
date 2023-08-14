@@ -22,13 +22,14 @@ jobs:
         with:
           # This version works will all IDEs including Eclipse.
           version: 1.6
+          skip-commit: true
           # args: "--dry-run --set-exit-if-changed"        
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
     strategy:
       matrix:
-        java: [8, 11, 17]
+        java: [11, 17]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Java
