@@ -32,6 +32,19 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
+This will run the application with Payara Server by default.
+
+### To run on the GlassFish Server
+
+Run on the GlassFish Server with the `glassfish` Maven profile:
+
+* navigate to the project source root
+* type: `mvn clean package -Pglassfish cargo:run`
+* Go to http://localhost:8080/cargo-tracker
+
+
+### To set up in Visual Studio Code
+
 To set up in Visual Studio Code, follow these steps:
 
 * Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 6](https://mvnrepository.com/artifact/fish.payara.distributions/payara). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.

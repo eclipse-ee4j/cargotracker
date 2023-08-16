@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.ee4j</groupId>
   <artifactId>cargo-tracker</artifactId>
@@ -23,12 +23,14 @@
     <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee-api.version>10.0.0</jakartaee-api.version>
+    <payara.version>6.2023.7</payara.version>
+    <glassfish.version>7.0.7</glassfish.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <!-- Arquillian Bill Of Management used to reduce collision between testing 
-        dependencies. Using a dependency manager we don't need to specify the version of 
-        each Arquillian dependency. -->
+      dependencies. Using a dependency manager we don't need to specify the version of
+      each Arquillian dependency. -->
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
@@ -88,11 +90,11 @@
       <scope>test</scope>
     </dependency>
     <!-- Resolvers are needed in the Arquillian tests. This is used for adding all 
-      the runtime dependencies inside a testing war. -->
+    the runtime dependencies inside a testing war. -->
     <dependency>
       <groupId>org.jboss.shrinkwrap.resolver</groupId>
       <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-     <version>3.1.4</version>
+      <version>3.1.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -134,18 +136,17 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.7</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
         <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified 
-          path name (it should include driver name under Windows). -->
+        path name (it should include driver name under Windows). -->
         <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
         <db.user />
         <db.password />
       </properties>
       <dependencies>
-        <!-- We need a Jersey specific dependency -->
+        <!-- We need a Jersey specific dependency for property name constants -->
         <dependency>
           <groupId>org.glassfish.jersey.core</groupId>
           <artifactId>jersey-server</artifactId>
@@ -165,7 +166,7 @@
           <version>${payara.version}</version>
           <scope>test</scope>
         </dependency>
-  <!-- Payara Micro Managed Container Adaptor -->
+        <!-- Payara Micro Managed Container Adaptor -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
@@ -199,6 +200,78 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>glassfish</id>
+      <properties>
+        <!-- Application properties -->
+        <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+        <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
+        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified
+        path name (it should include driver name under Windows). -->
+        <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
+        <db.user />
+        <db.password />
+      </properties>
+      <dependencies>
+        <!-- We need a Jersey specific dependency for property name constants -->
+        <dependency>
+          <groupId>org.glassfish.jersey.core</groupId>
+          <artifactId>jersey-server</artifactId>
+          <version>3.1.2</version>
+          <scope>provided</scope>
+        </dependency>
+        <!-- Embedding the JDBC driver in the WAR works in GlassFish -->
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <version>2.1.214</version>
+          <scope>runtime</scope>
+        </dependency>
+        <!-- Client libraries for Jakarta EE. These provide implementations
+        of e.g. the REST client, that lets tests do REST requests. These tests just
+        depend on the API for these client tools. -->
+        <dependency>
+          <groupId>org.omnifaces.arquillian</groupId>
+          <artifactId>glassfish-client-ee10</artifactId>
+          <version>1.4</version>
+          <scope>test</scope>
+        </dependency>
+
+        <!-- The Arquillian connector for GlassFish. This lets Arquillian
+        start and stop GlassFish, and deploy and undeploy war files to it. -->
+        <dependency>
+          <groupId>org.omnifaces.arquillian</groupId>
+          <artifactId>arquillian-glassfish-server-managed</artifactId>
+          <version>1.4</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.1.2</version>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.cargo</groupId>
+            <artifactId>cargo-maven3-plugin</artifactId>
+            <version>1.10.7</version>
+            <configuration>
+              <container>
+                <containerId>glassfish7x</containerId>
+                <artifactInstaller>
+                  <groupId>org.glassfish.main.distributions</groupId>
+                  <artifactId>glassfish</artifactId>
+                  <version>7.0.7</version>
+                </artifactInstaller>
+                <timeout>180000</timeout>
+              </container>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <!-- Cloud/production deployment using Payara and PostgreSQL. -->
     <profile>
       <id>cloud</id>
@@ -210,7 +283,7 @@
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
-          -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
+        -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
         <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
         <db.user>${postgreSqlUsername}</db.user>
         <db.password>${postgreSqlPassword}</db.password>
