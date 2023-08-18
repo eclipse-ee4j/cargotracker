@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.ee4j</groupId>
   <artifactId>cargo-tracker</artifactId>
-  <version>2.2-SNAPSHOT</version>
+  <version>3.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Eclipse Cargo Tracker</name>
   <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD).</description>
