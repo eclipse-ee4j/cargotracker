@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<job xmlns="http://jakarta.ee/xml/ns/jakartaee" id="EventFilesProcessorJob"
-  version="2.0">
+<job id="EventFilesProcessorJob" xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd" version="2.0">
   <properties>
     <property name="upload_directory" value="/tmp/uploads" />
     <property name="archive_directory" value="/tmp/archive" />
