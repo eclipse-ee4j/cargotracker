@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.ee4j</groupId>
   <artifactId>cargo-tracker</artifactId>
-  <version>2.2-SNAPSHOT</version>
+  <version>3.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Eclipse Cargo Tracker</name>
   <description>The project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted architectural best practices like Domain-Driven Design (DDD).</description>
@@ -23,7 +23,7 @@
     <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee-api.version>10.0.0</jakartaee-api.version>
-    <payara.version>6.2023.7</payara.version>
+    <payara.version>6.2023.8</payara.version>
     <glassfish.version>7.0.7</glassfish.version>
   </properties>
   <dependencyManagement>
@@ -34,14 +34,14 @@
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
-        <version>1.7.0.Final</version>
+        <version>1.7.1.Final</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.9.1</version>
+        <version>5.10.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -115,7 +115,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -157,7 +162,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.1.214</version>
+          <version>2.2.220</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -170,7 +175,7 @@
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
-          <version>2.4.5</version>
+          <version>2.5</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -184,7 +189,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.7</version>
+            <version>1.10.9</version>
             <configuration>
               <container>
                 <containerId>payara</containerId>
@@ -279,7 +284,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.7</payara.version>
+        <payara.version>6.2023.8</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres 
@@ -300,7 +305,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.1.214</version>
+          <version>2.2.220</version>
           <scope>test</scope>
         </dependency>
         <dependency>

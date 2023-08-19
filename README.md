@@ -47,7 +47,7 @@ Run on the GlassFish Server with the `glassfish` Maven profile:
 
 To set up in Visual Studio Code, follow these steps:
 
-* Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 6](https://mvnrepository.com/artifact/fish.payara.distributions/payara). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
+* Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 6](https://www.payara.fish/downloads/payara-platform-community-edition/). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
 * Make sure JAVA_HOME is set.
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it will automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
@@ -128,6 +128,9 @@ by simply digging into the code to see how things are implemented.
 ## Cloud Demo
 Cargo Tracker is deployed to Kubernetes on the cloud using GitHub Actions workflows. You can find the demo deployment on the Scaleforce cloud (https://cargo-tracker.j.scaleforce.net). This project is very thankful to our sponsors [Jelastic](https://jelastic.com) and [Scaleforce](https://www.scaleforce.net) for hosting the demo! The deployment and all data is refreshed nightly. On the cloud Cargo Tracker uses PostgreSQL as the database. The [GitHub Container Registry](https://ghcr.io/eclipse-ee4j/cargo-tracker) is used to publish Docker images.
 
+## Jakarta EE 8
+A Jakarta EE 8, Java SE 8, Payara 5 version of Cargo Tracker is available under the ['jakartaee8' branch](https://github.com/eclipse-ee4j/cargotracker/tree/jakartaee8).
+
 ## Java EE 7
 A Java EE 7, Java SE 8, Payara 4.1 version of Cargo Tracker is available under the ['javaee7' branch](https://github.com/eclipse-ee4j/cargotracker/tree/javaee7).
 
@@ -140,7 +143,7 @@ For further guidance on contributing including the project roadmap, please look 
 
 ## Known Issues
 * When using Visual Studio Code, please make sure that the JAVA_HOME environment variable is correctly set up. If it is not configured properly, you will be unable to select a domain when adding a Payara Server instance in Visual Studio Code.
-* Currently, we are utilizing the most recent Payara version, which is 6.2023.7. It is important to note that this particular version is functioning correctly when paired with JDK 11. However, it is experiencing compatibility issues with JDK 17. Therefore, we recommend continuing to use JDK 11 in conjunction with Payara 6.2023.7 for optimal performance and stability.
+* Currently, we are utilizing the most recent Payara version, which is 6.2023.8. It is important to note that this particular version is functioning correctly when paired with JDK 11. However, it is experiencing compatibility issues with JDK 17. Therefore, we recommend continuing to use JDK 11 in conjunction with Payara 6.2023.8 for optimal performance and stability for now.
 * Presently, Jakarta EE 10 and Payara 6 encounters operational challenges within Eclipse IDE. Consequently, we have adopted Visual Studio Code as an alternative. We wholeheartedly welcome contributions aimed at rectifying the compatibility disparity within Eclipse IDE. Your input towards resolving this issue would be greatly appreciated.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
