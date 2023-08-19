@@ -13,4 +13,9 @@
       <property name="extraMicroOptions">--port 9090 --contextroot cargo-tracker-test</property>
     </configuration>
   </container>
+  <container qualifier="glassfish">
+    <configuration>
+      <property name="bindHttpPort">9090</property>
+    </configuration>
+  </container>
 </arquillian>
