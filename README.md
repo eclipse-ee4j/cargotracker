@@ -43,7 +43,7 @@ Run on the GlassFish Server with the `glassfish` Maven profile:
 * Go to http://localhost:8080/cargo-tracker
 
 
-### To set up in Visual Studio Code
+### To set up in Visual Studio Code with Payara Server
 
 To set up in Visual Studio Code, follow these steps:
 
@@ -51,6 +51,16 @@ To set up in Visual Studio Code, follow these steps:
 * Make sure JAVA_HOME is set.
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it will automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
+
+### To set up in Visual Studio Code with GlassFish Server
+
+To set up in Visual Studio Code, follow these steps:
+
+* Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [GlassFish 7](https://glassfish.org/download). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Community Server Connectors](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-community-server-connector) in Visual Studio Code.
+* Make sure JAVA_HOME is set.
+* Add GlassFish Server to Visual Studio Code - In VS Code, open the Explorer sidebar, click on the SERVERS section, and right-click on Community Server Connector, and select the Create New Server... option. Then either choose a downloaded GlassFish Server installation or to download GlassFish server
+* Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it will automatically configure a Maven project. Select the "glassfish" profile. Proceed with clean/building the application.
+* After the project is built (which will take a while the very first time as Maven downloads dependencies), right-click the generated `cargo-tracker.war` file under the `target` directory, select "Run on Server", and select GlassFish. Then open http://localhost:8080/cargo-tracker/ in the browser.
 
 ## Exploring the Application
 
