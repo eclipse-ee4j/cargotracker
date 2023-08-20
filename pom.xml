@@ -170,12 +170,6 @@
           <version>${payara.version}</version>
           <scope>test</scope>
         </dependency>
-        <dependency>
-          <groupId>fish.payara.arquillian</groupId>
-          <artifactId>payara-client-ee9</artifactId>
-          <version>3.0.alpha8</version>
-          <scope>test</scope>
-        </dependency>
         <!-- Payara Micro Managed Container Adaptor -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
@@ -183,6 +177,12 @@
           <version>3.0.alpha8</version>
           <scope>test</scope>
         </dependency>
+        <dependency>
+          <groupId>fish.payara.arquillian</groupId>
+          <artifactId>payara-client-ee9</artifactId>
+          <version>3.0.alpha8</version>
+          <scope>test</scope>
+        </dependency>        
       </dependencies>
       <build>
         <plugins>
@@ -250,7 +250,13 @@
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
-          <version>2.5</version>
+          <version>3.0.alpha8</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>fish.payara.arquillian</groupId>
+          <artifactId>payara-client-ee9</artifactId>
+          <version>3.0.alpha8</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
