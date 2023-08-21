@@ -1,14 +1,14 @@
 /* Variables */
 :root {
   --secondary-text-color: #ffffff;
-
-
+  
+  
   --primary-color: #FFA500;
   --primary-color-darker: #d48900;
   --primary-color-lighten: #f5ecda;
-
+  
   --secondary-color: #262626;
-
+  
   --background-panel-main-color: #262626;
 }
 
@@ -24,8 +24,8 @@ body {
 }
 
 /*************************************
-             Side panel style
- *************************************/
+Side panel style
+*************************************/
 
 .ui-button.ui-state-default.ui-button-flat {
   background-color: transparent;
@@ -38,7 +38,7 @@ body {
 #ui-sd-1 {
   padding: 0;
 }
-    
+
 .side-panel {
   background-color: #1a1a1a;
   padding: 0;
@@ -76,9 +76,9 @@ body {
 
 
 body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
-    float: none;
-    vertical-align: middle;
-    color: rgb(245,245,245);
+  float: none;
+  vertical-align: middle;
+  color: rgb(245,245,245);
 }
 
 body .ui-menu {
@@ -138,8 +138,8 @@ body .ui-menu {
 }
 
 /*************************************
-             Table style
- *************************************/
+Table style
+*************************************/
 
 .ui-datatable table {
   border-collapse: collapse;
@@ -170,12 +170,12 @@ body .ui-menu {
 .ui-datatable th.ui-state-default,
 .ui-datatable tfoot td.ui-state-default {
   background: var(--primary-color);
-
+  
   color: #ffffff;
   text-align: center;
   font-weight: bold;
   font-size: 1.5em;
-
+  
   border-top: 0 none;
   border-right: 0 none;
   border-left: 0 none;
@@ -204,15 +204,26 @@ body .ui-menu {
 }
 
 /*************************************
-             Calendar style
- *************************************/
+Calendar style
+*************************************/
 .ui-datepicker .ui-datepicker-header,
 .ui-datepicker .ui-timepicker-div>.ui-widget-header {
   background: var(--background-panel-main-color);
   background: -webkit-linear-gradient(top, var(--background-panel-main-color) 0, #474a4b 100%);
-
+  
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset;
   border-radius: 0;
+}
+
+
+/* [TO DO] find a way to not use !important */
+body .ui-datepicker .ui-datepicker-header {
+  padding: 0.5rem !important;
+}
+
+/* [TO DO] find a way to not use !important */
+body .ui-datepicker .ui-datepicker-calendar td {
+  padding: 0.01rem !important;
 }
 
 .ui-datepicker .ui-datepicker-header,
@@ -222,9 +233,9 @@ body .ui-menu {
 
 .ui-datepicker th {
   color: #e8e9ea !important;
-
+  
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #474a4b), color-stop(100%, #5b5e5e));
-
+  
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
   border: none !important;
 }
@@ -235,17 +246,17 @@ body .ui-menu {
 }
 
 /*************************************
-             Components style
- *************************************/
+Components style
+*************************************/
 
 .ui-button,
 button.ui-button.ui-state-default,
 .ui-button.ui-state-default {
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color-darker);
-
+  
   color: var(--secondary-text-color);
-
+  
 }
 
 .ui-state-highlight,
@@ -267,8 +278,8 @@ button.ui-button.ui-state-default,
 }
 
 /*************************************
-             Timeline style
- *************************************/
+Timeline style
+*************************************/
 
 .ok-timeline-event {
   border: #90ee90;
@@ -283,14 +294,14 @@ button.ui-button.ui-state-default,
 }
 
 /*************************************
-             Wizard style
- *************************************/
+Wizard style
+*************************************/
 
 .ui-wizard-step-titles {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   width: 100%;
 }
 
