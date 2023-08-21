@@ -220,6 +220,16 @@ body .ui-menu {
   border: 1px solid #3b3e40;
 }
 
+/* [TO DO] find a way to not use !important */
+body .ui-datepicker .ui-datepicker-header {
+  padding: 0.5rem !important;
+}
+
+/* [TO DO] find a way to not use !important */
+body .ui-datepicker .ui-datepicker-calendar td {
+  padding: 0.01rem !important;
+}
+
 .ui-datepicker th {
   color: #e8e9ea !important;
 
