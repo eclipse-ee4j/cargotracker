@@ -220,14 +220,22 @@ body .ui-menu {
   border: 1px solid #3b3e40;
 }
 
-/* [TO DO] find a way to not use !important */
 body .ui-datepicker .ui-datepicker-header {
-  padding: 0.5rem !important;
+  padding: 0.5rem;
 }
 
-/* [TO DO] find a way to not use !important */
 body .ui-datepicker .ui-datepicker-calendar td {
-  padding: 0.01rem !important;
+  padding: 0.01rem;
+}
+
+body .ui-datepicker .ui-datepicker-calendar td>a {
+  width: 2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+}
+
+body .ui-datepicker.ui-input-overlay {
+  margin-top: 30%;
 }
 
 .ui-datepicker th {
