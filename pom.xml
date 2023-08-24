@@ -265,13 +265,13 @@
               <systemPropertyVariables>
                 <arquillian.launch>glassfish</arquillian.launch>
               </systemPropertyVariables>
-              <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED</argLine>
+              <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.naming/javax.naming.spi=ALL-UNNAMED</argLine>
             </configuration>
           </plugin>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.7</version>
+            <version>1.10.9</version>
             <configuration>
               <container>
                 <containerId>glassfish7x</containerId>
