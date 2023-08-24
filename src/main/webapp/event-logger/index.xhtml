@@ -6,7 +6,6 @@
   <title>Event Logger</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <h:outputStylesheet name="css/app.css" />
   <link rel="stylesheet"
     href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 </h:head>
@@ -19,66 +18,56 @@
       <p:tab id="trackingIdTab" title="Tracking ID">
         <p:panel header="Tracking ID">
           <p:messages />
-          <p:panelGrid columns="1">
             <p:selectOneMenu id="trackingId" value="#{eventLogger.trackingId}"
               required="true" requiredMessage="Tracking ID missing">
               <f:selectItem itemLabel="Tracking ID" itemValue=""
                 noSelectionOption="true" />
               <f:selectItems value="#{eventLogger.trackingIds}" />
             </p:selectOneMenu>
-          </p:panelGrid>
         </p:panel>
       </p:tab>
       <p:tab id="locationTab" title="Location">
         <p:panel header="Location">
           <p:messages />
-          <p:panelGrid columns="1">
             <p:selectOneMenu id="locationId" value="#{eventLogger.location}"
               required="true" requiredMessage="Location missing">
               <f:selectItem itemLabel="Location" itemValue=""
                 noSelectionOption="true" />
               <f:selectItems value="#{eventLogger.locations}" />
             </p:selectOneMenu>
-          </p:panelGrid>
         </p:panel>
       </p:tab>
       <p:tab id="eventTypeTab" title="Event Type">
         <p:panel header="Event Type">
           <p:messages />
-          <p:panelGrid columns="1">
             <p:selectOneMenu id="eventType" value="#{eventLogger.eventType}"
               requiredMessage="Event type missing" required="true">
               <f:selectItem itemLabel="Event Type" itemValue=""
                 noSelectionOption="true" />
               <f:selectItems value="#{eventLogger.eventTypes}" />
             </p:selectOneMenu>
-          </p:panelGrid>
         </p:panel>
       </p:tab>
 
       <p:tab id="voyageTab" title="Voyage">
         <p:panel header="Voyage">
           <p:messages />
-          <p:panelGrid columns="1">
             <p:selectOneMenu id="voyage" value="#{eventLogger.voyageNumber}"
               required="false">
               <f:selectItem itemLabel="Voyage" itemValue=""
                 noSelectionOption="true" />
               <f:selectItems value="#{eventLogger.voyages}" />
             </p:selectOneMenu>
-          </p:panelGrid>
         </p:panel>
       </p:tab>
       <p:tab id="dateTab" title="Completion Date">
         <p:panel header="Completion Date">
           <p:messages />
-          <p:panelGrid columns="1">
             <p:calendar id="completionDate"
               value="#{eventLogger.completionTime}"
               pattern="#{eventLogger.completionTimePattern}"
               requiredMessage="A date is needed" required="true">
             </p:calendar>
-          </p:panelGrid>
         </p:panel>
       </p:tab>
       <p:tab id="confirm" title="Confirmation">
@@ -121,5 +110,6 @@
 						"display", "none");
 			}
 		</script>
+    <h:outputStylesheet name="css/app.css" />
 </h:body>
 </html>

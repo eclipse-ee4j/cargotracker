@@ -21,8 +21,8 @@ public class ChangeArrivalDeadlineDialog implements Serializable {
     options.put("modal", true);
     options.put("draggable", true);
     options.put("resizable", false);
-    options.put("contentWidth", 410);
-    options.put("contentHeight", 280);
+    options.put("contentWidth", 460);
+    options.put("contentHeight", 440);
 
     Map<String, List<String>> params = new HashMap<>();
     List<String> values = new ArrayList<>();

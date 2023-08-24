@@ -12,7 +12,7 @@
 
   <div class="ui-g full-page">
     <h:form>
-      <h:panelGrid columns="2" cellpadding="15">
+      <h:panelGrid columns="2" cellpadding="30">
         <p:outputLabel value="Origin:" />
         <p:outputLabel value="#{changeArrivalDeadline.cargo.originName}" />
 
@@ -21,7 +21,7 @@
           value="#{changeArrivalDeadline.cargo.finalDestinationName}" />
 
         <p:outputLabel value="Deadline: " />
-        <p:datePicker value="#{changeArrivalDeadline.arrivalDeadline}" />
+        <p:datePicker value="#{changeArrivalDeadline.arrivalDeadline}"/>
 
         <p:commandButton value="Cancel"
           action="#{changeArrivalDeadlineDialog.cancel()}" />
