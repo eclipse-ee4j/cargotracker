@@ -1,14 +1,14 @@
 /* Variables */
 :root {
   --secondary-text-color: #ffffff;
-  
-  
+
+
   --primary-color: #FFA500;
   --primary-color-darker: #d48900;
   --primary-color-lighten: #f5ecda;
-  
+
   --secondary-color: #262626;
-  
+
   --background-panel-main-color: #262626;
 }
 
@@ -24,8 +24,8 @@ body {
 }
 
 /*************************************
-Side panel style
-*************************************/
+             Side panel style
+ *************************************/
 
 .ui-button.ui-state-default.ui-button-flat {
   background-color: transparent;
@@ -38,7 +38,7 @@ Side panel style
 #ui-sd-1 {
   padding: 0;
 }
-
+    
 .side-panel {
   background-color: #1a1a1a;
   padding: 0;
@@ -350,10 +350,10 @@ button.ui-button.ui-state-default,
 }
 
 /*************************************
-              Wizard style
+             Wizard style
  *************************************/
 
-#j_idt5\:j_idt6 .ui-wizard-step-title {
+ #j_idt5\:j_idt6 .ui-wizard-step-title {
   padding: 0.1rem;
 }
 
@@ -361,7 +361,7 @@ button.ui-button.ui-state-default,
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   width: 100%;
 }
 
