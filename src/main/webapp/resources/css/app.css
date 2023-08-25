@@ -66,6 +66,43 @@ body {
   border-bottom: 3px solid orange;
 }
 
+#j_idt5\:j_idt23_header {
+  padding: 0.5rem;
+}
+
+#j_idt5\:j_idt23_content {
+  padding: 0.5rem;
+}
+
+#j_idt5\:j_idt7_header {
+  padding: 0.5rem;
+}
+
+#j_idt5\:j_idt7_content {
+  padding: 0.5rem;
+}
+#j_idt5\:j_idt11_header {
+  padding: 0.5rem;
+}
+
+#j_idt5\:j_idt11_content {
+  padding: 0.5rem;
+}
+#j_idt5\:j_idt15_header {
+  padding: 0.5rem;
+}
+
+#j_idt5\:j_idt15_content {
+  padding: 0.5rem;
+}
+#j_idt5\:j_idt19_header {
+  padding: 0.5rem;
+}
+
+#j_idt5\:j_idt19_content {
+  padding: 0.5rem;
+}
+
 #side-sub-menu li a {
   font-family: 'Lato', sans-serif;
   padding: 10% 0 10% 15%;
@@ -220,22 +257,34 @@ body .ui-menu {
   border: 1px solid #3b3e40;
 }
 
-body .ui-datepicker .ui-datepicker-header {
+#ui-datepicker-div {
+  padding: 0.1rem;
+}
+
+#ui-datepicker-div .ui-datepicker-header {
   padding: 0.5rem;
 }
 
-body .ui-datepicker .ui-datepicker-calendar td {
+#ui-datepicker-div .ui-datepicker-calendar td {
   padding: 0.01rem;
 }
 
-body .ui-datepicker .ui-datepicker-calendar td>a {
+#ui-datepicker-div .ui-datepicker-calendar td>a {
   width: 2rem;
-  height: 2.2rem;
+  height: 2rem;
   line-height: 2.2rem;
 }
 
-body .ui-datepicker.ui-input-overlay {
-  margin-top: 30%;
+#ui-datepicker-div .ui-datepicker-calendar th {
+  padding: 0.1rem;
+}
+
+#ui-datepicker-div .ui-timepicker-div dl {
+  margin: 0;
+}
+
+#ui-datepicker-div .ui-timepicker-div dl dd {
+  margin: 0 .714em 0 40%;
 }
 
 .ui-datepicker th {
@@ -303,6 +352,10 @@ button.ui-button.ui-state-default,
 /*************************************
              Wizard style
  *************************************/
+
+ #j_idt5\:j_idt6 .ui-wizard-step-title {
+  padding: 0.1rem;
+}
 
 .ui-wizard-step-titles {
   display: flex;
