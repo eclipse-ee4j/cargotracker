@@ -23,8 +23,6 @@
     <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee-api.version>10.0.0</jakartaee-api.version>
-    <payara.version>6.2023.8</payara.version>
-    <glassfish.version>7.0.8</glassfish.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -141,6 +139,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
+        <payara.version>6.2023.8</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -214,6 +213,7 @@
     <profile>
       <id>glassfish</id>
       <properties>
+       <glassfish.version>7.0.8</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
