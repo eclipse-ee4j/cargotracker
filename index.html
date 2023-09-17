@@ -268,18 +268,23 @@
             <br> You can also run the application directly from the Maven
             command line using Apache Cargo. All you need to do is navigate to
             the project source root and type the following (please make sure you
-            have Java SE 11/Java SE 17 and JAVA_HOME set up): <br />
+            have Java SE 11/Java SE 17 and JAVA_HOME set up):<br />
             <br />
             <code>mvn clean package cargo:run</code>
             <br />
-            <br /> Once the application starts up, just open up a browser and
+            <br/> Once the application starts up, just open up a browser and
             navigate to <a target="_blank"
-              href="http://localhost:8080/cargo-tracker/">http://localhost:8080/cargo-tracker/</a>.<br />
-            <br /> The project currently runs on Jakarta EE 10, Payara 6, and Java
+              href="http://localhost:8080/cargo-tracker/">http://localhost:8080/cargo-tracker/</a>.<br/>
+            <br/> This will run the application with Payara Server by default. The project also has a Maven profile to support GlassFish. 
+	    For example you can run using GlassFish using the following command:<br/>
+            <br/>
+            <code>mvn clean package -Pglassfish cargo:run</code>
+            <br/>		  
+	    <br/> The project currently runs on Jakarta EE 10, Payara 6/GlassFish 7, and Java
             SE 11/Java SE 17. We welcome contributions for running the
             application on other Jakarta EE implementations (as you will see in
-            the source code, there are few dependencies on Payara so this should
-            be pretty easy to do).<br />
+            the source code, there are few dependencies on Payara/GlassFish so this should
+            be pretty easy to do).<br/>
             <br /> Eclipse Cargo Tracker is deployed to Kubernetes on the cloud
             using GitHub Actions workflows. You can find the demo deployment on
             the Scaleforce cloud (<a target="_blank"
