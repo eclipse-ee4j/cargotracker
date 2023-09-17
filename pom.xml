@@ -170,13 +170,14 @@
           <version>${payara.version}</version>
           <scope>test</scope>
         </dependency>
-        <!-- Payara Micro Managed Container Adaptor -->
+        <!-- Payara Micro Managed Container Adapter -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
           <version>3.0.alpha8</version>
           <scope>test</scope>
         </dependency>
+        <!-- Needed at the moment for Jakarta EE 10 support -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>payara-client-ee9</artifactId>

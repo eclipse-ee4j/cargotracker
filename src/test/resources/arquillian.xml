@@ -16,7 +16,7 @@
   <container qualifier="glassfish">
     <configuration>
       <property name="allowConnectingToRunningServer">false</property>
-      <!--            <property name="glassFishHome">target/${glassfish.home}</property>-->
+      <!-- <property name="glassFishHome">target/${glassfish.home}</property> -->
       <property name="adminHost">localhost</property>
       <property name="adminPort">4848</property>
       <property name="enableDerby">${enableDerby:true}</property>
