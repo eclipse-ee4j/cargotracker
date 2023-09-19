@@ -32,12 +32,17 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
+This will run the application with Payara Server by default. The project also has a Maven profile to support GlassFish. For example you can run using GlassFish using the following command: `mvn clean package -Pglassfish cargo:run`
+
 To set up in Visual Studio Code, follow these steps:
 
 * Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 6](https://www.payara.fish/downloads/payara-platform-community-edition/). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
 * Make sure JAVA_HOME is set.
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it will automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
+
+You can similarly use GlassFish in Visual Studio Code.
+
 
 ## Getting Started with Open Liberty
 
