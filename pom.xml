@@ -346,8 +346,9 @@
         <payara.version>6.2023.8</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
-        <!-- Pass in via command line (e.g. mvn clean package -Pcloud -DpostgreSqlJdbcUrl=jdbc:postgresql://localhost:5432/postgres
-        -DpostgreSqlUsername=postgres -DpostgreSqlPassword=). -->
+        <!-- Pass in via command line. For example:
+        mvn clean package -Pcloud -DpostgreSqlJdbcUrl="jdbc:postgresql://host.docker.internal:5432/postgres" -DpostgreSqlUsername="postgres" -DpostgreSqlPassword="postgres" 
+        -->
         <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
         <db.user>${postgreSqlUsername}</db.user>
         <db.password>${postgreSqlPassword}</db.password>
