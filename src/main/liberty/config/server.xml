@@ -11,6 +11,7 @@
     <feature>jdbc-4.3</feature>
     <feature>jndi-1.0</feature>
     <feature>jsonb-3.0</feature>
+    <feature>localConnector-1.0</feature>
     <feature>mdb-4.0</feature>
     <feature>messaging-3.1</feature>
     <feature>messagingClient-3.0</feature>

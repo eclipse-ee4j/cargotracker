@@ -69,6 +69,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
@@ -86,6 +87,13 @@ public class BookingServiceTest {
 
   @Deployment
   public static WebArchive createDeployment() {
+	  
+    String launch = System.getProperty("arquillian.launch", "payara");
+    String webXml = launch.equals("openliberty") ? "test-liberty-web.xml" : "test-web.xml";
+    String[] dependencies = launch.equals("openliberty") ?
+	           new String[] { "org.apache.commons:commons-lang3" } :
+               new String[] { "org.apache.commons:commons-lang3", "com.h2database:h2"};
+    
     return ShrinkWrap.create(WebArchive.class, "cargo-tracker-test.war")
         // Application layer component directly under test.
         .addClass(BookingService.class)
@@ -147,16 +155,18 @@ public class BookingServiceTest {
         // Persistence unit descriptor
         .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
         // Web application descriptor
-        .addAsWebInfResource("test-web.xml", "web.xml")
+        .addAsWebInfResource(webXml, "web.xml")
+        // Bean archive descriptor
+        .addAsWebInfResource("test-beans.xml", "beans.xml")
         // Library dependencies
         .addAsLibraries(
             Maven.resolver()
                 .loadPomFromFile("pom.xml")
-                .resolve("org.apache.commons:commons-lang3", "com.h2database:h2")
+                .resolve(dependencies)
                 .withTransitivity()
                 .asFile());
   }
-
+  
   @Test
   @Order(1)
   public void testRegisterNew() {
