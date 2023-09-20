@@ -86,11 +86,11 @@ public class BookingServiceTest {
 
   @Deployment
   public static WebArchive createDeployment() {
-	  
+
     String launch = System.getProperty("arquillian.launch", "payara");
     String webXml = launch.equals("openliberty") ? "test-liberty-web.xml" : "test-web.xml";
     String[] dependencies = launch.equals("openliberty") ?
-	           new String[] { "org.apache.commons:commons-lang3" } :
+               new String[] { "org.apache.commons:commons-lang3" } :
                new String[] { "org.apache.commons:commons-lang3", "com.h2database:h2"};
     
     return ShrinkWrap.create(WebArchive.class, "cargo-tracker-test.war")
