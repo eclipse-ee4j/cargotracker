@@ -69,7 +69,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-
 /**
  * Application layer integration test covering a number of otherwise fairly trivial components that
  * largely do not warrant their own tests.
