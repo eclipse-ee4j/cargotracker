@@ -70,7 +70,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v2.2-SNAPSHOT
+          tags: ghcr.io/eclipse-ee4j/cargo-tracker:latest,ghcr.io/eclipse-ee4j/cargo-tracker:v3.0-SNAPSHOT
                       
       - name: Create Cargo Tracker Deployment
         uses: actions-hub/kubectl@master
