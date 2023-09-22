@@ -32,7 +32,7 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
-This will run the application with Payara Server by default. The project also has a Maven profile to support GlassFish. For example you can run using GlassFish using the following command: `mvn clean package -Pglassfish cargo:run`
+This will run the application with Payara Server by default. The project also has Maven profiles to support GlassFish and Open Liberty. For example you can run using GlassFish using the following command: `mvn clean package -Pglassfish cargo:run`.  Similarly you can run using Open Liberty using the following command: `mvn clean package -Popenliberty liberty:run`
 
 To set up in Visual Studio Code, follow these steps:
 
@@ -41,37 +41,7 @@ To set up in Visual Studio Code, follow these steps:
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it will automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
 
-You can similarly use GlassFish in Visual Studio Code.
-
-
-## Getting Started with Open Liberty
-
-To set up the project with Open Liberty and Maven:
-
-* Ensure you are running Java SE 11, or Java SE 17. IBM Semeru is the recommended Java SDK for Open Liberty. Go to [IBM Semeru Runtimes Downloads](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/) and select Java 11 or Java 17 from the version dropdown menu.
-* Make sure the `JAVA_HOME`environment variable is set on your system.
-* Navigate to the `cargotracker` directory and develop the application with the [Liberty Maven Plugin](https://github.com/OpenLiberty/ci.maven#cimaven--): `mvn -P openliberty liberty:dev`.
-* You can safely ignore the shrinkwrap features warning, message-driven bean warning, and the AggregateObjectMapping nested foreign key warning, as they don't affect the application functionality.
-* The application starts without any additional errors and you can visit it at the http://localhost:8080/cargo-tracker URL.
-
-To set up the project with Open Liberty in Visual Studio Code:
-
-* Ensure you are running [Visual Studio Code](https://code.visualstudio.com/download) with Java 17.
-* Install [Liberty Tools for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Open-Liberty.liberty-dev-vscode-ext).
-* Open the Cargo Tracker project by selecting **Explorer** > **Open Folder**. Select the `cargotracker` directory.
-* The `cargo-tracker` project appears under the `LIBERTY DASHBOARD` extension in the Explorer sidebar.
-* Right-click the `cargo-tracker` project and select `Start...` to start the application. Type `-P openliberty` in the pop-up entry field and then press the Enter/return key.
-* A terminal window in the IDE opens and the Liberty Maven Plugin starts the application. Liberty is running in dev mode.
-* You can safely ignore the shrinkwrap features warning, message-driven bean warning, and the AggregateObjectMapping nested foreign key warning, as they don't affect the application functionality.
-* You can visit the application at http://localhost:8080/cargo-tracker when you see the following message at the terminal:
-```
-************************************************************************
-[INFO] *    Liberty is running in dev mode.
-...
-[INFO] Source compilation was successful.
-[INFO] Tests compilation was successful.
-```
-
+You can similarly use GlassFish or Open Liberty in Visual Studio Code.
 
 ## Exploring the Application
 
@@ -176,3 +146,4 @@ For further guidance on contributing including the project roadmap, please look 
   this occurs, you will need to stop the application and clean the database. You
   can do this by simply removing the cargo-tracker-data directory from the file
   system and restarting the application. This directory will typically be under $your-payara-installation/glassfish/domains/domain1/config.
+* While running with Liberty, you will notice a number of spurious errors. You will see shrinkwrap features warnings, message-driven bean warnings, the AggregateObjectMapping nested foreign key warning, I/O errors, etc. You can safely ignore these. They don't affect the application functionality.
