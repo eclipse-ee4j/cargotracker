@@ -477,7 +477,7 @@
             </configuration>
             <executions>
               <execution>
-                <id>install liberty</id>
+                <id>install Liberty</id>
                 <phase>compile</phase>
                 <goals>
                   <goal>create</goal>
