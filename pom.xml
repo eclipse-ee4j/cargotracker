@@ -475,6 +475,16 @@
                 </dependencyGroup>
               </copyDependencies>
             </configuration>
+            <executions>
+              <execution>
+                <id>install liberty</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>create</goal>
+                  <goal>install-feature</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
