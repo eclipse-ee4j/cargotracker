@@ -32,7 +32,17 @@ The simplest steps are the following (no IDE required):
   type: `mvn clean package cargo:run`
 * Go to http://localhost:8080/cargo-tracker
 
-This will run the application with Payara Server by default. The project also has Maven profiles to support GlassFish and Open Liberty. For example you can run using GlassFish using the following command: `mvn clean package -Pglassfish cargo:run`.  Similarly you can run using Open Liberty using the following command: `mvn clean package -Popenliberty liberty:run`
+This will run the application with Payara Server by default. The project also has Maven profiles to support GlassFish and Open Liberty. For example you can run using GlassFish using the following command: 
+
+```
+mvn clean package -Pglassfish cargo:run
+```
+
+Similarly you can run using Open Liberty using the following command:
+
+```
+mvn clean package -Popenliberty liberty:run
+```
 
 To set up in Visual Studio Code, follow these steps:
 
