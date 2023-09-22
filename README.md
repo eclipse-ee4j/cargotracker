@@ -28,8 +28,10 @@ The simplest steps are the following (no IDE required):
 * Get the project source code.
 * Ensure you are running Java SE 11 or Java SE 17.
 * Make sure JAVA_HOME is set.
-* As long as you have Maven set up properly, navigate to the project source root and
-  type: `mvn clean package cargo:run`
+* As long as you have Maven set up properly, navigate to the project source root and type:
+```
+mvn clean package cargo:run
+```
 * Go to http://localhost:8080/cargo-tracker
 
 This will run the application with Payara Server by default. The project also has Maven profiles to support GlassFish and Open Liberty. For example you can run using GlassFish using the following command: 
