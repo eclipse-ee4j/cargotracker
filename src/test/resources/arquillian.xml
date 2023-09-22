@@ -23,4 +23,14 @@
       <property name="outputToConsole">true</property>
     </configuration>
   </container>
+  <container qualifier="openliberty">
+    <configuration>
+      <property name="allowConnectingToRunningServer">true</property>
+      <property name="wlpHome">target/liberty/wlp</property>
+      <property name="serverName">defaultServer</property>
+      <property name="httpPort">8080</property>
+      <property name="deployType">xml</property>
+      <property name="sharedLib">dbLib</property>
+    </configuration>
+  </container>
 </arquillian>
