@@ -146,13 +146,13 @@ For further guidance on contributing including the project roadmap, please look 
 
 ## Known Issues
 * When using Visual Studio Code, please make sure that the JAVA_HOME environment variable is correctly set up. If it is not configured properly, you will be unable to select a domain when adding a Payara Server instance in Visual Studio Code.
+* When using Visual Studio Code, please make sure that Payara is not installed in a path with a space (for example: C:\Program Files\payara6). Payara will fail to start with the Payara Tools extension. Install Payara on a path without spaces (for example: C:\payara6).
 * Currently, we are utilizing the most recent Payara version, which is 6.2023.8. It is important to note that this particular version is functioning correctly when paired with JDK 11. However, it is experiencing compatibility issues with JDK 17. Therefore, we recommend continuing to use JDK 11 in conjunction with Payara 6.2023.8 for optimal performance and stability for now. This issue will be resolved in a [subsequent Payara release](https://github.com/payara/Payara/pull/6371).
 * Presently, Jakarta EE 10 and Payara 6 encounters operational challenges within Eclipse IDE. Consequently, we have adopted Visual Studio Code as an alternative. We wholeheartedly welcome contributions aimed at rectifying the compatibility disparity within Eclipse IDE. Your input towards resolving this issue would be greatly appreciated.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
   explained [here](https://github.com/payara/Payara/issues/3038).
-* If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless.
-  Just re-run the application (make sure to completely un-deploy the application and shut down Payara first).
+* If you restart the application a few times, you will run into a bug causing a spurious deployment failure. While the problem can be annoying, it's harmless. Just re-run the application (make sure to completely un-deploy the application and shut down Payara first).
 * Sometimes when the server is not shut down correctly or there is a locking/permissions issue, the H2 database that
   the application uses get's corrupted, resulting in strange database errors. If
   this occurs, you will need to stop the application and clean the database. You
