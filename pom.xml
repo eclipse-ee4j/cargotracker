@@ -139,7 +139,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.8</payara.version>
+        <payara.version>6.2023.12</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -343,7 +343,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.8</payara.version>
+        <payara.version>6.2023.12</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line. For example:
