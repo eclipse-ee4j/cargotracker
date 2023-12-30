@@ -165,7 +165,52 @@ public class ItineraryTest {
 
   @Test
   public void testNextExpectedEvent() {
-    // TODO [TDD] Complete this test.
+    TrackingId trackingId = new TrackingId("CARGO1");
+    RouteSpecification routeSpecification =
+            new RouteSpecification(
+                    SampleLocations.SHANGHAI, SampleLocations.GOTHENBURG, LocalDate.now());
+    Cargo cargo = new Cargo(trackingId, routeSpecification);
+
+    Itinerary itinerary = new Itinerary(Arrays.asList(
+            new Leg(
+                    voyage,
+                    SampleLocations.SHANGHAI,
+                    SampleLocations.ROTTERDAM,
+                    LocalDateTime.now(),
+                    LocalDateTime.now()),
+            new Leg(
+                    voyage,
+                    SampleLocations.ROTTERDAM,
+                    SampleLocations.GOTHENBURG,
+                    LocalDateTime.now(),
+                    LocalDateTime.now())));
+
+    HandlingEvent receiveEvent = new HandlingEvent(
+            cargo,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            HandlingEvent.Type.RECEIVE,
+            SampleLocations.SHANGHAI);
+    assertTrue(itinerary.isExpected(receiveEvent));
+
+
+    HandlingEvent unexpectedEvent = new HandlingEvent(
+            cargo,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            HandlingEvent.Type.UNLOAD,
+            SampleLocations.ROTTERDAM,
+            wrongVoyage);
+    assertFalse(itinerary.isExpected(unexpectedEvent));
+
+    HandlingEvent claimEvent = new HandlingEvent(
+            cargo,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            HandlingEvent.Type.CLAIM,
+            SampleLocations.GOTHENBURG);
+    assertTrue(itinerary.isExpected(claimEvent));
+
   }
 
   @Test
