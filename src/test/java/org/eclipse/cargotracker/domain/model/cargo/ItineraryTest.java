@@ -193,7 +193,6 @@ public class ItineraryTest {
             SampleLocations.SHANGHAI);
     assertTrue(itinerary.isExpected(receiveEvent));
 
-
     HandlingEvent unexpectedEvent = new HandlingEvent(
             cargo,
             LocalDateTime.now(),
@@ -210,7 +209,6 @@ public class ItineraryTest {
             HandlingEvent.Type.CLAIM,
             SampleLocations.GOTHENBURG);
     assertTrue(itinerary.isExpected(claimEvent));
-
   }
 
   @Test
