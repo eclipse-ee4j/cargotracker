@@ -142,7 +142,7 @@ h6 {
 }
 
 .content-section-a {
-  padding: 50px 0;
+  padding: 50px 10px;
   background-color: #f8f8f8;
 }
 
@@ -245,4 +245,12 @@ p.copyright {
 
 .logo-jee {
   width: 58%;
+}
+@media only screen and (max-width: 767px) {
+   .section-heading-spacer {
+	float: inherit;
+  }
+  p.lead {
+	padding: 0 10px;
+  }
 }
