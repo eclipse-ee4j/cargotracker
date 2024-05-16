@@ -1,0 +1,19 @@
+= Home
+
+The Eclipse Cargo Tracker project demonstrates how you can develop applications with the Jakarta EE platform using widely adopted 
+architectural best practices like Domain-Driven Design (DDD).
+The project is directly based on the well known original https://dddsample.sourceforge.net/[Java DDD sample] application developed by 
+DDD pioneer Eric Evans' company https://www.domainlanguage.com/[Domain Language] 
+and the Swedish software consulting company https://www.citerus.se/[Citerus].
+The cargo example actually comes from Eric Evans' https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[seminal book]. That project uses older versions of 
+Spring, Hibernate and Jetty whereas we focus on vanilla Jakarta EE.
+
+- The Getting Started section provides brief orientation on the project.
+- The Visual Studio Code section provides detailed instructions on how to get started with Visual Studio Code.
+- The Jakarta EE and DDD section provides a brief overview of DDD as it relates to this project and Jakarta EE.
+- The Characterization section overviews how the basic building blocks of the domain - entities, value objects, aggregates, services, repositories and factories - are implemented in the application using Jakarta EE.
+- The Layers section explains the architectural layers in the application and how they relate to various Jakarta EE APIs.
+- The Resources section provides some useful resources for learning more about DDD and Jakarta EE.
+
+You should also check out the https://eclipse-ee4j.github.io/cargotracker/[project website] for further context.
+
