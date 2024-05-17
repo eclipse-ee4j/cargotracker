@@ -1,0 +1,10 @@
+name: cargotracker
+title: Cargo Tracker Docs
+version: 1.0
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    table-caption: false
+    xrefstyle: full
+nav:
+  - modules/ROOT/nav.adoc

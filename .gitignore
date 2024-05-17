@@ -1,3 +1,15 @@
 
 cargo-tracker-test-data/
 target/
+
+# Eclipse #
+.settings/
+*.classpath
+*.project
+
+# IntelliJ #
+.idea/
+*.iml
+
+# OS Files #
+.DS_Store
