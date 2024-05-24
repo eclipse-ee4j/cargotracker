@@ -1,0 +1,20 @@
+== Value Objects
+
+A https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo/Leg.java[Leg] consists of a starting point and an ending point (to https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/location/Location.java[Location] and from https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/location/Location.java[Location]), and a reference to a voyage.
+A leg has no sense of identity; two legs with the same from location, end location, and voyage are in our model completely interchangeable.
+As a result, we implement Leg as an immutable Value Object.
+
+An https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo/Itinerary.java[Itinerary] consists of a list of Legs, with the load location of 
+the first leg in the list as the starting point of the itinerary and the unload location of the last leg as the final destination. 
+The same reasoning applies to itineraries as to Legs: they do not have identity and are implemented as Value Objects.
+Now, a cargo can certainly have its itinerary updated.
+One way to accomplish this would be to keep the original itinerary instance and update the Legs in the itinerary's list.
+In this case, the itinerary must be mutable and has to be implemented as an entity.
+With the itinerary as a Value Object, as in the case of our application model and implementation,
+updating it is a simple operation of acquiring a complete new itinerary from the https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/service/RoutingService.java[RoutingService] and replacing the old one.
+Implementation of a cargo's itinerary management is much simplified by having the itinerary as a Value Object.
+
+image::../images/leg.png[]
+
+Value Objects are typically implemented as Jakarta Persistence embedded objects.
+However, it is sometimes useful and valid to implement them as Jakarta Persistence entities.

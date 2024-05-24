@@ -3,6 +3,8 @@ xref:index.adoc[]
 
 .Characterization
 
+* xref:characterization:intro.adoc[]
+
 * xref:characterization:entities.adoc[]
 
 * xref:characterization:valueobjects.adoc[]
