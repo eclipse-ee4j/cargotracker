@@ -1,0 +1,12 @@
+== Resources
+
+The following are some useful resources for learning more about DDD 
+and Jakarta EE:
+
+* https://dzone.com/refcardz/getting-started-domain-driven-design[Getting Started with Domain-Driven Design (free DZone Ref Card)]
+* https://www.infoq.com/minibooks/domain-driven-design-quickly/[Domain-Driven Design Quickly (free eBook on InfoQ)]
+* https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[Domain-Driven Design: Tackling Complexity in the Heart of Software (Eric Evans' DDD book)]
+* https://www.slideshare.net/Jakarta_EE/applied-domaindriven-design-blueprints-for-jakarta-ee[Applied Domain-Driven Design Blueprints for Jakarta EE (slide deck on this project)]
+* https://www.youtube.com/watch?v=pKmmZd-3mhA[Applied Domain-Driven Design Blueprints for Jakarta EE (video on this project)]
+* https://eclipse-ee4j.github.io/jakartaee-tutorial/[Official Jakarta EE Tutorial]
+* https://github.com/eclipse-ee4j/jakartaee-examples/[Official Jakarta EE Examples]

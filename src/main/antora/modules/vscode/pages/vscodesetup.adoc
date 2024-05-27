@@ -1,0 +1,26 @@
+== Visual Studio Code Setup
+
+Start Visual Studio Code. Go to -> Extensions (Ctrl+Shift+X). Search for https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode[Payara Tools]. Install Payara Tools.
+
+image::../images/vs_add_payara_tools.png[]
+
+Once the Payara Tools plugin is installed, click on the Payara icon on 
+the left side bar below the Extensions icon, then click on the '+' icon 
+on the Servers. Choose 'Local Domain' -> 'Browse the Payara Server', 
+then select the directory where you installed Payara 6.
+
+image::../images/vs_add_payara_1.png[]
+
+image::../images/vs_add_payara_2.png[]
+
+Name the instance Payara 6 and hit next. Select the default domain1.
+
+image::../images/vs_add_payara_3.png[]
+
+image::../images/vs_add_payara_4.png[]
+
+Now you will see the instance under Servers. Right-click on the instance 
+and select 'Start'. Once Payara starts, you can verify it is up by 
+visiting http://localhost:8080.
+
+image::../images/vs_run_payara.png[]

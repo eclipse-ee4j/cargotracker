@@ -40,6 +40,8 @@ xref:index.adoc[]
 
 .Layers
 
+* xref:layers:layers.adoc[]
+
 * xref:layers:interfaces.adoc[]
 
 * xref:layers:application.adoc[]
@@ -57,6 +59,8 @@ xref:index.adoc[]
 
 
 .Visual Studio Code
+
+* xref:vscode:vscode.adoc[]
 
 * xref:vscode:prerequisites.adoc[]
 
