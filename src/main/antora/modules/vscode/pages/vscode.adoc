@@ -1,0 +1,6 @@
+== Visual Studio Code
+
+This section outlines how to set up the application in Visual Studio 
+Code. It uses the project default Payara Server. The project also has 
+Maven profiles to support GlassFish and Open Liberty. GlassFish or Open 
+Liberty can be very similarly used with Visual Studio Code.

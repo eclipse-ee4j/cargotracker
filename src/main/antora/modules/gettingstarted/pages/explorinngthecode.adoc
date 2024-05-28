@@ -1,0 +1,4 @@
+== Exploring the Code
+
+All of the code is available on GitHub. You can https://github.com/eclipse-ee4j/cargotracker/archive/master.zip[download it as a zip] 
+or https://github.com/eclipse-ee4j/cargotracker/[browse the repository online].

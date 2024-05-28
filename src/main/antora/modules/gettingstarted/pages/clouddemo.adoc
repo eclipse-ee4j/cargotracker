@@ -1,0 +1,7 @@
+== Cloud Demo
+
+Cargo Tracker is deployed to Kubernetes on the cloud using GitHub 
+Actions workflows. You can find the demo deployment on the Scaleforce 
+cloud at https://cargo-tracker.j.scaleforce.net. This project is very 
+thankful to our sponsors https://jelastic.com/[Jelastic] and https://www.scaleforce.net/[Scaleforce] for hosting the demo! 
+The deployment and all data is refreshed nightly.
