@@ -49,7 +49,7 @@ public class DefaultBookingService implements BookingService {
     Cargo cargo = cargoRepository.find(trackingId);
 
     if (cargo == null) {
-      return Collections.emptyList();
+      return List.of();
     }
 
     return routingService.fetchRoutesForSpecification(cargo.getRouteSpecification());

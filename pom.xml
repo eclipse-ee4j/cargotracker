@@ -21,8 +21,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
-    <maven.compiler.release>11</maven.compiler.release>
-    <jakartaee-api.version>10.0.0</jakartaee-api.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <jakartaee-api.version>11.0.0-M2</jakartaee-api.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -32,7 +32,7 @@
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
-        <version>1.7.1.Final</version>
+        <version>1.8.0.Final</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -52,6 +52,13 @@
       <version>${jakartaee-api.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+
     <!-- The third-party dependencies this application has -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -139,7 +146,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.12</payara.version>
+        <payara.version>6.2024.5</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -455,6 +462,7 @@
           <type>pom</type>
           <scope>test</scope>
         </dependency>
+
       </dependencies>
 
       <build>
@@ -463,7 +471,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.8.2</version>
+            <version>3.10.3</version>
             <configuration>
               <copyDependencies>
                 <dependencyGroup>

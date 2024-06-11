@@ -141,11 +141,8 @@ public class EventItemReader extends AbstractItemReader {
       throw new EventLineParseException("Cannot parse event type", e, line);
     }
 
-    HandlingEventRegistrationAttempt attempt =
-        new HandlingEventRegistrationAttempt(
-            LocalDateTime.now(), completionTime, trackingId, voyageNumber, eventType, unLocode);
-
-    return attempt;
+      return new HandlingEventRegistrationAttempt(
+          LocalDateTime.now(), completionTime, trackingId, voyageNumber, eventType, unLocode);
   }
 
   @Override
