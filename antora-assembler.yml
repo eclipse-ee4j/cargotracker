@@ -1,0 +1,4 @@
+root_level: 0
+component_versions: '**'
+build:
+  dir: target/antora-assembler

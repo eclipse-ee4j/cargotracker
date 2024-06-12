@@ -1,0 +1,33 @@
+site:
+  url: https://cargotracker/learn/docs/
+  title: Eclipse Cargo Documentation
+  start_page: cargotracker:ROOT:index.adoc
+  keys:
+    googleAnalytics: GTM-5WLCZXC
+
+content:
+  # branches will be updated when PRs are merged
+  sources:
+  - url: https://github.com/eclipse-ee4j/cargotracker.git
+    start_paths:
+      - src/main/antora
+    branches:
+      - docs
+
+urls:
+  latest_version_segment: current
+
+ui:
+  output_dir: _
+  bundle:
+    url: https://github.com/jakartaee/jakartaee-documentation-ui/releases/download/latest/ui-bundle.zip
+    snapshot: true
+
+runtime:
+  log:
+    level: debug
+
+antora:
+  extensions:
+  - '@antora/lunr-extension'
+  - '@antora/pdf-extension'
