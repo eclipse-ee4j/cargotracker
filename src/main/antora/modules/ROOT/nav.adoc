@@ -3,69 +3,69 @@ xref:index.adoc[]
 
 .Characterization
 
-* xref:characterization/intro.adoc[]
+* xref:characterization:intro.adoc[]
 
-* xref:characterization/entities.adoc[]
+* xref:characterization:entities.adoc[]
 
-* xref:characterization/valueobjects.adoc[]
+* xref:characterization:valueobjects.adoc[]
 
-* xref:characterization/domainevents.adoc[]
+* xref:characterization:domainevents.adoc[]
 
-* xref:characterization/aggregates.adoc[]
+* xref:characterization:aggregates.adoc[]
 
-* xref:characterization/repositories.adoc[]
+* xref:characterization:repositories.adoc[]
 
-* xref:characterization/factories.adoc[]
+* xref:characterization:factories.adoc[]
 
-* xref:characterization/domainservices.adoc[]
+* xref:characterization:domainservices.adoc[]
 
-* xref:characterization/applicationservices.adoc[]
+* xref:characterization:applicationservices.adoc[]
 
 
 .Getting Started
 
-* xref:gettingstarted/screencast.adoc[]
+* xref:gettingstarted:screencast.adoc[]
 
-* xref:gettingstarted/exploringthecode.adoc[]
+* xref:gettingstarted:exploringthecode.adoc[]
 
-* xref:gettingstarted/runningtheapplication.adoc[]
+* xref:gettingstarted:runningtheapplication.adoc[]
 
-* xref:gettingstarted/clouddemo.adoc[]
+* xref:gettingstarted:clouddemo.adoc[]
 
 
 .Jakarta EE and DDD
 
-* xref:jakartaeeanddd/jakartaee&dd.adoc[]
+* xref:jakartaeeanddd:jakartaee&dd.adoc[]
 
 
 .Layers
 
-* xref:layers/layers.adoc[]
+* xref:layers:layers.adoc[]
 
-* xref:layers/interfaces.adoc[]
+* xref:layers:interfaces.adoc[]
 
-* xref:layers/application.adoc[]
+* xref:layers:application.adoc[]
 
-* xref:layers/domain.adoc[]
+* xref:layers:domain.adoc[]
 
-* xref:layers/infrastructure.adoc[]
+* xref:layers:infrastructure.adoc[]
 
-* xref:layers/layersmandatory.adoc[]
+* xref:layers:layersmandatory.adoc[]
 
 
 .Resources
 
-* xref:resources/resources.adoc[]
+* xref:resources:resources.adoc[]
 
 
 .Visual Studio Code
 
-* xref:vscode/vscode.adoc[]
+* xref:vscode:vscode.adoc[]
 
-* xref:vscode/prerequisites.adoc[]
+* xref:vscode:prerequisites.adoc[]
 
-* xref:vscode/download.adoc[]
+* xref:vscode:download.adoc[]
 
-* xref:vscode/vscodesetup.adoc[]
+* xref:vscode:vscodesetup.adoc[]
 
-* xref:vscode/runapp.adoc[]
+* xref:vscode:runapp.adoc[]
