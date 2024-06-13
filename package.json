@@ -1,0 +1,17 @@
+{
+  "name": "cargotracker-docs-playbook",
+  "version": "10.0.0",
+  "description": "Root project for generating the Jakarta EE Reference Documentation.",
+  "dependencies": {
+    "@antora/lunr-extension": "^1.0.0-alpha.8",
+    "@antora/pdf-extension": "^1.0.0-alpha.6",
+    "@antora/site-generator-default": "^3.1.3"
+  },
+  "devDependencies": {
+    "@antora/cli": "^3.1.3",
+    "@antora/site-generator": "^3.1.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

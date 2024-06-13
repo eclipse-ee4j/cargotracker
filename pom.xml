@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.eclipse.ee4j</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.6</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>jakarta.docs</groupId>
+    <artifactId>cargotracker-documentation</artifactId>
+    <packaging>pom</packaging>
+    <!-- This version does not need to correspond to the Jakarta EE version, since the core Jakarta EE docs are in a different repo -->
+    <version>10</version>
+    <name>Cargo Tracker Docs Site</name>
+
+    <properties>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <node.version>v18.16.0</node.version>
+        <npm.version>9.5.1</npm.version>
+        <antora.version>3.1.3</antora.version>
+        <antora.playbook>antora-playbook.yml</antora.playbook>
+        <antora.output.folder>${project.build.directory}/generated-docs</antora.output.folder>
+        <scmpublish.content>${antora.output.folder}</scmpublish.content>
+        <maven.site.skip>true</maven.site.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.12.1</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install antora</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <arguments>install @antora/cli@${antora.version}
+                                @antora/site-generator-default@${antora.version}
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npx run antora</id>
+                        <goals>
+                            <goal>npx</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <!-- fetch really should be made conditional, since it slows down the build. -->
+                            <arguments>antora generate --fetch --to-dir ${antora.output.folder} ${antora.playbook}</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>author-mode</id>
+            <properties>
+                <antora.playbook>local-antora-playbook.yml</antora.playbook>
+            </properties>
+        </profile>
+    </profiles>
+</project>
