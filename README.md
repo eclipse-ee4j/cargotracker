@@ -1,6 +1,6 @@
 # Cargotracker-documentation
 
-This is the repo for building the The Eclipse Cargotracker Documentation site.
+This is the repo for building the Eclipse Cargotracker Documentation site.
 
 ## Prerequisites
 
