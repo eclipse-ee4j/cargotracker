@@ -12,7 +12,7 @@ This is the repo for building the Eclipse Cargotracker Documentation site.
 Ensure JDK and Maven are installed. Additionally, install the `asciidoctor-pdf` gem:
 
 ```bash
-gem install asciidoctor-pdf
+sudo gem install asciidoctor-pdf
 ```
 
 ## Building
