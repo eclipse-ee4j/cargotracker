@@ -14,7 +14,7 @@ With the itinerary as a Value Object, as in the case of our application model an
 updating it is a simple operation of acquiring a complete new itinerary from the https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/service/RoutingService.java[RoutingService] and replacing the old one.
 Implementation of a cargo's itinerary management is much simplified by having the itinerary as a Value Object.
 
-image::../images/leg.png[]
+image::leg.png[]
 
 Value Objects are typically implemented as Jakarta Persistence embedded objects.
 However, it is sometimes useful and valid to implement them as Jakarta Persistence entities.

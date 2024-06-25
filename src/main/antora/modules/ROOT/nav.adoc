@@ -3,69 +3,28 @@ xref:index.adoc[]
 
 .Characterization
 
-* xref:characterization:intro.adoc[Introduction]
-
-* xref:characterization:entities.adoc[Entities]
-
-* xref:characterization:valueobjects.adoc[Value Objects]
-
-* xref:characterization:domainevents.adoc[Domain Events]
-
-* xref:characterization:aggregates.adoc[Aggregates]
-
-* xref:characterization:repositories.adoc[Repositories]
-
-* xref:characterization:factories.adoc[Factories]
-
-* xref:characterization:domainservices.adoc[Domain Services]
-
-* xref:characterization:applicationservices.adoc[Application Services]
-
+* xref:characterization:main/main.adoc[Characterization]
 
 .Getting Started
 
-* xref:gettingstarted:screencast.adoc[Screen Cast]
-
-* xref:gettingstarted:exploringthecode.adoc[Exploring the Code]
-
-* xref:gettingstarted:runningtheapplication.adoc[Running the Application]
-
-* xref:gettingstarted:clouddemo.adoc[Cloud Demo]
+* xref:gettingstarted:main/main.adoc[Getting Started]
 
 
 .Jakarta EE and DDD
 
-* xref:jakartaeeanddd:jakartaee&dd.adoc[Jakarta EE and DDD]
+* xref:jakartaeeanddd:main/main.adoc[Jakarta EE and DDD]
 
 
 .Layers
 
-* xref:layers:layers.adoc[Layers]
-
-* xref:layers:interfaces.adoc[Interfaces]
-
-* xref:layers:application.adoc[Application]
-
-* xref:layers:domain.adoc[Domain]
-
-* xref:layers:infrastructure.adoc[Infrastructure]
-
-* xref:layers:layersmandatory.adoc[Are Layers Mandatory?]
+* xref:layers:main/main.adoc[Layers]
 
 
 .Resources
 
-* xref:resources:resources.adoc[Resources]
+* xref:resources:main/main.adoc[Resources]
 
 
 .Visual Studio Code
 
-* xref:vscode:vscode.adoc[]
-
-* xref:vscode:prerequisites.adoc[Prerequisites]
-
-* xref:vscode:download.adoc[Download]
-
-* xref:vscode:vscodesetup.adoc[Visual Studio Code Setup]
-
-* xref:vscode:runapp.adoc[Running the Application]
+* xref:vscode:main/main.adoc[Visual Studio Code]

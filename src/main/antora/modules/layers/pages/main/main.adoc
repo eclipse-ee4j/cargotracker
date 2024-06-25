@@ -1,0 +1,11 @@
+include::layers.adoc[Layers]
+
+include::interfaces.adoc[Interfaces]
+
+include::application.adoc[Application]
+
+include::domain.adoc[Domain]
+
+include::infrastructure.adoc[Infrastructure]
+
+include::layersmandatory.adoc[Are Layers Mandatory?]

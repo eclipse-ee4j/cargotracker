@@ -3,7 +3,7 @@
 The Eclipse Cargo Tracker application is layered as illustrated by 
 the following picture.
 
-image::../images/layers.jpg[]
+image::layers.jpg[]
 
 As you can see, there are three vertical layers: interfaces, 
 application, and domain, each supported by different kinds of 
