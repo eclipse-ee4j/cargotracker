@@ -1,0 +1,9 @@
+include::vscode.adoc[Visual Studio]
+
+include::prerequisites.adoc[Prerequisites]
+
+include::download.adoc[Download]
+
+include::vscodesetup.adoc[Visual Studio Code Setup]
+
+include::runapp.adoc[Running the Application]

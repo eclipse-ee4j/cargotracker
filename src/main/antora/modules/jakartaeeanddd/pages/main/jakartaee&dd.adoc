@@ -17,4 +17,4 @@ layer (of course!) and the infrastructure layer respectively. The https://github
 section explains the architectural layers in the application and how 
 they relate to various Jakarta EE APIs.
 
-image::./images/ddd-diagram.png[]
+image::ddd-diagram.png[]
