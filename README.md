@@ -4,8 +4,9 @@ This is the repo for building the Eclipse Cargotracker Documentation site.
 
 ## Prerequisites
 
-- [JDK](https://jdk.java.net/)
-- [Maven](https://maven.apache.org/)
+- [JDK](https://jdk.java.net)
+- [Maven](https://maven.apache.org)
+- [Ruby](https://www.ruby-lang.org)
 
 ## Setup
 
