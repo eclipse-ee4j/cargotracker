@@ -139,7 +139,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.12</payara.version>
+        <payara.version>6.2024.6</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -214,7 +214,7 @@
     <profile>
       <id>glassfish</id>
       <properties>
-       <glassfish.version>7.0.8</glassfish.version>
+       <glassfish.version>7.0.15</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -343,7 +343,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2023.12</payara.version>
+        <payara.version>6.2024.6</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line. For example:
