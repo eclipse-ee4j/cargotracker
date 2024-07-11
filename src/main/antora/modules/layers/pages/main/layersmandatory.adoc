@@ -13,4 +13,4 @@ application layer and communicate directly with the domain layer. In
 many other cases, having a layer will clearly add value by separating 
 concerns, improving testability, reducing coupling, and enhancing 
 semantic clarity. A helpful example of this is the 
-https://jelastic.com/[`BookingService`] implementation.
+https://jelastic.com/[BookingService] implementation.

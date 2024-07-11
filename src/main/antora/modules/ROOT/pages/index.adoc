@@ -8,12 +8,12 @@ and the Swedish software consulting company https://www.citerus.se/[Citerus].
 The cargo example actually comes from Eric Evans' https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[seminal book]. That project uses older versions of 
 Spring, Hibernate and Jetty whereas we focus on vanilla Jakarta EE.
 
-- The xref:characterization:main/main.adoc[Characterization] section overviews how the basic building blocks of the domain - entities, value objects, aggregates, services, repositories and factories - are implemented in the application using Jakarta EE.
 - The xref:gettingstarted:main/main.adoc[Getting Started] section provides brief orientation on the project.
+- The xref:vscode:main/main.adoc[Visual Studio Code] Code section provides detailed instructions on how to get started with Visual Studio Code.
 - The xref:jakartaeeanddd:main/main.adoc[Jakarta EE and DDD] section provides a brief overview of DDD as it relates to this project and Jakarta EE.
+- The xref:characterization:main/main.adoc[Characterization] section overviews how the basic building blocks of the domain - entities, value objects, aggregates, services, repositories and factories - are implemented in the application using Jakarta EE.
 - The xref:layers:main/main.adoc[Layers] section explains the architectural layers in the application and how they relate to various Jakarta EE APIs.
 - The xref:resources:main/main.adoc[Resources] section provides some useful resources for learning more about DDD and Jakarta EE.
-- The xref:vscode:main/main.adoc[Visual Studio Code] Code section provides detailed instructions on how to get started with Visual Studio Code.
 
 You should also check out the https://eclipse-ee4j.github.io/cargotracker/[project website] for further context.
 
