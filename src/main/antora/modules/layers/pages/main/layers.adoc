@@ -7,5 +7,5 @@ image::layers.jpg[]
 
 As you can see, there are three vertical layers: interfaces, 
 application, and domain, each supported by different kinds of 
-infrastructure. In the application, the https://github.com/eclipse-ee4j/cargotracker/wiki/Layers[package naming] reflects 
+infrastructure. In the application, the xref:layers:main/main.adoc[package naming] reflects 
 these layers.

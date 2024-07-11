@@ -1,18 +1,24 @@
 
 xref:index.adoc[]
 
-.Characterization
-
-* xref:characterization:main/main.adoc[Characterization]
-
 .Getting Started
 
 * xref:gettingstarted:main/main.adoc[Getting Started]
 
 
+.Visual Studio Code
+
+* xref:vscode:main/main.adoc[Visual Studio Code]
+
+
 .Jakarta EE and DDD
 
 * xref:jakartaeeanddd:main/main.adoc[Jakarta EE and DDD]
+
+
+.Characterization
+
+* xref:characterization:main/main.adoc[Characterization]
 
 
 .Layers
@@ -23,8 +29,3 @@ xref:index.adoc[]
 .Resources
 
 * xref:resources:main/main.adoc[Resources]
-
-
-.Visual Studio Code
-
-* xref:vscode:main/main.adoc[Visual Studio Code]

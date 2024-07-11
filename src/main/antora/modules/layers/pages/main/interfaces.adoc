@@ -8,7 +8,7 @@ also handles serialization of outgoing data, such as HTML, JSON, or XML
 across HTTP to web browsers or web service clients, or DTO classes and 
 distributed facade interfaces for remote clients.
 
-The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces[`org.eclipse.cargotracker.interfaces`] package holds all the 
+The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces[org.eclipse.cargotracker.interfaces] package holds all the 
 interface classes for the application. We have two Web UI interfaces - 
 one for https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/booking/[booking] and the other for 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/tracking/[tracking], as well as one 

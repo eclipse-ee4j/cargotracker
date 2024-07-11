@@ -8,12 +8,12 @@ the real world problem the software is trying to solve as closely as
 possible.
 
 The basic building blocks of the domain are entities, value objects, 
-aggregates, services, repositories, and factories. The https://github.com/eclipse-ee4j/cargotracker/wiki/Characterization[Characterization] section overviews how these concepts are 
+aggregates, services, repositories, and factories. The xref:characterization:main/main.adoc[Characterization] section overviews how these concepts are 
 implemented in the application 
 using Jakarta EE. Logical layers partitioning distinct concerns are 
 super-imposed on the core concept of the domain. These layers generally 
 consist of the UI/interface layer, the application layer, the domain 
-layer (of course!) and the infrastructure layer respectively. The https://github.com/eclipse-ee4j/cargotracker/wiki/Layers[Layers] 
+layer (of course!) and the infrastructure layer respectively. The xref:layers:main/main.adoc[Layers] 
 section explains the architectural layers in the application and how 
 they relate to various Jakarta EE APIs.
 

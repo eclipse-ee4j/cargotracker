@@ -1,7 +1,7 @@
 == Running the Application
 
 The project is Maven based, so you should be able to easily build it 
-or set it up in your favorite IDE. We currently have https://github.com/eclipse-ee4j/cargotracker/wiki/Visual-Studio-Code[instructions for Visual Studio Code.]
+or set it up in your favorite IDE. We currently have xref:vscode:main/main.adoc[instructions for Visual Studio Code.]
 
 You can also run the application directly from the Maven command line 
 using the https://codehaus-cargo.github.io/cargo/Maven2+plugin.html[Cargo Maven plugin].

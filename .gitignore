@@ -13,3 +13,6 @@ target/
 
 # OS Files #
 .DS_Store
+
+# Vs code
+.vscode

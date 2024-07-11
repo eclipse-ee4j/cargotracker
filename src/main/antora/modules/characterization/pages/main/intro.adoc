@@ -1,4 +1,4 @@
-= Domain-Driven Design: Class Characterization
+= Characterization
 
 Careful characterization of classes is a key activity when doing Domain-Driven Design.
 Fortunately, most of the time it is fairly obvious what category a particular class belongs to.

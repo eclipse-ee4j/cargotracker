@@ -11,7 +11,7 @@ persistence/database engines, messaging back-ends, legacy systems, and
 so on.
 
 All of the infrastructure classes are in the 
-https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/infrastructure[`org.eclipse.cargotracker.infrastructure`] package. We use Jakarta 
+https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/infrastructure[org.eclipse.cargotracker.infrastructure] package. We use Jakarta 
 Persistence, CDI, Messaging, and the REST client API in this layer. The 
 application will mostly have Jakarta Persistence code in this layer 
 encapsulated with thin CDI bean Repository classes. Other Jakarta EE 

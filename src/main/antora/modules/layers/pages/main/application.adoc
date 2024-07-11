@@ -12,7 +12,7 @@ This is very different from traditional tiered architectures that tend
 to look more procedural with a lot of business logic in the application 
 layer.
 
-The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application[`org.eclipse.cargotracker.application`] package contains all the 
+The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application[org.eclipse.cargotracker.application] package contains all the 
 application classes. The application layer is typically implemented using 
 Enterprise Beans or CDI beans. Other Jakarta EE APIs likely to be used 
 in this layer are Jakarta EE Security, Interceptors, Transactions (in 
