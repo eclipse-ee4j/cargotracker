@@ -22,6 +22,7 @@ jobs:
         with:
           args: "--set-exit-if-changed"
           version: "1.22.0"
+          skip-commit: true
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
