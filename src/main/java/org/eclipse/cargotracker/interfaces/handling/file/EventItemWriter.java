@@ -50,7 +50,7 @@ public class EventItemWriter extends AbstractItemWriter {
                     true)))) {
 
       items.stream()
-          .map(item -> (HandlingEventRegistrationAttempt) item)
+          .map(HandlingEventRegistrationAttempt.class::cast)
           .forEach(
               attempt -> {
                 applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);

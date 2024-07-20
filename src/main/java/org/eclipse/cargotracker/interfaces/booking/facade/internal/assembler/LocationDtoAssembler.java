@@ -22,6 +22,6 @@ public class LocationDtoAssembler {
         .sorted(
             Comparator.comparing(
                 org.eclipse.cargotracker.interfaces.booking.facade.dto.Location::getUnLocode))
-        .collect(Collectors.toList());
+        .toList();
   }
 }

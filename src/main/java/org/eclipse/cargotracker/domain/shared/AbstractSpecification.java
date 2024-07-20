@@ -8,10 +8,6 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
 
   /** {@inheritDoc} */
   @Override
-  public abstract boolean isSatisfiedBy(T t);
-
-  /** {@inheritDoc} */
-  @Override
   public Specification<T> and(Specification<T> specification) {
     return new AndSpecification<>(this, specification);
   }

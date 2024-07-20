@@ -120,6 +120,6 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
 
     return itineraries.stream()
         .map(itineraryCandidateDtoAssembler::toDto)
-        .collect(Collectors.toList());
+        .toList();
   }
 }

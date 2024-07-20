@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
@@ -51,18 +52,15 @@ public class ChangeDestination implements Serializable {
   }
 
   public List<Location> getPotentialDestinations() {
-    // Potential destination = All Locations - Origin - Current Destination
-    List<Location> destinationsToRemove =
-        locations.stream()
-            .filter(
-                location ->
-                    location.getUnLocode().equalsIgnoreCase(cargo.getOriginCode())
-                        || location.getUnLocode().equalsIgnoreCase(cargo.getFinalDestinationCode()))
+    String originCode = cargo.getOriginCode().toLowerCase();
+    String destinationCode = cargo.getFinalDestinationCode().toLowerCase();
+
+    return locations.stream()
+            .filter(location ->
+                    !location.getUnLocode().toLowerCase().equals(originCode) &&
+                    !location.getUnLocode().toLowerCase().equals(destinationCode)
+            )
             .toList();
-
-    locations.removeAll(destinationsToRemove);
-
-    return locations;
   }
 
   public String getDestinationUnlocode() {

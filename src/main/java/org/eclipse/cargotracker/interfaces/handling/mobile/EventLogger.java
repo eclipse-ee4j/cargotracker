@@ -81,7 +81,7 @@ public class EventLogger implements Serializable {
   // Move this to a separate utility if it is used in other parts of the UI.
   public Map<HandlingEvent.Type, HandlingEvent.Type> getEventTypes() {
     return Collections.unmodifiableMap(
-        Arrays.asList(HandlingEvent.Type.values()).stream()
+        Arrays.stream(HandlingEvent.Type.values())
             .collect(toMap(Function.identity(), Function.identity())));
   }
 

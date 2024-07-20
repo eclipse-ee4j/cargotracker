@@ -27,7 +27,7 @@ public class CargoRouteDtoAssembler {
                         locationDtoAssembler.toDto(leg.getUnloadLocation()),
                         leg.getLoadTime(),
                         leg.getUnloadTime()))
-            .collect(toList());
+            .toList();
 
     return new CargoRoute(
         cargo.getTrackingId().getIdString(),

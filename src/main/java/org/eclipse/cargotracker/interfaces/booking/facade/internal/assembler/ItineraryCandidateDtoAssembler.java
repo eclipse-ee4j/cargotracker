@@ -23,7 +23,7 @@ public class ItineraryCandidateDtoAssembler {
 
   public RouteCandidate toDto(Itinerary itinerary) {
     List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs =
-        itinerary.getLegs().stream().map(this::toLegDTO).collect(Collectors.toList());
+        itinerary.getLegs().stream().map(this::toLegDTO).toList();
     return new RouteCandidate(legDTOs);
   }
 
