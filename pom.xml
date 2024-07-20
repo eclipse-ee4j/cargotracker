@@ -119,8 +119,8 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>3.2.4</version>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
       </plugin>
 
       <plugin>
