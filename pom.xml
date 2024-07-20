@@ -159,7 +159,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2024.5</payara.version>
+        <payara.version>6.2024.7</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
