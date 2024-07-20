@@ -89,13 +89,14 @@ public class CargoTrackingViewAdapter {
   public String getStatusText() {
     Delivery delivery = cargo.getDelivery();
 
-      return switch (delivery.getTransportStatus()) {
-          case IN_PORT -> "In port " + cargo.getRouteSpecification().getDestination().getName();
-          case ONBOARD_CARRIER -> "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
-          case CLAIMED -> "Claimed";
-          case NOT_RECEIVED -> "Not received";
-          case UNKNOWN -> "Unknown";
-      };
+    return switch (delivery.getTransportStatus()) {
+      case IN_PORT -> "In port " + cargo.getRouteSpecification().getDestination().getName();
+      case ONBOARD_CARRIER ->
+          "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
+      case CLAIMED -> "Claimed";
+      case NOT_RECEIVED -> "Not received";
+      case UNKNOWN -> "Unknown";
+    };
   }
 
   public boolean isMisdirected() {
@@ -166,19 +167,21 @@ public class CargoTrackingViewAdapter {
     }
 
     public String getDescription() {
-        return switch (handlingEvent.getType()) {
-            case LOAD -> "Loaded onto voyage "
-                         + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-                         + " in "
-                         + handlingEvent.getLocation().getName();
-            case UNLOAD -> "Unloaded off voyage "
-                           + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-                           + " in "
-                           + handlingEvent.getLocation().getName();
-            case RECEIVE -> "Received in " + handlingEvent.getLocation().getName();
-            case CLAIM -> "Claimed in " + handlingEvent.getLocation().getName();
-            case CUSTOMS -> "Cleared customs in " + handlingEvent.getLocation().getName();
-        };
+      return switch (handlingEvent.getType()) {
+        case LOAD ->
+            "Loaded onto voyage "
+                + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+                + " in "
+                + handlingEvent.getLocation().getName();
+        case UNLOAD ->
+            "Unloaded off voyage "
+                + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+                + " in "
+                + handlingEvent.getLocation().getName();
+        case RECEIVE -> "Received in " + handlingEvent.getLocation().getName();
+        case CLAIM -> "Claimed in " + handlingEvent.getLocation().getName();
+        case CUSTOMS -> "Cleared customs in " + handlingEvent.getLocation().getName();
+      };
     }
   }
 }

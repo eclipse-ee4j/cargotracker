@@ -6,7 +6,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -118,8 +117,6 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     List<Itinerary> itineraries =
         bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 
-    return itineraries.stream()
-        .map(itineraryCandidateDtoAssembler::toDto)
-        .toList();
+    return itineraries.stream().map(itineraryCandidateDtoAssembler::toDto).toList();
   }
 }

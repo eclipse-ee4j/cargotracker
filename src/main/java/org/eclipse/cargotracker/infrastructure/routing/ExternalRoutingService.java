@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
@@ -82,8 +81,7 @@ public class ExternalRoutingService implements RoutingService {
   }
 
   private Itinerary toItinerary(TransitPath transitPath) {
-    List<Leg> legs =
-        transitPath.getTransitEdges().stream().map(this::toLeg).toList();
+    List<Leg> legs = transitPath.getTransitEdges().stream().map(this::toLeg).toList();
     return new Itinerary(legs);
   }
 

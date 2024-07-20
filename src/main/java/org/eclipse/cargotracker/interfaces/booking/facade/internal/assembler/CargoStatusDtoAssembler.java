@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
@@ -40,7 +39,8 @@ public class CargoStatusDtoAssembler {
     Delivery delivery = cargo.getDelivery();
     return switch (delivery.getTransportStatus()) {
       case IN_PORT -> "In port " + delivery.getLastKnownLocation().getName();
-      case ONBOARD_CARRIER -> "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
+      case ONBOARD_CARRIER ->
+          "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
       case CLAIMED -> "Claimed";
       case NOT_RECEIVED -> "Not received";
       case UNKNOWN -> "Unknown";

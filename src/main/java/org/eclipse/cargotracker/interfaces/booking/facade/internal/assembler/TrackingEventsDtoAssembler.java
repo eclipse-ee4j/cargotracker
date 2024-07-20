@@ -25,13 +25,13 @@ public class TrackingEventsDtoAssembler {
   }
 
   private String descriptionFrom(HandlingEvent.Type type, String location, String voyageNumber) {
-      return switch (type) {
-          case LOAD -> "Loaded onto voyage " + voyageNumber + " in " + location;
-          case UNLOAD -> "Unloaded off voyage " + voyageNumber + " in " + location;
-          case RECEIVE -> "Received in " + location;
-          case CLAIM -> "Claimed in " + location;
-          case CUSTOMS -> "Cleared customs in " + location;
-      };
+    return switch (type) {
+      case LOAD -> "Loaded onto voyage " + voyageNumber + " in " + location;
+      case UNLOAD -> "Unloaded off voyage " + voyageNumber + " in " + location;
+      case RECEIVE -> "Received in " + location;
+      case CLAIM -> "Claimed in " + location;
+      case CUSTOMS -> "Cleared customs in " + location;
+    };
   }
 
   private String voyageNumberFrom(HandlingEvent handlingEvent) {

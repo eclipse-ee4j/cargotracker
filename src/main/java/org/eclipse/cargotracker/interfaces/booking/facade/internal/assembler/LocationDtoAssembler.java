@@ -3,7 +3,6 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
 @ApplicationScoped
