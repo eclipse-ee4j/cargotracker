@@ -1,13 +1,12 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -31,8 +30,7 @@ import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.Loc
 @ApplicationScoped
 public class DefaultBookingServiceFacade implements BookingServiceFacade, Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private BookingService bookingService;
   @Inject private LocationRepository locationRepository;
@@ -89,16 +87,13 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   // TODO [DDD] Is this the correct DTO here?
   public List<CargoRoute> listAllCargos() {
 
-    return cargoRepository.findAll()
-            .stream()
-            .map(cargoRouteDtoAssembler::toDto)
-            .toList();
+    return cargoRepository.findAll().stream().map(cargoRouteDtoAssembler::toDto).toList();
   }
 
   public List<String> listAllTrackingIds() {
     return cargoRepository.findAll().stream()
-            .map(cargo -> cargo.getTrackingId().getIdString())
-            .toList();
+        .map(cargo -> cargo.getTrackingId().getIdString())
+        .toList();
   }
 
   @Override
@@ -123,9 +118,8 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
     List<Itinerary> itineraries =
         bookingService.requestPossibleRoutesForCargo(new TrackingId(trackingId));
 
-      return itineraries
-          .stream()
-          .map(itineraryCandidateDtoAssembler::toDto)
-          .collect(Collectors.toList());
+    return itineraries.stream()
+        .map(itineraryCandidateDtoAssembler::toDto)
+        .collect(Collectors.toList());
   }
 }

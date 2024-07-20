@@ -1,17 +1,17 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
@@ -30,8 +30,7 @@ import org.primefaces.PrimeFaces;
 @FlowScoped("booking")
 public class Booking implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
 
@@ -85,8 +84,7 @@ public class Booking implements Serializable {
   public void setOriginUnlocode(String originUnlocode) {
     this.originUnlocode = originUnlocode;
     this.originName =
-        locations
-            .stream()
+        locations.stream()
             .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
             .findAny()
             .get()
@@ -104,8 +102,7 @@ public class Booking implements Serializable {
   public void setDestinationUnlocode(String destinationUnlocode) {
     this.destinationUnlocode = destinationUnlocode;
     this.destinationName =
-        locations
-            .stream()
+        locations.stream()
             .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
             .findAny()
             .get()

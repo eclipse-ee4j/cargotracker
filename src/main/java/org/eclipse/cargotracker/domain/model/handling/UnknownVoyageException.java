@@ -1,14 +1,12 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
-import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
-
 import java.io.Serial;
+import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
 
 /** Thrown when trying to register an event with an unknown carrier movement id. */
 public class UnknownVoyageException extends CannotCreateHandlingEventException {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private final VoyageNumber voyageNumber;
 

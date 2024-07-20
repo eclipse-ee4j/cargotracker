@@ -1,9 +1,5 @@
 package org.eclipse.cargotracker.domain.model.location;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
-
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -26,8 +25,7 @@ import org.apache.commons.lang3.Validate;
     query = "Select l from Location l where l.unLocode = :unLocode")
 public class Location implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Special Location object that marks an unknown location.
   public static final Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");

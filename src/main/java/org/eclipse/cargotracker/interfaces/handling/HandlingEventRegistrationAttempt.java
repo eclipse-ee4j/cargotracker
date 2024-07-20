@@ -16,8 +16,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
  */
 public class HandlingEventRegistrationAttempt implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private final LocalDateTime registrationTime;
   private final LocalDateTime completionTime;

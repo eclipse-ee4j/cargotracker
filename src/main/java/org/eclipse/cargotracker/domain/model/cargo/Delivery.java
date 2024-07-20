@@ -9,13 +9,6 @@ import static org.eclipse.cargotracker.domain.model.cargo.TransportStatus.NOT_RE
 import static org.eclipse.cargotracker.domain.model.cargo.TransportStatus.ONBOARD_CARRIER;
 import static org.eclipse.cargotracker.domain.model.cargo.TransportStatus.UNKNOWN;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
@@ -24,6 +17,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Iterator;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
@@ -37,8 +36,7 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
  */
 @Embeddable
 public class Delivery implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern.
   public static final LocalDateTime ETA_UNKOWN = null;
@@ -267,11 +265,14 @@ public class Delivery implements Serializable {
     }
 
     return switch (lastEvent.getType()) {
-      case LOAD ->
-              itinerary.getLegs().stream()
-                      .filter(leg -> leg.getLoadLocation().sameIdentityAs(lastEvent.getLocation()))
-                      .findFirst().map(leg -> new HandlingActivity(HandlingEvent.Type.UNLOAD, leg.getUnloadLocation(), leg.getVoyage()))
-                      .orElse(NO_ACTIVITY);
+      case LOAD -> itinerary.getLegs().stream()
+          .filter(leg -> leg.getLoadLocation().sameIdentityAs(lastEvent.getLocation()))
+          .findFirst()
+          .map(
+              leg ->
+                  new HandlingActivity(
+                      HandlingEvent.Type.UNLOAD, leg.getUnloadLocation(), leg.getVoyage()))
+          .orElse(NO_ACTIVITY);
       case UNLOAD -> {
         for (Iterator<Leg> iterator = itinerary.getLegs().iterator(); iterator.hasNext(); ) {
           Leg leg = iterator.next();
@@ -281,7 +282,8 @@ public class Delivery implements Serializable {
       }
       case RECEIVE -> {
         Leg firstLeg = itinerary.getLegs().iterator().next();
-        yield new HandlingActivity(HandlingEvent.Type.LOAD, firstLeg.getLoadLocation(), firstLeg.getVoyage());
+        yield new HandlingActivity(
+            HandlingEvent.Type.LOAD, firstLeg.getLoadLocation(), firstLeg.getVoyage());
       }
       default -> NO_ACTIVITY;
     };
@@ -291,7 +293,8 @@ public class Delivery implements Serializable {
     if (leg.getUnloadLocation().sameIdentityAs(lastEvent.getLocation())) {
       if (iterator.hasNext()) {
         Leg nextLeg = iterator.next();
-        return new HandlingActivity(HandlingEvent.Type.LOAD, nextLeg.getLoadLocation(), nextLeg.getVoyage());
+        return new HandlingActivity(
+            HandlingEvent.Type.LOAD, nextLeg.getLoadLocation(), nextLeg.getVoyage());
       } else {
         return new HandlingActivity(HandlingEvent.Type.CLAIM, leg.getUnloadLocation());
       }
@@ -327,18 +330,29 @@ public class Delivery implements Serializable {
     if (this == o) return true;
     if (!(o instanceof Delivery delivery)) return false;
     return misdirected == delivery.misdirected
-           && isUnloadedAtDestination == delivery.isUnloadedAtDestination
-           && transportStatus == delivery.transportStatus
-           && Objects.equals(lastKnownLocation, delivery.lastKnownLocation)
-           && Objects.equals(currentVoyage, delivery.currentVoyage)
-           && Objects.equals(eta, delivery.eta)
-           && Objects.equals(nextExpectedActivity, delivery.nextExpectedActivity)
-           && routingStatus == delivery.routingStatus
-           && Objects.equals(calculatedAt, delivery.calculatedAt) && Objects.equals(lastEvent, delivery.lastEvent);
+        && isUnloadedAtDestination == delivery.isUnloadedAtDestination
+        && transportStatus == delivery.transportStatus
+        && Objects.equals(lastKnownLocation, delivery.lastKnownLocation)
+        && Objects.equals(currentVoyage, delivery.currentVoyage)
+        && Objects.equals(eta, delivery.eta)
+        && Objects.equals(nextExpectedActivity, delivery.nextExpectedActivity)
+        && routingStatus == delivery.routingStatus
+        && Objects.equals(calculatedAt, delivery.calculatedAt)
+        && Objects.equals(lastEvent, delivery.lastEvent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transportStatus, lastKnownLocation, currentVoyage, misdirected, eta, nextExpectedActivity, isUnloadedAtDestination, routingStatus, calculatedAt, lastEvent);
+    return Objects.hash(
+        transportStatus,
+        lastKnownLocation,
+        currentVoyage,
+        misdirected,
+        eta,
+        nextExpectedActivity,
+        isUnloadedAtDestination,
+        routingStatus,
+        calculatedAt,
+        lastEvent);
   }
 }

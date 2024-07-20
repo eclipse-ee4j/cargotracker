@@ -10,8 +10,7 @@ import org.eclipse.cargotracker.application.util.DateConverter;
 /** DTO for registering and routing a cargo. */
 public class CargoRoute implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private final String trackingId;
   private final Location origin;

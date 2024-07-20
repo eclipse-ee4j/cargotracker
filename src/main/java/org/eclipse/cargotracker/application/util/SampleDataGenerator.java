@@ -1,10 +1,5 @@
 package org.eclipse.cargotracker.application.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
@@ -15,6 +10,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -108,25 +108,25 @@ public class SampleDataGenerator {
 
     Itinerary itinerary1 =
         new Itinerary(
-                List.of(
-                        new Leg(
-                                SampleVoyages.HONGKONG_TO_NEW_YORK,
-                                SampleLocations.HONGKONG,
-                                SampleLocations.NEWYORK,
-                                LocalDateTime.now().minusDays(7).minusHours(2).minusMinutes(4),
-                                LocalDateTime.now().minusDays(1).minusHours(10).minusMinutes(52)),
-                        new Leg(
-                                SampleVoyages.NEW_YORK_TO_DALLAS,
-                                SampleLocations.NEWYORK,
-                                SampleLocations.DALLAS,
-                                LocalDateTime.now().plusDays(2).minusHours(18).minusMinutes(38),
-                                LocalDateTime.now().plusDays(6).minusHours(3).minusMinutes(22)),
-                        new Leg(
-                                SampleVoyages.DALLAS_TO_HELSINKI,
-                                SampleLocations.DALLAS,
-                                SampleLocations.HELSINKI,
-                                LocalDateTime.now().plusDays(8).minusHours(8).minusMinutes(18),
-                                LocalDateTime.now().plusDays(14).minusHours(12).minusMinutes(29))));
+            List.of(
+                new Leg(
+                    SampleVoyages.HONGKONG_TO_NEW_YORK,
+                    SampleLocations.HONGKONG,
+                    SampleLocations.NEWYORK,
+                    LocalDateTime.now().minusDays(7).minusHours(2).minusMinutes(4),
+                    LocalDateTime.now().minusDays(1).minusHours(10).minusMinutes(52)),
+                new Leg(
+                    SampleVoyages.NEW_YORK_TO_DALLAS,
+                    SampleLocations.NEWYORK,
+                    SampleLocations.DALLAS,
+                    LocalDateTime.now().plusDays(2).minusHours(18).minusMinutes(38),
+                    LocalDateTime.now().plusDays(6).minusHours(3).minusMinutes(22)),
+                new Leg(
+                    SampleVoyages.DALLAS_TO_HELSINKI,
+                    SampleLocations.DALLAS,
+                    SampleLocations.HELSINKI,
+                    LocalDateTime.now().plusDays(8).minusHours(8).minusMinutes(18),
+                    LocalDateTime.now().plusDays(14).minusHours(12).minusMinutes(29))));
     abc123.assignToRoute(itinerary1);
 
     entityManager.persist(abc123);

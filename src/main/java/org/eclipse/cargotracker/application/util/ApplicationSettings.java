@@ -1,9 +1,9 @@
 package org.eclipse.cargotracker.application.util;
 
-import java.io.Serial;
-import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Application settings. Although this is stored in the database, it is not a true part of the
@@ -11,8 +11,7 @@ import jakarta.persistence.Id;
  */
 @Entity
 public class ApplicationSettings implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Id private Long id;
 

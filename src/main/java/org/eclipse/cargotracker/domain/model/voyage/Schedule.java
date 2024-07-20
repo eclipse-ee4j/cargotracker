@@ -1,11 +1,5 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -13,14 +7,18 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 
 /** A voyage schedule. */
 @Embeddable
 public class Schedule implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern.
   public static final Schedule EMPTY = new Schedule();

@@ -1,12 +1,5 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -14,14 +7,19 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
 @Embeddable
 public class Itinerary implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern.
   public static final Itinerary EMPTY_ITINERARY = new Itinerary();
@@ -61,17 +59,18 @@ public class Itinerary implements Serializable {
     return switch (event.getType()) {
       case RECEIVE -> firstLeg.getLoadLocation().equals(event.getLocation());
       case LOAD -> legs.stream()
-              .anyMatch(leg ->
-                      leg.getLoadLocation().equals(event.getLocation()) &&
-                      leg.getVoyage().equals(event.getVoyage())
-              );
+          .anyMatch(
+              leg ->
+                  leg.getLoadLocation().equals(event.getLocation())
+                      && leg.getVoyage().equals(event.getVoyage()));
       case UNLOAD -> legs.stream()
-              .anyMatch(leg ->
-                      leg.getUnloadLocation().equals(event.getLocation()) &&
-                      leg.getVoyage().equals(event.getVoyage())
-              );
+          .anyMatch(
+              leg ->
+                  leg.getUnloadLocation().equals(event.getLocation())
+                      && leg.getVoyage().equals(event.getVoyage()));
       case CLAIM -> lastLeg.getUnloadLocation().equals(event.getLocation());
-      case CUSTOMS -> true; // Always allow customs events? (Consider if this is appropriate for your logic)
+      case CUSTOMS -> true; // Always allow customs events? (Consider if this is appropriate for
+        // your logic)
     };
   }
 

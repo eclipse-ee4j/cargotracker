@@ -1,11 +1,5 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +8,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
@@ -22,8 +21,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern
   public static final CarrierMovement NONE =
@@ -90,9 +88,9 @@ public class CarrierMovement implements Serializable {
     if (this == o) return true;
     if (!(o instanceof CarrierMovement that)) return false;
     return Objects.equals(departureLocation, that.departureLocation)
-           && Objects.equals(arrivalLocation, that.arrivalLocation)
-           && Objects.equals(departureTime, that.departureTime)
-           && Objects.equals(arrivalTime, that.arrivalTime);
+        && Objects.equals(arrivalLocation, that.arrivalLocation)
+        && Objects.equals(departureTime, that.departureTime)
+        && Objects.equals(arrivalTime, that.arrivalTime);
   }
 
   @Override

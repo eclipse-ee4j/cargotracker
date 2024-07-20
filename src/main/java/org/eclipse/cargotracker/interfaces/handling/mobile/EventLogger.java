@@ -2,15 +2,6 @@ package org.eclipse.cargotracker.interfaces.handling.mobile;
 
 import static java.util.stream.Collectors.toMap;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -18,9 +9,16 @@ import jakarta.faces.model.SelectItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.util.DateConverter;
-import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
@@ -38,8 +36,7 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class EventLogger implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private CargoRepository cargoRepository;
   @Inject private LocationRepository locationRepository;
@@ -84,8 +81,7 @@ public class EventLogger implements Serializable {
   // Move this to a separate utility if it is used in other parts of the UI.
   public Map<HandlingEvent.Type, HandlingEvent.Type> getEventTypes() {
     return Collections.unmodifiableMap(
-        Arrays.asList(HandlingEvent.Type.values())
-            .stream()
+        Arrays.asList(HandlingEvent.Type.values()).stream()
             .collect(toMap(Function.identity(), Function.identity())));
   }
 
@@ -127,18 +123,20 @@ public class EventLogger implements Serializable {
 
   @PostConstruct
   public void init() {
-    trackingIds = cargoRepository.findAll().stream()
+    trackingIds =
+        cargoRepository.findAll().stream()
             .filter(cargo -> !cargo.getItinerary().getLegs().isEmpty())
-            .filter(cargo -> !cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED))
+            .filter(
+                cargo ->
+                    !cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED))
             .map(cargo -> cargo.getTrackingId().getIdString())
             .map(this::buildSelectItem)
             .toList();
 
-    this.locations = locationRepository.findAll().stream()
-            .map(this::buildSelectItem)
-            .toList();
+    this.locations = locationRepository.findAll().stream().map(this::buildSelectItem).toList();
 
-    this.voyages = voyageRepository.findAll().stream()
+    this.voyages =
+        voyageRepository.findAll().stream()
             .map(Voyage::getVoyageNumber)
             .map(VoyageNumber::getIdString)
             .map(this::buildSelectItem)
@@ -190,8 +188,13 @@ public class EventLogger implements Serializable {
     }
 
     HandlingEventRegistrationAttempt attempt =
-            new HandlingEventRegistrationAttempt(
-                    LocalDateTime.now(), completionTime, new TrackingId(this.trackingId), voyage, eventType, new UnLocode(this.location));
+        new HandlingEventRegistrationAttempt(
+            LocalDateTime.now(),
+            completionTime,
+            new TrackingId(this.trackingId),
+            voyage,
+            eventType,
+            new UnLocode(this.location));
 
     applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 

@@ -8,8 +8,7 @@ import java.util.List;
 
 public class EventFilesCheckpoint implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private List<File> files = new LinkedList<>();
   private int fileIndex = 0;

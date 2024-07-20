@@ -1,19 +1,17 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 
 @Embeddable
 public class VoyageNumber implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Column(name = "voyage_number")
   @NotEmpty(message = "Voyage number cannot be empty.")

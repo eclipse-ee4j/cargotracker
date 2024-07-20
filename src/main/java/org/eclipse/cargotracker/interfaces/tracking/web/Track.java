@@ -1,22 +1,12 @@
 package org.eclipse.cargotracker.interfaces.tracking.web;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.json.bind.JsonbBuilder;
-import org.eclipse.cargotracker.domain.model.cargo.Cargo;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.logging.Logger;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
-import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
-import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 
 /**
@@ -34,8 +24,7 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 @ViewScoped
 public class Track implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private transient Logger logger;
 

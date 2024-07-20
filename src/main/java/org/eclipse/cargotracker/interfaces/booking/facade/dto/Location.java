@@ -5,7 +5,7 @@ import java.io.Serializable;
 /** Location DTO. */
 public record Location(String unLocode, String name) implements Serializable {
 
-  //keeping this for compatibility with the original code
+  // keeping this for compatibility with the original code
   public String getUnLocode() {
     return unLocode;
   }

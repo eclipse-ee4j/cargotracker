@@ -1,12 +1,11 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Optional;
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -20,8 +19,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 @ApplicationScoped
 public class HandlingEventFactory implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private CargoRepository cargoRepository;
   @Inject private VoyageRepository voyageRepository;
@@ -65,7 +63,7 @@ public class HandlingEventFactory implements Serializable {
 
   private Cargo findCargo(TrackingId trackingId) throws UnknownCargoException {
     return Optional.ofNullable(cargoRepository.find(trackingId))
-            .orElseThrow(() -> new UnknownCargoException(trackingId));
+        .orElseThrow(() -> new UnknownCargoException(trackingId));
   }
 
   private Voyage findVoyage(VoyageNumber voyageNumber) throws UnknownVoyageException {
@@ -74,11 +72,11 @@ public class HandlingEventFactory implements Serializable {
     }
 
     return Optional.ofNullable(voyageRepository.find(voyageNumber))
-            .orElseThrow(() -> new UnknownVoyageException(voyageNumber));
+        .orElseThrow(() -> new UnknownVoyageException(voyageNumber));
   }
 
   private Location findLocation(UnLocode unlocode) throws UnknownLocationException {
     return Optional.ofNullable(locationRepository.find(unlocode))
-            .orElseThrow(() -> new UnknownLocationException(unlocode));
+        .orElseThrow(() -> new UnknownLocationException(unlocode));
   }
 }

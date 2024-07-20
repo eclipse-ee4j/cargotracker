@@ -1,17 +1,17 @@
 package org.eclipse.cargotracker.infrastructure.persistence.jpa;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -20,8 +20,7 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoUpdated;
 @ApplicationScoped
 public class JpaCargoRepository implements CargoRepository, Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private Logger logger;
 

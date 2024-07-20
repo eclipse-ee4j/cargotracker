@@ -1,13 +1,13 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
@@ -15,8 +15,7 @@ import org.primefaces.event.SelectEvent;
 @SessionScoped
 public class ChangeArrivalDeadlineDialog implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   public void showDialog(String trackingId) {
     Map<String, Object> options = new HashMap<>();
