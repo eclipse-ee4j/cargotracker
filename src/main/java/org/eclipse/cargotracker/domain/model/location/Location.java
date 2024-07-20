@@ -51,12 +51,16 @@ public class Location implements Serializable {
     this.name = name;
   }
 
-  /** @return UN location code for this location. */
+  /**
+   * @return UN location code for this location.
+   */
   public UnLocode getUnLocode() {
     return unLocode;
   }
 
-  /** @return Actual name of this location, e.g. "Stockholm". */
+  /**
+   * @return Actual name of this location, e.g. "Stockholm".
+   */
   public String getName() {
     return name;
   }
@@ -72,7 +76,9 @@ public class Location implements Serializable {
     return Objects.equals(this.unLocode, other.unLocode);
   }
 
-  /** @return Hash code of UN locode. */
+  /**
+   * @return Hash code of UN locode.
+   */
   @Override
   public int hashCode() {
     return Objects.hash(unLocode);

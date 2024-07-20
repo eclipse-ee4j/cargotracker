@@ -182,7 +182,9 @@ public class Delivery implements Serializable {
     return nextExpectedActivity;
   }
 
-  /** @return True if the cargo has been unloaded at the final destination. */
+  /**
+   * @return True if the cargo has been unloaded at the final destination.
+   */
   public boolean isUnloadedAtDestination() {
     return isUnloadedAtDestination;
   }
@@ -265,14 +267,15 @@ public class Delivery implements Serializable {
     }
 
     return switch (lastEvent.getType()) {
-      case LOAD -> itinerary.getLegs().stream()
-          .filter(leg -> leg.getLoadLocation().sameIdentityAs(lastEvent.getLocation()))
-          .findFirst()
-          .map(
-              leg ->
-                  new HandlingActivity(
-                      HandlingEvent.Type.UNLOAD, leg.getUnloadLocation(), leg.getVoyage()))
-          .orElse(NO_ACTIVITY);
+      case LOAD ->
+          itinerary.getLegs().stream()
+              .filter(leg -> leg.getLoadLocation().sameIdentityAs(lastEvent.getLocation()))
+              .findFirst()
+              .map(
+                  leg ->
+                      new HandlingActivity(
+                          HandlingEvent.Type.UNLOAD, leg.getUnloadLocation(), leg.getVoyage()))
+              .orElse(NO_ACTIVITY);
       case UNLOAD -> {
         for (Iterator<Leg> iterator = itinerary.getLegs().iterator(); iterator.hasNext(); ) {
           Leg leg = iterator.next();

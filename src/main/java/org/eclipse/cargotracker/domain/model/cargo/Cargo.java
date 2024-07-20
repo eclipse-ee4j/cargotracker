@@ -115,12 +115,16 @@ public class Cargo implements Serializable {
     return routeSpecification;
   }
 
-  /** @return The delivery. Never null. */
+  /**
+   * @return The delivery. Never null.
+   */
   public Delivery getDelivery() {
     return delivery;
   }
 
-  /** @return The itinerary. Never null. */
+  /**
+   * @return The itinerary. Never null.
+   */
   public Itinerary getItinerary() {
     return DomainObjectUtils.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
   }

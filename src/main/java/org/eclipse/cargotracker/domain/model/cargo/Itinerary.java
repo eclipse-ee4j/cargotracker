@@ -58,16 +58,18 @@ public class Itinerary implements Serializable {
 
     return switch (event.getType()) {
       case RECEIVE -> firstLeg.getLoadLocation().equals(event.getLocation());
-      case LOAD -> legs.stream()
-          .anyMatch(
-              leg ->
-                  leg.getLoadLocation().equals(event.getLocation())
-                      && leg.getVoyage().equals(event.getVoyage()));
-      case UNLOAD -> legs.stream()
-          .anyMatch(
-              leg ->
-                  leg.getUnloadLocation().equals(event.getLocation())
-                      && leg.getVoyage().equals(event.getVoyage()));
+      case LOAD ->
+          legs.stream()
+              .anyMatch(
+                  leg ->
+                      leg.getLoadLocation().equals(event.getLocation())
+                          && leg.getVoyage().equals(event.getVoyage()));
+      case UNLOAD ->
+          legs.stream()
+              .anyMatch(
+                  leg ->
+                      leg.getUnloadLocation().equals(event.getLocation())
+                          && leg.getVoyage().equals(event.getVoyage()));
       case CLAIM -> lastLeg.getUnloadLocation().equals(event.getLocation());
       case CUSTOMS -> true; // Always allow customs events? (Consider if this is appropriate for
         // your logic)
@@ -90,7 +92,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return Date when cargo arrives at final destination. */
+  /**
+   * @return Date when cargo arrives at final destination.
+   */
   LocalDateTime getFinalArrivalDate() {
     Leg lastLeg = getLastLeg();
 
@@ -101,7 +105,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return The last leg on the itinerary. */
+  /**
+   * @return The last leg on the itinerary.
+   */
   Leg getLastLeg() {
     if (legs.isEmpty()) {
       return null;
