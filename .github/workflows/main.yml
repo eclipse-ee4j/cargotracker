@@ -17,13 +17,13 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: axel-op/googlejavaformat-action@v3
         with:
-          # This version works will all IDEs including Eclipse.
-          version: 1.6
+          args: "--replace"
           skip-commit: true
-          # args: "--dry-run --set-exit-if-changed"        
+      - name: Print diffs
+        run: git --no-pager diff --exit-code
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
