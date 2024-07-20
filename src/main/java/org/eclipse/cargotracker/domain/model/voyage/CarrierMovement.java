@@ -1,8 +1,5 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,9 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
 /** A carrier movement is a vessel voyage from one location to another. */
@@ -21,7 +21,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
 @Table(name = "carrier_movement")
 public class CarrierMovement implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern
   public static final CarrierMovement NONE =
@@ -85,36 +85,16 @@ public class CarrierMovement implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || !(o instanceof CarrierMovement)) {
-      return false;
-    }
-
-    CarrierMovement that = (CarrierMovement) o;
-
-    return sameValueAs(that);
+    if (this == o) return true;
+    if (!(o instanceof CarrierMovement that)) return false;
+    return Objects.equals(departureLocation, that.departureLocation)
+        && Objects.equals(arrivalLocation, that.arrivalLocation)
+        && Objects.equals(departureTime, that.departureTime)
+        && Objects.equals(arrivalTime, that.arrivalTime);
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(this.departureLocation)
-        .append(this.departureTime)
-        .append(this.arrivalLocation)
-        .append(this.arrivalTime)
-        .toHashCode();
-  }
-
-  private boolean sameValueAs(CarrierMovement other) {
-    return other != null
-        && new EqualsBuilder()
-            .append(this.departureLocation, other.departureLocation)
-            .append(this.departureTime, other.departureTime)
-            .append(this.arrivalLocation, other.arrivalLocation)
-            .append(this.arrivalTime, other.arrivalTime)
-            .isEquals();
+    return Objects.hash(departureLocation, arrivalLocation, departureTime, arrivalTime);
   }
 }

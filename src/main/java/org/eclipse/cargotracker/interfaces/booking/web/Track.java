@@ -1,11 +1,12 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import java.io.Serializable;
-import java.util.List;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 
@@ -23,7 +24,7 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 @ViewScoped
 public class Track implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 

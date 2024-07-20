@@ -1,11 +1,11 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.stream.Collectors;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
@@ -25,7 +25,7 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeDestination implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 
@@ -51,19 +51,15 @@ public class ChangeDestination implements Serializable {
   }
 
   public List<Location> getPotentialDestinations() {
-    // Potential destination = All Locations - Origin - Current Destination
-    List<Location> destinationsToRemove =
-        locations
-            .stream()
-            .filter(
-                location ->
-                    location.getUnLocode().equalsIgnoreCase(cargo.getOriginCode())
-                        || location.getUnLocode().equalsIgnoreCase(cargo.getFinalDestinationCode()))
-            .collect(Collectors.toList());
+    String originCode = cargo.getOriginCode().toLowerCase();
+    String destinationCode = cargo.getFinalDestinationCode().toLowerCase();
 
-    locations.removeAll(destinationsToRemove);
-
-    return locations;
+    return locations.stream()
+        .filter(
+            location ->
+                !location.getUnLocode().toLowerCase().equals(originCode)
+                    && !location.getUnLocode().toLowerCase().equals(destinationCode))
+        .toList();
   }
 
   public String getDestinationUnlocode() {

@@ -1,8 +1,5 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,9 +11,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
+import java.util.StringJoiner;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.location.Location;
@@ -44,7 +45,7 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
     query = "Select e from HandlingEvent e where e.cargo.trackingId = :trackingId")
 public class HandlingEvent implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
 
@@ -198,66 +199,33 @@ public class HandlingEvent implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || !(o instanceof HandlingEvent)) {
-      return false;
-    }
-
-    HandlingEvent event = (HandlingEvent) o;
-
-    return sameEventAs(event);
-  }
-
-  private boolean sameEventAs(HandlingEvent other) {
-    return other != null
-        && new EqualsBuilder()
-            .append(this.cargo, other.cargo)
-            .append(this.voyage, other.voyage)
-            .append(this.completionTime, other.completionTime)
-            .append(this.location, other.location)
-            .append(this.type, other.type)
-            .isEquals();
+    if (this == o) return true;
+    if (!(o instanceof HandlingEvent that)) return false;
+    return type == that.type
+        && Objects.equals(voyage, that.voyage)
+        && Objects.equals(location, that.location)
+        && Objects.equals(completionTime, that.completionTime)
+        && Objects.equals(cargo, that.cargo);
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(cargo)
-        .append(voyage)
-        .append(completionTime)
-        .append(location)
-        .append(type)
-        .toHashCode();
+    return Objects.hash(type, voyage, location, completionTime, cargo);
   }
 
   @Override
   public String toString() {
-    StringBuilder builder =
-        new StringBuilder("\n--- Handling event ---\n")
-            .append("Cargo: ")
-            .append(cargo.getTrackingId())
-            .append("\n")
-            .append("Type: ")
-            .append(type)
-            .append("\n")
-            .append("Location: ")
-            .append(location.getName())
-            .append("\n")
-            .append("Completed on: ")
-            .append(completionTime)
-            .append("\n")
-            .append("Registered on: ")
-            .append(registrationTime)
-            .append("\n");
-
+    StringJoiner joiner = new StringJoiner("\n", "\n--- Handling event ---\n", "\n");
+    joiner
+        .add("Cargo: " + cargo.getTrackingId())
+        .add("Type: " + type)
+        .add("Location: " + location.getName())
+        .add("Completed on: " + completionTime)
+        .add("Registered on: " + registrationTime);
     if (voyage != null) {
-      builder.append("Voyage: ").append(voyage.getVoyageNumber()).append("\n");
+      joiner.add("Voyage: " + voyage.getVoyageNumber());
     }
-
-    return builder.toString();
+    return joiner.toString();
   }
 
   /**
@@ -288,12 +256,16 @@ public class HandlingEvent implements Serializable {
       this.voyageRequired = voyageRequired;
     }
 
-    /** @return True if a voyage association is required for this event type. */
+    /**
+     * @return True if a voyage association is required for this event type.
+     */
     public boolean requiresVoyage() {
       return voyageRequired;
     }
 
-    /** @return True if a voyage association is prohibited for this event type. */
+    /**
+     * @return True if a voyage association is prohibited for this event type.
+     */
     public boolean prohibitsVoyage() {
       return !requiresVoyage();
     }

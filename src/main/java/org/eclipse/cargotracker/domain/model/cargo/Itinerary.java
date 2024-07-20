@@ -1,9 +1,5 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -11,14 +7,19 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
 @Embeddable
 public class Itinerary implements Serializable {
-
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern.
   public static final Itinerary EMPTY_ITINERARY = new Itinerary();
@@ -49,54 +50,30 @@ public class Itinerary implements Serializable {
   /** Test if the given handling event is expected when executing this itinerary. */
   public boolean isExpected(HandlingEvent event) {
     if (legs.isEmpty()) {
-      return true;
+      return true; // Handle empty case
     }
 
-    switch (event.getType()) {
-      case RECEIVE:
-        {
-          // Check that the first leg's origin is the event's location
-          Leg leg = legs.get(0);
-          return leg.getLoadLocation().equals(event.getLocation());
-        }
+    Leg firstLeg = legs.get(0);
+    Leg lastLeg = legs.get(legs.size() - 1);
 
-      case LOAD:
-        {
-          return legs.stream()
+    return switch (event.getType()) {
+      case RECEIVE -> firstLeg.getLoadLocation().equals(event.getLocation());
+      case LOAD ->
+          legs.stream()
               .anyMatch(
                   leg ->
                       leg.getLoadLocation().equals(event.getLocation())
                           && leg.getVoyage().equals(event.getVoyage()));
-        }
-
-      case UNLOAD:
-        {
-          // Check that the there is one leg with same unload location and
-          // voyage
-          return legs.stream()
+      case UNLOAD ->
+          legs.stream()
               .anyMatch(
                   leg ->
                       leg.getUnloadLocation().equals(event.getLocation())
                           && leg.getVoyage().equals(event.getVoyage()));
-        }
-
-      case CLAIM:
-        {
-          // Check that the last leg's destination is from the event's
-          // location
-          Leg leg = getLastLeg();
-
-          return leg.getUnloadLocation().equals(event.getLocation());
-        }
-
-      case CUSTOMS:
-        {
-          return true;
-        }
-
-      default:
-        throw new RuntimeException("Event case is not handled");
-    }
+      case CLAIM -> lastLeg.getUnloadLocation().equals(event.getLocation());
+      case CUSTOMS -> true; // Always allow customs events? (Consider if this is appropriate for
+        // your logic)
+    };
   }
 
   Location getInitialDepartureLocation() {
@@ -115,7 +92,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return Date when cargo arrives at final destination. */
+  /**
+   * @return Date when cargo arrives at final destination.
+   */
   LocalDateTime getFinalArrivalDate() {
     Leg lastLeg = getLastLeg();
 
@@ -126,7 +105,9 @@ public class Itinerary implements Serializable {
     }
   }
 
-  /** @return The last leg on the itinerary. */
+  /**
+   * @return The last leg on the itinerary.
+   */
   Leg getLastLeg() {
     if (legs.isEmpty()) {
       return null;
@@ -135,28 +116,16 @@ public class Itinerary implements Serializable {
     }
   }
 
-  private boolean sameValueAs(Itinerary other) {
-    return other != null && legs.equals(other.legs);
-  }
-
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || !(o instanceof Itinerary)) {
-      return false;
-    }
-
-    Itinerary itinerary = (Itinerary) o;
-
-    return sameValueAs(itinerary);
+    if (this == o) return true;
+    if (!(o instanceof Itinerary itinerary)) return false;
+    return Objects.equals(legs, itinerary.legs);
   }
 
   @Override
   public int hashCode() {
-    return legs.hashCode();
+    return Objects.hashCode(legs);
   }
 
   @Override

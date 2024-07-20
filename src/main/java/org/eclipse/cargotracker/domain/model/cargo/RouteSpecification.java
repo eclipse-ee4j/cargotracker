@@ -1,15 +1,15 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.shared.AbstractSpecification;
 
@@ -19,7 +19,7 @@ import org.eclipse.cargotracker.domain.shared.AbstractSpecification;
 @Embeddable
 public class RouteSpecification extends AbstractSpecification<Itinerary> implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @ManyToOne
   @JoinColumn(name = "spec_origin_id", updatable = false)
@@ -72,36 +72,18 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
         && getArrivalDeadline().isAfter(itinerary.getFinalArrivalDate().toLocalDate());
   }
 
-  private boolean sameValueAs(RouteSpecification other) {
-    return other != null
-        && new EqualsBuilder()
-            .append(this.origin, other.origin)
-            .append(this.destination, other.destination)
-            .append(this.arrivalDeadline, other.arrivalDeadline)
-            .isEquals();
-  }
-
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
+    if (this == o) return true;
+    if (!(o instanceof RouteSpecification that)) return false;
 
-    if (o == null || !(o instanceof RouteSpecification)) {
-      return false;
-    }
-
-    RouteSpecification that = (RouteSpecification) o;
-
-    return sameValueAs(that);
+    return Objects.equals(origin, that.origin)
+        && Objects.equals(destination, that.destination)
+        && Objects.equals(arrivalDeadline, that.arrivalDeadline);
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(this.origin)
-        .append(this.destination)
-        .append(this.arrivalDeadline)
-        .toHashCode();
+    return Objects.hash(origin, destination, arrivalDeadline);
   }
 }

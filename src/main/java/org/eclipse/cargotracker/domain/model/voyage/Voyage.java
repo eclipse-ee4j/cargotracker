@@ -1,15 +1,16 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
@@ -19,7 +20,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
     query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
 @NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")
 public class Voyage implements Serializable {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern
   public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
@@ -93,8 +94,8 @@ public class Voyage implements Serializable {
    */
   public static class Builder {
 
-    private List<CarrierMovement> carrierMovements = new ArrayList<>();
-    private VoyageNumber voyageNumber;
+    private final List<CarrierMovement> carrierMovements = new ArrayList<>();
+    private final VoyageNumber voyageNumber;
     private Location departureLocation;
 
     public Builder(VoyageNumber voyageNumber, Location departureLocation) {

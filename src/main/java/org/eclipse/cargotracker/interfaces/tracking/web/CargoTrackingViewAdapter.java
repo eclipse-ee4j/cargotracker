@@ -83,24 +83,20 @@ public class CargoTrackingViewAdapter {
     return cargo.getDelivery().getTransportStatus().name();
   }
 
-  /** @return A readable string describing the cargo status. */
+  /**
+   * @return A readable string describing the cargo status.
+   */
   public String getStatusText() {
     Delivery delivery = cargo.getDelivery();
 
-    switch (delivery.getTransportStatus()) {
-      case IN_PORT:
-        return "In port " + cargo.getRouteSpecification().getDestination().getName();
-      case ONBOARD_CARRIER:
-        return "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
-      case CLAIMED:
-        return "Claimed";
-      case NOT_RECEIVED:
-        return "Not received";
-      case UNKNOWN:
-        return "Unknown";
-      default:
-        return "[Unknown status]"; // Should never happen.
-    }
+    return switch (delivery.getTransportStatus()) {
+      case IN_PORT -> "In port " + cargo.getRouteSpecification().getDestination().getName();
+      case ONBOARD_CARRIER ->
+          "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
+      case CLAIMED -> "Claimed";
+      case NOT_RECEIVED -> "Not received";
+      case UNKNOWN -> "Unknown";
+    };
   }
 
   public boolean isMisdirected() {
@@ -146,7 +142,9 @@ public class CargoTrackingViewAdapter {
     }
   }
 
-  /** @return An unmodifiable list of handling event view adapters. */
+  /**
+   * @return An unmodifiable list of handling event view adapters.
+   */
   public List<HandlingEventViewAdapter> getEvents() {
     return Collections.unmodifiableList(events);
   }
@@ -169,26 +167,21 @@ public class CargoTrackingViewAdapter {
     }
 
     public String getDescription() {
-      switch (handlingEvent.getType()) {
-        case LOAD:
-          return "Loaded onto voyage "
-              + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-              + " in "
-              + handlingEvent.getLocation().getName();
-        case UNLOAD:
-          return "Unloaded off voyage "
-              + handlingEvent.getVoyage().getVoyageNumber().getIdString()
-              + " in "
-              + handlingEvent.getLocation().getName();
-        case RECEIVE:
-          return "Received in " + handlingEvent.getLocation().getName();
-        case CLAIM:
-          return "Claimed in " + handlingEvent.getLocation().getName();
-        case CUSTOMS:
-          return "Cleared customs in " + handlingEvent.getLocation().getName();
-        default:
-          return "[Unknown]";
-      }
+      return switch (handlingEvent.getType()) {
+        case LOAD ->
+            "Loaded onto voyage "
+                + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+                + " in "
+                + handlingEvent.getLocation().getName();
+        case UNLOAD ->
+            "Unloaded off voyage "
+                + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+                + " in "
+                + handlingEvent.getLocation().getName();
+        case RECEIVE -> "Received in " + handlingEvent.getLocation().getName();
+        case CLAIM -> "Claimed in " + handlingEvent.getLocation().getName();
+        case CUSTOMS -> "Cleared customs in " + handlingEvent.getLocation().getName();
+      };
     }
   }
 }

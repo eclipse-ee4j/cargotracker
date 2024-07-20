@@ -1,12 +1,11 @@
 package org.eclipse.cargotracker.application.internal;
 
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -49,7 +48,7 @@ public class DefaultBookingService implements BookingService {
     Cargo cargo = cargoRepository.find(trackingId);
 
     if (cargo == null) {
-      return Collections.emptyList();
+      return List.of();
     }
 
     return routingService.fetchRoutesForSpecification(cargo.getRouteSpecification());

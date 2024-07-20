@@ -200,8 +200,7 @@ public class CargoLifecycleScenarioTest {
           noSuchVoyageNumber,
           noSuchUnLocode,
           HandlingEvent.Type.LOAD);
-      fail(
-          "Should not be able to register a handling event with invalid location and voyage");
+      fail("Should not be able to register a handling event with invalid location and voyage");
     } catch (CannotCreateHandlingEventException expected) {
     }
 

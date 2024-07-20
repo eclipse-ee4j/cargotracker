@@ -1,8 +1,5 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,16 +7,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
+import java.util.StringJoiner;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 
 @Entity
 public class Leg implements Serializable {
-
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
 
@@ -89,58 +89,31 @@ public class Leg implements Serializable {
     return this.unloadTime;
   }
 
-  private boolean sameValueAs(Leg other) {
-    return other != null
-        && new EqualsBuilder()
-            .append(this.voyage, other.voyage)
-            .append(this.loadLocation, other.loadLocation)
-            .append(this.unloadLocation, other.unloadLocation)
-            .append(this.loadTime, other.loadTime)
-            .append(this.unloadTime, other.unloadTime)
-            .isEquals();
-  }
-
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || !(o instanceof Leg)) {
-      return false;
-    }
-
-    Leg leg = (Leg) o;
-
-    return sameValueAs(leg);
+    if (this == o) return true;
+    if (!(o instanceof Leg leg)) return false;
+    return Objects.equals(voyage, leg.voyage)
+        && Objects.equals(loadLocation, leg.loadLocation)
+        && Objects.equals(unloadLocation, leg.unloadLocation)
+        && Objects.equals(loadTime, leg.loadTime)
+        && Objects.equals(unloadTime, leg.unloadTime);
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(voyage)
-        .append(loadLocation)
-        .append(unloadLocation)
-        .append(loadTime)
-        .append(unloadTime)
-        .toHashCode();
+    return Objects.hash(voyage, loadLocation, unloadLocation, loadTime, unloadTime);
   }
 
   @Override
   public String toString() {
-    return "Leg{"
-        + "id="
-        + id
-        + ", voyage="
-        + voyage
-        + ", loadLocation="
-        + loadLocation
-        + ", unloadLocation="
-        + unloadLocation
-        + ", loadTime="
-        + loadTime
-        + ", unloadTime="
-        + unloadTime
-        + '}';
+    return new StringJoiner(", ", Leg.class.getSimpleName() + "[", "]")
+        .add("id=" + id)
+        .add("voyage=" + voyage)
+        .add("loadLocation=" + loadLocation)
+        .add("unloadLocation=" + unloadLocation)
+        .add("loadTime=" + loadTime)
+        .add("unloadTime=" + unloadTime)
+        .toString();
   }
 }

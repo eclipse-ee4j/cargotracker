@@ -1,18 +1,15 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.eclipse.cargotracker.application.util.DateConverter;
 
 /** DTO for a leg in an itinerary. */
-public class Leg implements Serializable {
-
-  private static final long serialVersionUID = 1L;
-  private final String voyageNumber;
-  private final Location from;
-  private final Location to;
-  private final String loadTime;
-  private final String unloadTime;
+public record Leg(
+    String voyageNumber, Location from, Location to, String loadTime, String unloadTime)
+    implements Serializable {
+  @Serial private static final long serialVersionUID = 1L;
 
   public Leg(
       String voyageNumber,
@@ -20,11 +17,12 @@ public class Leg implements Serializable {
       Location to,
       LocalDateTime loadTime,
       LocalDateTime unloadTime) {
-    this.voyageNumber = voyageNumber;
-    this.from = from;
-    this.to = to;
-    this.loadTime = DateConverter.toString(loadTime);
-    this.unloadTime = DateConverter.toString(unloadTime);
+    this(
+        voyageNumber,
+        from,
+        to,
+        DateConverter.toString(loadTime),
+        DateConverter.toString(unloadTime));
   }
 
   public String getVoyageNumber() {
@@ -36,11 +34,11 @@ public class Leg implements Serializable {
   }
 
   public String getFromUnLocode() {
-    return from.getUnLocode();
+    return from.unLocode();
   }
 
   public String getFromName() {
-    return from.getName();
+    return from.name();
   }
 
   public String getTo() {
@@ -48,11 +46,11 @@ public class Leg implements Serializable {
   }
 
   public String getToName() {
-    return to.getName();
+    return to.name();
   }
 
   public String getToUnLocode() {
-    return to.getUnLocode();
+    return to.unLocode();
   }
 
   public String getLoadTime() {
@@ -61,21 +59,5 @@ public class Leg implements Serializable {
 
   public String getUnloadTime() {
     return unloadTime;
-  }
-
-  @Override
-  public String toString() {
-    return "Leg{"
-        + "voyageNumber="
-        + voyageNumber
-        + ", from="
-        + from.getUnLocode()
-        + ", to="
-        + to.getUnLocode()
-        + ", loadTime="
-        + loadTime
-        + ", unloadTime="
-        + unloadTime
-        + '}';
   }
 }

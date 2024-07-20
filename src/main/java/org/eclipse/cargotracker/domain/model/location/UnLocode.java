@@ -1,9 +1,11 @@
 package org.eclipse.cargotracker.domain.model.location;
 
-import java.io.Serializable;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -15,7 +17,7 @@ import org.apache.commons.lang3.Validate;
 @Embeddable
 public class UnLocode implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private static final java.util.regex.Pattern VALID_PATTERN =
       java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");
@@ -31,7 +33,9 @@ public class UnLocode implements Serializable {
     // Nothing to initialize.
   }
 
-  /** @param countryAndLocation Location string. */
+  /**
+   * @param countryAndLocation Location string.
+   */
   public UnLocode(String countryAndLocation) {
     Validate.notNull(countryAndLocation, "Country and location may not be null.");
     Validate.isTrue(
@@ -41,33 +45,23 @@ public class UnLocode implements Serializable {
     this.unlocode = countryAndLocation.toUpperCase();
   }
 
-  /** @return country code and location code concatenated, always upper case. */
+  /**
+   * @return country code and location code concatenated, always upper case.
+   */
   public String getIdString() {
     return unlocode;
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || !(o instanceof UnLocode)) {
-      return false;
-    }
-
-    UnLocode other = (UnLocode) o;
-
-    return sameValueAs(other);
+    if (this == o) return true;
+    if (!(o instanceof UnLocode unLocode)) return false;
+    return Objects.equals(unlocode, unLocode.unlocode);
   }
 
   @Override
   public int hashCode() {
-    return unlocode.hashCode();
-  }
-
-  boolean sameValueAs(UnLocode other) {
-    return other != null && this.unlocode.equals(other.unlocode);
+    return Objects.hashCode(unlocode);
   }
 
   @Override

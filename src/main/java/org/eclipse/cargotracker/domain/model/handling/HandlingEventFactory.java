@@ -1,9 +1,11 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -17,7 +19,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 @ApplicationScoped
 public class HandlingEventFactory implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private CargoRepository cargoRepository;
   @Inject private VoyageRepository voyageRepository;
@@ -60,13 +62,8 @@ public class HandlingEventFactory implements Serializable {
   }
 
   private Cargo findCargo(TrackingId trackingId) throws UnknownCargoException {
-    Cargo cargo = cargoRepository.find(trackingId);
-
-    if (cargo == null) {
-      throw new UnknownCargoException(trackingId);
-    }
-
-    return cargo;
+    return Optional.ofNullable(cargoRepository.find(trackingId))
+        .orElseThrow(() -> new UnknownCargoException(trackingId));
   }
 
   private Voyage findVoyage(VoyageNumber voyageNumber) throws UnknownVoyageException {
@@ -74,22 +71,12 @@ public class HandlingEventFactory implements Serializable {
       return null;
     }
 
-    Voyage voyage = voyageRepository.find(voyageNumber);
-
-    if (voyage == null) {
-      throw new UnknownVoyageException(voyageNumber);
-    }
-
-    return voyage;
+    return Optional.ofNullable(voyageRepository.find(voyageNumber))
+        .orElseThrow(() -> new UnknownVoyageException(voyageNumber));
   }
 
   private Location findLocation(UnLocode unlocode) throws UnknownLocationException {
-    Location location = locationRepository.find(unlocode);
-
-    if (location == null) {
-      throw new UnknownLocationException(unlocode);
-    }
-
-    return location;
+    return Optional.ofNullable(locationRepository.find(unlocode))
+        .orElseThrow(() -> new UnknownLocationException(unlocode));
   }
 }

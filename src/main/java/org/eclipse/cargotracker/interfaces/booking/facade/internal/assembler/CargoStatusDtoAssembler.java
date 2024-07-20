@@ -1,10 +1,9 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
@@ -22,10 +21,9 @@ public class CargoStatusDtoAssembler {
     List<TrackingEvents> trackingEvents;
 
     trackingEvents =
-        handlingEvents
-            .stream()
+        handlingEvents.stream()
             .map(handlingEvent -> assembler.toDto(cargo, handlingEvent))
-            .collect(Collectors.toList());
+            .toList();
 
     return new CargoStatus(
         cargo.getTrackingId().getIdString(),
@@ -39,21 +37,15 @@ public class CargoStatusDtoAssembler {
 
   private String getCargoStatusText(Cargo cargo) {
     Delivery delivery = cargo.getDelivery();
-
-    switch (delivery.getTransportStatus()) {
-      case IN_PORT:
-        return "In port " + delivery.getLastKnownLocation().getName();
-      case ONBOARD_CARRIER:
-        return "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
-      case CLAIMED:
-        return "Claimed";
-      case NOT_RECEIVED:
-        return "Not received";
-      case UNKNOWN:
-        return "Unknown";
-      default:
-        return "[Unknown status]"; // Should never happen.
-    }
+    return switch (delivery.getTransportStatus()) {
+      case IN_PORT -> "In port " + delivery.getLastKnownLocation().getName();
+      case ONBOARD_CARRIER ->
+          "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
+      case CLAIMED -> "Claimed";
+      case NOT_RECEIVED -> "Not received";
+      case UNKNOWN -> "Unknown";
+      default -> "[Unknown status]"; // Should never happen.
+    };
   }
 
   private String getEta(Cargo cargo) {

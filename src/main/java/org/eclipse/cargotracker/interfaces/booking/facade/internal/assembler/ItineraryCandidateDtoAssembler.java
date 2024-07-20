@@ -1,10 +1,9 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -23,7 +22,7 @@ public class ItineraryCandidateDtoAssembler {
 
   public RouteCandidate toDto(Itinerary itinerary) {
     List<org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg> legDTOs =
-        itinerary.getLegs().stream().map(this::toLegDTO).collect(Collectors.toList());
+        itinerary.getLegs().stream().map(this::toLegDTO).toList();
     return new RouteCandidate(legDTOs);
   }
 
@@ -41,10 +40,10 @@ public class ItineraryCandidateDtoAssembler {
       RouteCandidate routeCandidateDTO,
       VoyageRepository voyageRepository,
       LocationRepository locationRepository) {
-    List<Leg> legs = new ArrayList<>(routeCandidateDTO.getLegs().size());
+    List<Leg> legs = new ArrayList<>(routeCandidateDTO.legs().size());
 
     for (org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg legDTO :
-        routeCandidateDTO.getLegs()) {
+        routeCandidateDTO.legs()) {
       VoyageNumber voyageNumber = new VoyageNumber(legDTO.getVoyageNumber());
       Voyage voyage = voyageRepository.find(voyageNumber);
       Location from = locationRepository.find(new UnLocode(legDTO.getFromUnLocode()));

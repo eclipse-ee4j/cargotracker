@@ -85,6 +85,7 @@ public class SampleVoyages {
               LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(20).plusHours(18),
               LocalDateTime.now().minusYears(1).plusMonths(3).plusDays(22).plusHours(9))
           .build();
+
   /**
    * Voyage number 0100S (by ship)
    *
@@ -129,6 +130,7 @@ public class SampleVoyages {
                   .plusHours(23)
                   .plusMinutes(10))
           .build();
+
   /**
    * Voyage number 0200T (by train)
    *
@@ -160,6 +162,7 @@ public class SampleVoyages {
                   .plusHours(19)
                   .plusMinutes(30))
           .build();
+
   /**
    * Voyage number 0300A (by airplane)
    *
@@ -200,6 +203,7 @@ public class SampleVoyages {
                   .plusHours(11)
                   .plusMinutes(15))
           .build();
+
   /**
    * Voyage number 0301S (by ship)
    *
@@ -222,6 +226,7 @@ public class SampleVoyages {
                   .plusHours(15)
                   .plusMinutes(45))
           .build();
+
   /**
    * Voyage number 0400S (by ship)
    *

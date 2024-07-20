@@ -1,9 +1,5 @@
 package org.eclipse.cargotracker.application.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.logging.Logger;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
@@ -14,6 +10,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
@@ -107,7 +108,7 @@ public class SampleDataGenerator {
 
     Itinerary itinerary1 =
         new Itinerary(
-            Arrays.asList(
+            List.of(
                 new Leg(
                     SampleVoyages.HONGKONG_TO_NEW_YORK,
                     SampleLocations.HONGKONG,
