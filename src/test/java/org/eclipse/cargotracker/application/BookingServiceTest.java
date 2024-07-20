@@ -161,14 +161,13 @@ public class BookingServiceTest {
         // Bean archive descriptor
         .addAsWebInfResource("test-beans.xml", "beans.xml")
         // Library dependencies
-            .addAsLibraries(
-                    Maven.resolver().
-                            loadPomFromFile("pom.xml")
-                            .importRuntimeAndTestDependencies()
-                            .resolve()
-                            .withTransitivity()
-                            .asFile()
-            );
+        .addAsLibraries(
+            Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .importRuntimeAndTestDependencies()
+                .resolve()
+                .withTransitivity()
+                .asFile());
   }
 
   @Test
