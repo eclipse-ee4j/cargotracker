@@ -18,9 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Print Java Version
+        run: java -version
       - uses: axel-op/googlejavaformat-action@v3
         with:
-          args: "--set-exit-if-changed"
+          args: "--set-exit-if-changed --dry-run --verbose"
           version: v1.22.0
           skip-commit: true
   build:
