@@ -17,11 +17,11 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--set-exit-if-changed"
-          version: "1.22.0"
+          version: "1.6"
           skip-commit: true
   build:
     runs-on: ubuntu-latest
