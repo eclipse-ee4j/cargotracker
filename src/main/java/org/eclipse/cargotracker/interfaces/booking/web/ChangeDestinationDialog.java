@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.primefaces.event.SelectEvent;
 @SessionScoped
 public class ChangeDestinationDialog implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   public void showDialog(String trackingId) {

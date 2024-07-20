@@ -1,6 +1,9 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,6 +12,7 @@ import org.apache.commons.lang3.Validate;
 @Embeddable
 public class VoyageNumber implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Column(name = "voyage_number")
@@ -27,26 +31,14 @@ public class VoyageNumber implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null) {
-      return false;
-    }
-
-    if (!(o instanceof VoyageNumber)) {
-      return false;
-    }
-
-    VoyageNumber other = (VoyageNumber) o;
-
-    return sameValueAs(other);
+    if (this == o) return true;
+    if (!(o instanceof VoyageNumber that)) return false;
+    return Objects.equals(number, that.number);
   }
 
   @Override
   public int hashCode() {
-    return number.hashCode();
+    return Objects.hashCode(number);
   }
 
   boolean sameValueAs(VoyageNumber other) {

@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.Loc
 @ApplicationScoped
 public class DefaultBookingServiceFacade implements BookingServiceFacade, Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Inject private BookingService bookingService;
@@ -86,22 +88,17 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade, Serial
   @Override
   // TODO [DDD] Is this the correct DTO here?
   public List<CargoRoute> listAllCargos() {
-    List<Cargo> cargos = cargoRepository.findAll();
-    List<CargoRoute> routes;
 
-    routes = cargos.stream().map(cargoRouteDtoAssembler::toDto).collect(Collectors.toList());
-
-    return routes;
+    return cargoRepository.findAll()
+            .stream()
+            .map(cargoRouteDtoAssembler::toDto)
+            .toList();
   }
 
-  @Override
   public List<String> listAllTrackingIds() {
-    List<String> trackingIds = new ArrayList<>();
-    cargoRepository
-        .findAll()
-        .forEach(cargo -> trackingIds.add(cargo.getTrackingId().getIdString()));
-
-    return trackingIds;
+    return cargoRepository.findAll().stream()
+            .map(cargo -> cargo.getTrackingId().getIdString())
+            .toList();
   }
 
   @Override

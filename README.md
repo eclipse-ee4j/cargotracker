@@ -26,7 +26,7 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
-* Ensure you are running Java SE 11 or Java SE 17.
+* Ensure you are running Java SE 17+.
 * Make sure JAVA_HOME is set.
 * As long as you have Maven set up properly, navigate to the project source root and type:
 ```

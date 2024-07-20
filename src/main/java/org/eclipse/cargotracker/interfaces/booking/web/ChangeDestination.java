@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeDestination implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Inject private BookingServiceFacade bookingServiceFacade;
@@ -59,7 +61,7 @@ public class ChangeDestination implements Serializable {
                 location ->
                     location.getUnLocode().equalsIgnoreCase(cargo.getOriginCode())
                         || location.getUnLocode().equalsIgnoreCase(cargo.getFinalDestinationCode()))
-            .collect(Collectors.toList());
+            .toList();
 
     locations.removeAll(destinationsToRemove);
 

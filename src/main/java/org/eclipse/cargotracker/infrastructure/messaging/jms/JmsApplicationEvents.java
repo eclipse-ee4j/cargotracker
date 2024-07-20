@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.infrastructure.messaging.jms;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAtt
 
 @ApplicationScoped
 public class JmsApplicationEvents implements ApplicationEvents, Serializable {
-
+  @Serial
   private static final long serialVersionUID = 1L;
   private static final int LOW_PRIORITY = 0;
   @Inject JMSContext jmsContext;

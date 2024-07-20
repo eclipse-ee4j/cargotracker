@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import jakarta.faces.view.ViewScoped;
@@ -24,6 +25,7 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class ChangeArrivalDeadline implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Inject private BookingServiceFacade bookingServiceFacade;

@@ -1,6 +1,9 @@
 package org.eclipse.cargotracker.domain.model.location;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +26,7 @@ import org.apache.commons.lang3.Validate;
     query = "Select l from Location l where l.unLocode = :unLocode")
 public class Location implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   // Special Location object that marks an unknown location.
@@ -59,37 +63,21 @@ public class Location implements Serializable {
     return name;
   }
 
-  /**
-   * @param object to compare
-   * @return Since this is an entiy this will be true iff UN locodes are equal.
-   */
   @Override
-  public boolean equals(Object object) {
-    if (object == null) {
-      return false;
-    }
-
-    if (this == object) {
-      return true;
-    }
-
-    if (!(object instanceof Location)) {
-      return false;
-    }
-
-    Location other = (Location) object;
-
-    return sameIdentityAs(other);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Location location)) return false;
+    return Objects.equals(unLocode, location.unLocode);
   }
 
   public boolean sameIdentityAs(Location other) {
-    return this.unLocode.sameValueAs(other.unLocode);
+    return Objects.equals(this.unLocode, other.unLocode);
   }
 
   /** @return Hash code of UN locode. */
   @Override
   public int hashCode() {
-    return unLocode.hashCode();
+    return Objects.hash(unLocode);
   }
 
   @Override

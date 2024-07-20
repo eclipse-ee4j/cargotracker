@@ -1,6 +1,9 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -57,6 +60,7 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
     query = "Select c from Cargo c where c.trackingId = :trackingId")
 public class Cargo implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
@@ -158,32 +162,17 @@ public class Cargo implements Serializable {
     this.delivery = Delivery.derivedFrom(getRouteSpecification(), getItinerary(), handlingHistory);
   }
 
-  /**
-   * @param object to compare
-   * @return True if they have the same identity
-   * @see #sameIdentityAs(Cargo)
-   */
   @Override
-  public boolean equals(Object object) {
-    if (this == object) {
-      return true;
-    }
-    if (object == null || !(object instanceof Cargo)) {
-      return false;
-    }
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Cargo cargo)) return false;
 
-    Cargo other = (Cargo) object;
-    return sameIdentityAs(other);
+    return Objects.equals(trackingId, cargo.trackingId);
   }
 
-  private boolean sameIdentityAs(Cargo other) {
-    return other != null && trackingId.sameValueAs(other.trackingId);
-  }
-
-  /** @return Hash code of tracking id. */
   @Override
   public int hashCode() {
-    return trackingId.hashCode();
+    return Objects.hash(trackingId);
   }
 
   @Override

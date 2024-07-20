@@ -1,12 +1,14 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
 import java.io.File;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 public class EventFilesCheckpoint implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private List<File> files = new LinkedList<>();

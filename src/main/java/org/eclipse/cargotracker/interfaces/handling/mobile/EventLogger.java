@@ -2,6 +2,7 @@ package org.eclipse.cargotracker.interfaces.handling.mobile;
 
 import static java.util.stream.Collectors.toMap;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class EventLogger implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Inject private CargoRepository cargoRepository;
@@ -125,44 +127,31 @@ public class EventLogger implements Serializable {
 
   @PostConstruct
   public void init() {
-    List<Cargo> cargos = cargoRepository.findAll();
+    trackingIds = cargoRepository.findAll().stream()
+            .filter(cargo -> !cargo.getItinerary().getLegs().isEmpty())
+            .filter(cargo -> !cargo.getDelivery().getTransportStatus().sameValueAs(TransportStatus.CLAIMED))
+            .map(cargo -> cargo.getTrackingId().getIdString())
+            .map(this::buildSelectItem)
+            .toList();
 
-    trackingIds = new ArrayList<>(cargos.size());
+    this.locations = locationRepository.findAll().stream()
+            .map(this::buildSelectItem)
+            .toList();
 
-    // List only routed cargo that is not claimed yet.
-    cargos
-        .stream()
-        .filter(
-            cargo ->
-                !cargo.getItinerary().getLegs().isEmpty()
-                    && !(cargo
-                        .getDelivery()
-                        .getTransportStatus()
-                        .sameValueAs(TransportStatus.CLAIMED)))
-        .map(cargo -> cargo.getTrackingId().getIdString())
-        .forEachOrdered(trackingId -> trackingIds.add(new SelectItem(trackingId, trackingId)));
+    this.voyages = voyageRepository.findAll().stream()
+            .map(Voyage::getVoyageNumber)
+            .map(VoyageNumber::getIdString)
+            .map(this::buildSelectItem)
+            .toList();
+  }
 
-    List<Location> locations = locationRepository.findAll();
+  private SelectItem buildSelectItem(String trackingIdLocal) {
+    return new SelectItem(trackingIdLocal, trackingIdLocal);
+  }
 
-    this.locations = new ArrayList<>(locations.size());
-
-    locations.forEach(
-        location -> {
-          String locationCode = location.getUnLocode().getIdString();
-          this.locations.add(
-              new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
-        });
-
-    List<Voyage> voyages = voyageRepository.findAll();
-
-    this.voyages = new ArrayList<>(voyages.size());
-
-    voyages.forEach(
-        voyage ->
-            this.voyages.add(
-                new SelectItem(
-                    voyage.getVoyageNumber().getIdString(),
-                    voyage.getVoyageNumber().getIdString())));
+  private SelectItem buildSelectItem(Location locationLocal) {
+    String locationCode = locationLocal.getUnLocode().getIdString();
+    return buildSelectItem(locationCode);
   }
 
   public String onFlowProcess(FlowEvent event) {
@@ -194,9 +183,6 @@ public class EventLogger implements Serializable {
   public void submit() {
     VoyageNumber voyage;
 
-    TrackingId trackingId = new TrackingId(this.trackingId);
-    UnLocode location = new UnLocode(this.location);
-
     if (eventType.requiresVoyage()) {
       voyage = new VoyageNumber(voyageNumber);
     } else {
@@ -204,8 +190,8 @@ public class EventLogger implements Serializable {
     }
 
     HandlingEventRegistrationAttempt attempt =
-        new HandlingEventRegistrationAttempt(
-            LocalDateTime.now(), completionTime, trackingId, voyage, eventType, location);
+            new HandlingEventRegistrationAttempt(
+                    LocalDateTime.now(), completionTime, new TrackingId(this.trackingId), voyage, eventType, new UnLocode(this.location));
 
     applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
 

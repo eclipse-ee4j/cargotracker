@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.web;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -29,6 +30,7 @@ import org.primefaces.PrimeFaces;
 @FlowScoped("booking")
 public class Booking implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
@@ -137,11 +139,7 @@ public class Booking implements Serializable {
   public void deadlineUpdated() {
     duration = ChronoUnit.DAYS.between(today, arrivalDeadline);
 
-    if (duration >= MIN_JOURNEY_DURATION) {
-      bookable = true;
-    } else {
-      bookable = false;
-    }
+    bookable = duration >= MIN_JOURNEY_DURATION;
 
     PrimeFaces.current().ajax().update("dateForm:durationPanel");
     PrimeFaces.current().ajax().update("dateForm:bookBtn");

@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,12 +20,14 @@ import org.eclipse.cargotracker.domain.model.location.Location;
     query = "Select v from Voyage v where v.voyageNumber = :voyageNumber")
 @NamedQuery(name = "Voyage.findAll", query = "Select v from Voyage v order by v.voyageNumber")
 public class Voyage implements Serializable {
+  @Serial
   private static final long serialVersionUID = 1L;
 
   // Null object pattern
   public static final Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
 
-  @Id @GeneratedValue private Long id;
+  @Id @GeneratedValue
+  private Long id;
 
   @Embedded
   @NotNull(message = "Voyage number is required.")
@@ -93,8 +96,8 @@ public class Voyage implements Serializable {
    */
   public static class Builder {
 
-    private List<CarrierMovement> carrierMovements = new ArrayList<>();
-    private VoyageNumber voyageNumber;
+    private final List<CarrierMovement> carrierMovements = new ArrayList<>();
+    private final VoyageNumber voyageNumber;
     private Location departureLocation;
 
     public Builder(VoyageNumber voyageNumber, Location departureLocation) {
