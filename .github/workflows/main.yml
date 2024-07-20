@@ -21,7 +21,7 @@ jobs:
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--set-exit-if-changed"
-          version: 1.22.0
+          version: v1.22.0
           skip-commit: true
   build:
     runs-on: ubuntu-latest
