@@ -1,5 +1,5 @@
 name: cargotracker
-title: Cargo Tracker Documentation
+title: Cargo Tracker
 version: 3.0
 asciidoc:
   attributes:
