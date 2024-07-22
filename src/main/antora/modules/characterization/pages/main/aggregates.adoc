@@ -9,6 +9,7 @@ An aggregate root is a special kind of entity in the aggregate that controls ext
 Cargo is the central aggregate in the application. The classes in the cargo aggregate are in the https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo[org.eclipse.cargotracker.domain.model.cargo] package.
 Cargo is the aggregate root, and the aggregate also contains the Value Objects delivery, itinerary, leg, and a few more classes.
 
+[frame="none", background-color="white"]
 image::aggregate.png[]
 
 Handling is another important aggregate.
