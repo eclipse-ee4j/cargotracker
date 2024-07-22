@@ -5,6 +5,7 @@ Repositories retrieve and save aggregate roots from and to persistent storage.
 In our application, there is one Repository per aggregate root. For example, the https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo/CargoRepository.java[CargoRepository] is responsible for finding and storing cargo aggregates.
 The finders return Cargo instances or lists of Cargo instances.
 
+[frame="none", background-color="white"]
 image::cargo_repository.png[]
 
 While Repository interfaces are part of the domain layer, their implementations are part of the infrastructure layer.

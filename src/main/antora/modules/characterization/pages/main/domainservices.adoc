@@ -11,6 +11,7 @@ and is used to find possible routes for a given specification.
 The implementation, https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/infrastructure/routing/ExternalRoutingService.java[ExternalRoutingService], communicates with 
 another system and translates to/from an external API/data model in the infrastructure layer.
 
+[frame="none", background-color="white"]
 image::routing_service.png[]
 
 On the other hand, if the service can be implemented strictly using the domain layer,

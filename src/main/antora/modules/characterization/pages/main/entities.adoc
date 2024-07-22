@@ -14,6 +14,7 @@ and in the normal case ends its life as CLAIMED (note that this is a property of
 During a cargo's lifetime, it may be assigned new destinations, its itinerary may be changed many times,
 and its delivery will be recalculated as new https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/handling/HandlingEvent.java[HandlingEvents] are received.
 
+[frame="none", background-color="white"]
 image::cargo.png[]
 
 https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/Voyage.java[Voyage] is a vessel's trip from origin to destination, typically made up of several segments (CarrierMovements).

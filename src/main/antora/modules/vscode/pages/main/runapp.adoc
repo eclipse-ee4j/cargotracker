@@ -1,18 +1,22 @@
 == Running the Application
 You will now need to get the application into Visual Studio Code. Go to File -> Open Folder -> Select the root directory of the Cargo Tracker project in your file system, and hit finish. Visual Studio Code will automatically identify it as a Maven project. It will take a few minutes to import the project for the first time.
 
+[frame="none", background-color="white"]
 image::vs_import.png[]
 
 After the project loads, go to the Maven tab on the left bottom side. You will see that Eclipse Cargo Tracker is a recognized Maven project. Right click on it and run the 'clean' Maven command. Finally, run the 'package' Maven command. It will take a while the very first time as Maven downloads dependencies.
 
+[frame="none", background-color="white"]
 image::vs_build.png[]
 
 After this, a war file named 'cargo-tracker.war' will be built under the 'target' directory. Right-click on the war file and select the 'Run on Payara Server' option.
 
+[frame="none", background-color="white"]
 image::vs_deploy.png[]
 
 The first time start up might take a bit of time. Once the deployment is done, Visual Studio Code will automatically open up a default browser window with the application.
 
+[frame="none", background-color="white"]
 image::vs_sucess.png[]
 
 There is a tracking interface to track the current status of cargo and a booking interface to book and route cargo. 
