@@ -9,7 +9,7 @@ The finders return Cargo instances or lists of Cargo instances.
 image::cargo_repository.png[]
 
 While Repository interfaces are part of the domain layer, their implementations are part of the infrastructure layer.
-For example, the CargoRepository has a Jakarta Persistence implementation in the infrastructure layer, https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo/CargoRepository.java[JpaCargoRepository].
+For example, the CargoRepository has a Jakarta Persistence implementation in the infrastructure layer, https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/infrastructure/persistence/jpa/JpaCargoRepository.java[JpaCargoRepository].
 
 Repositories in Jakarta EE are typically implemented using Jakarta Persistence and CDI.
 The DeltaSpike Data module is particularly helpful in implementing repositories.

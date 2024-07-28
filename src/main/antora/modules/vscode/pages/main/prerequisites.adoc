@@ -4,4 +4,4 @@
 properly set up the JAVA_HOME environment variable.
 * Payara Server 6 is required. You can download Payara Server 6 from https://www.payara.fish/downloads/payara-platform-community-edition/[here].
 * Visual Studio Code is required. You can download Visual Studio Code from https://code.visualstudio.com/download[here].
-* Ensure that the Visual Studio Code https://code.visualstudio.com/download[Extension Pack for Java] is installed.
+* Ensure that the Visual Studio Code https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack[Extension Pack for Java] is installed.

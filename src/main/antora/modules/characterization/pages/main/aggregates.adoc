@@ -19,7 +19,7 @@ This is allowed since cargo itself is an aggregate root.
 
 The main reason for not making handling events part of the cargo aggregate is performance.
 Handling events are received from external parties and systems, e.g., warehouse management systems, port handling systems, 
-that call our https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo[HandlingReportService] REST web service implementation.
+that call our https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java[HandlingReportService] REST web service implementation.
 The number of events can be very high, and it is important that our web service can dispatch the remote calls quickly.
 To be able to support this use case, we need to handle the web service calls asynchronously, i.e., we do not want to load the big cargo structure synchronously for each received handling event. 
 Since all relationships in an aggregate must be handled synchronously,
