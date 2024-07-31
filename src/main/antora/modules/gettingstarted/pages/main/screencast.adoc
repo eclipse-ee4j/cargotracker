@@ -21,6 +21,4 @@ The following is the functionality highlighted in the demo:
 
 You can watch the demo video on YouTube at the following link:
 
-<a href="https://www.youtube.com/watch?v=Rht9QkrqBE4" target="_blank">
-  <img src="screencast.png" alt="Watch Demo Video" />
-</a>
+image::screencast.png[https://www.youtube.com/watch?v=Rht9QkrqBE4]
