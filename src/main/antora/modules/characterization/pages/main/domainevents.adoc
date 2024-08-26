@@ -7,7 +7,6 @@ They carry both a completion time and a registration time.
 The completion time is the time when the event occurred, and the registration time is the time when the event was received by the system.
 The HandlingEvent ID is composed of the cargo, voyage, completion time, location, and type (LOAD, UNLOAD, etc.).
 
-[frame="none", background-color="white"]
 image::handling_event.png[]
 
 Domain Events are usually implemented as Jakarta Persistence entities.
