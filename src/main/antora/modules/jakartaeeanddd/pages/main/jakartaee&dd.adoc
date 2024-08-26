@@ -17,5 +17,4 @@ layer (of course!) and the infrastructure layer respectively. The xref:layers:ma
 section explains the architectural layers in the application and how 
 they relate to various Jakarta EE APIs.
 
-[frame="none", background-color="white"]
 image::ddd-diagram.png[]
