@@ -1,4 +1,4 @@
-== Layers
+= Layers
 
 The Eclipse Cargo Tracker application is layered as illustrated by 
 the following picture.

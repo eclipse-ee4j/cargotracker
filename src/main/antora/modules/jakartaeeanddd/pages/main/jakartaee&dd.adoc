@@ -1,4 +1,4 @@
-== Jakarta EE and DDD
+= Jakarta EE and DDD
 
 As the name implies, Domain-Driven Design is an approach to software 
 design and development that focuses on the core domain and domain 
