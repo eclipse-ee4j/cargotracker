@@ -4,7 +4,7 @@ version: 3.0
 asciidoc:
   attributes:
     pdf-name: cargo-tracker
-    source-language: asciidoc
+    source-language: asciidoc@
     table-caption: false
     xrefstyle: full
 nav:
