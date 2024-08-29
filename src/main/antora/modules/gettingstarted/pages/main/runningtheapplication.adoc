@@ -8,7 +8,7 @@ using the https://codehaus-cargo.github.io/cargo/Maven2+plugin.html[Cargo Maven 
 All you need to do is navigate to the project source root and type the following (please make sure you have 
 Java SE 11/Java SE 17 and JAVA_HOME set correctly):
 
-`mvn clean package cargo`
+`mvn clean package cargo:run`
 
 Once the application starts up, just open up a browser and navigate 
 to http://localhost:8080/cargo-tracker/.

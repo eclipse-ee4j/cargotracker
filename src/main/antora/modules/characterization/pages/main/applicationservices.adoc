@@ -2,7 +2,7 @@
 
 Application services represent the high-level business operations for the system and constitute the application layer.
 They provide a high-level abstraction for clients to use when interacting with the domain.
-The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application[org.eclipse.cargotracker.application] package contains all the services for the application, such as https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application[BookingService] 
+The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application[org.eclipse.cargotracker.application] package contains all the services for the application, such as https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/application/BookingService.java[BookingService] 
 and https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/application/HandlingEventService.java[HandlingEventService].
 The application services are a natural place to apply concerns such as pooling, transactions, and security.
 This is why application services are typically implemented using Enterprise Beans or transactional CDI beans.
