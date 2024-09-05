@@ -3,6 +3,7 @@ title: Cargo Tracker Docs
 version: 3.0
 asciidoc:
   attributes:
+    page-pdf-download-name: cargo-tracker-docs.pdf
     pdf-name: cargo-tracker
     source-language: asciidoc@
     table-caption: false
