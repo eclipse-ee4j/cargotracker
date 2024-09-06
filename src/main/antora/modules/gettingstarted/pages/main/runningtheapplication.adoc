@@ -17,7 +17,7 @@ This will run the application with Payara Server by default. The
 project also has Maven profiles to support GlassFish and Open Liberty. 
 For example you can run using GlassFish using the following command:
 
-`mvn clean package -Pglassfish cargo`
+`mvn clean package -Pglassfish cargo:run`
 
 
 Similarly, you can run using Open Liberty using the following command:
