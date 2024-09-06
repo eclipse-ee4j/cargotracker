@@ -21,7 +21,7 @@ Issues are tracked on GitHub. Please look through the issues before proposing a 
 The following are the project web site and documentation. Please look through them before proposing a change.
 
 * https://eclipse-ee4j.github.io/cargotracker
-* https://github.com/eclipse-ee4j/cargotracker/wiki
+* https://jakarta.ee/learn/docs/cargotracker-documentation/current/index.html
 
 ## Development Standards/Style
 
