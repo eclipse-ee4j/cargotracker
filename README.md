@@ -1,12 +1,9 @@
 # Eclipse Cargo Tracker - Applied Domain-Driven Design Blueprints for Jakarta EE
 
 The project demonstrates how you can develop applications with Jakarta EE using widely adopted architectural best practices like Domain-Driven
-Design (DDD). The project is directly based on the well known
-original [Java DDD sample application](http://dddsample.sourceforge.net)
-developed by DDD pioneer Eric Evans' company Domain Language and the Swedish
+Design (DDD). The project is based on the well-known [Java DDD sample application](https://github.com/citerus/dddsample-core) developed by DDD pioneer Eric Evans' company Domain Language and the Swedish
 software consulting company Citerus. The cargo example actually comes from
-Eric Evans' seminal book on DDD. The original application is written in Spring,
-Hibernate and Jetty whereas the application is built on Jakarta EE.
+Eric Evans' seminal book on DDD.
 
 The application is an end-to-end system for keeping track of shipping cargo. It
 has several interfaces described in the following sections.
