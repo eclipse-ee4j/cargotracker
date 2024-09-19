@@ -1,6 +1,7 @@
-# CargoTracker Documentation Repository
+# Eclipse Cargo Tracker Documentation Repository
 
-This repository contains the official documentation for the CargoTracker application. Here, you will find all guides, tutorials, and technical documentation related to CargoTracker.
+This repository contains the official documentation for the Eclipse Cargo
+Tracker project. Here, you will find all guides, tutorials, and technical documentation related to Cargo Tracker.
 
 ## Table of Contents
 
@@ -13,8 +14,8 @@ This repository contains the official documentation for the CargoTracker applica
 
 ## Introduction
 
-Welcome to the CargoTracker documentation repository! This repo is
-dedicated to all things documentation for the CargoTracker project.
+Welcome to the Cargo Tracker documentation repository! This repo is
+dedicated to all things documentation for the Cargo Tracker project.
 Whether you're looking for user guides, API references, or developer
 documentation, you'll find it all here.
 
@@ -22,19 +23,19 @@ documentation, you'll find it all here.
 
 The documentation is organized as follows:
 
-- **Getting Started**: provides brief orientation on the project.
+- **Getting Started**: Provides brief orientation on the project
 
-- **Visual Studio Code**: provides detailed instructions on how to get started with Visual Studio Code.
+- **Visual Studio Code**: Provides detailed instructions on how to get started with Visual Studio Code
 
-- **Jakarta EE and DDD**: section provides a brief overview of DDD as it relates to this project and Jakarta EE.
+- **Jakarta EE and DDD**: Provides a brief overview of DDD as it relates to this project and Jakarta EE
 
-- **Characterization**: section overviews how the basic building
+- **Characterization**: Overviews how the basic building
   blocks of the domain - entities, value objects, aggregates,
-  services, repositories and factories - are implemented in the application using Jakarta EE.
+  services, repositories and factories - are implemented in the application using Jakarta EE
 
-- **Layers**: section explains the architectural layers in the application and how they relate to various Jakarta EE APIs.
+- **Layers**: Explains the architectural layers in the application and how they relate to various Jakarta EE APIs
 
-- **Resources**: section provides some useful resources for learning more about DDD and Jakarta EE.
+- **Resources**: Provides some useful resources for learning more about DDD and Jakarta EE
 
 ## Viewing the Documentation
 
@@ -55,7 +56,7 @@ Open the `.adoc` files in your preferred editor.
 
 ## Contributing to Documentation
 
-We welcome contributions to improve and expand the CargoTracker documentation! Please follow the guidelines below:
+We welcome contributions to improve and expand the Cargo Tracker documentation! Please follow the guidelines below:
 
 1. Fork the repository.
 2. Create a new branch for your changes.
@@ -64,11 +65,11 @@ We welcome contributions to improve and expand the CargoTracker documentation! P
 
 ## Building the Documentation Site
 
-The Cargotracker Documentation site is built using the [jakartaee tutorial's playbook](https://github.com/jakartaee/jakartaee-documentation/blob/main/antora-playbook.yml).
+The Cargo Tracker documentation site is built using the [jakartaee tutorial's playbook](https://github.com/jakartaee/jakartaee-documentation/blob/main/antora-playbook.yml).
 
 Read through the [README.md](https://github.com/jakartaee/jakartaee-documentation/blob/main/README.md) of the
 [jakartaee-documentation](https://github.com/jakartaee/jakartaee-documentation/blob/main/antora-playbook.yml) repository and
-learn how to build the cargotracker documentation site.
+learn how to build the Cargo Tracker documentation site.
 
 ## Issue Tracking
 

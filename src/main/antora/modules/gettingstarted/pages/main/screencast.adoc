@@ -2,19 +2,16 @@
 
 == Screen Cast
 
-Before exploring the code, it may be helpful to view a demo of the 
-application functionality. The video below demos the major 
-functionality of the Eclipse Cargo Tracker application. It is 
-intended to be a helpful point to start exploring how the application 
-implements Domain-Driven Design (DDD) using Jakarta EE.
+Before exploring the code, it may be helpful to view a demo of the application functionality. The video below demos the major functionality 
+of the Eclipse Cargo Tracker application. It is intended to be a helpful point to start exploring how the application implements 
+Domain-Driven Design (DDD) using Jakarta EE.
 
 The following is the functionality highlighted in the demo:
 
-* Tracking cargo using the public interface.
-* Monitoring cargo using both the static dashboard and live map.
-* Booking and routing cargo.
-* Registering cargo life-cycle events using the mobile interface.
-* Registering cargo life-cycle events in bulk using the batch file 
-  processing interface.
+* Tracking cargo using the public interface
+* Monitoring cargo using both the static dashboard and live map
+* Booking and routing cargo
+* Registering cargo life-cycle events using the mobile interface
+* Registering cargo life-cycle events in bulk using the batch file processing interface
 
 image::screencast.png[link="https://www.youtube.com/watch?v=Rht9QkrqBE4"]

@@ -1,12 +1,12 @@
 = Characterization
 
-Careful characterization of classes is a key activity when doing Domain-Driven Design.
-Fortunately, most of the time it is fairly obvious what category a particular class belongs to.
-Other times it is not as easy to sort out and careful analysis, team collaboration and refactoring is necessary.
+Careful characterization of classes is a key activity when doing Domain-Driven Design. Fortunately, most of the time it is fairly obvious 
+what category a particular class belongs to. Other times it is not as easy to sort out and careful analysis, team collaboration, and 
+refactoring is necessary.
 
-The trickiest ones to classify are typically Entities, Aggregates, Value Objects and Domain Events.
-When possible, you should favor Value Objects over Entities or Domain Events, because they require less attention during implementation.
-Value Objects can be created and thrown away at will, and since they are immutable we can pass them around as we wish.
-We must be much less cavalier with Entities as identity and life-cycle have to be carefully managed.
+The trickiest ones to classify are typically Entities, Aggregates, Value Objects and Domain Events. When possible, you should favor 
+Value Objects over Entities or Domain Events, because they require less attention during implementation. Value Objects can be created and 
+thrown away at will, and since they are immutable we can pass them around as we wish. We must be much less cavalier with Entities as 
+identity and life-cycle have to be carefully managed.
 
 Below is a short walk-through of key classes in the application and the motivation behind their implementation choice.

@@ -1,1 +1,1 @@
-include::jakartaee&dd.adoc[Jakarta EE and DDD]
+include::jakartaeeddd.adoc[Jakarta EE and DDD]

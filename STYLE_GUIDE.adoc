@@ -1,17 +1,16 @@
-= Cargotracker Style Guide
+= Eclipse Cargo Tracker Style Guide
 
-This document describes the requirements for new writing contributions to the Cargotracker;
-it includes a mixture of writing and https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc] / https://docs.antora.org/antora/latest/[Antora] guidelines.
+This document describes the requirements for new writing contributions to Eclipse Cargo Tracker; it includes a mixture of writing and 
+https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc] / https://docs.antora.org/antora/latest/[Antora] guidelines.
 
 == Eclipse Writing Style Guide
 
-New contributions must follow the https://www.eclipse.org/org/documents/writing-style-guide/[Eclipse Writing Style Guide] in addition to the guidelines mentioned herein.
-If there is a conflict, the guidelines in this document take precedence.
+New contributions must follow the https://www.eclipse.org/org/documents/writing-style-guide/[Eclipse Writing Style Guide] in addition to 
+the guidelines mentioned herein. If there is a conflict, the guidelines in this document take precedence.
 
 == Tone and Voice
 
-Use a first-person voice but a professional tone and avoid slang.
-New tutorial material should be easy to read and approachable.
+Use a first-person voice but a professional tone and avoid slang. New tutorial material should be easy to read and approachable.
 
 For more guidelines, see https://www.eclipse.org/org/documents/writing-style-guide/#3[Tone and Voice].
 
@@ -29,7 +28,9 @@ When using the following words, names, and abbreviations, consistently use the s
 
 == Using Hyphens
 
-Be aware of when to use a hyphen, especially for multiple-word adjectives before or after a noun. For example, "water-based paint" and "paint that is water based". See https://www.grammarly.com/blog/hyphen/[this article] and https://www.eclipse.org/org/documents/writing-style-guide/#21[Compound Words and Hyphenation] for details.
+Be aware of when to use a hyphen, especially for multiple-word adjectives before or after a noun. For example, "water-based paint" and 
+"paint that is water based". See https://www.grammarly.com/blog/hyphen/[this article] 
+and https://www.eclipse.org/org/documents/writing-style-guide/#21[Compound Words and Hyphenation] for details.
 
 == Lists
 
@@ -89,11 +90,14 @@ For example:
 
 See the https://docs.antora.org/antora/latest/page/xref/[Antora xref docs^] for more information.
 
-TIP: If you want to give a heading a permanent identifier, you can https://docs.asciidoctor.org/asciidoc/latest/attributes/id/#add-additional-anchors-to-a-section[add an anchor to the section^] and use that instead.
+TIP: If you want to give a heading a permanent identifier, you 
+can https://docs.asciidoctor.org/asciidoc/latest/attributes/id/#add-additional-anchors-to-a-section[add an anchor to the section^] and 
+use that instead.
 
-== Titles for Images and Tables 
+== Titles for Images and Tables
 
-Images and tables should be given a title using the asciidoc title syntax starting with a dot. This can be preceded with an anchor using underscores. For example:
+Images and tables should be given a title using the asciidoc title syntax starting with a dot. This can be preceded with an anchor 
+using underscores. For example:
 
 [source, asciidoc]
 ----
@@ -102,7 +106,8 @@ Images and tables should be given a title using the asciidoc title syntax starti
 image::image-path.svg["Image Alt Text"]
 ----
 
-Links to the image or table can be created using the anchor name and either the internal or external link instructions as given for headers above. For example:
+Links to the image or table can be created using the anchor name and either the internal or external link instructions as given for 
+headers above. For example:
 
 [source, asciidoc]
 ----
@@ -114,7 +119,8 @@ Note the labels for table captions can be turned on and off using the _table-cap
 == Definitions
 
 Use bold for a word when defining it.
-For example, "*Java* is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible." (Wikipedia)
+For example, "*Java* is a high-level, class-based, object-oriented programming language that is designed to have as few implementation 
+dependencies as possible." (Wikipedia)
 
 == Line Breaks
 
@@ -129,4 +135,5 @@ See https://www.eclipse.org/org/documents/writing-style-guide/#31[Latinisms].
 
 == Conventions
 
-Please follow the https://jakartaee.github.io/jakartaee-documentation/jakartaee-tutorial/current/index.html#_conventions[conventions described in the tutorial].
+Please follow the 
+https://jakartaee.github.io/jakartaee-documentation/jakartaee-tutorial/current/index.html#_conventions[conventions described in the tutorial].

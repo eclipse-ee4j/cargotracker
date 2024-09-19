@@ -1,7 +1,8 @@
 == Factories
 
-In some cases, creating entities is not as trivial as simply calling the `new` operator.
-In such cases, you will want to encapsulate entity creation using Factories.
-In our application, https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/handling/HandlingEventFactory.java[HandlingEventFactory] is used to create handling events.
+In some cases, creating entities is not as trivial as simply calling the `new` operator. In such cases, you will want to encapsulate 
+entity creation using Factories. In our application, 
+https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/domain/model/handling/HandlingEventFactory.java[HandlingEventFactory] 
+is used to create handling events.
 
 Factories are typically implemented using CDI.
