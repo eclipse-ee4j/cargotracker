@@ -1,22 +1,29 @@
 = Eclipse Cargo Tracker Style Guide
 
-This document describes the requirements for new writing contributions to Eclipse Cargo Tracker; it includes a mixture of writing and 
-https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc] / https://docs.antora.org/antora/latest/[Antora] guidelines.
+This document describes the requirements for new writing contributions to 
+Eclipse Cargo Tracker; it includes a mixture of writing and 
+https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc] / https://docs.antora.org/antora/latest/[Antora] 
+guidelines.
 
 == Eclipse Writing Style Guide
 
-New contributions must follow the https://www.eclipse.org/org/documents/writing-style-guide/[Eclipse Writing Style Guide] in addition to 
-the guidelines mentioned herein. If there is a conflict, the guidelines in this document take precedence.
+New contributions must follow the 
+https://www.eclipse.org/org/documents/writing-style-guide/[Eclipse Writing Style Guide] 
+in addition to the guidelines mentioned herein. If there is a conflict, the 
+guidelines in this document take precedence.
 
 == Tone and Voice
 
-Use a first-person voice but a professional tone and avoid slang. New tutorial material should be easy to read and approachable.
+Use a first-person voice but a professional tone and avoid slang. New tutorial 
+material should be easy to read and approachable.
 
-For more guidelines, see https://www.eclipse.org/org/documents/writing-style-guide/#3[Tone and Voice].
+For more guidelines, see 
+https://www.eclipse.org/org/documents/writing-style-guide/#3[Tone and Voice].
 
 == Common Words, Names, and Abbreviations
 
-When using the following words, names, and abbreviations, consistently use the spelling and capitalization below:
+When using the following words, names, and abbreviations, consistently use the 
+spelling and capitalization below:
 
 * "Basic authentication"
 * "Form authentication"
@@ -24,13 +31,15 @@ When using the following words, names, and abbreviations, consistently use the s
 * JAR
 * HTML
 * Profile names should be capitalized
-(Core Profile, Web Profile, etc.)
+  (Core Profile, Web Profile, etc.)
 
 == Using Hyphens
 
-Be aware of when to use a hyphen, especially for multiple-word adjectives before or after a noun. For example, "water-based paint" and 
-"paint that is water based". See https://www.grammarly.com/blog/hyphen/[this article] 
-and https://www.eclipse.org/org/documents/writing-style-guide/#21[Compound Words and Hyphenation] for details.
+Be aware of when to use a hyphen, especially for multiple-word adjectives 
+before or after a noun. For example, "water-based paint" and "paint that is 
+water based". See https://www.grammarly.com/blog/hyphen/[this article] and 
+https://www.eclipse.org/org/documents/writing-style-guide/#21[Compound Words and Hyphenation] 
+for details.
 
 == Lists
 
@@ -39,8 +48,9 @@ For lists, use:
 * A colon before the list
 * Auto-numbering Asciidoc syntax
 * Avoid repeating the same word at the beginning of each bullet point
-(for example, "Use" or "Execute")
-* Use a period at the end of complete sentences, but don't use a period otherwise.
+  (for example, "Use" or "Execute")
+* Use a period at the end of complete sentences, but don't use a period 
+  otherwise.
 
 For example:
 
@@ -53,12 +63,13 @@ You'll learn how to:
 . How to set a provided identity store that uses a database
 ----
 
-See https://www.eclipse.org/org/documents/writing-style-guide/#32[Lists] for more details.
+See https://www.eclipse.org/org/documents/writing-style-guide/#32[Lists] for 
+more details.
 
 == Internal Links
 
-You can easily link to other headings in the current document.
-For example, given the following heading:
+You can easily link to other headings in the current document. For example, 
+given the following heading:
 
 [source,asciidoc]
 ----
@@ -88,16 +99,18 @@ For example:
 * xref:security-intro/security-intro.adoc#_introduction_to_security_in_the_jakarta_ee_platform[Introduction to Security in the Jakarta EE Platform]
 ----
 
-See the https://docs.antora.org/antora/latest/page/xref/[Antora xref docs^] for more information.
+See the https://docs.antora.org/antora/latest/page/xref/[Antora xref docs^] 
+for more information.
 
-TIP: If you want to give a heading a permanent identifier, you 
-can https://docs.asciidoctor.org/asciidoc/latest/attributes/id/#add-additional-anchors-to-a-section[add an anchor to the section^] and 
-use that instead.
+TIP: If you want to give a heading a permanent identifier, you can 
+https://docs.asciidoctor.org/asciidoc/latest/attributes/id/#add-additional-anchors-to-a-section[add an anchor to the section^] 
+and use that instead.
 
 == Titles for Images and Tables
 
-Images and tables should be given a title using the asciidoc title syntax starting with a dot. This can be preceded with an anchor 
-using underscores. For example:
+Images and tables should be given a title using the asciidoc title syntax 
+starting with a dot. This can be preceded with an anchor using underscores. 
+For example:
 
 [source, asciidoc]
 ----
@@ -106,27 +119,30 @@ using underscores. For example:
 image::image-path.svg["Image Alt Text"]
 ----
 
-Links to the image or table can be created using the anchor name and either the internal or external link instructions as given for 
-headers above. For example:
+Links to the image or table can be created using the anchor name and either 
+the internal or external link instructions as given for headers above. For 
+example:
 
 [source, asciidoc]
 ----
  <<_anchor_name>>
 ----
 
-Note the labels for table captions can be turned on and off using the _table-caption_ document attribute in antora.yml 
+Note the labels for table captions can be turned on and off using the 
+_table-caption_ document attribute in antora.yml. 
 
 == Definitions
 
 Use bold for a word when defining it.
-For example, "*Java* is a high-level, class-based, object-oriented programming language that is designed to have as few implementation 
-dependencies as possible." (Wikipedia)
+For example, "*Java* is a high-level, class-based, object-oriented programming 
+language that is designed to have as few implementation dependencies as 
+possible." (Wikipedia)
 
 == Line Breaks
 
-Use a line break after a substantial unit of thought,
-such as a sentence or after an important comma.
-For details, see https://sembr.org/[Semantic Line Breaks].
+Use a line break after a substantial unit of thought, such as a sentence or 
+after an important comma. For details, see 
+https://sembr.org/[Semantic Line Breaks].
 
 == Use of etc., e.g. and i.e.
 

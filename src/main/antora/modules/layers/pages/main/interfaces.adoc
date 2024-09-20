@@ -1,32 +1,26 @@
 == Interfaces
 
-This layer holds everything that interacts with other systems 
-(including humans :-), such as REST web services, WebSocket endpoints, 
-web UIs, external messaging endpoints, and batch processes. It handles 
-interpretation, input validation, and translation of incoming data. It 
-also handles serialization of outgoing data, such as HTML, JSON, or XML 
-across HTTP to web browsers or web service clients, or DTO classes and 
+This layer holds everything that interacts with other systems (including humans :-), such as REST web services, web UIs, inbound external 
+messaging endpoints, and batch processes. It handles interpretation, input validation, and translation of incoming data. It also handles 
+serialization of outgoing data, such as HTML or JSON across HTTP to web browsers or web service clients, or DTO classes and 
 distributed facade interfaces for remote clients.
 
-The https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces[org.eclipse.cargotracker.interfaces] package holds all the 
-interface classes for the application. We have two Web UI interfaces - 
-one for https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/booking/[booking] and the other for 
-https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/tracking/[tracking], as well as one 
+The 
+https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces[org.eclipse.cargotracker.interfaces] 
+package holds all the interface classes for the application. We have two Web UI interfaces - one for 
+https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/booking/[booking] 
+and the other for 
+https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/tracking/[tracking], 
+as well as one 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java/[REST interface] 
-and one https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java[scheduled file processor] for reporting handling events. The web 
-interfaces are written in HTML/JavaScript/Jakarta Faces, the REST 
-interface uses Jakarta REST, while the file processor uses 
-`@Scheduled`/Jakarta Batch. Modern web application frameworks naturally 
-enforce MVC style separation of concerns, so there is not that much 
-heavy lifting you will need to do. In addition, you can enforce a facade 
-layer if necessary (e.g., your UI team is sufficiently separated from the 
-application services team or you wish to remain strictly agnostic of the 
-UI layer). Otherwise, you can use simple adapters to adapt domain classes 
-to your UI view. We demonstrate both techniques in the application using 
-well-understood existing design patterns such as Facade, DTO, Assembler, 
-and Adapter (in addition to MVC of course).
+and one 
+https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/file/UploadDirectoryScanner.java[scheduled file processor] 
+for ingesting handling events. The web interfaces are written in HTML/JavaScript/Jakarta Faces (JSF), the REST interface uses 
+Jakarta REST (JAX-RS), while the file processor uses `@Scheduled`/Jakarta Batch. Modern web application frameworks naturally enforce MVC 
+style separation of concerns, so there is not that much heavy lifting you will need to do. In addition, you can enforce a facade layer 
+if necessary (e.g., your UI team is sufficiently separated from the application services team or you wish to remain strictly agnostic of 
+the UI layer). Otherwise, you can use simple adapters to adapt domain classes to your UI view. We demonstrate both techniques in the 
+application using well-understood existing design patterns such as Facade, DTO, Assembler, and Adapter (in addition to MVC of course).
 
-Other than Jakarta Faces, REST, and Enterprise Beans, other Jakarta EE 
-technologies typically used in the interface layer are Jakarta EE 
-Security, CDI, Bean Validation, JSON Processing/JSON Binding/XML Binding 
-(for serialization), Batch, Messaging, and WebSocket.
+Other than Jakarta Faces (JSF) and REST (JAX-RS), other Jakarta EE technologies typically used in the interface layer are Jakarta Security, 
+CDI, Validation, JSON Binding, Batch, and Messaging.

@@ -1,23 +1,17 @@
 == Domain
 
-The domain layer is the heart of the software, and this is where the 
-interesting stuff happens. There is one package per aggregate and each 
-aggregate includes entities, value objects, domain events, a repository 
-interface, and sometimes factories (see the Characterization section 
-for details). The aggregate roots are https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo/Cargo.java[Cargo], 
+The domain layer is the heart of the software, and this is where the interesting stuff happens. There is one package per aggregate and 
+each aggregate includes entities, value objects, domain events, a repository interface, and sometimes factories (see the 
+xref:characterization:main/main.adoc[Characterization] section for details). The aggregate roots are 
+https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo/Cargo.java[Cargo], 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/handling/HandlingEvent.java[HandlingEvent], 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/location/Location.java[Location], and 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/voyage/Voyage.java[Voyage].
 
-The core of the business logic, such as determining whether a handling 
-event should be registered and how the delivery of a cargo is affected 
-by handling, belongs here. The structure and naming of aggregates, 
-classes, and methods in the domain layer should follow the real world 
-as closely as possible. You should be able to explain to a business 
-domain expert how this part of the software works by drawing a few 
-simple diagrams and using the actual class and method names of the 
-source code. Note that it is not uncommon for some domain classes to 
-simply model data and not contain any business logic.
+The core of the business logic, such as determining whether a handling event should be registered and how the delivery of a cargo is 
+affected by handling, belongs here. The structure and naming of aggregates, classes, and methods in the domain layer should follow the 
+real world as closely as possible. You should be able to explain to a business domain expert how this part of the software works by drawing 
+a few simple diagrams and using the actual class and method names of the source code. Note that it is not uncommon for some domain classes 
+to simply model data and not contain any business logic.
 
-The domain layer is usually implemented primarily using Jakarta 
-Persistence, Bean Validation, and CDI.
+The domain layer is usually implemented primarily using Jakarta Persistence (JPA), Validation, and CDI.

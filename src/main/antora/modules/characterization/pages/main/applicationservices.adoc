@@ -1,20 +1,24 @@
 == Application Services
 
-Application services represent the high-level business operations for the system and constitute the application layer. They provide a 
-high-level abstraction for clients to use when interacting with the domain. The 
+Application services represent the high-level business operations for the 
+system and constitute the application layer. They provide a high-level 
+abstraction for clients to use when interacting with the domain. The 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application[org.eclipse.cargotracker.application] 
 package contains all the services for the application, such as 
 https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/application/BookingService.java[BookingService]
 and 
 https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/application/HandlingEventService.java[HandlingEventService]. 
-The application services are a natural place to apply concerns such as pooling, transactions, and security. This is why application 
-services are typically implemented using Enterprise Beans (EJB) or transactional CDI beans.
+The application services are a natural place to apply concerns such as pooling, 
+transactions, and security. This is why application services are typically 
+implemented using Enterprise Beans (EJB) or transactional CDI beans.
 
 image::booking_service.png[]
 
-In some situations, e.g., when dealing with graphs of lazy-loaded domain objects or when passing services' return values over network 
-boundaries, the services are wrapped in facades. The facades handle ORM session management issues and/or convert the domain objects to 
-more portable Data Transfer Objects (DTOs) that can be tailored to specific use cases. In that case, we consider the DTO-serializing 
-facade part of the interfaces layer. See 
+In some situations, e.g., when dealing with graphs of lazy-loaded domain 
+objects or when passing services' return values over network boundaries, the 
+services are wrapped in facades. The facades handle ORM session management 
+issues and/or convert the domain objects to more portable Data Transfer 
+Objects (DTOs) that can be tailored to specific use cases. In that case, we 
+consider the DTO-serializing facade part of the interfaces layer. See 
 https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/booking/facade/BookingServiceFacade.java[BookingServiceFacade] 
 for an example.

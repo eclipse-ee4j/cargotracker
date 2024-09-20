@@ -1,26 +1,37 @@
 == Aggregates
 
-In real life, most things are connected, directly or indirectly. Mimicking this approach when building large software systems tends to 
-bring unnecessary complexity and poor performance. DDD provides tactics to help you sort these things out, with aggregates being one of the 
-most important ones. Aggregates help with decoupling large structures by setting rules for relations between entities. An aggregate is 
-essentially a very closely related set of entities and value objects. An aggregate root is a special kind of entity in the aggregate that 
-controls external access to the set of closely related entities and value objects.
+In real life, most things are connected, directly or indirectly. Mimicking 
+this approach when building large software systems tends to bring unnecessary 
+complexity and poor performance. DDD provides tactics to help you sort these 
+things out, with aggregates being one of the most important ones. Aggregates 
+help with decoupling large structures by setting rules for relations between 
+entities. An aggregate is essentially a very closely related set of entities 
+and value objects. An aggregate root is a special kind of entity in the 
+aggregate that controls external access to the set of closely related entities 
+and value objects.
 
-Cargo is the central aggregate in the application. The classes in the cargo aggregate are in the 
+Cargo is the central aggregate in the application. The classes in the cargo 
+aggregate are in the 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/domain/model/cargo[org.eclipse.cargotracker.domain.model.cargo] 
-package. Cargo is the aggregate root, and the aggregate also contains the Value Objects delivery, itinerary, leg, and a few more classes.
+package. Cargo is the aggregate root, and the aggregate also contains the 
+Value Objects delivery, itinerary, leg, and a few more classes.
 
 image::aggregate.png[]
 
-Handling is another important aggregate. It contains the handling events that are registered throughout a cargo's progress from 
-NOT_RECEIVED to CLAIMED. The handling events have a relation to the cargo to which the event belongs. This is allowed since cargo itself is 
-an aggregate root.
+Handling is another important aggregate. It contains the handling events that 
+are registered throughout a cargo's progress from NOT_RECEIVED to CLAIMED. The 
+handling events have a relation to the cargo to which the event belongs. This 
+is allowed since cargo itself is an aggregate root.
 
-The main reason for not making handling events part of the cargo aggregate is performance. Handling events are received from external 
-parties and systems, e.g., warehouse management systems, port handling systems, that call our 
+The main reason for not making handling events part of the cargo aggregate is 
+performance. Handling events are received from external parties and systems, 
+e.g., warehouse management systems, port handling systems, that call our 
 https://github.com/eclipse-ee4j/cargotracker/blob/master/src/main/java/org/eclipse/cargotracker/interfaces/handling/rest/HandlingReportService.java[HandlingReportService] 
-REST web service implementation. The number of events can be very high, and it is important that our web service can dispatch the 
-remote calls quickly. To be able to support this use case, we need to handle the web service calls asynchronously, i.e., we do not want to 
-load the big cargo structure synchronously for each received handling event. Since all relationships in an aggregate must be handled 
-synchronously, we put the handling event in an aggregate of its own, enabling us to process the events quickly and at the same time 
-eliminate lock contention in the system.
+REST web service implementation. The number of events can be very high, and it 
+is important that our web service can dispatch the remote calls quickly. To be 
+able to support this use case, we need to handle the web service calls 
+asynchronously, i.e., we do not want to load the big cargo structure 
+synchronously for each received handling event. Since all relationships in an 
+aggregate must be handled synchronously, we put the handling event in an 
+aggregate of its own, enabling us to process the events quickly and at the 
+same time eliminate lock contention in the system.
