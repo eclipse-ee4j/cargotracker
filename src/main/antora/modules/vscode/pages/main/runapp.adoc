@@ -1,9 +1,16 @@
 == Running the Application
-You will now need to get the application into Visual Studio Code. Go to File -> Open Folder -> Select the root directory of the Cargo Tracker project in your file system, and hit finish. Visual Studio Code will automatically identify it as a Maven project. It will take a few minutes to import the project for the first time.
+You will now need to get the application into Visual Studio Code. Go to 
+File -> Open Folder -> Select the root directory of the Cargo Tracker project 
+in your file system, and hit finish. Visual Studio Code will automatically 
+identify it as a Maven project. It will take a few minutes to import the 
+project for the first time.
 
 image::vs_import.png[]
 
-After the project loads, go to the Maven tab on the left bottom side. You will see that Eclipse Cargo Tracker is a recognized Maven project. Right click on it and run the 'clean' Maven command. Finally, run the 'package' Maven command. It will take a while the very first time as Maven downloads dependencies.
+After the project loads, go to the Maven tab on the left bottom side. You will 
+see that Eclipse Cargo Tracker is a recognized Maven project. Right click on 
+it and run the 'clean' Maven command. Finally, run the 'package' Maven command. 
+It will take a while the very first time as Maven downloads dependencies.
 
 image::vs_build.png[]
 
