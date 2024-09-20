@@ -1,13 +1,16 @@
 == Are Layers Mandatory?
 
-Very few things in DDD are mandatory, and layering is no exception. You should use layers if you believe they add value in keeping your 
-application maintainable. Indeed, even if you do choose to use layers, you do not need to use them everywhere in your application as an 
-absolute requirement.
+Very few things in DDD are mandatory, and layering is no exception. You should 
+use layers if you believe they add value in keeping your application 
+maintainable. Indeed, even if you do choose to use layers, you do not need to 
+use them everywhere in your application as an absolute requirement.
 
-If you look closely at the application as well as the opening image in this section, it is perfectly OK to skip layers per use case. For 
-example, it is quite common for the interface layer to skip the application layer and communicate directly with the domain layer. In 
-many other cases, having a layer will clearly add value by separating 
-concerns, improving testability, reducing coupling, and enhancing semantic 
-clarity. A helpful example of this is the 
+If you look closely at the application as well as the opening image in this 
+section, it is perfectly OK to skip layers per use case. For example, it is 
+quite common for the interface layer to skip the application layer and 
+communicate directly with the domain layer. In many other cases, having a 
+layer will clearly add value by separating concerns, improving testability, 
+reducing coupling, and enhancing semantic clarity. A helpful example of this 
+is the 
 https://github.com/eclipse-ee4j/cargotracker/tree/master/src/main/java/org/eclipse/cargotracker/application/internal/DefaultBookingService.java/[BookingService] 
 implementation.
