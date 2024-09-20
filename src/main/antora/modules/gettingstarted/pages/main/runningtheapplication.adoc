@@ -1,17 +1,22 @@
 == Running the Application
 
-The project is Maven based, so you should be able to easily build it or set it up in your favorite IDE. We currently 
-have xref:vscode:main/main.adoc[instructions for Visual Studio Code].
+The project is Maven based, so you should be able to easily build it or set it 
+up in your favorite IDE. We currently have 
+xref:vscode:main/main.adoc[instructions for Visual Studio Code].
 
 You can also run the application directly from the Maven command line using the 
-https://codehaus-cargo.github.io/cargo/Maven2+plugin.html[Cargo Maven plugin]. All you need to do is navigate to the project source root 
-and type the following (please make sure you have Java SE 11/Java SE 17 and JAVA_HOME set correctly):
+https://codehaus-cargo.github.io/cargo/Maven2+plugin.html[Cargo Maven plugin]. 
+All you need to do is navigate to the project source root and type the 
+following (please make sure you have Java SE 11/Java SE 17 and JAVA_HOME set 
+correctly):
 
 `mvn clean package cargo:run`
 
-Once the application starts up, just open up a browser and navigate to http://localhost:8080/cargo-tracker/.
+Once the application starts up, just open up a browser and navigate to 
+http://localhost:8080/cargo-tracker/.
 
-This will run the application with Payara Server by default. The project also has Maven profiles to support GlassFish and Open Liberty. 
+This will run the application with Payara Server by default. The project also 
+has Maven profiles to support GlassFish and Open Liberty. 
 For example you can run using GlassFish using the following command:
 
 `mvn clean package -Pglassfish cargo:run`
