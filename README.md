@@ -14,9 +14,7 @@ The documentation is organized as follows:
 - **Jakarta EE and DDD**: Provides a brief overview of DDD as it relates to 
   this project and Jakarta EE
 
-- **Characterization**: Overviews how the basic building blocks of the domain
-  - entities, value objects, aggregates, services, repositories and factories 
-  - are implemented in the application using Jakarta EE
+- **Characterization**: Overviews how the basic building blocks of the domain - entities, value objects, aggregates, services, repositories and factories - are implemented in the application using Jakarta EE
 
 - **Layers**: Explains the architectural layers in the application and how they 
   relate to various Jakarta EE APIs
