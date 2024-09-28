@@ -29,8 +29,8 @@ Please follow the steps below to make your changes:
 
 1. Fork the repository.
 2. Make your changes.
-3. Ensure that your changes adhere to the project's style and formatting 
-   guidelines.
+3. Ensure that your changes adhere to the project's [style and formatting 
+   guidelines](STYLE_GUIDE.adoc).
 4. The Cargo Tracker documentation is built using the 
 [Jakarta EE documentation playbook](https://github.com/jakartaee/jakartaee-documentation/blob/main/antora-playbook.yml). Read through the 
 [README for Jakarta EE documentation](https://github.com/jakartaee/jakartaee-documentation/blob/main/README.md) to understand how to build and test the Cargo Tracker documentation.
