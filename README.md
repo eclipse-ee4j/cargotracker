@@ -32,10 +32,10 @@ Please follow the steps below to make your changes:
    guidelines.
 4. Submit a pull request with a clear description of your changes.
 
-## Building the Documentation Site
+## Building the Documentation
 
-The Cargo Tracker documentation site is built using the 
-[jakartaee tutorial's playbook](https://github.com/jakartaee/jakartaee-documentation/blob/main/antora-playbook.yml).
+The Cargo Tracker documentation is built using the 
+[Jakarta EE documentation playbook](https://github.com/jakartaee/jakartaee-documentation/blob/main/antora-playbook.yml).
 
 Read through the 
 [README.md](https://github.com/jakartaee/jakartaee-documentation/blob/main/README.md) 
