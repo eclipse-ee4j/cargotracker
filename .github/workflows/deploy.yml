@@ -1,0 +1,27 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches: [docs] # Trigger on push to the docs branch
+  pull_request:
+    branches: [docs] # Trigger on PR merge to the docs branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Trigger redeployment of Antora playbook
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        uses: convictional/trigger-workflow-and-wait@v1.6.5
+        with:
+          github_token: ${{ secrets.WORKFLOW_ACCESS_TOKEN }}
+          owner: jakartaee
+          repo: jakartaee-documentation
+          workflow_file_name: build-and-deploy.yml
+          wait_interval: 3
+          wait_workflow: false
+          propagate_failure: false
