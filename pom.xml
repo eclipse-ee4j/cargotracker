@@ -19,27 +19,64 @@
     <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
   </issueManagement>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
-    <maven.compiler.release>11</maven.compiler.release>
+    <checkstyle.version>10.18.2</checkstyle.version>
     <jakartaee-api.version>10.0.0</jakartaee-api.version>
+    <maven.antrun-plugin.version>3.1.0</maven.antrun-plugin.version>
+    <maven.cargo-plugin.version>1.10.15</maven.cargo-plugin.version>
+    <maven.changes-plugin.version>2.12.1</maven.changes-plugin.version>
+    <maven.checkstyle-plugin.version>3.5.0</maven.checkstyle-plugin.version>
+    <maven.clean-plugin.version>3.4.0</maven.clean-plugin.version>
+    <maven.compiler-plugin.version>3.13.0</maven.compiler-plugin.version>
+    <maven.compiler.release>11</maven.compiler.release>
+    <maven.dependency-plugin.version>3.8.0</maven.dependency-plugin.version>
+    <maven.deploy-plugin.version>3.1.3</maven.deploy-plugin.version>
+    <maven.directory-maven-plugin.version>1.0</maven.directory-maven-plugin.version>
+    <maven.enforcer-plugin.version>3.5.0</maven.enforcer-plugin.version>
+    <maven.exec-plugin.version>3.4.1</maven.exec-plugin.version>
+    <maven.install-plugin.version>3.1.3</maven.install-plugin.version>
+    <maven.jacoco-plugin.version>0.8.12</maven.jacoco-plugin.version>
+    <maven.jar-plugin.version>3.4.2</maven.jar-plugin.version>
+    <maven.javadoc-plugin.version>3.10.1</maven.javadoc-plugin.version>
+    <maven.jxr-plugin.version>3.5.0</maven.jxr-plugin.version>
+    <maven.license-plugin.version>2.4.0</maven.license-plugin.version>
+    <!-- TODO Upgrade to 3.25.0+ once we move to PMD 7.6.0+ -->
+    <maven.pmd-plugin.version>3.21.2</maven.pmd-plugin.version>
+    <maven.project-info-reports-plugin.version>3.7.0</maven.project-info-reports-plugin.version>
+    <maven.rat-plugin.version>0.16.1</maven.rat-plugin.version>
+    <maven.resources-plugin.version>3.3.1</maven.resources-plugin.version>
+    <maven.site-plugin.version>4.0.0-M16</maven.site-plugin.version>
+    <maven.source-plugin.version>3.3.1</maven.source-plugin.version>
+    <maven.spotbugs-plugin.version>4.8.6.4</maven.spotbugs-plugin.version>
+    <maven.surefire-plugin.version>3.5.0</maven.surefire-plugin.version>
+    <maven.war-plugin.version>3.4.0</maven.war-plugin.version>
+    <maven.version>3.9.9</maven.version>
+    <maven.versions-plugin.version>2.17.1</maven.versions-plugin.version>
+    <mutability.detector.version>0.9.1</mutability.detector.version>
+    <!-- TODO Migrate to 7.6.0+ -->
+    <pmd.version>6.55.0</pmd.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.github.repository>eclipse-ee4j/cargotracker</project.github.repository>
+    <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
+    <repository.url>git@github.com:${project.github.repository}.git</repository.url>
+    <spotbugs.version>4.8.6</spotbugs.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <!-- Arquillian Bill Of Management used to reduce collision between testing
       dependencies. Using a dependency manager we don't need to specify the version of
       each Arquillian dependency. -->
+      <!-- TODO explore if we can move to 1.9.1.Final -->
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
-        <version>1.7.1.Final</version>
+        <version>1.7.2.Final</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.0</version>
+        <version>5.11.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -57,6 +94,7 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
+    <!-- TODO see if we can move to 14.0.5 -->
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
@@ -69,6 +107,7 @@
       <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- TODO See if we can move to 3.0 -->
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
@@ -78,7 +117,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.24.2</version>
+      <version>3.26.3</version>
       <scope>test</scope>
     </dependency>
     <!-- Arquillian dependencies -->
@@ -89,6 +128,7 @@
     </dependency>
     <!-- Resolvers are needed in the Arquillian tests. This is used for adding all
     the runtime dependencies inside a testing war. -->
+    <!-- TODO see if we can move to 3.3.1 -->
     <dependency>
       <groupId>org.jboss.shrinkwrap.resolver</groupId>
       <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
@@ -109,28 +149,379 @@
   </dependencies>
   <build>
     <finalName>cargo-tracker</finalName>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${maven.spotbugs-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>${spotbugs.version}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <excludeFilterFile>spotbugs-excludes.xml</excludeFilterFile>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-changes-plugin</artifactId>
+          <version>${maven.changes-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${maven.checkstyle-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>${checkstyle.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven.clean-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler-plugin.version}</version>
+          <configuration>
+            <source>{maven.compiler.release}</source>
+            <target>{maven.compiler.release}</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven.dependency-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven.deploy-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven.enforcer-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireMavenVersion>
+                    <version>${maven.version}</version>
+                  </requireMavenVersion>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven.install-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven.jar-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven.javadoc-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>${maven.jxr-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${maven.pmd-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-core</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-java</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-javascript</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-jsp</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven.source-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven.surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven.site-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${maven.project-info-reports-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven.resources-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>${maven.antrun-plugin.version}</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <version>${maven.rat-plugin.version}</version>
+            <executions>
+                <execution>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                    <configuration>
+                        <excludes>
+                            <exclude>gclogs/**</exclude>
+                        </excludes>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${maven.exec-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>${maven.license-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${maven.versions-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.commonjava.maven.plugins</groupId>
+          <artifactId>directory-maven-plugin</artifactId>
+          <version>${maven.directory-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${maven.jacoco-plugin.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.3.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>${maven.war-plugin.version}</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+          <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.hjug.refactorfirst.plugin</groupId>
+        <artifactId>refactor-first-maven-plugin</artifactId>
+        <version>0.6.0</version>
+        <!-- optional -->
+        <configuration>
+          <showDetails>true</showDetails>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+  <!-- If versions are not explicitly set it means they're inheriting from the pluginManagement section above -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <configuration>
+          <plugins>
+            <plugin>
+              <groupId>org.mutabilitydetector</groupId>
+              <artifactId>MutabilityDetector4FindBugs</artifactId>
+              <version>${mutability.detector.version}</version>
+            </plugin>
+          </plugins>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <!-- TODO This configuration is only for when we produce GitHub published reports -->
+        <configuration>
+          <githubAPIScheme>https</githubAPIScheme>
+          <githubAPIPort>443</githubAPIPort>
+          <includeOpenIssues>false</includeOpenIssues>
+          <onlyCurrentVersion>false</onlyCurrentVersion>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <!-- TODO -->
+              <!-- <report>github-report</report> -->
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetJdk>${maven.compiler.release}</targetJdk>
+          <rulesets>
+            <!-- A rule set, that comes bundled with PMD -->
+            <ruleset>pmd-ruleset.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependency-updates-report</report>
+              <report>plugin-updates-report</report>
+              <report>property-updates-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${maven.jacoco-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.hjug.refactorfirst.plugin</groupId>
+        <artifactId>refactor-first-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
   <profiles>
     <!-- The currently supported application servers are represented as profiles -->
     <profile>
@@ -139,6 +530,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
+        <!-- TODO Move to 6.2024.9 -->
         <payara.version>6.2024.6</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
@@ -190,12 +582,12 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.1.2</version>
+            <version>${maven.surefire-plugin.version}</version>
           </plugin>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.9</version>
+            <version>${maven.cargo-plugin.version}</version>
             <configuration>
               <container>
                 <containerId>payara</containerId>
@@ -214,11 +606,11 @@
     <profile>
       <id>glassfish</id>
       <properties>
-       <glassfish.version>7.0.15</glassfish.version>
+       <glassfish.version>7.0.17</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
-        <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a full-qualified
+        <!-- H2 file engine requires an absolute path, e.g., ~/name, ./name or a full-qualified
         path name (it should include driver name under Windows). -->
         <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
         <db.user />
@@ -233,6 +625,7 @@
           <scope>provided</scope>
         </dependency>
         <!-- Embedding the JDBC driver in the WAR works in GlassFish -->
+        <!-- TODO move to 2.3.232 -->
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
@@ -262,7 +655,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.1.2</version>
+            <version>${maven.surefire-plugin.version}</version>
             <configuration>
               <systemPropertyVariables>
                 <arquillian.launch>glassfish</arquillian.launch>
@@ -275,7 +668,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.9</version>
+            <version>${maven.cargo-plugin.version}</version>
             <configuration>
               <container>
                 <containerId>glassfish7x</containerId>
@@ -292,7 +685,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.6.0</version>
+            <version>${maven.dependency-plugin.version}</version>
             <executions>
               <execution>
                 <id>unpack</id>
@@ -318,7 +711,7 @@
           <!-- This modifies configuration of GlassFish for tests - changes the HTTP port to 9090 -->
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>${maven.antrun-plugin.version}</version>
             <executions>
               <execution>
                 <phase>process-test-classes</phase>
@@ -392,7 +785,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.6.0</version>
+            <version>${maven.dependency-plugin.version}</version>
             <executions>
               <execution>
                 <id>copy</id>
@@ -418,7 +811,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.1.2</version>
+            <version>${maven.surefire-plugin.version}</version>
           </plugin>
         </plugins>
       </build>
@@ -463,7 +856,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.8.2</version>
+            <version>3.10.3</version>
             <configuration>
               <copyDependencies>
                 <dependencyGroup>
@@ -489,7 +882,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.1.2</version>
+            <version>${maven.surefire-plugin.version}</version>
             <configuration>
               <systemPropertyVariables>
                 <arquillian.launch>openliberty</arquillian.launch>
