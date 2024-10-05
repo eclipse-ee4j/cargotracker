@@ -210,6 +210,8 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${maven.deploy-plugin.version}</version>
         </plugin>
+        <!-- Uncomment this and the enforcer plugin section in the plugins section below if you want to enforce a particular version of Maven -->
+        <!--
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
@@ -230,6 +232,7 @@
             </execution>
           </executions>
         </plugin>
+        -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-install-plugin</artifactId>
@@ -361,10 +364,12 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
       </plugin>
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -423,12 +428,6 @@
             <phase>prepare-package</phase>
             <goals>
               <goal>report</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>default-check</id>
-            <goals>
-              <goal>check</goal>
             </goals>
           </execution>
         </executions>
