@@ -34,7 +34,7 @@ public class DefaultHandlingEventService implements HandlingEventService {
 
     /*
      * Using a factory to create a HandlingEvent (aggregate). This is where it is
-     * determined wether the incoming data, the attempt, actually is capable of
+     * determined whether the incoming data, the attempt, actually is capable of
      * representing a real handling event.
      */
     HandlingEvent event =
