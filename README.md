@@ -1,6 +1,7 @@
 # Eclipse Cargo Tracker Documentation
 
-This is the official documentation for the Eclipse Cargo Tracker project. The documentation uses AsciiDoc/Antora. The documentation is published at: https://jakarta.ee/learn/docs/cargotracker-documentation/current/index.html.
+This is the official documentation for the Eclipse Cargo Tracker project. The documentation uses AsciiDoc and Antora. The documentation is published
+at: https://jakarta.ee/learn/docs/cargotracker-documentation/current/index.html.
 
 ## Documentation Structure
 
