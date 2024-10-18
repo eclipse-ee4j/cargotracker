@@ -3,7 +3,6 @@ name: Build and Deploy Documentation
 on:
   push:
     branches: [docs] # Trigger on push to the docs branch
-  workflow_dispatch:
 
 jobs:
   build:
