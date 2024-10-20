@@ -28,7 +28,6 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
-import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 
 /**
  * The actual transportation of the cargo, as opposed to the customer requirement
@@ -139,7 +138,7 @@ public class Delivery implements Serializable {
   }
 
   public Location getLastKnownLocation() {
-    return DomainObjectUtils.nullSafe(lastKnownLocation, Location.UNKNOWN);
+    return this.lastKnownLocation == null ? Location.UNKNOWN : this.lastKnownLocation;
   }
 
   public void setLastKnownLocation(Location lastKnownLocation) {
@@ -151,7 +150,7 @@ public class Delivery implements Serializable {
   }
 
   public Voyage getCurrentVoyage() {
-    return DomainObjectUtils.nullSafe(currentVoyage, Voyage.NONE);
+    return this.currentVoyage == null ? Voyage.NONE : this.currentVoyage;
   }
 
   /**

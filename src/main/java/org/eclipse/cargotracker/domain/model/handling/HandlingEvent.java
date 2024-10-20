@@ -21,7 +21,6 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
-import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 
 /**
  * A HandlingEvent is used to register the event when, for instance, a cargo is unloaded from a
@@ -157,7 +156,7 @@ public class HandlingEvent implements Serializable {
   }
 
   public Voyage getVoyage() {
-    return DomainObjectUtils.nullSafe(this.voyage, Voyage.NONE);
+    return this.voyage == null ? Voyage.NONE : this.voyage;
   }
 
   public LocalDateTime getCompletionTime() {

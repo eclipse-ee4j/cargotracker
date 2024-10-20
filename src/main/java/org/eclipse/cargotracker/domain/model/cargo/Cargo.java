@@ -13,7 +13,6 @@ import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
 import org.eclipse.cargotracker.domain.model.location.Location;
-import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 
 /**
  * A Cargo. This is the central class in the domain model, and it is the root of the
@@ -124,7 +123,7 @@ public class Cargo implements Serializable {
    * @return The itinerary. Never null.
    */
   public Itinerary getItinerary() {
-    return DomainObjectUtils.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
+    return this.itinerary == null ? Itinerary.EMPTY_ITINERARY : this.itinerary;
   }
 
   /** Specifies a new route for this cargo. */
