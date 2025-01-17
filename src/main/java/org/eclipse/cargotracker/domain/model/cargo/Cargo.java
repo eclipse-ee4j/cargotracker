@@ -39,15 +39,15 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
  * the cargo is contained in the Delivery value object, which is replaced whenever a cargo is
  * handled by an asynchronous event triggered by the registration of the handling event.
  *
- * <p>The delivery can also be affected by routing changes, i.e. when a the route specification
+ * <p>The delivery can also be affected by routing changes, i.e. when the route specification
  * changes, or the cargo is assigned to a new route. In that case, the delivery update is performed
  * synchronously within the cargo aggregate.
  *
  * <p>The life cycle of a cargo ends when the cargo is claimed by the customer.
  *
  * <p>The cargo aggregate, and the entire domain model, is built to solve the problem of booking and
- * tracking cargo. All important business rules for determining whether or not a cargo is
- * misdirected, what the current status of the cargo is (on board carrier, in port etc), are
+ * tracking cargo. All important business rules for determining whether a cargo is
+ * misdirected, what the current status of the cargo is (on board carrier, in port etc.), are
  * captured in this aggregate.
  */
 @Entity
