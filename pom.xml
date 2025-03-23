@@ -25,7 +25,8 @@
   <properties>
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee.api.version>10.0.0</jakartaee.api.version>
-    <maven.cargo-plugin.version>1.10.15</maven.cargo-plugin.version>
+    <surefire.version>3.5.1</surefire.version>    
+    <cargo.plugin.version>1.10.15</cargo.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
   </properties>
   <dependencyManagement>
@@ -183,7 +184,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>${maven.cargo-plugin.version}</version>
+            <version>${cargo.plugin.version}</version>
             <configuration>
               <container>
                 <containerId>payara</containerId>
@@ -249,7 +250,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.5.2</version>
+            <version>${surefire.version}</version>
             <configuration>
               <systemPropertyVariables>
                 <arquillian.launch>glassfish</arquillian.launch>
@@ -262,7 +263,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>${maven.cargo-plugin.version}</version>
+            <version>${cargo.plugin.version}</version>
             <configuration>
               <container>
                 <containerId>glassfish7x</containerId>
@@ -472,7 +473,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.5.1</version>
+            <version>${surefire.version}</version>
             <configuration>
               <systemPropertyVariables>
                 <arquillian.launch>openliberty</arquillian.launch>
