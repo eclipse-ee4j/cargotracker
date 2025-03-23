@@ -154,7 +154,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2024.9</payara.version>
+        <payara.version>6.2025.3</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -224,15 +224,15 @@
     <profile>
       <id>glassfish</id>
       <properties>
-       <glassfish.version>7.0.18</glassfish.version>
+       <glassfish.version>7.0.22</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
         <!-- H2 file engine requires an absolute path, e.g., ~/name, ./name or a full-qualified
         path name (it should include driver name under Windows). -->
         <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
-        <db.user />
-        <db.password />
+        <db.user/>
+        <db.password/>
       </properties>
       <dependencies>
         <!-- We need a Jersey specific dependency for property name constants -->
@@ -352,7 +352,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2024.9</payara.version>
+        <payara.version>6.2025.3</payara.version>
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line. For example:
@@ -464,7 +464,6 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
-
       <build>
         <plugins>
         <!-- Enable liberty-maven plugin -->
