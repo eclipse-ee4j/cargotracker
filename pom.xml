@@ -26,7 +26,7 @@
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee.api.version>10.0.0</jakartaee.api.version>
     <maven.cargo-plugin.version>1.10.15</maven.cargo-plugin.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -139,8 +139,8 @@
         <!-- H2 file engine requires an absolute path, e.g., ~/name, ./name or a full-qualified
         path name (it should include driver name under Windows). -->
         <db.jdbcUrl>jdbc:h2:file:./cargo-tracker-data/cargo-tracker-database</db.jdbcUrl>
-        <db.user />
-        <db.password />
+        <db.user/>
+        <db.password/>
       </properties>
       <dependencies>
         <!-- We need a Jersey specific dependency for property name constants -->
@@ -414,8 +414,6 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <maven.liberty-plugin.version>3.11.0</maven.liberty-plugin.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <db.driverClass>org.hsqldb.jdbc.JDBCDriver</db.driverClass>
         <db.jdbcUrl>jdbc:hsqldb:file:./cargo-tracker-data/cargo-tracker-database;create=true</db.jdbcUrl>
@@ -448,7 +446,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>${maven.liberty-plugin.version}</version>
+            <version>3.11.0</version>
             <configuration>
               <copyDependencies>
                 <dependencyGroup>
