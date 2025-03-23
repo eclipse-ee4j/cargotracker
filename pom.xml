@@ -23,9 +23,9 @@
     <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
   </issueManagement>
   <properties>
-    <maven.cargo-plugin.version>1.10.15</maven.cargo-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
-    <maven.war-plugin.version>3.4.0</maven.war-plugin.version>
+    <jakartaee.api.version>10.0.0</jakartaee.api.version>
+    <maven.cargo-plugin.version>1.10.15</maven.cargo-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencyManagement>
@@ -53,7 +53,7 @@
     <dependency>
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-api</artifactId>
-      <version>10.0.0</version>
+      <version>${jakartaee.api.version}</version>
       <scope>provided</scope>
     </dependency>
     <!-- The third-party dependencies this application has -->
@@ -116,7 +116,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>${maven.war-plugin.version}</version>
+        <version>3.4.0</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
