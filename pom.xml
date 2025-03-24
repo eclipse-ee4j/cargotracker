@@ -249,7 +249,7 @@
                 <arquillian.launch>glassfish</arquillian.launch>
               </systemPropertyVariables>
               <environmentVariables>
-                <GLASSFISH_HOME>${project.build.directory}/glassfish7</GLASSFISH_HOME>
+                <GLASSFISH_HOME>/tmp/glassfish7</GLASSFISH_HOME>
               </environmentVariables>
             </configuration>
           </plugin>
@@ -288,8 +288,8 @@
                       <artifactId>glassfish</artifactId>
                       <version>${glassfish.version}</version>
                       <type>zip</type>
-                      <overWrite>false</overWrite>
-                      <outputDirectory>${project.build.directory}</outputDirectory>
+                      <overWrite>true</overWrite>
+                      <outputDirectory>/tmp</outputDirectory>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -305,7 +305,7 @@
                 <phase>process-test-classes</phase>
                 <configuration>
                   <target>
-                    <replace file="${project.build.directory}/glassfish7/glassfish/domains/domain1/config/domain.xml" token="&quot;8080&quot;" value="&quot;9090&quot;"/>
+                    <replace file="/tmp/glassfish7/glassfish/domains/domain1/config/domain.xml" token="&quot;8080&quot;" value="&quot;9090&quot;"/>
                   </target>
                 </configuration>
                 <goals>
