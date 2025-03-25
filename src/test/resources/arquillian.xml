@@ -15,7 +15,7 @@
   </container>
   <container qualifier="glassfish">
     <configuration>
-      <property name="allowConnectingToRunningServer">false</property>
+      <property name="allowConnectingToRunningServer">true</property>
       <property name="adminPort">4848</property>
       <property name="enableDerby">false</property>
       <property name="outputToConsole">true</property>
