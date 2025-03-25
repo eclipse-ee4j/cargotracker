@@ -26,9 +26,11 @@
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee.api.version>10.0.0</jakartaee.api.version>
     <surefire.version>3.5.1</surefire.version>
+    <dependency.plugin.version>3.8.0</dependency.plugin.version>
     <cargo.plugin.version>1.10.15</cargo.plugin.version>
+    <h2.version>2.3.232</h2.version>
     <payara.version>6.2025.3</payara.version>
-    <h2.version>2.3.232</h2.version>    
+    <payara.arquillian.adapter.version>3.1</payara.arquillian.adapter.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
   </properties>
   <dependencyManagement>
@@ -169,14 +171,14 @@
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
-          <version>3.1</version>
+          <version>${payara.arquillian.adapter.version}</version>
           <scope>test</scope>
         </dependency>
         <!-- Needed at the moment for Jakarta EE 10 support -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>payara-client-ee9</artifactId>
-          <version>3.1</version>
+          <version>${payara.arquillian.adapter.version}</version>
           <scope>test</scope>
         </dependency>        
       </dependencies>
@@ -204,7 +206,7 @@
     <profile>
       <id>glassfish</id>
       <properties>
-       <glassfish.version>7.0.22</glassfish.version>
+        <glassfish.version>7.0.22</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -274,7 +276,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.8.0</version>
+            <version>${dependency.plugin.version}</version>
             <executions>
               <execution>
                 <id>unpack</id>
@@ -328,7 +330,9 @@
         <webapp.graphTraversalUrl>http://localhost:8080/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.postgresql.ds.PGPoolingDataSource</db.driverClass>
         <!-- Pass in via command line. For example:
-        ./mvnw clean package -Pcloud -DpostgreSqlJdbcUrl="jdbc:postgresql://host.docker.internal:5432/postgres" -DpostgreSqlUsername="postgres" -DpostgreSqlPassword="postgres"
+             ./mvnw clean package -Pcloud 
+                                  -DpostgreSqlJdbcUrl="jdbc:postgresql://host.docker.internal:5432/postgres" 
+                                  -DpostgreSqlUsername="postgres" -DpostgreSqlPassword="postgres"
         -->
         <!--suppress UnresolvedMavenProperty -->
         <db.jdbcUrl>${postgreSqlJdbcUrl}</db.jdbcUrl>
@@ -354,13 +358,13 @@
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
-          <version>3.1</version>
+          <version>${payara.arquillian.adapter.version}</version>
           <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>payara-client-ee9</artifactId>
-          <version>3.1</version>
+          <version>${payara.arquillian.adapter.version}</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -369,7 +373,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.8.0</version>
+            <version>${dependency.plugin.version}</version>
             <executions>
               <execution>
                 <id>copy</id>
