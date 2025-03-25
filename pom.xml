@@ -206,7 +206,7 @@
     <profile>
       <id>glassfish</id>
       <properties>
-        <glassfish.version>7.0.15</glassfish.version>
+        <glassfish.version>7.0.21</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
