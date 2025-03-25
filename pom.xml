@@ -206,7 +206,7 @@
     <profile>
       <id>glassfish</id>
       <properties>
-        <glassfish.version>7.0.22</glassfish.version>
+        <glassfish.version>7.0.10</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -252,7 +252,7 @@
                 <arquillian.launch>glassfish</arquillian.launch>
               </systemPropertyVariables>
               <environmentVariables>
-                <GLASSFISH_HOME>/tmp/glassfish7</GLASSFISH_HOME>
+                <GLASSFISH_HOME>${project.build.directory}/glassfish7</GLASSFISH_HOME>
               </environmentVariables>
             </configuration>
           </plugin>
@@ -292,7 +292,7 @@
                       <version>${glassfish.version}</version>
                       <type>zip</type>
                       <overWrite>true</overWrite>
-                      <outputDirectory>/tmp</outputDirectory>
+                      <outputDirectory>${project.build.directory}</outputDirectory>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
@@ -308,7 +308,7 @@
                 <phase>process-test-classes</phase>
                 <configuration>
                   <target>
-                    <replace file="/tmp/glassfish7/glassfish/domains/domain1/config/domain.xml" token="&quot;8080&quot;" value="&quot;9090&quot;"/>
+                    <replace file="${project.build.directory}/glassfish7/glassfish/domains/domain1/config/domain.xml" token="&quot;8080&quot;" value="&quot;9090&quot;"/>
                   </target>
                 </configuration>
                 <goals>
