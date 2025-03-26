@@ -3,6 +3,7 @@ package org.eclipse.cargotracker.domain.model.handling;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,7 +22,6 @@ import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
-import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 
 /**
  * A HandlingEvent is used to register the event when, for instance, a cargo is unloaded from a
@@ -157,7 +157,7 @@ public class HandlingEvent implements Serializable {
   }
 
   public Voyage getVoyage() {
-    return DomainObjectUtils.nullSafe(this.voyage, Voyage.NONE);
+    return Optional.ofNullable(this.voyage).orElse(Voyage.NONE);
   }
 
   public LocalDateTime getCompletionTime() {

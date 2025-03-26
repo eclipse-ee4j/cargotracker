@@ -44,7 +44,6 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.domain.service.RoutingService;
 import org.eclipse.cargotracker.domain.shared.AbstractSpecification;
 import org.eclipse.cargotracker.domain.shared.AndSpecification;
-import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
 import org.eclipse.cargotracker.domain.shared.NotSpecification;
 import org.eclipse.cargotracker.domain.shared.OrSpecification;
 import org.eclipse.cargotracker.domain.shared.Specification;
@@ -119,7 +118,6 @@ public class BookingServiceTest {
         .addClass(HandlingActivity.class)
         .addClass(RoutingStatus.class)
         .addClass(HandlingHistory.class)
-        .addClass(DomainObjectUtils.class)
         .addClass(CargoRepository.class)
         .addClass(LocationRepository.class)
         .addClass(VoyageRepository.class)
