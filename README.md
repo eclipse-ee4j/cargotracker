@@ -165,4 +165,7 @@ For further guidance on contributing including the project roadmap, please look 
   this occurs, you will need to stop the application and clean the database. You
   can do this by simply removing the cargo-tracker-data directory from the file
   system and restarting the application. This directory will typically be under $your-payara-installation/glassfish/domains/domain1/config.
+* While using GlassFish, if tests fail with a `CIRCULAR REFERENCE` error, it means GlassFish start up timed out. The default timeout is 60 seconds. This may not be
+  enough on some systems, especially if virus scanners like Windows Defender are delaying GlassFish start up. You can increase GlassFish start up timeout
+  by setting the `AS_START_TIMEOUT` environment variable. For example, you can set it to 180000 for a 3 minute timeout.
 * While running with Open Liberty, you will notice a number of spurious errors. You will see shrinkwrap features warnings, message-driven bean warnings, the AggregateObjectMapping nested foreign key warning, I/O errors, etc. You can safely ignore these. They don't affect the application functionality.
