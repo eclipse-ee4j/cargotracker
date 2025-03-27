@@ -156,7 +156,6 @@ For further guidance on contributing including the project roadmap, please look 
 ## Known Issues
 * When using Visual Studio Code, please make sure that the JAVA_HOME environment variable is correctly set up. If it is not configured properly, you will be unable to select a domain when adding a Payara Server instance in Visual Studio Code.
 * When using Visual Studio Code, please make sure that Payara is not installed in a path with a space (for example: C:\Program Files\payara6). Payara will fail to start with the Payara Tools extension. Install Payara on a path without spaces (for example: C:\payara6).
-* Presently, Jakarta EE 10 and Payara 6 encounters operational challenges within Eclipse IDE. Consequently, we have adopted Visual Studio Code as an alternative. We wholeheartedly welcome contributions aimed at rectifying the compatibility disparity within Eclipse IDE. Your input towards resolving this issue would be greatly appreciated.
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
   explained [here](https://github.com/payara/Payara/issues/3038).
