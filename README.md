@@ -50,7 +50,7 @@ To set up in Visual Studio Code, follow these steps:
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it should automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
 
-You can similarly use GlassFish or Open Liberty in Visual Studio Code.
+You can similarly use GlassFish or Open Liberty in Visual Studio Code or Eclipse IDE for Enterprise and Web Developers.
 
 ## Exploring the Application
 
