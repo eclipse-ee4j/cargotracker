@@ -41,7 +41,7 @@
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
-        <version>1.7.2.Final</version>
+        <version>1.8.0.Final</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-server</artifactId>
-      <version>3.1.8</version>
+      <version>3.1.10</version>
       <scope>provided</scope>
     </dependency>    
     <!-- Test dependencies -->
@@ -88,7 +88,6 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
-      <version>3.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -430,7 +429,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.11.0</version>
+            <version>3.11.3</version>
             <configuration>
               <copyDependencies>
                 <dependencyGroup>
