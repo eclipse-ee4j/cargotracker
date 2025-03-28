@@ -25,9 +25,9 @@
   <properties>
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee.api.version>10.0.0</jakartaee.api.version>
-    <surefire.version>3.5.1</surefire.version>
-    <dependency.plugin.version>3.8.0</dependency.plugin.version>
-    <cargo.plugin.version>1.10.15</cargo.plugin.version>
+    <surefire.version>3.5.2</surefire.version>
+    <dependency.plugin.version>3.8.1</dependency.plugin.version>
+    <cargo.plugin.version>1.10.18</cargo.plugin.version>
     <h2.version>2.3.232</h2.version>
     <payara.version>6.2025.3</payara.version>
     <payara.arquillian.adapter.version>3.1</payara.arquillian.adapter.version>
@@ -48,7 +48,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.11.2</version>
+        <version>5.12.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -94,7 +94,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.26.3</version>
+      <version>3.27.3</version>
       <scope>test</scope>
     </dependency>
     <!-- Arquillian dependencies -->
@@ -130,7 +130,6 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.4.0</version>
         <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
           <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
         </configuration>
       </plugin>
@@ -388,7 +387,7 @@
                 <artifactItem>
                   <groupId>org.postgresql</groupId>
                   <artifactId>postgresql</artifactId>
-                  <version>42.7.4</version>
+                  <version>42.7.5</version>
                   <overWrite>true</overWrite>
                   <outputDirectory>${project.build.directory}</outputDirectory>
                   <destFileName>postgresql.jar</destFileName>
