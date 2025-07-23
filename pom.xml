@@ -494,6 +494,17 @@
                 </configuration>
               </execution>
               <execution>
+                <id>install-app</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>deploy</goal>
+                </goals>
+                <configuration>
+                  <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
+                  <deployPackages>all</deployPackages>
+                </configuration>
+              </execution>
+              <execution>
                 <id>start-liberty-server</id>
                 <phase>pre-integration-test</phase>
                 <goals>
