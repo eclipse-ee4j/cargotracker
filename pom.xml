@@ -465,5 +465,117 @@
         </plugins>
       </build>
     </profile>
+    
+    <!-- JMeter profile for integration testing -->
+    <profile>
+      <id>jmeter</id>
+      <properties>
+        <jmeter.version>5.6.3</jmeter.version>
+        <skipUnitTests>true</skipUnitTests>
+        <skipPerformanceTests>false</skipPerformanceTests>
+      </properties>
+      <build>
+        <plugins>
+          <!-- Plugin to start Liberty in the background during pre-integration-test phase -->
+          <plugin>
+            <groupId>io.openliberty.tools</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+            <version>3.11.3</version>
+            <executions>
+              <execution>
+                <id>package-app</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>package</goal>
+                </goals>
+                <configuration>
+                  <packageName>${project.build.finalName}</packageName>
+                  <include>runnable</include>
+                </configuration>
+              </execution>
+              <execution>
+                <id>start-liberty-server</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>stop-liberty-server</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <!-- Plugin to run JMeter test during integration-test phase -->
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>3.8.0</version>
+            <executions>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+                <phase>pre-integration-test</phase>
+                <configuration>
+                  <skipTests>${skipPerformanceTests}</skipTests>
+                </configuration>
+              </execution>
+              <execution>
+                <id>run-jmeter-tests</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+                <configuration>
+                  <skipTests>${skipPerformanceTests}</skipTests>
+                </configuration>
+              </execution>
+            </executions>
+            <configuration>
+              <testFilesDirectory>${project.basedir}/src/main/tests/jmeter</testFilesDirectory>
+              <testFilesIncluded>
+                <testFilesIncluded>Cargotracker-week29.jmx</testFilesIncluded>
+              </testFilesIncluded>
+              <resultsDirectory>${project.build.directory}/jmeter-results</resultsDirectory>
+              <ignoreResultFailures>true</ignoreResultFailures>
+              <propertiesUser>
+                <BASE_URL_1>localhost</BASE_URL_1>
+              </propertiesUser>
+            </configuration>
+          </plugin>
+          
+          <!-- Skip unit tests in this profile -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surefire.version}</version>
+            <configuration>
+              <skip>${skipUnitTests}</skip>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <!-- JMeter dependencies -->
+        <dependency>
+          <groupId>org.apache.jmeter</groupId>
+          <artifactId>ApacheJMeter_core</artifactId>
+          <version>${jmeter.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.jmeter</groupId>
+          <artifactId>ApacheJMeter_http</artifactId>
+          <version>${jmeter.version}</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
 </project>
