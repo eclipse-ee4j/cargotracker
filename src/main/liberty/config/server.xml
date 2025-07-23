@@ -123,7 +123,7 @@
   </ejbContainer>
 
   <webApplication contextRoot="cargo-tracker" location="cargo-tracker.war">
-    <classloader commonLibraryRef="dbLib"/>
+    <classloader commonLibraryRef="dbLib" delegation="parentLast"/>
     <web-bnd moduleName="cargo-tracker">
       <env-entry name="java:app/configuration/GraphTraversalUrl" value="http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path"/>
     </web-bnd>
