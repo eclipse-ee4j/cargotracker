@@ -499,6 +499,10 @@
                 <goals>
                   <goal>start</goal>
                 </goals>
+                <configuration>
+                  <serverStartTimeout>120</serverStartTimeout>
+                  <verifyTimeout>60</verifyTimeout>
+                </configuration>
               </execution>
               <execution>
                 <id>stop-liberty-server</id>
@@ -546,6 +550,7 @@
               <ignoreResultFailures>true</ignoreResultFailures>
               <propertiesUser>
                 <BASE_URL_1>localhost</BASE_URL_1>
+                <WAIT_TIME>30000</WAIT_TIME>
               </propertiesUser>
             </configuration>
           </plugin>

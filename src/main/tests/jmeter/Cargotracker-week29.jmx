@@ -24,6 +24,11 @@
             <stringProp name="Argument.value">localhost</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="WAIT_TIME" elementType="Argument">
+            <stringProp name="Argument.name">WAIT_TIME</stringProp>
+            <stringProp name="Argument.value">30000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -74,6 +79,18 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
+        <!-- Add pause to wait for application to initialize -->
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pause - Wait for Application Initialization">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration">${WAIT_TIME}</stringProp>
+        </TestAction>
+        <hashTree>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+            <stringProp name="ConstantTimer.delay">${WAIT_TIME}</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Test">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
