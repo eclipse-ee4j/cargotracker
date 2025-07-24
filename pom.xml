@@ -518,14 +518,16 @@
               
               <!-- Dump the coverage data before stopping Liberty -->
               <execution>
-                <id>dump-coverage</id>
-                <phase>post-integration-test</phase>
+                <id>b-dump-coverage</id>
+                <phase>integration-test</phase>
                 <goals>
                   <goal>dump</goal>
                 </goals>
                 <configuration>
                   <destFile>${jacoco.itReportPath}</destFile>
                   <append>true</append>
+                  <address>localhost</address>
+                  <port>6300</port>
                 </configuration>
               </execution>
             </executions>
@@ -553,7 +555,6 @@
                   <goal>deploy</goal>
                 </goals>
                 <configuration>
-                  <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
                   <deployPackages>all</deployPackages>
                 </configuration>
               </execution>
@@ -568,14 +569,14 @@
                   <serverStartTimeout>120</serverStartTimeout>
                   <verifyTimeout>60</verifyTimeout>
                   <jvmOptions>
-                    <param>-javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${jacoco.itReportPath},includes=${jacoco.includes},append=true</param>
+                    <param>-javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${jacoco.itReportPath},includes=${jacoco.includes},append=true,output=tcpserver,address=*,port=6300</param>
                     <param>-Djava.net.preferIPv4Stack=true</param>
                     <param>-Djacoco.agent.includes=${jacoco.includes}</param>
                   </jvmOptions>
                 </configuration>
               </execution>
               <execution>
-                <id>stop-liberty-server</id>
+                <id>z-stop-liberty-server</id>
                 <phase>post-integration-test</phase>
                 <goals>
                   <goal>stop</goal>
@@ -600,7 +601,7 @@
                 </configuration>
               </execution>
               <execution>
-                <id>run-jmeter-tests</id>
+                <id>a-run-jmeter-tests</id>
                 <phase>integration-test</phase>
                 <goals>
                   <goal>jmeter</goal>
