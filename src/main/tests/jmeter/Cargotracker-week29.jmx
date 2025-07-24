@@ -128,6 +128,16 @@
               <stringProp name="TestPlan.comments">Recorded time was 0 milliseconds</stringProp>
             </UniformRandomTimer>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/admin/tracking/track.xhtml?jfwid=-1ckum0h4xn">
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
@@ -435,6 +445,16 @@
               <stringProp name="TestPlan.comments">Recorded time was 37592 milliseconds</stringProp>
             </UniformRandomTimer>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/admin/dashboard.xhtml">
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
@@ -468,6 +488,16 @@
               <stringProp name="ConstantTimer.delay">3114.5</stringProp>
               <stringProp name="TestPlan.comments">Recorded time was 6229 milliseconds</stringProp>
             </UniformRandomTimer>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/admin/tracking/map.xhtml?jfwid=-1ckum0h4xl">
@@ -511,6 +541,16 @@
               <stringProp name="TestPlan.comments">Recorded time was 16765 milliseconds</stringProp>
             </UniformRandomTimer>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/admin/show.xhtml?trackingId=ABC123">
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
@@ -553,6 +593,16 @@
               <stringProp name="TestPlan.comments">Recorded time was 8122 milliseconds</stringProp>
             </UniformRandomTimer>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker">
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
@@ -587,6 +637,16 @@
               <stringProp name="TestPlan.comments">Recorded time was 58601 milliseconds</stringProp>
             </UniformRandomTimer>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/event-logger/index.xhtml">
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
@@ -620,6 +680,16 @@
               <stringProp name="ConstantTimer.delay">1458.5</stringProp>
               <stringProp name="TestPlan.comments">Recorded time was 2917 milliseconds</stringProp>
             </UniformRandomTimer>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/event-logger/index.xhtml?jfwid=-1ckum0h4xh">
@@ -664,7 +734,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -792,7 +862,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -913,7 +983,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1034,7 +1104,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1155,7 +1225,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1269,7 +1339,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1390,7 +1460,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1518,7 +1588,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1611,7 +1681,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">OTk2OTI5NDlkOWZiMTI2ZjAwMDAwMDA5</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -1716,6 +1786,16 @@
               <stringProp name="TestPlan.comments">Recorded time was 127587 milliseconds</stringProp>
             </UniformRandomTimer>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/public/track.xhtml?jfwid=-1ckum0h4xg">
             <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
@@ -1757,6 +1837,16 @@
               <stringProp name="ConstantTimer.delay">1986.5</stringProp>
               <stringProp name="TestPlan.comments">Recorded time was 3973 milliseconds</stringProp>
             </UniformRandomTimer>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract ViewState">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">VIEWSTATE</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;jakarta\.faces\.ViewState&quot;.*?value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:8080/cargo-tracker/public/track.xhtml?jfwid=-1ckum0h4xg">
@@ -1815,7 +1905,7 @@
                 <elementProp name="jakarta.faces.ViewState" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">jakarta.faces.ViewState</stringProp>
-                  <stringProp name="Argument.value">ZjI3YmY1OWRlYzZlYjlkODAwMDAwMDBi</stringProp>
+                  <stringProp name="Argument.value">${VIEWSTATE}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
