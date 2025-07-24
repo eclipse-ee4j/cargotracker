@@ -465,5 +465,34 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>jmeter-tests</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>3.4.0</version>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <testFilesDirectory>${basedir}/src/test/jmeter</testFilesDirectory>
+              <testFilesIncluded>
+                <jMeterTestFile>Cargotracker-week29.jmx</jMeterTestFile>
+              </testFilesIncluded>
+              <generateReports>true</generateReports>
+              <resultsFileFormat>xml</resultsFileFormat>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
