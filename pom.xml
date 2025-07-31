@@ -465,17 +465,143 @@
         </plugins>
       </build>
     </profile>
+    
+        <!-- JMeter profile for integration testing -->
     <profile>
-      <id>jmeter-tests</id>
+      <id>jmeter</id>
+      <properties>
+        <jmeter.version>5.6.3</jmeter.version>
+        <skipUnitTests>true</skipUnitTests>
+        <skipPerformanceTests>false</skipPerformanceTests>
+        <!-- JaCoCo Properties -->
+        <jacoco.version>0.8.11</jacoco.version>
+        <jacoco.outputDir>${project.build.directory}/jacoco-reports</jacoco.outputDir>
+        <jacoco.itReportPath>${jacoco.outputDir}/jacoco-it.exec</jacoco.itReportPath>
+        <jacoco.includes>org.eclipse.cargotracker.*</jacoco.includes>
+        <sonar.jacoco.reportPath>${jacoco.itReportPath}</sonar.jacoco.reportPath>
+      </properties>
       <build>
         <plugins>
+          <!-- JaCoCo Plugin for Code Coverage -->
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <executions>
+              <!-- Prepares the property pointing to the JaCoCo runtime agent -->
+              <execution>
+                <id>prepare-it-agent</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+                <configuration>
+                  <destFile>${jacoco.itReportPath}</destFile>
+                  <propertyName>jacoco.agent.itArgLine</propertyName>
+                  <includes>${jacoco.includes}</includes>
+                  <append>true</append>
+                  <excludes>**/test/**</excludes>
+                </configuration>
+              </execution>
+              <!-- Creates HTML and XML report for integration tests -->
+              <execution>
+                <id>report-it</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+                <configuration>
+                  <dataFile>${jacoco.itReportPath}</dataFile>
+                  <outputDirectory>${jacoco.outputDir}/html</outputDirectory>
+                </configuration>
+              </execution>
+              
+              <!-- Dump the coverage data before stopping Liberty -->
+              <execution>
+                <id>b-dump-coverage</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>dump</goal>
+                </goals>
+                <configuration>
+                  <destFile>${jacoco.itReportPath}</destFile>
+                  <append>true</append>
+                  <address>localhost</address>
+                  <port>6300</port>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Plugin to start Liberty in the background during pre-integration-test phase -->
+          <plugin>
+            <groupId>io.openliberty.tools</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+            <version>3.11.3</version>
+            <executions>
+              <execution>
+                <id>package-app</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>package</goal>
+                </goals>
+                <configuration>
+                </configuration>
+              </execution>
+              <execution>
+                <id>install-app</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>deploy</goal>
+                </goals>
+                <configuration>
+                  <deployPackages>all</deployPackages>
+                </configuration>
+              </execution>
+              <execution>
+                <id>start-liberty-server</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+                <configuration>
+                  <!-- Adding JaCoCo agent to Liberty JVM -->
+                  <serverStartTimeout>120</serverStartTimeout>
+                  <verifyTimeout>60</verifyTimeout>
+                  <jvmOptions>
+                    <param>-javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${jacoco.itReportPath},includes=${jacoco.includes},append=true,output=tcpserver,address=*,port=6300</param>
+                    <param>-Djava.net.preferIPv4Stack=true</param>
+                    <param>-Djacoco.agent.includes=${jacoco.includes}</param>
+                  </jvmOptions>
+                </configuration>
+              </execution>
+              <execution>
+                <id>z-stop-liberty-server</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <!-- Plugin to run JMeter test during integration-test phase -->
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>3.4.0</version>
+            <version>3.8.0</version>
             <executions>
               <execution>
-                <id>jmeter-tests</id>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+                <phase>pre-integration-test</phase>
+                <configuration>
+                </configuration>
+              </execution>
+              <execution>
+                <id>a-run-jmeter-tests</id>
                 <phase>integration-test</phase>
                 <goals>
                   <goal>jmeter</goal>
@@ -483,16 +609,51 @@
               </execution>
             </executions>
             <configuration>
-              <testFilesDirectory>${basedir}/src/test/jmeter</testFilesDirectory>
+              <testFilesDirectory>${project.basedir}/src/test/jmeter</testFilesDirectory>
               <testFilesIncluded>
-                <jMeterTestFile>Cargotracker-week29.jmx</jMeterTestFile>
+                <jMeterTestFile>cargotracker-fullrun.jmx</jMeterTestFile>
               </testFilesIncluded>
-              <generateReports>true</generateReports>
-              <resultsFileFormat>xml</resultsFileFormat>
+              <resultsDirectory>${project.build.directory}/jmeter-results</resultsDirectory>
+              <ignoreResultFailures>true</ignoreResultFailures>
+              <propertiesUser>
+              </propertiesUser>
+            </configuration>
+          </plugin>
+          
+          <!-- Skip unit tests in this profile -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surefire.version}</version>
+            <configuration>
+              <skip>${skipUnitTests}</skip>
             </configuration>
           </plugin>
         </plugins>
       </build>
+      <dependencies>
+        <!-- JMeter dependencies -->
+        <dependency>
+          <groupId>org.apache.jmeter</groupId>
+          <artifactId>ApacheJMeter_core</artifactId>
+          <version>${jmeter.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.jmeter</groupId>
+          <artifactId>ApacheJMeter_http</artifactId>
+          <version>${jmeter.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <!-- JaCoCo dependency -->
+        <dependency>
+          <groupId>org.jacoco</groupId>
+          <artifactId>org.jacoco.agent</artifactId>
+          <version>${jacoco.version}</version>
+          <classifier>runtime</classifier>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 </project>
