@@ -37,7 +37,7 @@ pipeline {
         //     steps {
         //         bat 'mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%'
         //     }
-        // }
+        // } // info
     }
 
     post {
