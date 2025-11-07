@@ -4,34 +4,35 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch: 'develop', url: 'https://github.com/MouadBensafir/cargotracker'
+                git branch: 'develop', url: 'https://github.com/MouadBensafir/cargotracker.git'
             }
         }
 
         stage('Compile') {
             steps {
-                sh './mvnw clean compile'
+                // Use bat for Windows instead of sh
+                bat 'mvn clean compile'
             }
         }
 
         stage('Unit Tests') {
             steps {
-                sh './mvnw test'
+                bat 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                sh './mvnw package'  // génère .war ou .jar dans target/
+                bat 'mvn package'  // Generates .jar or .war in target/
             }
         }
 
         stage('SonarQube Analysis') {
             environment {
-                SONAR_TOKEN = credentials('sonar-token-id')
+                SONAR_TOKEN = credentials('sonar-token-id')  // Replace with your Jenkins credential ID
             }
             steps {
-                sh "./mvnw sonar:sonar -Dsonar.projectKey=my-jee-project -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN"
+                bat "mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%"
             }
         }
     }
