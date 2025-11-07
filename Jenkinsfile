@@ -11,19 +11,19 @@ pipeline {
         stage('Compile') {
             steps {
                 // Use bat for Windows instead of sh
-                bat 'mvn clean compile'
+                mvn clean compile
             }
         }
 
         stage('Unit Tests') {
             steps {
-                bat 'mvn test'
+                mvn test
             }
         }
 
         stage('Package') {
             steps {
-                bat 'mvn package'  // Generates .jar or .war in target/
+                mvn package
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
                 SONAR_TOKEN = credentials('sonar-token-id')  // Replace with your Jenkins credential ID
             }
             steps {
-                bat "mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%"
+                mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.host.url="http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%"
             }
         }
     }
