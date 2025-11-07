@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()   // Déclenche le build à chaque push GitHub
+    }
+
     stages {
         stage('Clone') {
             steps {
