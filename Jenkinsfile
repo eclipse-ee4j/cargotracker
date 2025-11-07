@@ -30,14 +30,17 @@ pipeline {
             }
         }
 
-        // stage('SonarQube Analysis') {
-        //     environment {
-        //         SONAR_TOKEN = credentials('sonar-token-id')  // <-- replace with your Jenkins credential ID
-        //     }
-        //     steps {
-        //         bat 'mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%'
-        //     }
-        // } // info
+        stage('SonarQube Analysis') {
+            environment {
+                SONAR_TOKEN = credentials('sonar-token-id')  // your Jenkins secret ID
+            }
+            steps {
+                withSonarQubeEnv('SonarQube Local') {
+                    bat "mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.login=%SONAR_TOKEN%"
+                }
+            }
+        }
+
     }
 
     post {
