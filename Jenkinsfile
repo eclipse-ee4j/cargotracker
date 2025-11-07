@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        githubPush()   // Déclenche le build à chaque push GitHub
+        githubPush()   
     }
 
     stages {
