@@ -31,12 +31,12 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                SONAR_TOKEN = credentials('sonar-token-id')  // your Jenkins secret ID
-            }
             steps {
-                withSonarQubeEnv('SonarQube Local') {
-                    bat "mvn sonar:sonar -Dsonar.projectKey=cargotracker -Dsonar.login=%SONAR_TOKEN%"
+                script {
+                    def mvn = tool name: 'Default Maven', type: 'maven'
+                    withSonarQubeEnv('SonarQube Local') {
+                        bat "\"${mvn}\\bin\\mvn\" clean verify sonar:sonar -Dsonar.projectKey=cargo-tracker -Dsonar.projectName='Cargo Tracker'"
+                    }
                 }
             }
         }
