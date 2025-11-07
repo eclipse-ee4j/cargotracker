@@ -36,7 +36,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarQube Local') {
-                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=cargo-tracker -Dsonar.projectName="Cargo Tracker" -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_2ce22addf05c4b51f8bbebb4b137833e83b89821"
+                    bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=cargo-tracker -Dsonar.projectName="Cargo Tracker" -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_2ce22addf05c4b51f8bbebb4b137833e83b89821'
                 }
             }
         }
