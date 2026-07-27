@@ -52,6 +52,13 @@ To set up in Visual Studio Code, follow these steps:
 
 You can similarly use GlassFish or Open Liberty in Visual Studio Code or Eclipse IDE for Enterprise and Web Developers.
 
+To set up in Eclipse IDE, follow these steps:
+
+* Set up Java SE 11, or Java SE 17, and [Eclipse IDE for Enterprise and Web Developers](https://www.eclipse.org/downloads/packages/).
+* Make sure JAVA_HOME is set.
+* In Eclipse, go to `File > Import > Maven > Existing Maven Projects`, browse to the project source root, and click `Finish`.
+* Eclipse will resolve the Maven project automatically. The project can then be built and run the same way as described above (`./mvnw clean package cargo:run`, etc.), or deployed to a Payara/GlassFish/Open Liberty server configured in Eclipse.
+
 ## Exploring the Application
 
 After the application runs, it will be available at:
@@ -169,3 +176,4 @@ For further guidance on contributing including the project roadmap, please look 
   enough on some systems, especially if virus scanners like Windows Defender are delaying GlassFish start up. You can increase GlassFish start up timeout
   by setting the `AS_START_TIMEOUT` environment variable. For example, you can set it to 180000 for a 3 minute timeout.
 * While running with Open Liberty, you will notice a number of spurious errors. You will see shrinkwrap features warnings, message-driven bean warnings, the AggregateObjectMapping nested foreign key warning, I/O errors, etc. You can safely ignore these. They don't affect the application functionality.
+* When using Eclipse IDE, you may see several Facelet/JSF validation errors (e.g. "Can't find facelet tag library for uri jakarta.faces.core") after importing the project. These are caused by Eclipse's bundled JSF validators not fully recognizing the `jakarta.*` namespace used by Jakarta EE 10, and do not indicate an actual project problem (`mvn clean install` succeeds regardless). You can reduce this noise by going to project `Properties > Validation`, enabling project-specific settings, and disabling the `Facelet HTML Validator`, `JSF View Validator`, `JSF Application Configuration Validator`, and `Tag Library Descriptor Validator`. You may also see a few remaining XML validation warnings in `web.xml` (referencing `${db.jdbcUrl}` and similar Maven-filtered placeholders) — these are expected, since Eclipse validates the raw source XML before Maven substitutes the placeholders at build time, and can be safely ignored.
