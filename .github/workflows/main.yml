@@ -28,7 +28,7 @@ jobs:
             --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
             --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
             --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
-            -jar google-java-format.jar --dry-run --set-exit-if-changed
+            -jar google-java-format.jar --replace
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
