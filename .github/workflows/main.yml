@@ -16,11 +16,9 @@ on:
 jobs:
   formatting:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Format Java sources
+      - name: Check formatting
         run: |
           wget -q -O google-java-format.jar \
             https://github.com/google/google-java-format/releases/download/v1.18.1/google-java-format-1.18.1-all-deps.jar
@@ -30,20 +28,7 @@ jobs:
             --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
             --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
             --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
-            -jar google-java-format.jar --replace
-          rm google-java-format.jar
-      - name: Commit formatting changes
-        if: github.event_name == 'push'
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -u
-            git commit -m "Apply google-java-format"
-            git push
-          else
-            echo "No formatting changes to commit."
-          fi
+            -jar google-java-format.jar --dry-run --set-exit-if-changed
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
