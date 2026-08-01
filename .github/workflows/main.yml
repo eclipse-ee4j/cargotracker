@@ -18,11 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: axel-op/googlejavaformat-action@v3
-        with:
-          version: '1.18.1'
-          skip-commit: true
-          # args: "--dry-run --set-exit-if-changed"        
+      - name: Check formatting
+        run: |
+          wget -q -O google-java-format.jar \
+            https://github.com/google/google-java-format/releases/download/v1.18.1/google-java-format-1.18.1-all-deps.jar
+          find src -name "*.java" | xargs java \
+            --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+            --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
+            --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
+            --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
+            --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
+            -jar google-java-format.jar --dry-run --set-exit-if-changed
   build:
     runs-on: ubuntu-latest
     needs: [formatting]
