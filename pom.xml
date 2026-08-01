@@ -230,11 +230,17 @@
           <version>1.0.0.Alpha1</version>
           <scope>test</scope>
         </dependency>
-        <!-- This dependency is required to replace a milestone dependency of
-          arquillian-glassfish-managed-6 which isn't deployed in Maven Central -->
+        <!-- These dependencies replace milestone transitive deps of
+          arquillian-glassfish-managed-6 which aren't deployed in Maven Central -->
         <dependency>
           <groupId>org.glassfish.jersey.inject</groupId>
           <artifactId>jersey-hk2</artifactId>
+          <version>3.1.10</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.glassfish.jersey.media</groupId>
+          <artifactId>jersey-media-multipart</artifactId>
           <version>3.1.10</version>
           <scope>test</scope>
         </dependency>
