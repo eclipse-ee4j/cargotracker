@@ -1,5 +1,10 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
+import jakarta.batch.api.chunk.AbstractItemReader;
+import jakarta.batch.runtime.context.JobContext;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
@@ -8,11 +13,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jakarta.batch.api.chunk.AbstractItemReader;
-import jakarta.batch.runtime.context.JobContext;
-import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;

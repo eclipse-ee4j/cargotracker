@@ -167,25 +167,28 @@ public class ItineraryTest {
   public void testNextExpectedEvent() {
     TrackingId trackingId = new TrackingId("CARGO1");
     RouteSpecification routeSpecification =
-            new RouteSpecification(
-                    SampleLocations.SHANGHAI, SampleLocations.GOTHENBURG, LocalDate.now());
+        new RouteSpecification(
+            SampleLocations.SHANGHAI, SampleLocations.GOTHENBURG, LocalDate.now());
     Cargo cargo = new Cargo(trackingId, routeSpecification);
 
-    Itinerary itinerary = new Itinerary(Arrays.asList(
-            new Leg(
+    Itinerary itinerary =
+        new Itinerary(
+            Arrays.asList(
+                new Leg(
                     voyage,
                     SampleLocations.SHANGHAI,
                     SampleLocations.ROTTERDAM,
                     LocalDateTime.now(),
                     LocalDateTime.now()),
-            new Leg(
+                new Leg(
                     voyage,
                     SampleLocations.ROTTERDAM,
                     SampleLocations.GOTHENBURG,
                     LocalDateTime.now(),
                     LocalDateTime.now())));
 
-    HandlingEvent receiveEvent = new HandlingEvent(
+    HandlingEvent receiveEvent =
+        new HandlingEvent(
             cargo,
             LocalDateTime.now(),
             LocalDateTime.now(),
@@ -193,7 +196,8 @@ public class ItineraryTest {
             SampleLocations.SHANGHAI);
     assertTrue(itinerary.isExpected(receiveEvent));
 
-    HandlingEvent unexpectedEvent = new HandlingEvent(
+    HandlingEvent unexpectedEvent =
+        new HandlingEvent(
             cargo,
             LocalDateTime.now(),
             LocalDateTime.now(),
@@ -202,7 +206,8 @@ public class ItineraryTest {
             wrongVoyage);
     assertFalse(itinerary.isExpected(unexpectedEvent));
 
-    HandlingEvent claimEvent = new HandlingEvent(
+    HandlingEvent claimEvent =
+        new HandlingEvent(
             cargo,
             LocalDateTime.now(),
             LocalDateTime.now(),

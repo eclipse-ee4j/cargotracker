@@ -9,7 +9,9 @@ public class UnknownCargoException extends CannotCreateHandlingEventException {
 
   private final TrackingId trackingId;
 
-  /** @param trackingId cargo tracking id */
+  /**
+   * @param trackingId cargo tracking id
+   */
   public UnknownCargoException(TrackingId trackingId) {
     this.trackingId = trackingId;
   }

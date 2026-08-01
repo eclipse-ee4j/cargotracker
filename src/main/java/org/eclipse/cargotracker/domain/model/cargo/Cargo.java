@@ -1,6 +1,5 @@
 package org.eclipse.cargotracker.domain.model.cargo;
 
-import java.io.Serializable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.handling.HandlingHistory;
@@ -46,9 +46,9 @@ import org.eclipse.cargotracker.domain.shared.DomainObjectUtils;
  * <p>The life cycle of a cargo ends when the cargo is claimed by the customer.
  *
  * <p>The cargo aggregate, and the entire domain model, is built to solve the problem of booking and
- * tracking cargo. All important business rules for determining whether a cargo is
- * misdirected, what the current status of the cargo is (on board carrier, in port etc.), are
- * captured in this aggregate.
+ * tracking cargo. All important business rules for determining whether a cargo is misdirected, what
+ * the current status of the cargo is (on board carrier, in port etc.), are captured in this
+ * aggregate.
  */
 @Entity
 @NamedQuery(name = "Cargo.findAll", query = "Select c from Cargo c")
@@ -113,12 +113,16 @@ public class Cargo implements Serializable {
     return routeSpecification;
   }
 
-  /** @return The delivery. Never null. */
+  /**
+   * @return The delivery. Never null.
+   */
   public Delivery getDelivery() {
     return delivery;
   }
 
-  /** @return The itinerary. Never null. */
+  /**
+   * @return The itinerary. Never null.
+   */
   public Itinerary getItinerary() {
     return DomainObjectUtils.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
   }
@@ -180,7 +184,9 @@ public class Cargo implements Serializable {
     return other != null && trackingId.sameValueAs(other.trackingId);
   }
 
-  /** @return Hash code of tracking id. */
+  /**
+   * @return Hash code of tracking id.
+   */
   @Override
   public int hashCode() {
     return trackingId.hashCode();

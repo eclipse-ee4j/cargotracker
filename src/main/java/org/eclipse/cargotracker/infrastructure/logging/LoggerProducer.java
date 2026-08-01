@@ -1,10 +1,10 @@
 package org.eclipse.cargotracker.infrastructure.logging;
 
-import java.io.Serializable;
-import java.util.logging.Logger;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.inject.spi.InjectionPoint;
+import java.io.Serializable;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 public class LoggerProducer implements Serializable {

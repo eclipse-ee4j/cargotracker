@@ -1,11 +1,5 @@
 package org.eclipse.pathfinder.api;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +9,12 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import org.eclipse.pathfinder.internal.GraphDao;
 
 @Stateless

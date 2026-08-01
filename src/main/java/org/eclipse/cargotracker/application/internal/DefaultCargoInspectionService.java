@@ -1,9 +1,9 @@
 package org.eclipse.cargotracker.application.internal;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.CargoInspectionService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;

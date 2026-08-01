@@ -2,9 +2,9 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler;
 
 import static java.util.stream.Collectors.toList;
 
-import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.util.List;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.RoutingStatus;
 import org.eclipse.cargotracker.domain.model.cargo.TransportStatus;
@@ -18,10 +18,7 @@ public class CargoRouteDtoAssembler {
 
   public CargoRoute toDto(Cargo cargo) {
     List<Leg> legs =
-        cargo
-            .getItinerary()
-            .getLegs()
-            .stream()
+        cargo.getItinerary().getLegs().stream()
             .map(
                 leg ->
                     new Leg(

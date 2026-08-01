@@ -1,8 +1,5 @@
 package org.eclipse.cargotracker.domain.model.voyage;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -10,6 +7,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

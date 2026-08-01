@@ -1,9 +1,9 @@
 package org.eclipse.cargotracker.domain.model.location;
 
-import java.io.Serializable;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import java.io.Serializable;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -31,7 +31,9 @@ public class UnLocode implements Serializable {
     // Nothing to initialize.
   }
 
-  /** @param countryAndLocation Location string. */
+  /**
+   * @param countryAndLocation Location string.
+   */
   public UnLocode(String countryAndLocation) {
     Validate.notNull(countryAndLocation, "Country and location may not be null.");
     Validate.isTrue(
@@ -41,7 +43,9 @@ public class UnLocode implements Serializable {
     this.unlocode = countryAndLocation.toUpperCase();
   }
 
-  /** @return country code and location code concatenated, always upper case. */
+  /**
+   * @return country code and location code concatenated, always upper case.
+   */
   public String getIdString() {
     return unlocode;
   }
