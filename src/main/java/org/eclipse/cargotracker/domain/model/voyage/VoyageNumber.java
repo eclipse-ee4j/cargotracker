@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import org.apache.commons.lang3.Validate;
+import java.util.Objects;
 
 @Embeddable
 public class VoyageNumber implements Serializable {
@@ -20,7 +20,7 @@ public class VoyageNumber implements Serializable {
   }
 
   public VoyageNumber(String number) {
-    Validate.notNull(number);
+    Objects.requireNonNull(number, "Voyage number is required");
 
     this.number = number;
   }
@@ -29,10 +29,6 @@ public class VoyageNumber implements Serializable {
   public boolean equals(Object o) {
     if (this == o) {
       return true;
-    }
-
-    if (o == null) {
-      return false;
     }
 
     if (!(o instanceof VoyageNumber)) {
@@ -46,11 +42,11 @@ public class VoyageNumber implements Serializable {
 
   @Override
   public int hashCode() {
-    return number.hashCode();
+    return Objects.hash(number);
   }
 
   boolean sameValueAs(VoyageNumber other) {
-    return other != null && this.number.equals(other.number);
+    return other != null && Objects.equals(this.number, other.number);
   }
 
   @Override
