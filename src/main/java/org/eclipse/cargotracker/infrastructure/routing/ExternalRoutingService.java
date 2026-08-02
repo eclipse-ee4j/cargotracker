@@ -1,14 +1,15 @@
 package org.eclipse.cargotracker.infrastructure.routing;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,7 @@ public class ExternalRoutingService implements RoutingService {
   @Resource(lookup = "java:app/configuration/GraphTraversalUrl")
   private String graphTraversalUrl;
 
+  private Client client;
   private WebTarget graphTraversalResource;
 
   @Inject private LocationRepository locationRepository;
@@ -44,7 +46,8 @@ public class ExternalRoutingService implements RoutingService {
 
   @PostConstruct
   public void init() {
-    graphTraversalResource = ClientBuilder.newClient().target(graphTraversalUrl);
+    client = ClientBuilder.newClient();
+    graphTraversalResource = client.target(graphTraversalUrl);
     logger.log(
         Level.INFO, "Graph traversal URL to be used for the REST client: {0}", graphTraversalUrl);
   }
@@ -62,23 +65,20 @@ public class ExternalRoutingService implements RoutingService {
             .request(MediaType.APPLICATION_JSON_TYPE)
             .get(new GenericType<List<TransitPath>>() {});
 
-    // The returned result is then translated back into our domain model.
-    List<Itinerary> itineraries = new ArrayList<>();
-
-    // Use the specification to safe-guard against invalid itineraries
-    transitPaths.stream()
+    // The returned result is then translated back into our domain model, using the 
+    // specification to safe-guard against invalid itineraries.
+    return transitPaths.stream()
         .map(this::toItinerary)
-        .forEach(
+        .filter(
             itinerary -> {
               if (routeSpecification.isSatisfiedBy(itinerary)) {
-                itineraries.add(itinerary);
-              } else {
-                logger.log(
-                    Level.FINE, "Received itinerary that did not satisfy the route specification");
+                return true;
               }
-            });
-
-    return itineraries;
+              logger.log(
+                  Level.FINE, "Received itinerary that did not satisfy the route specification");
+              return false;
+            })
+        .collect(Collectors.toList());
   }
 
   private Itinerary toItinerary(TransitPath transitPath) {
@@ -94,5 +94,12 @@ public class ExternalRoutingService implements RoutingService {
         locationRepository.find(new UnLocode(edge.getToUnLocode())),
         edge.getFromDate(),
         edge.getToDate());
+  }
+
+  @PreDestroy
+  public void cleanup() {
+    if (client != null) {
+      client.close();
+    }
   }
 }
