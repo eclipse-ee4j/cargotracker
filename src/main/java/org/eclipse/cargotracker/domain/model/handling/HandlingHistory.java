@@ -2,26 +2,24 @@ package org.eclipse.cargotracker.domain.model.handling;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import org.apache.commons.lang3.Validate;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class HandlingHistory {
 
   // Null object pattern.
-  public static final HandlingHistory EMPTY =
-      new HandlingHistory(Collections.<HandlingEvent>emptyList());
+  public static final HandlingHistory EMPTY = new HandlingHistory(List.of());
   private static final Comparator<HandlingEvent> BY_COMPLETION_TIME_COMPARATOR =
       Comparator.comparing(HandlingEvent::getCompletionTime);
 
   private final List<HandlingEvent> handlingEvents;
 
   public HandlingHistory(Collection<HandlingEvent> handlingEvents) {
-    Validate.notNull(handlingEvents, "Handling events are required.");
+    Objects.requireNonNull(handlingEvents, "Handling events are required.");
 
-    this.handlingEvents = new ArrayList<>(handlingEvents);
+    this.handlingEvents = List.copyOf(new ArrayList<>(handlingEvents));
   }
 
   public List<HandlingEvent> getAllHandlingEvents() {
@@ -33,10 +31,13 @@ public class HandlingHistory {
    *     time.
    */
   public List<HandlingEvent> getDistinctEventsByCompletionTime() {
-    List<HandlingEvent> ordered = new ArrayList<>(new HashSet<>(handlingEvents));
-    ordered.sort(BY_COMPLETION_TIME_COMPARATOR);
+    List<HandlingEvent> ordered =
+        handlingEvents.stream()
+            .distinct()
+            .sorted(BY_COMPLETION_TIME_COMPARATOR)
+            .collect(Collectors.toList());
 
-    return Collections.unmodifiableList(ordered);
+    return List.copyOf(ordered);
   }
 
   /**
