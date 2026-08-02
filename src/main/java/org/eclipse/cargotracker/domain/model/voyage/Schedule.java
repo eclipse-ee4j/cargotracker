@@ -10,8 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 
 /** A voyage schedule. */
 @Embeddable
@@ -22,24 +21,28 @@ public class Schedule implements Serializable {
   // Null object pattern.
   public static final Schedule EMPTY = new Schedule();
 
-  // TODO [Clean Code] Look into why cascade delete doesn't work.
+  // TODO Look into why cascade delete doesn't work.
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "voyage_id")
   @OrderColumn(name = "movement_order")
   @NotNull
   @Size(min = 1)
-  private List<CarrierMovement> carrierMovements = Collections.emptyList();
+  private List<CarrierMovement> carrierMovements = List.of();
 
   public Schedule() {
     // Nothing to initialize.
   }
 
   Schedule(List<CarrierMovement> carrierMovements) {
-    Validate.notNull(carrierMovements);
-    Validate.noNullElements(carrierMovements);
-    Validate.notEmpty(carrierMovements);
+    Objects.requireNonNull(carrierMovements, "Carrier movements must not be null.");
+    if (carrierMovements.isEmpty()) {
+      throw new IllegalArgumentException("Carrier movements must not be empty.");
+    }
+    if (carrierMovements.stream().anyMatch(Objects::isNull)) {
+      throw new IllegalArgumentException("Carrier movements must not contain null elements.");
+    }
 
-    this.carrierMovements = carrierMovements;
+    this.carrierMovements = List.copyOf(carrierMovements);
   }
 
   public List<CarrierMovement> getCarrierMovements() {
@@ -67,6 +70,6 @@ public class Schedule implements Serializable {
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(this.carrierMovements).toHashCode();
+    return Objects.hash(carrierMovements);
   }
 }
