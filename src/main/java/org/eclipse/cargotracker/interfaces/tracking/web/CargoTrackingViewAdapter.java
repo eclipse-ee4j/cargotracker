@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.interfaces.tracking.web;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
@@ -112,17 +111,13 @@ public class CargoTrackingViewAdapter {
   public String getEta() {
     LocalDateTime eta = cargo.getDelivery().getEstimatedTimeOfArrival();
 
-    if (eta == null) {
-      return "?";
-    } else {
-      return DateConverter.toString(eta);
-    }
+    return eta == null ? "?" : DateConverter.toString(eta);
   }
 
   public String getNextExpectedActivity() {
     HandlingActivity activity = cargo.getDelivery().getNextExpectedActivity();
 
-    if ((activity == null) || (activity.isEmpty())) {
+    if (activity == null || activity.isEmpty()) {
       return "";
     }
 
@@ -152,7 +147,7 @@ public class CargoTrackingViewAdapter {
    * @return An unmodifiable list of handling event view adapters.
    */
   public List<HandlingEventViewAdapter> getEvents() {
-    return Collections.unmodifiableList(events);
+    return List.copyOf(events);
   }
 
   /** Handling event view adapter component. */
