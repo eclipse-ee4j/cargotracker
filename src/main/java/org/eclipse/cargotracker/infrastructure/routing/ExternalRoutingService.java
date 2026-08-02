@@ -65,7 +65,7 @@ public class ExternalRoutingService implements RoutingService {
             .request(MediaType.APPLICATION_JSON_TYPE)
             .get(new GenericType<List<TransitPath>>() {});
 
-    // The returned result is then translated back into our domain model, using the 
+    // The returned result is then translated back into our domain model, using the
     // specification to safe-guard against invalid itineraries.
     return transitPaths.stream()
         .map(this::toItinerary)
