@@ -10,9 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 
@@ -56,8 +54,11 @@ public class Leg implements Serializable {
       Location unloadLocation,
       LocalDateTime loadTime,
       LocalDateTime unloadTime) {
-    Validate.noNullElements(
-        new Object[] {voyage, loadLocation, unloadLocation, loadTime, unloadTime});
+    Objects.requireNonNull(voyage, "Voyage is required.");
+    Objects.requireNonNull(loadLocation, "Load location is required.");
+    Objects.requireNonNull(unloadLocation, "Unload location is required.");
+    Objects.requireNonNull(loadTime, "Load time is required.");
+    Objects.requireNonNull(unloadTime, "Unload time is required.");
 
     this.voyage = voyage;
     this.loadLocation = loadLocation;
@@ -91,13 +92,11 @@ public class Leg implements Serializable {
 
   private boolean sameValueAs(Leg other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.voyage, other.voyage)
-            .append(this.loadLocation, other.loadLocation)
-            .append(this.unloadLocation, other.unloadLocation)
-            .append(this.loadTime, other.loadTime)
-            .append(this.unloadTime, other.unloadTime)
-            .isEquals();
+        && Objects.equals(this.voyage, other.voyage)
+        && Objects.equals(this.loadLocation, other.loadLocation)
+        && Objects.equals(this.unloadLocation, other.unloadLocation)
+        && Objects.equals(this.loadTime, other.loadTime)
+        && Objects.equals(this.unloadTime, other.unloadTime);
   }
 
   @Override
@@ -117,13 +116,7 @@ public class Leg implements Serializable {
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(voyage)
-        .append(loadLocation)
-        .append(unloadLocation)
-        .append(loadTime)
-        .append(unloadTime)
-        .toHashCode();
+    return Objects.hash(voyage, loadLocation, unloadLocation, loadTime, unloadTime);
   }
 
   @Override
