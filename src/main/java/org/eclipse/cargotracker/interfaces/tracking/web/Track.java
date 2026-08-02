@@ -48,11 +48,7 @@ public class Track implements Serializable {
   }
 
   public void setTrackingId(String trackingId) {
-    if (trackingId != null) {
-      trackingId = trackingId.trim();
-    }
-
-    this.trackingId = trackingId;
+    this.trackingId = (trackingId == null) ? null : trackingId.trim();
   }
 
   public CargoTrackingViewAdapter getCargo() {
