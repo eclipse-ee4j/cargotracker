@@ -7,9 +7,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.shared.AbstractSpecification;
 
@@ -41,11 +39,13 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
    * @param arrivalDeadline arrival deadline
    */
   public RouteSpecification(Location origin, Location destination, LocalDate arrivalDeadline) {
-    Validate.notNull(origin, "Origin is required");
-    Validate.notNull(destination, "Destination is required");
-    Validate.notNull(arrivalDeadline, "Arrival deadline is required");
-    Validate.isTrue(
-        !origin.sameIdentityAs(destination), "Origin and destination can't be the same: " + origin);
+    Objects.requireNonNull(origin, "Origin is required");
+    Objects.requireNonNull(destination, "Destination is required");
+    Objects.requireNonNull(arrivalDeadline, "Arrival deadline is required");
+    if (origin.sameIdentityAs(destination)) {
+      throw new IllegalArgumentException(
+          "Origin and destination can't be the same: " + origin);
+    }
 
     this.origin = origin;
     this.destination = destination;
@@ -74,11 +74,9 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
 
   private boolean sameValueAs(RouteSpecification other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.origin, other.origin)
-            .append(this.destination, other.destination)
-            .append(this.arrivalDeadline, other.arrivalDeadline)
-            .isEquals();
+        && Objects.equals(this.origin, other.origin)
+        && Objects.equals(this.destination, other.destination)
+        && Objects.equals(this.arrivalDeadline, other.arrivalDeadline);
   }
 
   @Override
@@ -98,10 +96,6 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(this.origin)
-        .append(this.destination)
-        .append(this.arrivalDeadline)
-        .toHashCode();
+    return Objects.hash(origin, destination, arrivalDeadline);
   }
 }
