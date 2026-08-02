@@ -17,9 +17,7 @@ public class FileProcessorJobListener implements JobListener {
   @Override
   public void beforeJob() throws Exception {
     logger.log(
-        Level.INFO,
-        "Handling event file processor batch job starting at {0}",
-        LocalDateTime.now());
+        Level.INFO, "Handling event file processor batch job starting at {0}", LocalDateTime.now());
   }
 
   @Override

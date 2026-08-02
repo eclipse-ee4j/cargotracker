@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -81,7 +80,7 @@ public class EventLogger implements Serializable {
 
   // Move this to a separate utility if it is used in other parts of the UI.
   public Map<HandlingEvent.Type, HandlingEvent.Type> getEventTypes() {
-    return Collections.unmodifiableMap(
+    return Map.copyOf(
         Arrays.asList(HandlingEvent.Type.values()).stream()
             .collect(toMap(Function.identity(), Function.identity())));
   }
@@ -133,10 +132,10 @@ public class EventLogger implements Serializable {
         .filter(
             cargo ->
                 !cargo.getItinerary().getLegs().isEmpty()
-                    && !(cargo
+                    && !cargo
                         .getDelivery()
                         .getTransportStatus()
-                        .sameValueAs(TransportStatus.CLAIMED)))
+                        .sameValueAs(TransportStatus.CLAIMED))
         .map(cargo -> cargo.getTrackingId().getIdString())
         .forEachOrdered(trackingId -> trackingIds.add(new SelectItem(trackingId, trackingId)));
 

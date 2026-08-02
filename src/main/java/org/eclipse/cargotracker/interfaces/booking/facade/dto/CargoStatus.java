@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CargoStatus {
@@ -61,6 +60,6 @@ public class CargoStatus {
   }
 
   public List<TrackingEvents> getEvents() {
-    return Collections.unmodifiableList(events);
+    return List.copyOf(events);
   }
 }

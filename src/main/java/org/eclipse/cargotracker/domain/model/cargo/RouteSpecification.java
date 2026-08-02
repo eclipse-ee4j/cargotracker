@@ -43,8 +43,7 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
     Objects.requireNonNull(destination, "Destination is required");
     Objects.requireNonNull(arrivalDeadline, "Arrival deadline is required");
     if (origin.sameIdentityAs(destination)) {
-      throw new IllegalArgumentException(
-          "Origin and destination can't be the same: " + origin);
+      throw new IllegalArgumentException("Origin and destination can't be the same: " + origin);
     }
 
     this.origin = origin;

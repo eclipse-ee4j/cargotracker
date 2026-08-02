@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import org.eclipse.cargotracker.application.util.DateConverter;
 
@@ -40,7 +39,7 @@ public class CargoRoute implements Serializable {
     this.claimed = claimed;
     this.lastKnownLocation = lastKnownLocation;
     this.transportStatus = transportStatus;
-    this.legs = Collections.unmodifiableList(legs);
+    this.legs = List.copyOf(legs);
   }
 
   public String getTrackingId() {

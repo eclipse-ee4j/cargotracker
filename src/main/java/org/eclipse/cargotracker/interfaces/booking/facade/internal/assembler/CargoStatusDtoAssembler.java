@@ -58,17 +58,13 @@ public class CargoStatusDtoAssembler {
   private String getEta(Cargo cargo) {
     LocalDateTime eta = cargo.getDelivery().getEstimatedTimeOfArrival();
 
-    if (eta == null) {
-      return "?";
-    } else {
-      return DateConverter.toString(eta);
-    }
+    return eta == null ? "?" : DateConverter.toString(eta);
   }
 
   private String getNextExpectedActivity(Cargo cargo) {
     HandlingActivity activity = cargo.getDelivery().getNextExpectedActivity();
 
-    if ((activity == null) || (activity.isEmpty())) {
+    if (activity == null || activity.isEmpty()) {
       return "";
     }
 
