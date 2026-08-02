@@ -8,7 +8,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import org.apache.commons.lang3.Validate;
+import java.util.Objects;
 
 /**
  * A location in our model is stops on a journey, such as cargo origin or destination, or carrier
@@ -39,11 +39,11 @@ public class Location implements Serializable {
   /**
    * @param unLocode UN Locode
    * @param name Location name
-   * @throws IllegalArgumentException if the UN Locode or name is null
+   * @throws NullPointerException if the UN Locode or name is null
    */
   public Location(UnLocode unLocode, String name) {
-    Validate.notNull(unLocode);
-    Validate.notNull(name);
+    Objects.requireNonNull(unLocode, "UN Locode is required.");
+    Objects.requireNonNull(name, "Name is required.");
 
     this.unLocode = unLocode;
     this.name = name;
@@ -69,10 +69,6 @@ public class Location implements Serializable {
    */
   @Override
   public boolean equals(Object object) {
-    if (object == null) {
-      return false;
-    }
-
     if (this == object) {
       return true;
     }
@@ -87,7 +83,7 @@ public class Location implements Serializable {
   }
 
   public boolean sameIdentityAs(Location other) {
-    return this.unLocode.sameValueAs(other.unLocode);
+    return other != null && Objects.equals(this.unLocode, other.unLocode);
   }
 
   /**
@@ -95,7 +91,7 @@ public class Location implements Serializable {
    */
   @Override
   public int hashCode() {
-    return unLocode.hashCode();
+    return Objects.hash(unLocode);
   }
 
   @Override
