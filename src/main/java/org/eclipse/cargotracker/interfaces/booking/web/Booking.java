@@ -86,7 +86,8 @@ public class Booking implements Serializable {
         locations.stream()
             .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
             .findAny()
-            .get()
+            .orElseThrow(
+                () -> new IllegalArgumentException("Unknown origin UN/LOCODE: " + originUnlocode))
             .getName();
   }
 
@@ -104,7 +105,10 @@ public class Booking implements Serializable {
         locations.stream()
             .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
             .findAny()
-            .get()
+            .orElseThrow(
+                () ->
+                    new IllegalArgumentException(
+                        "Unknown destination UN/LOCODE: " + destinationUnlocode))
             .getName();
   }
 
