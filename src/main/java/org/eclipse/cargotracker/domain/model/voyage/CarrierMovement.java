@@ -11,9 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 import org.eclipse.cargotracker.domain.model.location.Location;
 
 /** A carrier movement is a vessel voyage from one location to another. */
@@ -56,8 +54,10 @@ public class CarrierMovement implements Serializable {
       Location arrivalLocation,
       LocalDateTime departureTime,
       LocalDateTime arrivalTime) {
-    Validate.noNullElements(
-        new Object[] {departureLocation, arrivalLocation, departureTime, arrivalTime});
+    Objects.requireNonNull(departureLocation, "Departure location is required.");
+    Objects.requireNonNull(arrivalLocation, "Arrival location is required.");
+    Objects.requireNonNull(departureTime, "Departure time is required.");
+    Objects.requireNonNull(arrivalTime, "Arrival time is required.");
 
     // This is a workaround to a Hibernate issue. when the `LocalDateTime` field is persisted into
     // the DB, and retrieved from the DB, the values are different by nanoseconds.
@@ -100,21 +100,14 @@ public class CarrierMovement implements Serializable {
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(this.departureLocation)
-        .append(this.departureTime)
-        .append(this.arrivalLocation)
-        .append(this.arrivalTime)
-        .toHashCode();
+    return Objects.hash(departureLocation, departureTime, arrivalLocation, arrivalTime);
   }
 
   private boolean sameValueAs(CarrierMovement other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.departureLocation, other.departureLocation)
-            .append(this.departureTime, other.departureTime)
-            .append(this.arrivalLocation, other.arrivalLocation)
-            .append(this.arrivalTime, other.arrivalTime)
-            .isEquals();
+        && Objects.equals(this.departureLocation, other.departureLocation)
+        && Objects.equals(this.departureTime, other.departureTime)
+        && Objects.equals(this.arrivalLocation, other.arrivalLocation)
+        && Objects.equals(this.arrivalTime, other.arrivalTime);
   }
 }
