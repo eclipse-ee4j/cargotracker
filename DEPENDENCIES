@@ -1,3 +1,24 @@
+maven/mavencentral/aopalliance/aopalliance/1.0, LicenseRef-Public-Domain, approved, CQ2918
+maven/mavencentral/com.fasterxml.jackson.core/jackson-annotations/2.13.0, Apache-2.0, approved, clearlydefined
+maven/mavencentral/com.fasterxml.jackson.core/jackson-core/2.13.0, Apache-2.0, approved, #2133
+maven/mavencentral/com.fasterxml.jackson.core/jackson-databind/2.13.0, Apache-2.0, approved, #2134
+maven/mavencentral/com.fasterxml.jackson.module/jackson-module-jakarta-xmlbind-annotations/2.13.0, Apache-2.0, approved, clearlydefined
+maven/mavencentral/com.google.code.gson/gson/2.13.2, Apache-2.0, approved, #20656
+maven/mavencentral/com.google.errorprone/error_prone_annotations/2.41.0, Apache-2.0, approved, #22631
+maven/mavencentral/com.google.guava/failureaccess/1.0.3, Apache-2.0, approved, CQ22654
+maven/mavencentral/com.google.guava/guava/33.6.0-jre, Apache-2.0 AND CC-PDDC, approved, #27169
+maven/mavencentral/com.google.inject/guice/6.0.0, Apache-2.0, approved, #17297
+maven/mavencentral/com.h2database/h2/2.4.240, EPL-1.0 AND MPL-2.0 AND LGPL-2.1-or-later AND BSD-3-Clause AND LicenseRef-Public-Domain, approved, #23567
+maven/mavencentral/com.sun.activation/jakarta.activation/2.0.1, EPL-2.0 OR BSD-3-Clause OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jaf
+maven/mavencentral/commons-codec/commons-codec/1.21.0, Apache-2.0 AND (Apache-2.0 AND BSD-3-Clause), approved, #25780
+maven/mavencentral/eu.maveniverse.maven.mima.runtime/embedded-maven/2.4.45, , restricted, clearlydefined
+maven/mavencentral/eu.maveniverse.maven.mima.runtime/standalone-shared/2.4.45, , restricted, clearlydefined
+maven/mavencentral/eu.maveniverse.maven.mima.runtime/standalone-static/2.4.45, , restricted, clearlydefined
+maven/mavencentral/eu.maveniverse.maven.mima/context/2.4.45, EPL-2.0, approved, #17292
+maven/mavencentral/fish.payara.arquillian/arquillian-payara-micro-managed/3.1, (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND LicenseRef-scancode-generic-export-compliance, restricted, clearlydefined
+maven/mavencentral/fish.payara.arquillian/payara-client-ee9/3.1, , restricted, clearlydefined
+maven/mavencentral/fish.payara.arquillian/payara-container-common/3.1, (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND Apache-2.0 AND CC0-1.0 AND (MIT AND LicenseRef-scancode-public-domain) AND MIT AND (MIT AND (MIT OR GPL-2.0-or-later) AND GPL-1.0-or-later) AND (CC0-1.0 AND MIT) AND (BSD-3-Clause AND Apache-2.0) AND W3C, restricted, clearlydefined
+maven/mavencentral/fish.payara.extras/payara-micro/6.2025.5, CDDL-1.1 OR GPL-2.0-only WITH Classpath-exception-2.0, restricted, clearlydefined
 maven/mavencentral/jakarta.activation/jakarta.activation-api/2.1.0, EPL-2.0 OR BSD-3-Clause OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jaf
 maven/mavencentral/jakarta.annotation/jakarta.annotation-api/2.1.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.ca
 maven/mavencentral/jakarta.authentication/jakarta.authentication-api/3.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.authentication
@@ -27,9 +48,103 @@ maven/mavencentral/jakarta.validation/jakarta.validation-api/3.0.2, Apache-2.0, 
 maven/mavencentral/jakarta.websocket/jakarta.websocket-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.websocket
 maven/mavencentral/jakarta.websocket/jakarta.websocket-client-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.websocket
 maven/mavencentral/jakarta.ws.rs/jakarta.ws.rs-api/3.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.rest
-maven/mavencentral/org.apache.commons/commons-lang3/3.8.1, Apache-2.0, approved, #815
+maven/mavencentral/jakarta.xml.bind/jakarta.xml.bind-api/3.0.1, BSD-3-Clause, approved, ee4j.jaxb
+maven/mavencentral/javax.inject/javax.inject/1, Apache-2.0, approved, CQ3555
+maven/mavencentral/net.bytebuddy/byte-buddy/1.18.3, Apache-2.0 AND BSD-3-Clause, approved, #24658
+maven/mavencentral/org.apache.httpcomponents/httpclient/4.5.14, Apache-2.0, approved, #15248
+maven/mavencentral/org.apache.httpcomponents/httpcore/4.4.16, Apache-2.0, approved, CQ23528
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-api/1.9.27, Apache-2.0, approved, #4954
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-connector-basic/1.9.27, Apache-2.0, approved, #7026
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-impl/1.9.27, Apache-2.0, approved, #5011
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-named-locks/1.9.27, Apache-2.0, approved, #5012
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-spi/1.9.27, Apache-2.0, approved, #5013
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-supplier/1.9.27, Apache-2.0, approved, #15785
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-transport-file/1.9.27, Apache-2.0, approved, #7028
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-transport-http/1.9.27, Apache-2.0, approved, #7031
+maven/mavencentral/org.apache.maven.resolver/maven-resolver-util/1.9.27, Apache-2.0, approved, #4953
+maven/mavencentral/org.apache.maven/maven-artifact/3.9.16, Apache-2.0, approved, #7015
+maven/mavencentral/org.apache.maven/maven-builder-support/3.9.16, Apache-2.0, approved, #7027
+maven/mavencentral/org.apache.maven/maven-model-builder/3.9.16, Apache-2.0, approved, #7022
+maven/mavencentral/org.apache.maven/maven-model/3.9.16, Apache-2.0, approved, #7014
+maven/mavencentral/org.apache.maven/maven-repository-metadata/3.9.16, Apache-2.0, approved, #7023
+maven/mavencentral/org.apache.maven/maven-resolver-provider/3.9.16, Apache-2.0, approved, #7030
+maven/mavencentral/org.apache.maven/maven-settings-builder/3.9.16, Apache-2.0, approved, #7020
+maven/mavencentral/org.apache.maven/maven-settings/3.9.16, Apache-2.0, approved, #7024
+maven/mavencentral/org.apiguardian/apiguardian-api/1.1.2, Apache-2.0, approved, #17641
+maven/mavencentral/org.assertj/assertj-core/3.27.7, Apache-2.0, approved, #17980
+maven/mavencentral/org.codehaus.plexus/plexus-cipher/2.0, Apache-2.0, approved, #17666
+maven/mavencentral/org.codehaus.plexus/plexus-classworlds/2.12.0, Apache-2.0 AND Plexus, approved, #29401
+maven/mavencentral/org.codehaus.plexus/plexus-component-annotations/2.2.0, Apache-2.0, approved, #12549
+maven/mavencentral/org.codehaus.plexus/plexus-interpolation/1.29, Apache-2.0 AND Apache-1.1, approved, #24656
+maven/mavencentral/org.codehaus.plexus/plexus-sec-dispatcher/2.0, Apache-2.0, approved, #17647
+maven/mavencentral/org.codehaus.plexus/plexus-utils/3.6.1, Apache-2.0 AND Entessa AND Apache-1.1 AND BSD-3-Clause AND BSD-2-Clause AND SAX-PD AND LicenseRef-Public-Domain, approved, #21842
+maven/mavencentral/org.eclipse.sisu/org.eclipse.sisu.inject/1.0.0, EPL-2.0, approved, technology.sisu
+maven/mavencentral/org.eclipse.sisu/org.eclipse.sisu.plexus/1.0.0, EPL-2.0, approved, technology.sisu
+maven/mavencentral/org.eclipse/yasson/2.0.2, BSD-3-Clause AND EPL-2.0, approved, clearlydefined
+maven/mavencentral/org.glassfish.grizzly/grizzly-framework/3.0.0-M1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.grizzly
+maven/mavencentral/org.glassfish.grizzly/grizzly-http-server/3.0.0-M1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.grizzly
+maven/mavencentral/org.glassfish.grizzly/grizzly-http/3.0.0-M1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.grizzly
+maven/mavencentral/org.glassfish.hk2.external/aopalliance-repackaged/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
+maven/mavencentral/org.glassfish.hk2/hk2-api/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
+maven/mavencentral/org.glassfish.hk2/hk2-locator/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
+maven/mavencentral/org.glassfish.hk2/hk2-utils/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
 maven/mavencentral/org.glassfish.hk2/osgi-resource-locator/1.0.3, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
-maven/mavencentral/org.glassfish.jersey.core/jersey-client/3.1.2, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.core/jersey-common/3.1.2, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.core/jersey-server/3.1.2, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.primefaces/primefaces/12.0.0, MIT AND BSD-3-Clause AND Apache-2.0, approved, #12833
+maven/mavencentral/org.glassfish.jersey.core/jersey-client/3.1.10, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.core/jersey-common/3.1.10, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.core/jersey-server/3.1.10, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.ext/jersey-entity-filtering/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.inject/jersey-hk2/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-jaxb/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-json-jackson/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-json-processing/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-sse/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
+maven/mavencentral/org.glassfish.tyrus/tyrus-client/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
+maven/mavencentral/org.glassfish.tyrus/tyrus-container-grizzly-client/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
+maven/mavencentral/org.glassfish.tyrus/tyrus-core/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
+maven/mavencentral/org.glassfish.tyrus/tyrus-spi/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
+maven/mavencentral/org.glassfish/jakarta.json/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsonp
+maven/mavencentral/org.glassfish/jsonp-jaxrs/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsonp
+maven/mavencentral/org.javassist/javassist/3.25.0-GA, MPL-1.1 OR LGPL-2.1-or-later OR Apache-2.0, approved, CQ19885
+maven/mavencentral/org.jboss.arquillian.config/arquillian-config-api/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.config/arquillian-config-impl-base/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.config/arquillian-config-spi/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.container/arquillian-container-impl-base/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.container/arquillian-container-spi/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.container/arquillian-container-test-api/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.container/arquillian-container-test-impl-base/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.container/arquillian-container-test-spi/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.core/arquillian-core-api/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.core/arquillian-core-impl-base/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.core/arquillian-core-spi/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.junit5/arquillian-junit5-container/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.junit5/arquillian-junit5-core/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.protocol/arquillian-protocol-servlet-jakarta/10.0.0.Final, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jboss.arquillian.test/arquillian-test-api/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.test/arquillian-test-impl-base/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.test/arquillian-test-spi/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.testenricher/arquillian-testenricher-cdi-jakarta/10.0.0.Final, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jboss.arquillian.testenricher/arquillian-testenricher-ejb-jakarta/10.0.0.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.testenricher/arquillian-testenricher-initialcontext/1.10.2.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.arquillian.testenricher/arquillian-testenricher-resource-jakarta/10.0.0.Final, , restricted, clearlydefined
+maven/mavencentral/org.jboss.shrinkwrap.descriptors/shrinkwrap-descriptors-api-base/2.0.0, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jboss.shrinkwrap.descriptors/shrinkwrap-descriptors-spi/2.0.0, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jboss.shrinkwrap.resolver/shrinkwrap-resolver-api-maven/3.3.7, Apache-2.0, approved, #15110
+maven/mavencentral/org.jboss.shrinkwrap.resolver/shrinkwrap-resolver-api/3.3.7, Apache-2.0, approved, #15111
+maven/mavencentral/org.jboss.shrinkwrap.resolver/shrinkwrap-resolver-impl-maven/3.3.7, Apache-2.0, approved, #15112
+maven/mavencentral/org.jboss.shrinkwrap.resolver/shrinkwrap-resolver-spi-maven/3.3.7, Apache-2.0, approved, #15109
+maven/mavencentral/org.jboss.shrinkwrap.resolver/shrinkwrap-resolver-spi/3.3.7, Apache-2.0, approved, #15108
+maven/mavencentral/org.jboss.shrinkwrap/shrinkwrap-api/1.2.6, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jboss.shrinkwrap/shrinkwrap-impl-base/1.2.6, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jboss.shrinkwrap/shrinkwrap-spi/1.2.6, Apache-2.0, approved, clearlydefined
+maven/mavencentral/org.jspecify/jspecify/1.0.0, Apache-2.0, approved, #21897
+maven/mavencentral/org.junit.jupiter/junit-jupiter-api/5.14.4, EPL-2.0, approved, #23721
+maven/mavencentral/org.junit.jupiter/junit-jupiter-engine/5.14.4, EPL-2.0, approved, #23719
+maven/mavencentral/org.junit.jupiter/junit-jupiter-params/5.14.4, EPL-2.0, approved, #23727
+maven/mavencentral/org.junit.jupiter/junit-jupiter/5.14.4, LicenseRef-scancode-unknown-license-reference AND EPL-2.0, restricted, clearlydefined
+maven/mavencentral/org.junit.platform/junit-platform-commons/1.14.4, EPL-2.0, approved, #23723
+maven/mavencentral/org.junit.platform/junit-platform-engine/1.14.4, EPL-2.0, approved, #23726
+maven/mavencentral/org.opentest4j/opentest4j/1.3.0, Apache-2.0, approved, #9713
+maven/mavencentral/org.ow2.asm/asm/9.9.1, BSD-3-Clause, approved, #25264
+maven/mavencentral/org.primefaces/primefaces/15.0.4, MIT AND BSD-3-Clause AND (GPL-2.0-only OR MIT) AND CC-BY-3.0, approved, #26856
+maven/mavencentral/org.slf4j/jcl-over-slf4j/1.7.36, Apache-2.0, approved, CQ12843
+maven/mavencentral/org.slf4j/slf4j-api/1.7.36, MIT, approved, CQ13368
