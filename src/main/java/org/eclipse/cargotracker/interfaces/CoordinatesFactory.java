@@ -15,7 +15,6 @@ import static org.eclipse.cargotracker.domain.model.location.SampleLocations.SHA
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.STOCKHOLM;
 import static org.eclipse.cargotracker.domain.model.location.SampleLocations.TOKYO;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.cargotracker.domain.model.location.Location;
@@ -48,7 +47,7 @@ public class CoordinatesFactory {
   static {
     Map<String, Coordinates> map = new HashMap<>();
 
-    // TODO [Clean Code] See if there is a service to get the latitude/longitude data from.
+    // TODO See if there is a service to get the latitude/longitude data from.
     map.put(HONGKONG.getUnLocode().getIdString(), new Coordinates(22, 114));
     map.put(MELBOURNE.getUnLocode().getIdString(), new Coordinates(-38, 145));
     map.put(STOCKHOLM.getUnLocode().getIdString(), new Coordinates(59, 18));
@@ -64,6 +63,6 @@ public class CoordinatesFactory {
     map.put(DALLAS.getUnLocode().getIdString(), new Coordinates(33, -97));
     map.put(UNKNOWN.getUnLocode().getIdString(), new Coordinates(-90, 0)); // The South Pole.
 
-    COORDINATES_MAP = Collections.unmodifiableMap(map);
+    COORDINATES_MAP = Map.copyOf(map);
   }
 }
