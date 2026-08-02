@@ -25,7 +25,7 @@
   <properties>
     <maven.compiler.release>11</maven.compiler.release>
     <jakartaee.api.version>10.0.0</jakartaee.api.version>
-    <payara.version>6.2025.3</payara.version>
+    <payara.version>6.2025.5</payara.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
   </properties>
   <dependencyManagement>
@@ -36,14 +36,28 @@
       <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
-        <version>1.8.0.Final</version>
+        <version>1.10.2.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.jakarta</groupId>
+        <artifactId>arquillian-jakarta-bom</artifactId>
+        <version>10.0.0.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.shrinkwrap.resolver</groupId>
+        <artifactId>shrinkwrap-resolver-bom</artifactId>
+        <version>3.3.7</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.12.1</version>
+        <version>5.14.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -60,7 +74,7 @@
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
-      <version>14.0.5</version>
+      <version>15.0.4</version>
       <classifier>jakarta</classifier>
     </dependency>
     <!-- We need a Jersey specific dependency for property name constants -->
@@ -69,16 +83,11 @@
       <artifactId>jersey-server</artifactId>
       <version>3.1.10</version>
       <scope>provided</scope>
-    </dependency>    
+    </dependency>
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -105,12 +114,6 @@
       <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- Needed for Arquillian to log -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   <build>
     <finalName>cargo-tracker</finalName>
@@ -118,7 +121,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.1</version>
         <configuration>
           <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
         </configuration>
@@ -167,7 +170,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.3.232</version>
+          <version>2.4.240</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -196,7 +199,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.18</version>
+            <version>1.10.28</version>
             <configuration>
               <container>
                 <containerId>payara</containerId>
@@ -215,7 +218,7 @@
     <profile>
       <id>glassfish</id>
       <properties>
-        <glassfish.version>7.0.22</glassfish.version>
+        <glassfish.version>7.0.25</glassfish.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -230,7 +233,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.3.232</version>
+          <version>2.4.240</version>
           <scope>runtime</scope>
         </dependency>
         <!-- The Arquillian connector for GlassFish. This lets Arquillian
@@ -274,7 +277,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.18</version>
+            <version>1.10.28</version>
             <configuration>
               <container>
                 <containerId>glassfish7x</containerId>
@@ -291,7 +294,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.8.1</version>
+            <version>3.11.0</version>
             <executions>
               <execution>
                 <id>unpack</id>
@@ -317,7 +320,7 @@
           <!-- This modifies configuration of GlassFish for tests - changes the HTTP port to 9090 -->
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0</version>
             <executions>
               <execution>
                 <phase>process-test-classes</phase>
@@ -361,7 +364,7 @@
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <version>2.3.232</version>
+          <version>2.4.240</version>
           <scope>test</scope>
         </dependency>
         <dependency>
@@ -388,7 +391,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.8.1</version>
+            <version>3.11.0</version>
             <executions>
               <execution>
                 <id>copy</id>
@@ -429,7 +432,7 @@
         <dependency>
           <groupId>org.hsqldb</groupId>
           <artifactId>hsqldb</artifactId>
-          <version>2.7.3</version>
+          <version>2.7.4</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
@@ -446,7 +449,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.11.3</version>
+            <version>3.12.1</version>
             <configuration>
               <copyDependencies>
                 <dependencyGroup>

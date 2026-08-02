@@ -6,7 +6,7 @@
 #
 # Then start the services with:
 #
-#  docker-compose up
+#  docker compose up --build
 #
 version: '3.8'
 

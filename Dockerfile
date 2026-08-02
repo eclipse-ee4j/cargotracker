@@ -1,4 +1,4 @@
-FROM payara/server-full:6.2023.12
+FROM payara/server-full:6.2025.5
 
 COPY target/postgresql.jar /tmp
 COPY target/cargo-tracker.war /tmp
