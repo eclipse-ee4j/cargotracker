@@ -6,6 +6,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -74,7 +75,7 @@ public class EventItemReader extends AbstractItemReader {
       } else {
         logger.log(
             Level.INFO, "Finished processing file, deleting: {0}", this.checkpoint.currentFile());
-        currentFile.close();
+        closeCurrentFile();
         this.checkpoint.currentFile().delete();
         File nextFile = this.checkpoint.nextFile();
 
@@ -118,7 +119,7 @@ public class EventItemReader extends AbstractItemReader {
     VoyageNumber voyageNumber = null;
 
     try {
-      if (!result[2].isEmpty()) {
+      if (!result[2].isBlank()) {
         voyageNumber = new VoyageNumber(result[2]);
       }
     } catch (NullPointerException e) {
@@ -146,6 +147,13 @@ public class EventItemReader extends AbstractItemReader {
             LocalDateTime.now(), completionTime, trackingId, voyageNumber, eventType, unLocode);
 
     return attempt;
+  }
+
+  private void closeCurrentFile() throws IOException {
+    if (currentFile != null) {
+      currentFile.close();
+      currentFile = null;
+    }
   }
 
   @Override
