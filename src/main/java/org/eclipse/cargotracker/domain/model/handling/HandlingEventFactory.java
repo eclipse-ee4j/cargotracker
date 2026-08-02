@@ -34,8 +34,9 @@ public class HandlingEventFactory implements Serializable {
    * @throws UnknownVoyageException if there's no voyage with this number
    * @throws UnknownCargoException if there's no cargo with this tracking id
    * @throws UnknownLocationException if there's no location with this UN Locode
+   * @throws CannotCreateHandlingEventException if the event cannot be constructed for another
+   *     reason, such as invalid event type or missing required values
    */
-  // TODO [Clean Code] Look at the exception handling more seriously.
   public HandlingEvent createHandlingEvent(
       LocalDateTime registrationTime,
       LocalDateTime completionTime,
@@ -51,10 +52,10 @@ public class HandlingEventFactory implements Serializable {
     try {
       if (voyage == null) {
         return new HandlingEvent(cargo, completionTime, registrationTime, type, location);
-      } else {
-        return new HandlingEvent(cargo, completionTime, registrationTime, type, location, voyage);
       }
-    } catch (Exception e) {
+
+      return new HandlingEvent(cargo, completionTime, registrationTime, type, location, voyage);
+    } catch (IllegalArgumentException | NullPointerException e) {
       throw new CannotCreateHandlingEventException(e);
     }
   }
