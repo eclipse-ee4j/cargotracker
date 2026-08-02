@@ -58,10 +58,6 @@
     </dependency>
     <!-- The third-party dependencies this application has -->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
       <version>14.0.5</version>
