@@ -8,9 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
@@ -41,17 +39,12 @@ public class HandlingActivity implements Serializable {
   public HandlingActivity() {}
 
   public HandlingActivity(HandlingEvent.Type type, Location location) {
-    Validate.notNull(type, "Handling event type is required.");
-    Validate.notNull(location, "Location is required.");
-
-    this.type = type;
-    this.location = location;
+    this(type, location, null);
   }
 
   public HandlingActivity(HandlingEvent.Type type, Location location, Voyage voyage) {
-    Validate.notNull(type, "Handling event type is required");
-    Validate.notNull(location, "Location is required");
-    Validate.notNull(voyage, "Voyage is required");
+    Objects.requireNonNull(type, "Handling event type is required.");
+    Objects.requireNonNull(location, "Location is required.");
 
     this.type = type;
     this.location = location;
@@ -72,20 +65,14 @@ public class HandlingActivity implements Serializable {
 
   private boolean sameValueAs(HandlingActivity other) {
     return other != null
-        && new EqualsBuilder()
-            .append(this.type, other.type)
-            .append(this.location, other.location)
-            .append(this.voyage, other.voyage)
-            .isEquals();
+        && Objects.equals(this.type, other.type)
+        && Objects.equals(this.location, other.location)
+        && Objects.equals(this.voyage, other.voyage);
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder()
-        .append(this.type)
-        .append(this.location)
-        .append(this.voyage)
-        .toHashCode();
+    return Objects.hash(type, location, voyage);
   }
 
   @Override
@@ -108,14 +95,6 @@ public class HandlingActivity implements Serializable {
   }
 
   public boolean isEmpty() {
-    if (type != null) {
-      return false;
-    }
-
-    if (location != null) {
-      return false;
-    }
-
-    return voyage == null;
+    return type == null && location == null && voyage == null;
   }
 }
