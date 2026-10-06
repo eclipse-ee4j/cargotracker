@@ -35,8 +35,8 @@ public class ListCargo {
     List<CargoRoute> cargos = bookingServiceFacade.listAllCargos();
     notRoutedCargos = cargos.stream().filter(route -> !route.isRouted()).collect(toList());
     routedUnclaimedCargos =
-        cargos.stream().filter(route -> route.isRouted() && !route.isClaimed()).collect(toList());
-    claimedCargos = cargos.stream().filter(CargoRoute::isClaimed).collect(toList());
+        cargos.stream().filter(route -> route.isRouted() && !route.claimed()).collect(toList());
+    claimedCargos = cargos.stream().filter(CargoRoute::claimed).collect(toList());
   }
 
   public List<CargoRoute> getNotRoutedCargos() {

@@ -14,11 +14,11 @@
     <h:form>
       <h:panelGrid columns="2" cellpadding="30">
         <p:outputLabel value="Origin:" />
-        <p:outputLabel value="#{changeArrivalDeadline.cargo.originName}" />
+        <p:outputLabel value="#{changeArrivalDeadline.cargo.origin.name}" />
 
         <p:outputLabel value="Destination: " />
         <p:outputLabel
-          value="#{changeArrivalDeadline.cargo.finalDestinationName}" />
+          value="#{changeArrivalDeadline.cargo.finalDestination.name}" />
 
         <p:outputLabel value="Deadline: " />
         <p:datePicker value="#{changeArrivalDeadline.arrivalDeadline}"/>

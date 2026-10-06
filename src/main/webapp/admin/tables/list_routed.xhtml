@@ -16,25 +16,25 @@
     </p:column>
 
     <p:column headerText="Origin">
-      <h:outputText value="#{cargo.originName}  " />
+      <h:outputText value="#{cargo.origin.name}  " />
       <br />
-      <h:outputText value="#{cargo.originCode}"
+      <h:outputText value="#{cargo.origin.unLocode}"
         style="color: #999999;font-size:.8em;" />
     </p:column>
 
     <p:column headerText="Destination">
-      <h:outputText value="#{cargo.finalDestinationName}" />
+      <h:outputText value="#{cargo.finalDestination.name}" />
       <br />
-      <h:outputText value="#{cargo.finalDestinationCode}"
+      <h:outputText value="#{cargo.finalDestination.unLocode}"
         style="color: #999999;font-size:.8em;" />
     </p:column>
 
     <p:column headerText="Last Known Location">
-      <h:outputText value="#{cargo.lastKnownLocationName}" />
+      <h:outputText value="#{cargo.lastKnownLocation.name}" />
       <br />
-      <h:outputText value="#{cargo.lastKnownLocationCode}"
+      <h:outputText value="#{cargo.lastKnownLocation.unLocode}"
         style="color: #999999;font-size:.8em;"
-        rendered="#{!cargo.lastKnownLocationCode.contains('XXXX')}" />
+        rendered="#{!cargo.lastKnownLocation.unLocode.contains('XXXX')}" />
     </p:column>
 
     <p:column headerText="Status">

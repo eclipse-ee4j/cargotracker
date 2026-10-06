@@ -14,10 +14,10 @@
     <h:form>
       <h:panelGrid columns="2" cellpadding="15">
         <p:outputLabel value="Origin:" />
-        <p:outputLabel value="#{changeDestination.cargo.originName}" />
+        <p:outputLabel value="#{changeDestination.cargo.origin.name}" />
 
         <p:outputLabel value="Current destination: " />
-        <p:outputLabel value="#{changeDestination.cargo.finalDestinationName}" />
+        <p:outputLabel value="#{changeDestination.cargo.finalDestination.name}" />
 
         <p:outputLabel value="New destination: " />
         <p:selectOneMenu value="#{changeDestination.destinationUnlocode}"

@@ -19,9 +19,9 @@
     </p:column>
 
     <p:column headerText="Origin">
-      <h:outputText value="#{cargoNotRouted.originName}  " />
+      <h:outputText value="#{cargoNotRouted.origin.name}  " />
       <br />
-      <h:outputText value="#{cargoNotRouted.originCode}"
+      <h:outputText value="#{cargoNotRouted.origin.unLocode}"
         style="color: #999999;font-size:.8em;" />
     </p:column>
 
@@ -29,9 +29,9 @@
       <p:commandLink
         action="#{changeDestinationDialog.showDialog(cargoNotRouted.trackingId)}"
         style="text-decoration: none;" id="toUpdate">
-        <h:outputText value="#{cargoNotRouted.finalDestinationName}  " />
+        <h:outputText value="#{cargoNotRouted.finalDestination.name}  " />
         <br />
-        <h:outputText value="#{cargoNotRouted.finalDestinationCode}"
+        <h:outputText value="#{cargoNotRouted.finalDestination.unLocode}"
           style="color: #999999;font-size:.8em;" />
         <i class="fa fa-edit" style="color: #999999;" />
         <p:ajax event="dialogReturn"

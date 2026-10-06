@@ -56,8 +56,10 @@ public class ChangeDestination implements Serializable {
         locations.stream()
             .filter(
                 location ->
-                    location.unLocode().equalsIgnoreCase(cargo.getOriginCode())
-                        || location.unLocode().equalsIgnoreCase(cargo.getFinalDestinationCode()))
+                    location.unLocode().equalsIgnoreCase(cargo.origin().unLocode())
+                        || location
+                            .unLocode()
+                            .equalsIgnoreCase(cargo.finalDestination().unLocode()))
             .toList();
 
     locations.removeAll(destinationsToRemove);

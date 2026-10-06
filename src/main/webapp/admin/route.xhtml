@@ -24,16 +24,16 @@
         cellpadding="5">
         <p:outputLabel value="Origin:" style="color:#5392c3;font-weight: bold;" />
         <h:panelGroup>
-          <p:outputLabel value="#{cargoDetails.cargo.originName}" />
-          <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.originCode}"
+          <p:outputLabel value="#{cargoDetails.cargo.origin.name}" />
+          <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.origin.unLocode}"
             style="color: #999999;font-size:.9em;" />
         </h:panelGroup>
         <p:outputLabel value="Destination:"
           style="color: #5392c3;font-weight: bold;" />
         <h:panelGroup>
-          <p:outputLabel value="#{cargoDetails.cargo.finalDestinationName}" />
+          <p:outputLabel value="#{cargoDetails.cargo.finalDestination.name}" />
           <p:outputLabel
-            value="&#160;&#160;#{cargoDetails.cargo.finalDestinationCode}"
+            value="&#160;&#160;#{cargoDetails.cargo.finalDestination.unLocode}"
             style="color: #999999;font-size:.9em;" />
         </h:panelGroup>
         <p:outputLabel value="Arrival deadline:"
@@ -83,9 +83,9 @@
 
               <p:column headerText="Load" style="text-align: center;">
                 <h:outputText value="#{legs.from.name}"
-                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.from.name) ? 'bold' : 'normal'}" />
+                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.origin.name, legs.from.name) ? 'bold' : 'normal'}" />
                 <ui:fragment
-                  rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.from.name)}">
+                  rendered="${fn:startsWith(cargoDetails.cargo.origin.name, legs.from.name)}">
                   <i class="fa fa-arrow-right" />
                 </ui:fragment>
 
@@ -97,11 +97,11 @@
 
               <p:column headerText="Unload" style="text-align: center;">
                 <ui:fragment
-                  rendered="${fn:startsWith(cargoDetails.cargo.finalDestination, legs.to.name)}">
+                  rendered="${fn:startsWith(cargoDetails.cargo.finalDestination.name, legs.to.name)}">
                   <i class="fa fa-arrow-right" />
                 </ui:fragment>
                 <h:outputText value="#{legs.to.name}"
-                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination, legs.to.name) ?'bolder' : 'normal'}" />
+                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination.name, legs.to.name) ?'bolder' : 'normal'}" />
               </p:column>
 
               <p:column headerText="Time" style="text-align: center;">

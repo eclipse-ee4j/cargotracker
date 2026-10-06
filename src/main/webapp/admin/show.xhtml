@@ -22,17 +22,17 @@
 
         <p:outputLabel value="Origin:" style="color:#5392c3;font-weight: bold;" />
         <h:panelGroup>
-          <p:outputLabel value="#{cargoDetails.cargo.originName}" />
-          <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.originCode}"
+          <p:outputLabel value="#{cargoDetails.cargo.origin.name}" />
+          <p:outputLabel value="&#160;&#160;#{cargoDetails.cargo.origin.unLocode}"
             style="color: #999999;font-size:.9em;" />
         </h:panelGroup>
 
         <p:outputLabel value="Destination:"
           style="color: #5392c3;font-weight: bold;" />
         <h:panelGroup>
-          <p:outputLabel value="#{cargoDetails.cargo.finalDestinationName}" />
+          <p:outputLabel value="#{cargoDetails.cargo.finalDestination.name}" />
           <p:outputLabel
-            value="&#160;&#160;#{cargoDetails.cargo.finalDestinationCode}"
+            value="&#160;&#160;#{cargoDetails.cargo.finalDestination.unLocode}"
             style="color: #999999;font-size:.9em;" />
         </h:panelGroup>
 
@@ -47,7 +47,7 @@
       <div class="row">
         <div class="large-12 columns">
           <div id="container" class="panel">
-            <h:panelGroup rendered="#{cargoDetails.cargo.routed}">
+            <h:panelGroup rendered="#{cargoDetails.cargo.isRouted()}">
               <h:panelGroup rendered="#{cargoDetails.cargo.misrouted}">
                 <h:panelGrid columns="3" style="font-size: 1.2em"
                   cellpadding="5">
@@ -99,7 +99,7 @@
               </p:dataTable>
 
             </h:panelGroup>
-            <h:panelGroup rendered="#{not cargoDetails.cargo.routed}">
+            <h:panelGroup rendered="#{not cargoDetails.cargo.isRouted()}">
               <p>
                 <strong>Not routed</strong> -
                 <h:link value="route this cargo"
