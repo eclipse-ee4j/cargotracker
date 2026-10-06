@@ -86,11 +86,6 @@ public class BookingServiceTest {
   @Deployment
   public static WebArchive createDeployment() {
 
-    String launch = System.getProperty("arquillian.launch", "payara");
-    String webXml = launch.equals("openliberty") ? "test-liberty-web.xml" : "test-web.xml";
-    String[] dependencies =
-        launch.equals("openliberty") ? new String[] {} : new String[] {"com.h2database:h2"};
-
     WebArchive archive =
         ShrinkWrap.create(WebArchive.class, "cargo-tracker-test.war")
             // Application layer component directly under test.
@@ -152,19 +147,16 @@ public class BookingServiceTest {
             // Persistence unit descriptor
             .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
             // Web application descriptor
-            .addAsWebInfResource(webXml, "web.xml")
+            .addAsWebInfResource("test-web.xml", "web.xml")
             // Bean archive descriptor
             .addAsWebInfResource("test-beans.xml", "beans.xml");
 
-    // Only bundle external libraries when the target runtime needs them.
-    if (dependencies.length > 0) {
-      archive.addAsLibraries(
-          Maven.resolver()
-              .loadPomFromFile("pom.xml")
-              .resolve(dependencies)
-              .withTransitivity()
-              .asFile());
-    }
+    archive.addAsLibraries(
+        Maven.resolver()
+            .loadPomFromFile("pom.xml")
+            .resolve("com.h2database:h2")
+            .withTransitivity()
+            .asFile());
 
     return archive;
   }
