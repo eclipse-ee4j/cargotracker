@@ -82,10 +82,10 @@
               </p:column>
 
               <p:column headerText="Load" style="text-align: center;">
-                <h:outputText value="#{legs.fromName}"
-                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.fromName) ? 'bold' : 'normal'}" />
+                <h:outputText value="#{legs.from.name}"
+                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.originName, legs.from.name) ? 'bold' : 'normal'}" />
                 <ui:fragment
-                  rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.fromName)}">
+                  rendered="${fn:startsWith(cargoDetails.cargo.originName, legs.from.name)}">
                   <i class="fa fa-arrow-right" />
                 </ui:fragment>
 
@@ -97,11 +97,11 @@
 
               <p:column headerText="Unload" style="text-align: center;">
                 <ui:fragment
-                  rendered="${fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName)}">
+                  rendered="${fn:startsWith(cargoDetails.cargo.finalDestination, legs.to.name)}">
                   <i class="fa fa-arrow-right" />
                 </ui:fragment>
-                <h:outputText value="#{legs.toName}"
-                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination, legs.toName) ?'bolder' : 'normal'}" />
+                <h:outputText value="#{legs.to.name}"
+                  style="font-weight: #{fn:startsWith(cargoDetails.cargo.finalDestination, legs.to.name) ?'bolder' : 'normal'}" />
               </p:column>
 
               <p:column headerText="Time" style="text-align: center;">

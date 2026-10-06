@@ -44,18 +44,18 @@ public class ItineraryCandidateDtoAssembler {
 
     for (org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg legDTO :
         routeCandidateDTO.legs()) {
-      VoyageNumber voyageNumber = new VoyageNumber(legDTO.getVoyageNumber());
+      VoyageNumber voyageNumber = new VoyageNumber(legDTO.voyageNumber());
       Voyage voyage = voyageRepository.find(voyageNumber);
-      Location from = locationRepository.find(new UnLocode(legDTO.getFromUnLocode()));
-      Location to = locationRepository.find(new UnLocode(legDTO.getToUnLocode()));
+      Location from = locationRepository.find(new UnLocode(legDTO.from().unLocode()));
+      Location to = locationRepository.find(new UnLocode(legDTO.to().unLocode()));
 
       legs.add(
           new Leg(
               voyage,
               from,
               to,
-              DateConverter.toDateTime(legDTO.getLoadTime()),
-              DateConverter.toDateTime(legDTO.getUnloadTime())));
+              DateConverter.toDateTime(legDTO.loadTime()),
+              DateConverter.toDateTime(legDTO.unloadTime())));
     }
 
     return new Itinerary(legs);
