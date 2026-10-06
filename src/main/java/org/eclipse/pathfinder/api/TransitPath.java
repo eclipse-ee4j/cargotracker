@@ -23,9 +23,4 @@ public class TransitPath implements Serializable {
   public void setTransitEdges(List<TransitEdge> transitEdges) {
     this.transitEdges = transitEdges;
   }
-
-  @Override
-  public String toString() {
-    return "TransitPath{" + "transitEdges=" + transitEdges + '}';
-  }
 }

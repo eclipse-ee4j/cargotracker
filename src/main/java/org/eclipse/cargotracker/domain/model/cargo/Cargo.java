@@ -187,9 +187,4 @@ public class Cargo implements Serializable {
   public int hashCode() {
     return trackingId.hashCode();
   }
-
-  @Override
-  public String toString() {
-    return trackingId.toString();
-  }
 }

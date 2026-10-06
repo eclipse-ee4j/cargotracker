@@ -53,7 +53,8 @@ public class RealtimeCargoTrackingService {
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
-    logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
+    logger.log(
+        Level.FINEST, "SSE event broadcast for cargo with tracking ID: {0}", cargo.getTrackingId());
     if (broadcaster != null) {
       broadcaster.broadcast(cargoToSseEvent(cargo));
     } else {

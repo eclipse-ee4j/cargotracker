@@ -36,7 +36,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
   @Override
   public void cargoWasHandled(HandlingEvent event) {
     Cargo cargo = event.getCargo();
-    logger.log(Level.INFO, "Cargo was handled {0}", cargo);
+    logger.log(Level.INFO, "Cargo with tracking ID {0} was handled", cargo.getTrackingId());
     jmsContext
         .createProducer()
         .setPriority(LOW_PRIORITY)
@@ -47,7 +47,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
 
   @Override
   public void cargoWasMisdirected(Cargo cargo) {
-    logger.log(Level.INFO, "Cargo was misdirected {0}", cargo);
+    logger.log(Level.INFO, "Cargo with tracking ID {0} was misdirected", cargo.getTrackingId());
     jmsContext
         .createProducer()
         .setPriority(LOW_PRIORITY)
@@ -58,7 +58,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
 
   @Override
   public void cargoHasArrived(Cargo cargo) {
-    logger.log(Level.INFO, "Cargo has arrived {0}", cargo);
+    logger.log(Level.INFO, "Cargo with tracking ID {0} has arrived", cargo.getTrackingId());
     jmsContext
         .createProducer()
         .setPriority(LOW_PRIORITY)
