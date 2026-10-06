@@ -17,7 +17,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -34,8 +33,6 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
  */
 @Embeddable
 public class Delivery implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   // Null object pattern.
   public static final LocalDateTime ETA_UNKOWN = null;

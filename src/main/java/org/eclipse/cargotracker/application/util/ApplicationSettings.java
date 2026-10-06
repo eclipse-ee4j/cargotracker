@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.application.util;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,7 +10,6 @@ import java.io.Serializable;
  */
 @Entity
 public class ApplicationSettings implements Serializable {
-  @Serial private static final long serialVersionUID = 1L;
 
   @Id private Long id;
 

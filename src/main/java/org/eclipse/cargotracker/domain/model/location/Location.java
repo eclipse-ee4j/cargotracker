@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,8 +22,6 @@ import java.util.Objects;
     name = "Location.findByUnLocode",
     query = "Select l from Location l where l.unLocode = :unLocode")
 public class Location implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   // Special Location object that marks an unknown location.
   public static final Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");

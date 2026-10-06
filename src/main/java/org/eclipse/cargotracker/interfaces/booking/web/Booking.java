@@ -6,7 +6,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -29,8 +28,6 @@ import org.primefaces.PrimeFaces;
 @Named
 @FlowScoped("booking")
 public class Booking implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   private static final long MIN_JOURNEY_DURATION = 1; // Journey should be 1 day minimum.
 

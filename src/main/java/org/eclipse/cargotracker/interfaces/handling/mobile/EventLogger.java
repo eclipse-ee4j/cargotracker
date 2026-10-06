@@ -7,7 +7,6 @@ import jakarta.faces.model.SelectItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,8 +30,6 @@ import org.primefaces.event.FlowEvent;
 @Named
 @ViewScoped
 public class EventLogger implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   private static final String COMPLETION_TIME_PATTERN = "M/d/yyyy h:mm a";
 

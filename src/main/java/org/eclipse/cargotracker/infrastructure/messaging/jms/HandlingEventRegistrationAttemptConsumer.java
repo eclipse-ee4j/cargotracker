@@ -32,11 +32,11 @@ public class HandlingEventRegistrationAttemptConsumer implements MessageListener
       HandlingEventRegistrationAttempt attempt =
           (HandlingEventRegistrationAttempt) objectMessage.getObject();
       handlingEventService.registerHandlingEvent(
-          attempt.getCompletionTime(),
-          attempt.getTrackingId(),
-          attempt.getVoyageNumber(),
-          attempt.getUnLocode(),
-          attempt.getType());
+          attempt.completionTime(),
+          attempt.trackingId(),
+          attempt.voyageNumber(),
+          attempt.unLocode(),
+          attempt.type());
     } catch (JMSException | CannotCreateHandlingEventException e) {
       // Poison messages will be placed on dead-letter queue.
       throw new RuntimeException("Error occurred processing message", e);

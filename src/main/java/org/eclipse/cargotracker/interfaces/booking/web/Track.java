@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
@@ -23,8 +22,6 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.CargoStatus;
 @Named("admin.track")
 @ViewScoped
 public class Track implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private BookingServiceFacade bookingServiceFacade;
 

@@ -5,7 +5,6 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -17,8 +16,6 @@ import org.eclipse.cargotracker.domain.shared.AbstractSpecification;
  */
 @Embeddable
 public class RouteSpecification extends AbstractSpecification<Itinerary> implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   @ManyToOne
   @JoinColumn(name = "spec_origin_id", updatable = false)

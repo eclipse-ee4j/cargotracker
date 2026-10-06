@@ -6,7 +6,6 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.json.bind.JsonbBuilder;
-import java.io.Serial;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -33,8 +32,6 @@ import org.eclipse.cargotracker.domain.model.handling.HandlingEventRepository;
 @Named("public.track")
 @ViewScoped
 public class Track implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private transient Logger logger;
 

@@ -5,7 +5,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.jms.Destination;
 import jakarta.jms.JMSContext;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +16,6 @@ import org.eclipse.cargotracker.interfaces.handling.HandlingEventRegistrationAtt
 @ApplicationScoped
 public class JmsApplicationEvents implements ApplicationEvents, Serializable {
 
-  @Serial private static final long serialVersionUID = 1L;
   private static final int LOW_PRIORITY = 0;
   @Inject JMSContext jmsContext;
 

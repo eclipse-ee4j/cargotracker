@@ -1,7 +1,6 @@
 package org.eclipse.cargotracker.domain.model.handling;
 
 import jakarta.ejb.ApplicationException;
-import java.io.Serial;
 
 /**
  * If a {@link HandlingEvent} can't be created from a given set of parameters.
@@ -11,8 +10,6 @@ import java.io.Serial;
  */
 @ApplicationException(rollback = true)
 public class CannotCreateHandlingEventException extends Exception {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   public CannotCreateHandlingEventException(Exception e) {
     super(e);

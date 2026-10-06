@@ -11,7 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -41,8 +40,6 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
     name = "HandlingEvent.findByTrackingId",
     query = "Select e from HandlingEvent e where e.cargo.trackingId = :trackingId")
 public class HandlingEvent implements Serializable {
-
-  @Serial private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
 
