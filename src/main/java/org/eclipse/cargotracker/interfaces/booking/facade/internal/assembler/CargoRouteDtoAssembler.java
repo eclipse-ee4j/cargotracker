@@ -20,7 +20,7 @@ public class CargoRouteDtoAssembler {
             .map(
                 leg ->
                     new Leg(
-                        leg.getVoyage().getVoyageNumber().getIdString(),
+                        leg.getVoyage().getVoyageNumber().number(),
                         locationDtoAssembler.toDto(leg.getLoadLocation()),
                         locationDtoAssembler.toDto(leg.getUnloadLocation()),
                         leg.getLoadTime(),

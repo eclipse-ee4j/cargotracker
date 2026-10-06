@@ -7,50 +7,17 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class VoyageNumber implements Serializable {
+public record VoyageNumber(
+    @Column(name = "voyage_number") @NotEmpty(message = "Voyage number cannot be empty.")
+        String number)
+    implements Serializable {
 
-  @Column(name = "voyage_number")
-  @NotEmpty(message = "Voyage number cannot be empty.")
-  private String number;
-
-  public VoyageNumber() {
-    // Nothing to initialize.
-  }
-
-  public VoyageNumber(String number) {
+  public VoyageNumber {
     Objects.requireNonNull(number, "Voyage number is required");
-
-    this.number = number;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (!(o instanceof VoyageNumber other)) {
-      return false;
-    }
-
-    return sameValueAs(other);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(number);
-  }
-
-  boolean sameValueAs(VoyageNumber other) {
-    return other != null && Objects.equals(this.number, other.number);
   }
 
   @Override
   public String toString() {
-    return number;
-  }
-
-  public String getIdString() {
     return number;
   }
 }

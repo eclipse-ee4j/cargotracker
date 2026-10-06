@@ -159,8 +159,7 @@ public class EventLogger implements Serializable {
         voyage ->
             this.voyages.add(
                 new SelectItem(
-                    voyage.getVoyageNumber().getIdString(),
-                    voyage.getVoyageNumber().getIdString())));
+                    voyage.getVoyageNumber().number(), voyage.getVoyageNumber().number())));
   }
 
   public String onFlowProcess(FlowEvent event) {

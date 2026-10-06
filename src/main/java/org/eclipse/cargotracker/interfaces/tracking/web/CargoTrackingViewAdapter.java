@@ -90,8 +90,7 @@ public class CargoTrackingViewAdapter {
 
     return switch (delivery.getTransportStatus()) {
       case IN_PORT -> "In port " + delivery.getLastKnownLocation().getName();
-      case ONBOARD_CARRIER -> "Onboard voyage "
-          + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
+      case ONBOARD_CARRIER -> "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber();
       case CLAIMED -> "Claimed";
       case NOT_RECEIVED -> "Not received";
       case UNKNOWN -> "Unknown";
@@ -165,11 +164,11 @@ public class CargoTrackingViewAdapter {
     public String getDescription() {
       return switch (handlingEvent.getType()) {
         case LOAD -> "Loaded onto voyage "
-            + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+            + handlingEvent.getVoyage().getVoyageNumber()
             + " in "
             + handlingEvent.getLocation().getName();
         case UNLOAD -> "Unloaded off voyage "
-            + handlingEvent.getVoyage().getVoyageNumber().getIdString()
+            + handlingEvent.getVoyage().getVoyageNumber()
             + " in "
             + handlingEvent.getLocation().getName();
         case RECEIVE -> "Received in " + handlingEvent.getLocation().getName();

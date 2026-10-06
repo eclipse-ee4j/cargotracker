@@ -40,8 +40,7 @@ public class CargoStatusDtoAssembler {
 
     return switch (delivery.getTransportStatus()) {
       case IN_PORT -> "In port " + delivery.getLastKnownLocation().getName();
-      case ONBOARD_CARRIER -> "Onboard voyage "
-          + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
+      case ONBOARD_CARRIER -> "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber();
       case CLAIMED -> "Claimed";
       case NOT_RECEIVED -> "Not received";
       case UNKNOWN -> "Unknown";

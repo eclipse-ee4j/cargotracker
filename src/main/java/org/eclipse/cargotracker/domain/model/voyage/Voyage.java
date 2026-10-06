@@ -76,7 +76,7 @@ public class Voyage implements Serializable {
   }
 
   public boolean sameIdentityAs(Voyage other) {
-    return other != null && this.getVoyageNumber().sameValueAs(other.getVoyageNumber());
+    return other != null && this.getVoyageNumber().equals(other.getVoyageNumber());
   }
 
   @Override

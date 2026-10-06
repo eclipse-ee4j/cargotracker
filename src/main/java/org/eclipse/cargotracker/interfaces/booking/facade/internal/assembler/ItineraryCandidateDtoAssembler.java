@@ -29,7 +29,7 @@ public class ItineraryCandidateDtoAssembler {
   protected org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg toLegDTO(Leg leg) {
     VoyageNumber voyageNumber = leg.getVoyage().getVoyageNumber();
     return new org.eclipse.cargotracker.interfaces.booking.facade.dto.Leg(
-        voyageNumber.getIdString(),
+        voyageNumber.number(),
         locationDtoAssembler.toDto(leg.getLoadLocation()),
         locationDtoAssembler.toDto(leg.getUnloadLocation()),
         leg.getLoadTime(),
