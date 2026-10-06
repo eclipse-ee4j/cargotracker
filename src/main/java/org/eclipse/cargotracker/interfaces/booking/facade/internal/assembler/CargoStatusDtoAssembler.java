@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.Delivery;
@@ -24,7 +23,7 @@ public class CargoStatusDtoAssembler {
     trackingEvents =
         handlingEvents.stream()
             .map(handlingEvent -> assembler.toDto(cargo, handlingEvent))
-            .collect(Collectors.toList());
+            .toList();
 
     return new CargoStatus(
         cargo.getTrackingId().getIdString(),

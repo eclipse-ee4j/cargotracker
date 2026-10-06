@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
@@ -20,7 +21,7 @@ import org.eclipse.cargotracker.domain.model.voyage.Voyage;
 @Embeddable
 public class HandlingActivity implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "next_expected_handling_event_type")

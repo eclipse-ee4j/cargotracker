@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class HandlingHistory {
 
@@ -32,10 +31,7 @@ public class HandlingHistory {
    */
   public List<HandlingEvent> getDistinctEventsByCompletionTime() {
     List<HandlingEvent> ordered =
-        handlingEvents.stream()
-            .distinct()
-            .sorted(BY_COMPLETION_TIME_COMPARATOR)
-            .collect(Collectors.toList());
+        handlingEvents.stream().distinct().sorted(BY_COMPLETION_TIME_COMPARATOR).toList();
 
     return List.copyOf(ordered);
   }

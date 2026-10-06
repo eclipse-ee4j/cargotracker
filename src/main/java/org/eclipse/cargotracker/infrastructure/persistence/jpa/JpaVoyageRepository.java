@@ -3,6 +3,7 @@ package org.eclipse.cargotracker.infrastructure.persistence.jpa;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import org.eclipse.cargotracker.domain.model.voyage.Voyage;
@@ -12,7 +13,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 @ApplicationScoped
 public class JpaVoyageRepository implements VoyageRepository, Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @PersistenceContext private EntityManager entityManager;
 

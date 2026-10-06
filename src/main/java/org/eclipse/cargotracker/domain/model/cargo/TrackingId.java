@@ -3,6 +3,7 @@ package org.eclipse.cargotracker.domain.model.cargo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
 @Embeddable
 public class TrackingId implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Column(name = "tracking_id", unique = true, updatable = false)
   @NotEmpty(message = "Tracking ID cannot be empty.")

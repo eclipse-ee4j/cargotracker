@@ -1,12 +1,13 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
 /** DTO for presenting and selecting an itinerary from a collection of candidates. */
 public class RouteCandidate implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private List<Leg> legs;
 

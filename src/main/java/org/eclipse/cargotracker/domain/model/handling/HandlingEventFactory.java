@@ -2,6 +2,7 @@ package org.eclipse.cargotracker.domain.model.handling;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
@@ -17,7 +18,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 @ApplicationScoped
 public class HandlingEventFactory implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private CargoRepository cargoRepository;
   @Inject private VoyageRepository voyageRepository;

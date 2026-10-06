@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import org.eclipse.cargotracker.infrastructure.events.cdi.CargoUpdated;
 @ApplicationScoped
 public class JpaCargoRepository implements CargoRepository, Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private Logger logger;
 

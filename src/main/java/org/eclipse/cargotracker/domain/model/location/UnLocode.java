@@ -3,6 +3,7 @@ package org.eclipse.cargotracker.domain.model.location;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 @Embeddable
 public class UnLocode implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private static final java.util.regex.Pattern VALID_PATTERN =
       java.util.regex.Pattern.compile("[a-zA-Z]{2}[a-zA-Z2-9]{3}");

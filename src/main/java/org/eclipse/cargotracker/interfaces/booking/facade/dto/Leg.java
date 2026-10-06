@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.eclipse.cargotracker.application.util.DateConverter;
@@ -7,7 +8,7 @@ import org.eclipse.cargotracker.application.util.DateConverter;
 /** DTO for a leg in an itinerary. */
 public class Leg implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   private final String voyageNumber;
   private final Location from;
   private final Location to;

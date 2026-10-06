@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.handling;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
@@ -15,7 +16,7 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageNumber;
  */
 public class HandlingEventRegistrationAttempt implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private final LocalDateTime registrationTime;
   private final LocalDateTime completionTime;

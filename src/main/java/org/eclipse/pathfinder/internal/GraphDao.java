@@ -1,6 +1,7 @@
 package org.eclipse.pathfinder.internal;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.Random;
 @ApplicationScoped
 public class GraphDao implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private final Random random = new Random();
 

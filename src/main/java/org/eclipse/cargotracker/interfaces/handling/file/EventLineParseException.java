@@ -1,8 +1,10 @@
 package org.eclipse.cargotracker.interfaces.handling.file;
 
+import java.io.Serial;
+
 public class EventLineParseException extends RuntimeException {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   private final String line;
 

@@ -2,6 +2,7 @@ package org.eclipse.cargotracker.interfaces.booking.facade.internal;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import org.eclipse.cargotracker.interfaces.booking.facade.internal.assembler.Loc
 @ApplicationScoped
 public class DefaultBookingServiceFacade implements BookingServiceFacade, Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject private BookingService bookingService;
   @Inject private LocationRepository locationRepository;

@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import org.eclipse.cargotracker.domain.model.handling.HandlingEvent;
@@ -56,7 +57,7 @@ import org.eclipse.cargotracker.domain.model.location.Location;
     query = "Select c from Cargo c where c.trackingId = :trackingId")
 public class Cargo implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Id @GeneratedValue private Long id;
 

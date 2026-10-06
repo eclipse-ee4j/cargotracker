@@ -82,8 +82,7 @@ public class ExternalRoutingService implements RoutingService {
   }
 
   private Itinerary toItinerary(TransitPath transitPath) {
-    List<Leg> legs =
-        transitPath.getTransitEdges().stream().map(this::toLeg).collect(Collectors.toList());
+    List<Leg> legs = transitPath.getTransitEdges().stream().map(this::toLeg).toList();
     return new Itinerary(legs);
   }
 
