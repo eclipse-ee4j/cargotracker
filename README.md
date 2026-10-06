@@ -22,7 +22,7 @@ The [project website](https://eclipse-ee4j.github.io/cargotracker/) has detailed
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
-* Ensure you are running Java SE 11 or Java SE 17.
+* Use JDK 21 to build, test, and run Payara 7. Application source and bytecode target Java SE 17.
 * Make sure JAVA_HOME is set.
 * Navigate to the project source root and type:
 ```
@@ -32,10 +32,14 @@ The simplest steps are the following (no IDE required):
 
 This will run the application with Payara Server by default. This branch currently supports Payara and the cloud
 deployment profile; GlassFish and Open Liberty support will be reintroduced later.
+The application targets Jakarta EE 11. Both Payara Server and the Payara Micro test runtime use version 7.2026.9.
+The cloud image `payara/server-full:7.2026.9` uses JDK 21.
+REST endpoints are JSON-only: route queries return `application/json` and handling reports accept
+`application/json`. XML requests are no longer supported.
 
 To set up in Visual Studio Code, follow these steps:
 
-* Set up Java SE 11, or Java SE 17, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 6](https://www.payara.fish/downloads/payara-platform-community-edition/). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
+* Set up JDK 21, [Visual Studio Code](https://code.visualstudio.com/download) and [Payara 7](https://www.payara.fish/downloads/payara-platform-community-edition/). You will also need to set up the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) and [Payara Tools](https://marketplace.visualstudio.com/items?itemName=Payara.payara-vscode) in Visual Studio Code.
 * Make sure JAVA_HOME is set.
 * Open the directory that contains the code in Visual Studio Code. Visual Studio Code will do the rest for you, it should automatically configure a Maven project. Proceed with clean/building the application.
 * After the project is built (which will take a while the very first time as Maven downloads dependencies), simply run the generated `cargo-tracker.war` file under the `target` directory using Payara Tools.
@@ -145,7 +149,7 @@ For further guidance on contributing including the project roadmap, please look 
 
 ## Known Issues
 * When using Visual Studio Code, please make sure that the JAVA_HOME environment variable is correctly set up. If it is not configured properly, you will be unable to select a domain when adding a Payara Server instance in Visual Studio Code.
-* When using Visual Studio Code, please make sure that Payara is not installed in a path with a space (for example: C:\Program Files\payara6). Payara will fail to start with the Payara Tools extension. Install Payara on a path without spaces (for example: C:\payara6).
+* When using Visual Studio Code, please make sure that Payara is not installed in a path with a space (for example: C:\Program Files\payara7). Payara will fail to start with the Payara Tools extension. Install Payara on a path without spaces (for example: C:\payara7).
 * You may get a log message stating that Payara SSL certificates have expired. This won't get in the way of functionality, but it will
   stop log messages from being printed to the IDE console. You can solve this issue by manually removing the expired certificates from the Payara domain, as
   explained [here](https://github.com/payara/Payara/issues/3038).

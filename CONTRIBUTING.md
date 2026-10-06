@@ -30,7 +30,9 @@ This project complies with the Google Style Guides for [Java](https://google.git
 In general for all files we use a column/line width of 80 whenever possible and we use 2 spaces for indentation. All files must end with a new line. Please adjust the formatting settings of your IDE accordingly. You are encouraged but not required to use HTML Tidy and CSS Tidy to help format your code.
 
 ## Roadmap
-The project is currently stable with no major releases planned in the short term until Jakarta EE 11 is released and well adopted.
+The `jakartaee11` branch upgrades the application to Jakarta EE 11 on Payara 7, with Java 17 source and bytecode and JDK 21 for builds and runtime. The initial upgrade preserves existing application APIs and behavior; adoption of new APIs such as Jakarta Data is deferred.
+
+The dependency inventory in `DEPENDENCIES` retains review results for unchanged versions. Entries marked `pending-review` have not yet received a license review result and must be refreshed with Eclipse Dash before release.
 
 Work on any issues or other changes are welcome, especially issues marked with the 'good first issue' (https://github.com/eclipse-ee4j/cargotracker/labels/good%20first%20issue) and 'help wanted' (https://github.com/eclipse-ee4j/cargotracker/labels/help%20wanted) labels.
 

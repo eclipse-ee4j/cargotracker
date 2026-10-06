@@ -90,7 +90,7 @@ public class CargoTrackingViewAdapter {
 
     switch (delivery.getTransportStatus()) {
       case IN_PORT:
-        return "In port " + cargo.getRouteSpecification().getDestination().getName();
+        return "In port " + delivery.getLastKnownLocation().getName();
       case ONBOARD_CARRIER:
         return "Onboard voyage " + delivery.getCurrentVoyage().getVoyageNumber().getIdString();
       case CLAIMED:

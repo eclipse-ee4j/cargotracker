@@ -89,19 +89,13 @@
                     <con:params/>
                     <con:element>data</con:element>
                 </con:representation>
-                <con:representation type="RESPONSE">
-                    <con:mediaType>application/xml</con:mediaType>
-                    <con:status>200</con:status>
-                    <con:params/>
-                    <con:element>transitPaths</con:element>
-                </con:representation>
                 <con:representation type="FAULT">
                     <con:mediaType>application/json</con:mediaType>
                     <con:status>400</con:status>
                     <con:params/>
                     <con:element>Fault</con:element>
                 </con:representation>
-                <con:representation type="RESPONSE"><con:mediaType>application/xml;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>transitPaths</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="GET" mediaType="application/xml" id="a239cfc6-0a69-49fb-b310-107ef6738212">
+                <con:representation type="RESPONSE"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="GET" mediaType="application/json" id="a239cfc6-0a69-49fb-b310-107ef6738212">
                     <con:settings>
                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting>
                     </con:settings>
@@ -219,7 +213,7 @@
                     <con:element>data</con:element>
                 </con:representation>
                 <con:representation type="REQUEST">
-                    <con:mediaType>application/xml</con:mediaType>
+                    <con:mediaType>application/json</con:mediaType>
                     <con:params/>
                     <con:element>HandlingReport</con:element>
                 </con:representation>

@@ -29,7 +29,7 @@ public class HandlingReportService {
 
   @POST
   @Path("/reports")
-  @Consumes({"application/json", "application/xml"})
+  @Consumes("application/json")
   public void submitReport(
       @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
     LocalDateTime completionTime = DateConverter.toDateTime(handlingReport.getCompletionTime());

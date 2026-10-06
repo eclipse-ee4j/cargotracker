@@ -1,11 +1,9 @@
 package org.eclipse.pathfinder.api;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement
 public class TransitPath implements Serializable {
 
   private static final long serialVersionUID = 1L;

@@ -23,9 +23,10 @@
     <url>https://github.com/eclipse-ee4j/cargotracker/issues</url>
   </issueManagement>
   <properties>
-    <maven.compiler.release>11</maven.compiler.release>
-    <jakartaee.api.version>10.0.0</jakartaee.api.version>
-    <payara.version>6.2025.5</payara.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <jakartaee.api.version>11.0.0</jakartaee.api.version>
+    <payara.version>7.2026.9</payara.version>
+    <payara.arquillian.version>4.0.alpha4</payara.arquillian.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
   </properties>
   <dependencyManagement>
@@ -81,7 +82,7 @@
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-server</artifactId>
-      <version>3.1.10</version>
+      <version>4.0.2</version>
       <scope>provided</scope>
     </dependency>
     <!-- Test dependencies -->
@@ -118,6 +119,37 @@
   <build>
     <finalName>cargo-tracker</finalName>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>require-payara-jdk</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[21,)</version>
+                  <message>Payara 7 requires JDK 21 or newer. Application bytecode targets Java 17.</message>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -183,14 +215,14 @@
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
-          <version>3.1</version>
+          <version>${payara.arquillian.version}</version>
           <scope>test</scope>
         </dependency>
-        <!-- Needed at the moment for Jakarta EE 10 support -->
+        <!-- Client support for the Jakarta EE 11 runtime used by Arquillian. -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
-          <artifactId>payara-client-ee9</artifactId>
-          <version>3.1</version>
+          <artifactId>payara-client-ee11</artifactId>
+          <version>${payara.arquillian.version}</version>
           <scope>test</scope>
         </dependency>        
       </dependencies>
@@ -253,13 +285,13 @@
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
           <artifactId>arquillian-payara-micro-managed</artifactId>
-          <version>3.1</version>
+          <version>${payara.arquillian.version}</version>
           <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
-          <artifactId>payara-client-ee9</artifactId>
-          <version>3.1</version>
+          <artifactId>payara-client-ee11</artifactId>
+          <version>${payara.arquillian.version}</version>
           <scope>test</scope>
         </dependency>
       </dependencies>

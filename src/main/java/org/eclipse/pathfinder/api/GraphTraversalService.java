@@ -32,7 +32,7 @@ public class GraphTraversalService {
 
   @GET
   @Path("/shortest-path")
-  @Produces({"application/json", "application/xml; qs=.75"})
+  @Produces("application/json")
   public List<TransitPath> findShortestPath(
       @NotNull(message = "Missing origin UN location code.")
           @Pattern(

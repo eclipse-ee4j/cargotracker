@@ -1,54 +1,56 @@
 maven/mavencentral/aopalliance/aopalliance/1.0, LicenseRef-Public-Domain, approved, CQ2918
-maven/mavencentral/com.fasterxml.jackson.core/jackson-annotations/2.13.0, Apache-2.0, approved, clearlydefined
-maven/mavencentral/com.fasterxml.jackson.core/jackson-core/2.13.0, Apache-2.0, approved, #2133
-maven/mavencentral/com.fasterxml.jackson.core/jackson-databind/2.13.0, Apache-2.0, approved, #2134
-maven/mavencentral/com.fasterxml.jackson.module/jackson-module-jakarta-xmlbind-annotations/2.13.0, Apache-2.0, approved, clearlydefined
+maven/mavencentral/com.fasterxml.jackson.core/jackson-annotations/2.16.1, , restricted, pending-review
+maven/mavencentral/com.fasterxml.jackson.core/jackson-core/2.16.1, , restricted, pending-review
+maven/mavencentral/com.fasterxml.jackson.core/jackson-databind/2.16.1, , restricted, pending-review
+maven/mavencentral/com.fasterxml.jackson.module/jackson-module-jakarta-xmlbind-annotations/2.16.1, , restricted, pending-review
 maven/mavencentral/com.google.code.gson/gson/2.13.2, Apache-2.0, approved, #20656
 maven/mavencentral/com.google.errorprone/error_prone_annotations/2.41.0, Apache-2.0, approved, #22631
 maven/mavencentral/com.google.guava/failureaccess/1.0.3, Apache-2.0, approved, CQ22654
 maven/mavencentral/com.google.guava/guava/33.6.0-jre, Apache-2.0 AND CC-PDDC, approved, #27169
 maven/mavencentral/com.google.inject/guice/6.0.0, Apache-2.0, approved, #17297
 maven/mavencentral/com.h2database/h2/2.4.240, EPL-1.0 AND MPL-2.0 AND LGPL-2.1-or-later AND BSD-3-Clause AND LicenseRef-Public-Domain, approved, #23567
-maven/mavencentral/com.sun.activation/jakarta.activation/2.0.1, EPL-2.0 OR BSD-3-Clause OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jaf
 maven/mavencentral/commons-codec/commons-codec/1.21.0, Apache-2.0 AND (Apache-2.0 AND BSD-3-Clause), approved, #25780
 maven/mavencentral/eu.maveniverse.maven.mima.runtime/embedded-maven/2.4.45, , restricted, clearlydefined
 maven/mavencentral/eu.maveniverse.maven.mima.runtime/standalone-shared/2.4.45, , restricted, clearlydefined
 maven/mavencentral/eu.maveniverse.maven.mima.runtime/standalone-static/2.4.45, , restricted, clearlydefined
 maven/mavencentral/eu.maveniverse.maven.mima/context/2.4.45, EPL-2.0, approved, #17292
-maven/mavencentral/fish.payara.arquillian/arquillian-payara-micro-managed/3.1, (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND LicenseRef-scancode-generic-export-compliance, restricted, clearlydefined
-maven/mavencentral/fish.payara.arquillian/payara-client-ee9/3.1, , restricted, clearlydefined
-maven/mavencentral/fish.payara.arquillian/payara-container-common/3.1, (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND Apache-2.0 AND CC0-1.0 AND (MIT AND LicenseRef-scancode-public-domain) AND MIT AND (MIT AND (MIT OR GPL-2.0-or-later) AND GPL-1.0-or-later) AND (CC0-1.0 AND MIT) AND (BSD-3-Clause AND Apache-2.0) AND W3C, restricted, clearlydefined
-maven/mavencentral/fish.payara.extras/payara-micro/6.2025.5, CDDL-1.1 OR GPL-2.0-only WITH Classpath-exception-2.0, restricted, clearlydefined
-maven/mavencentral/jakarta.activation/jakarta.activation-api/2.1.0, EPL-2.0 OR BSD-3-Clause OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jaf
-maven/mavencentral/jakarta.annotation/jakarta.annotation-api/2.1.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.ca
-maven/mavencentral/jakarta.authentication/jakarta.authentication-api/3.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.authentication
-maven/mavencentral/jakarta.authorization/jakarta.authorization-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.authorization
+maven/mavencentral/fish.payara.arquillian/arquillian-payara-micro-managed/4.0.alpha4, , restricted, pending-review
+maven/mavencentral/fish.payara.arquillian/payara-client-ee11/4.0.alpha4, , restricted, pending-review
+maven/mavencentral/fish.payara.arquillian/payara-container-common/4.0.alpha4, , restricted, pending-review
+maven/mavencentral/fish.payara.extras/payara-micro/7.2026.9, , restricted, pending-review
+maven/mavencentral/jakarta.activation/jakarta.activation-api/2.1.3, , restricted, pending-review
+maven/mavencentral/jakarta.annotation/jakarta.annotation-api/3.0.0, , restricted, pending-review
+maven/mavencentral/jakarta.authentication/jakarta.authentication-api/3.1.0, , restricted, pending-review
+maven/mavencentral/jakarta.authorization/jakarta.authorization-api/3.0.0, , restricted, pending-review
 maven/mavencentral/jakarta.batch/jakarta.batch-api/2.1.1, Apache-2.0, approved, ee4j.batch
+maven/mavencentral/jakarta.data/jakarta.data-api/1.0.1, , restricted, pending-review
 maven/mavencentral/jakarta.ejb/jakarta.ejb-api/4.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.ejb
-maven/mavencentral/jakarta.el/jakarta.el-api/5.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.el
-maven/mavencentral/jakarta.enterprise/jakarta.enterprise.cdi-api/4.0.1, Apache-2.0, approved, ee4j.cdi
-maven/mavencentral/jakarta.enterprise/jakarta.enterprise.lang-model/4.0.1, Apache-2.0, approved, ee4j.cdi
-maven/mavencentral/jakarta.faces/jakarta.faces-api/4.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.faces
+maven/mavencentral/jakarta.el/jakarta.el-api/6.0.1, , restricted, pending-review
+maven/mavencentral/jakarta.enterprise.concurrent/jakarta.enterprise.concurrent-api/3.1.1, , restricted, pending-review
+maven/mavencentral/jakarta.enterprise/jakarta.enterprise.cdi-api/4.1.0, , restricted, pending-review
+maven/mavencentral/jakarta.enterprise/jakarta.enterprise.cdi-el-api/4.1.0, , restricted, pending-review
+maven/mavencentral/jakarta.enterprise/jakarta.enterprise.lang-model/4.1.0, , restricted, pending-review
+maven/mavencentral/jakarta.faces/jakarta.faces-api/4.1.2, , restricted, pending-review
 maven/mavencentral/jakarta.inject/jakarta.inject-api/2.0.1, Apache-2.0, approved, ee4j.cdi
-maven/mavencentral/jakarta.interceptor/jakarta.interceptor-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.interceptors
+maven/mavencentral/jakarta.interceptor/jakarta.interceptor-api/2.2.0, , restricted, pending-review
 maven/mavencentral/jakarta.jms/jakarta.jms-api/3.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.messaging
-maven/mavencentral/jakarta.json.bind/jakarta.json.bind-api/3.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsonp
-maven/mavencentral/jakarta.json/jakarta.json-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsonp
-maven/mavencentral/jakarta.mail/jakarta.mail-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.mail
-maven/mavencentral/jakarta.persistence/jakarta.persistence-api/3.1.0, EPL-2.0 OR BSD-3-Clause, approved, ee4j.jpa
-maven/mavencentral/jakarta.platform/jakarta.jakartaee-api/10.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jakartaee-platform
-maven/mavencentral/jakarta.platform/jakarta.jakartaee-web-api/10.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jakartaee-platform
+maven/mavencentral/jakarta.json.bind/jakarta.json.bind-api/3.0.1, , restricted, pending-review
+maven/mavencentral/jakarta.json/jakarta.json-api/2.1.3, , restricted, pending-review
+maven/mavencentral/jakarta.mail/jakarta.mail-api/2.1.3, , restricted, pending-review
+maven/mavencentral/jakarta.persistence/jakarta.persistence-api/3.2.0, , restricted, pending-review
+maven/mavencentral/jakarta.platform/jakarta.jakartaee-api/11.0.0, , restricted, pending-review
+maven/mavencentral/jakarta.platform/jakarta.jakartaee-core-api/11.0.0, , restricted, pending-review
+maven/mavencentral/jakarta.platform/jakarta.jakartaee-web-api/11.0.0, , restricted, pending-review
 maven/mavencentral/jakarta.resource/jakarta.resource-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jca
-maven/mavencentral/jakarta.security.enterprise/jakarta.security.enterprise-api/3.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.security
-maven/mavencentral/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api/3.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jstl
-maven/mavencentral/jakarta.servlet.jsp/jakarta.servlet.jsp-api/3.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsp
-maven/mavencentral/jakarta.servlet/jakarta.servlet-api/6.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.servlet
+maven/mavencentral/jakarta.security.enterprise/jakarta.security.enterprise-api/4.0.0, , restricted, pending-review
+maven/mavencentral/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api/3.0.2, , restricted, pending-review
+maven/mavencentral/jakarta.servlet.jsp/jakarta.servlet.jsp-api/4.0.0, , restricted, pending-review
+maven/mavencentral/jakarta.servlet/jakarta.servlet-api/6.1.0, , restricted, pending-review
 maven/mavencentral/jakarta.transaction/jakarta.transaction-api/2.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jta
-maven/mavencentral/jakarta.validation/jakarta.validation-api/3.0.2, Apache-2.0, approved, ee4j.validation
-maven/mavencentral/jakarta.websocket/jakarta.websocket-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.websocket
-maven/mavencentral/jakarta.websocket/jakarta.websocket-client-api/2.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.websocket
-maven/mavencentral/jakarta.ws.rs/jakarta.ws.rs-api/3.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.rest
-maven/mavencentral/jakarta.xml.bind/jakarta.xml.bind-api/3.0.1, BSD-3-Clause, approved, ee4j.jaxb
+maven/mavencentral/jakarta.validation/jakarta.validation-api/3.1.0, , restricted, pending-review
+maven/mavencentral/jakarta.websocket/jakarta.websocket-api/2.2.0, , restricted, pending-review
+maven/mavencentral/jakarta.websocket/jakarta.websocket-client-api/2.2.0, , restricted, pending-review
+maven/mavencentral/jakarta.ws.rs/jakarta.ws.rs-api/4.0.0, , restricted, pending-review
 maven/mavencentral/javax.inject/javax.inject/1, Apache-2.0, approved, CQ3555
 maven/mavencentral/net.bytebuddy/byte-buddy/1.18.3, Apache-2.0 AND BSD-3-Clause, approved, #24658
 maven/mavencentral/org.apache.httpcomponents/httpclient/4.5.14, Apache-2.0, approved, #15248
@@ -78,33 +80,33 @@ maven/mavencentral/org.codehaus.plexus/plexus-component-annotations/2.2.0, Apach
 maven/mavencentral/org.codehaus.plexus/plexus-interpolation/1.29, Apache-2.0 AND Apache-1.1, approved, #24656
 maven/mavencentral/org.codehaus.plexus/plexus-sec-dispatcher/2.0, Apache-2.0, approved, #17647
 maven/mavencentral/org.codehaus.plexus/plexus-utils/3.6.1, Apache-2.0 AND Entessa AND Apache-1.1 AND BSD-3-Clause AND BSD-2-Clause AND SAX-PD AND LicenseRef-Public-Domain, approved, #21842
+maven/mavencentral/org.eclipse.parsson/parsson-media/1.1.5, , restricted, pending-review
+maven/mavencentral/org.eclipse.parsson/parsson/1.1.7, , restricted, pending-review
 maven/mavencentral/org.eclipse.sisu/org.eclipse.sisu.inject/1.0.0, EPL-2.0, approved, technology.sisu
 maven/mavencentral/org.eclipse.sisu/org.eclipse.sisu.plexus/1.0.0, EPL-2.0, approved, technology.sisu
-maven/mavencentral/org.eclipse/yasson/2.0.2, BSD-3-Clause AND EPL-2.0, approved, clearlydefined
-maven/mavencentral/org.glassfish.grizzly/grizzly-framework/3.0.0-M1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.grizzly
-maven/mavencentral/org.glassfish.grizzly/grizzly-http-server/3.0.0-M1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.grizzly
-maven/mavencentral/org.glassfish.grizzly/grizzly-http/3.0.0-M1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.grizzly
-maven/mavencentral/org.glassfish.hk2.external/aopalliance-repackaged/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
-maven/mavencentral/org.glassfish.hk2/hk2-api/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
-maven/mavencentral/org.glassfish.hk2/hk2-locator/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
-maven/mavencentral/org.glassfish.hk2/hk2-utils/3.0.1, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
-maven/mavencentral/org.glassfish.hk2/osgi-resource-locator/1.0.3, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.glassfish
-maven/mavencentral/org.glassfish.jersey.core/jersey-client/3.1.10, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.core/jersey-common/3.1.10, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.core/jersey-server/3.1.10, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.ext/jersey-entity-filtering/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.inject/jersey-hk2/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.media/jersey-media-jaxb/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.media/jersey-media-json-jackson/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.media/jersey-media-json-processing/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.jersey.media/jersey-media-sse/3.0.4, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jersey
-maven/mavencentral/org.glassfish.tyrus/tyrus-client/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
-maven/mavencentral/org.glassfish.tyrus/tyrus-container-grizzly-client/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
-maven/mavencentral/org.glassfish.tyrus/tyrus-core/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
-maven/mavencentral/org.glassfish.tyrus/tyrus-spi/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.tyrus
-maven/mavencentral/org.glassfish/jakarta.json/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsonp
-maven/mavencentral/org.glassfish/jsonp-jaxrs/2.0.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.jsonp
-maven/mavencentral/org.javassist/javassist/3.25.0-GA, MPL-1.1 OR LGPL-2.1-or-later OR Apache-2.0, approved, CQ19885
+maven/mavencentral/org.eclipse/yasson/3.0.4, , restricted, pending-review
+maven/mavencentral/org.glassfish.grizzly/grizzly-framework/4.0.2, , restricted, pending-review
+maven/mavencentral/org.glassfish.grizzly/grizzly-http-server/4.0.2, , restricted, pending-review
+maven/mavencentral/org.glassfish.grizzly/grizzly-http/4.0.2, , restricted, pending-review
+maven/mavencentral/org.glassfish.hk2.external/aopalliance-repackaged/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.hk2/hk2-api/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.hk2/hk2-locator/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.hk2/hk2-utils/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.hk2/osgi-resource-locator/3.0.0, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.core/jersey-client/4.0.2, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.core/jersey-common/4.0.2, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.core/jersey-server/4.0.2, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.ext/jersey-entity-filtering/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.inject/jersey-hk2/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-jaxb/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-json-jackson/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-json-processing/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.jersey.media/jersey-media-sse/4.0.0-M1, , restricted, pending-review
+maven/mavencentral/org.glassfish.tyrus/tyrus-client/2.2.0, , restricted, pending-review
+maven/mavencentral/org.glassfish.tyrus/tyrus-container-grizzly-client/2.2.0, , restricted, pending-review
+maven/mavencentral/org.glassfish.tyrus/tyrus-core/2.2.0, , restricted, pending-review
+maven/mavencentral/org.glassfish.tyrus/tyrus-spi/2.2.0, , restricted, pending-review
+maven/mavencentral/org.javassist/javassist/3.29.2-GA, , restricted, pending-review
 maven/mavencentral/org.jboss.arquillian.config/arquillian-config-api/1.10.2.Final, , restricted, clearlydefined
 maven/mavencentral/org.jboss.arquillian.config/arquillian-config-impl-base/1.10.2.Final, , restricted, clearlydefined
 maven/mavencentral/org.jboss.arquillian.config/arquillian-config-spi/1.10.2.Final, , restricted, clearlydefined

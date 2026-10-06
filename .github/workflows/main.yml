@@ -6,6 +6,7 @@ on:
       - "docs/**"
     branches:
       - master
+      - jakartaee11
   pull_request:
     types:
       - opened
@@ -22,7 +23,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '21'
       - name: Cache Maven packages
         uses: actions/cache@v6
         with:
@@ -36,7 +37,7 @@ jobs:
     needs: [formatting]
     strategy:
       matrix:
-        java: [11]
+        java: [21]
     steps:
       - uses: actions/checkout@v7
       - name: Set up Java

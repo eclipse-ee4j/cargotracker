@@ -1,6 +1,5 @@
 package org.eclipse.cargotracker.interfaces.booking.sse;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.ejb.Singleton;
 import jakarta.enterprise.event.ObservesAsync;
@@ -28,18 +27,17 @@ public class RealtimeCargoTrackingService {
 
   @Inject private CargoRepository cargoRepository;
 
-  @Context private Sse sse;
+  private Sse sse;
   private SseBroadcaster broadcaster;
-
-  @PostConstruct
-  public void init() {
-    broadcaster = sse.newBroadcaster();
-    logger.log(Level.FINEST, "SSE broadcaster created.");
-  }
 
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
-  public void tracking(@Context SseEventSink eventSink) {
+  public void tracking(@Context SseEventSink eventSink, @Context Sse sse) {
+    if (broadcaster == null) {
+      this.sse = sse;
+      broadcaster = sse.newBroadcaster();
+      logger.log(Level.FINEST, "SSE broadcaster created.");
+    }
     cargoRepository.findAll().stream().map(this::cargoToSseEvent).forEach(eventSink::send);
 
     broadcaster.register(eventSink);
@@ -48,13 +46,19 @@ public class RealtimeCargoTrackingService {
 
   @PreDestroy
   public void close() {
-    broadcaster.close();
-    logger.log(Level.FINEST, "SSE broadcaster closed.");
+    if (broadcaster != null) {
+      broadcaster.close();
+      logger.log(Level.FINEST, "SSE broadcaster closed.");
+    }
   }
 
   public void onCargoUpdated(@ObservesAsync @CargoUpdated Cargo cargo) {
     logger.log(Level.FINEST, "SSE event broadcast for cargo: {0}", cargo);
-    broadcaster.broadcast(cargoToSseEvent(cargo));
+    if (broadcaster != null) {
+      broadcaster.broadcast(cargoToSseEvent(cargo));
+    } else {
+      logger.log(Level.FINEST, "No SSE subscribers registered yet.");
+    }
   }
 
   private OutboundSseEvent cargoToSseEvent(Cargo cargo) {
