@@ -32,17 +32,17 @@ public class HandlingReportService {
   @Consumes("application/json")
   public void submitReport(
       @NotNull(message = "Missing handling report.") @Valid HandlingReport handlingReport) {
-    LocalDateTime completionTime = DateConverter.toDateTime(handlingReport.getCompletionTime());
+    LocalDateTime completionTime = DateConverter.toDateTime(handlingReport.completionTime());
     VoyageNumber voyageNumber = null;
 
-    if (handlingReport.getVoyageNumber() != null) {
-      voyageNumber = new VoyageNumber(handlingReport.getVoyageNumber());
+    if (handlingReport.voyageNumber() != null) {
+      voyageNumber = new VoyageNumber(handlingReport.voyageNumber());
     }
 
-    HandlingEvent.Type type = HandlingEvent.Type.valueOf(handlingReport.getEventType());
-    UnLocode unLocode = new UnLocode(handlingReport.getUnLocode());
+    HandlingEvent.Type type = HandlingEvent.Type.valueOf(handlingReport.eventType());
+    UnLocode unLocode = new UnLocode(handlingReport.unLocode());
 
-    TrackingId trackingId = new TrackingId(handlingReport.getTrackingId());
+    TrackingId trackingId = new TrackingId(handlingReport.trackingId());
 
     HandlingEventRegistrationAttempt attempt =
         new HandlingEventRegistrationAttempt(
