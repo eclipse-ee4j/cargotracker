@@ -37,11 +37,11 @@ public class Leg implements Serializable {
   }
 
   public String getFromUnLocode() {
-    return from.getUnLocode();
+    return from.unLocode();
   }
 
   public String getFromName() {
-    return from.getName();
+    return from.name();
   }
 
   public String getTo() {
@@ -49,11 +49,11 @@ public class Leg implements Serializable {
   }
 
   public String getToName() {
-    return to.getName();
+    return to.name();
   }
 
   public String getToUnLocode() {
-    return to.getUnLocode();
+    return to.unLocode();
   }
 
   public String getLoadTime() {
@@ -70,9 +70,9 @@ public class Leg implements Serializable {
         + "voyageNumber="
         + voyageNumber
         + ", from="
-        + from.getUnLocode()
+        + from.unLocode()
         + ", to="
-        + to.getUnLocode()
+        + to.unLocode()
         + ", loadTime="
         + loadTime
         + ", unloadTime="

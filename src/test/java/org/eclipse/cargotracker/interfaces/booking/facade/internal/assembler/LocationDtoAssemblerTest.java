@@ -18,8 +18,9 @@ public class LocationDtoAssemblerTest {
 
     org.eclipse.cargotracker.interfaces.booking.facade.dto.Location dto = assembler.toDto(newYork);
 
-    assertEquals("USNYC", dto.getUnLocode());
-    assertEquals("New York", dto.getName());
+    assertEquals("USNYC", dto.unLocode());
+    assertEquals("New York", dto.name());
+    assertEquals("New York (USNYC)", dto.toString());
   }
 
   @Test
@@ -32,7 +33,7 @@ public class LocationDtoAssemblerTest {
 
     List<String> unLocodes =
         assembler.toDtoList(domainLocations).stream()
-            .map(org.eclipse.cargotracker.interfaces.booking.facade.dto.Location::getUnLocode)
+            .map(org.eclipse.cargotracker.interfaces.booking.facade.dto.Location::unLocode)
             .collect(Collectors.toList());
 
     assertEquals(List.of("DEHAM", "JPTKO", "USNYC"), unLocodes);

@@ -69,7 +69,7 @@ public class Booking implements Serializable {
     }
 
     for (Location location : locations) {
-      if (!location.getUnLocode().equalsIgnoreCase(locationToRemove)) {
+      if (!location.unLocode().equalsIgnoreCase(locationToRemove)) {
         filteredLocations.add(location);
       }
     }
@@ -85,11 +85,11 @@ public class Booking implements Serializable {
     this.originUnlocode = originUnlocode;
     this.originName =
         locations.stream()
-            .filter(location -> location.getUnLocode().equalsIgnoreCase(originUnlocode))
+            .filter(location -> location.unLocode().equalsIgnoreCase(originUnlocode))
             .findAny()
             .orElseThrow(
                 () -> new IllegalArgumentException("Unknown origin UN/LOCODE: " + originUnlocode))
-            .getName();
+            .name();
   }
 
   public String getOriginName() {
@@ -104,13 +104,13 @@ public class Booking implements Serializable {
     this.destinationUnlocode = destinationUnlocode;
     this.destinationName =
         locations.stream()
-            .filter(location -> location.getUnLocode().equalsIgnoreCase(destinationUnlocode))
+            .filter(location -> location.unLocode().equalsIgnoreCase(destinationUnlocode))
             .findAny()
             .orElseThrow(
                 () ->
                     new IllegalArgumentException(
                         "Unknown destination UN/LOCODE: " + destinationUnlocode))
-            .getName();
+            .name();
   }
 
   public String getDestinationName() {
