@@ -1,7 +1,5 @@
 package org.eclipse.cargotracker.interfaces.handling.mobile;
 
-import static java.util.stream.Collectors.toMap;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -13,10 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import org.eclipse.cargotracker.application.ApplicationEvents;
 import org.eclipse.cargotracker.application.util.DateConverter;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
@@ -38,6 +33,17 @@ import org.primefaces.event.FlowEvent;
 public class EventLogger implements Serializable {
 
   @Serial private static final long serialVersionUID = 1L;
+
+  private static final String COMPLETION_TIME_PATTERN = "M/d/yyyy h:mm a";
+
+  // Listed in the order events occur during a cargo's lifecycle.
+  private static final List<HandlingEvent.Type> EVENT_TYPES =
+      List.of(
+          HandlingEvent.Type.RECEIVE,
+          HandlingEvent.Type.LOAD,
+          HandlingEvent.Type.UNLOAD,
+          HandlingEvent.Type.CUSTOMS,
+          HandlingEvent.Type.CLAIM);
 
   @Inject private CargoRepository cargoRepository;
   @Inject private LocationRepository locationRepository;
@@ -79,11 +85,8 @@ public class EventLogger implements Serializable {
     return locations;
   }
 
-  // Move this to a separate utility if it is used in other parts of the UI.
-  public Map<HandlingEvent.Type, HandlingEvent.Type> getEventTypes() {
-    return Map.copyOf(
-        Arrays.asList(HandlingEvent.Type.values()).stream()
-            .collect(toMap(Function.identity(), Function.identity())));
+  public List<HandlingEvent.Type> getEventTypes() {
+    return EVENT_TYPES;
   }
 
   public HandlingEvent.Type getEventType() {
@@ -119,7 +122,7 @@ public class EventLogger implements Serializable {
   }
 
   public String getCompletionTimePattern() {
-    return DateConverter.DATE_TIME_FORMAT;
+    return COMPLETION_TIME_PATTERN;
   }
 
   @PostConstruct
