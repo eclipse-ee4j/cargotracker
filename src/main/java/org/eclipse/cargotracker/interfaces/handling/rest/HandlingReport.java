@@ -1,6 +1,7 @@
 package org.eclipse.cargotracker.interfaces.handling.rest;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /** Transfer object for handling reports. */
@@ -15,9 +16,8 @@ public record HandlingReport(
         @Size(min = 4, message = "Tracking ID must be at least four characters.")
         String trackingId,
     @NotBlank(message = "Missing event type.")
-        @Size(
-            min = 4,
-            max = 7,
+        @Pattern(
+            regexp = "RECEIVE|LOAD|UNLOAD|CUSTOMS|CLAIM",
             message = "Event type value must be one of: RECEIVE, LOAD, UNLOAD, CUSTOMS, CLAIM")
         String eventType,
     @NotBlank(message = "UN location code missing.")
