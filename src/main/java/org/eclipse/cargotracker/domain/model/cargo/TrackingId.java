@@ -33,11 +33,9 @@ public class TrackingId implements Serializable {
       return true;
     }
 
-    if (!(o instanceof TrackingId)) {
+    if (!(o instanceof TrackingId other)) {
       return false;
     }
-
-    TrackingId other = (TrackingId) o;
 
     return sameValueAs(other);
   }

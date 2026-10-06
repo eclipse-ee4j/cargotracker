@@ -105,11 +105,9 @@ public class Leg implements Serializable {
       return true;
     }
 
-    if (o == null || !(o instanceof Leg)) {
+    if (!(o instanceof Leg leg)) {
       return false;
     }
-
-    Leg leg = (Leg) o;
 
     return sameValueAs(leg);
   }

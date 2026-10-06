@@ -57,51 +57,42 @@ public class Itinerary implements Serializable {
       return true;
     }
 
-    switch (event.getType()) {
-      case RECEIVE:
-        {
-          // Check that the first leg's origin is the event's location
-          Leg leg = legs.get(0);
-          return leg.getLoadLocation().equals(event.getLocation());
-        }
+    return switch (event.getType()) {
+      case RECEIVE -> {
+        // Check that the first leg's origin is the event's location
+        Leg leg = legs.get(0);
+        yield leg.getLoadLocation().equals(event.getLocation());
+      }
 
-      case LOAD:
-        {
-          return legs.stream()
-              .anyMatch(
-                  leg ->
-                      leg.getLoadLocation().equals(event.getLocation())
-                          && leg.getVoyage().equals(event.getVoyage()));
-        }
+      case LOAD -> {
+        yield legs.stream()
+            .anyMatch(
+                leg ->
+                    leg.getLoadLocation().equals(event.getLocation())
+                        && leg.getVoyage().equals(event.getVoyage()));
+      }
 
-      case UNLOAD:
-        {
-          // Check that the there is one leg with same unload location and
-          // voyage
-          return legs.stream()
-              .anyMatch(
-                  leg ->
-                      leg.getUnloadLocation().equals(event.getLocation())
-                          && leg.getVoyage().equals(event.getVoyage()));
-        }
+      case UNLOAD -> {
+        // Check that the there is one leg with same unload location and
+        // voyage
+        yield legs.stream()
+            .anyMatch(
+                leg ->
+                    leg.getUnloadLocation().equals(event.getLocation())
+                        && leg.getVoyage().equals(event.getVoyage()));
+      }
 
-      case CLAIM:
-        {
-          // Check that the last leg's destination is from the event's
-          // location
-          Leg leg = getLastLeg();
+      case CLAIM -> {
+        // Check that the last leg's destination is from the event's
+        // location
+        Leg leg = getLastLeg();
 
-          return leg.getUnloadLocation().equals(event.getLocation());
-        }
+        yield leg.getUnloadLocation().equals(event.getLocation());
+      }
 
-      case CUSTOMS:
-        {
-          return true;
-        }
-
-      default:
-        throw new RuntimeException("Event case is not handled");
-    }
+      case CUSTOMS -> true;
+      default -> throw new RuntimeException("Event case is not handled");
+    };
   }
 
   Location getInitialDepartureLocation() {
@@ -154,11 +145,9 @@ public class Itinerary implements Serializable {
       return true;
     }
 
-    if (o == null || !(o instanceof Itinerary)) {
+    if (!(o instanceof Itinerary itinerary)) {
       return false;
     }
-
-    Itinerary itinerary = (Itinerary) o;
 
     return sameValueAs(itinerary);
   }

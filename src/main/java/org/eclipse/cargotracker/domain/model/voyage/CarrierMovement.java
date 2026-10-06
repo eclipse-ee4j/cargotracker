@@ -89,11 +89,9 @@ public class CarrierMovement implements Serializable {
       return true;
     }
 
-    if (o == null || !(o instanceof CarrierMovement)) {
+    if (!(o instanceof CarrierMovement that)) {
       return false;
     }
-
-    CarrierMovement that = (CarrierMovement) o;
 
     return sameValueAs(that);
   }

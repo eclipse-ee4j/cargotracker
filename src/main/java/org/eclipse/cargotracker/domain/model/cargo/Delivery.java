@@ -212,18 +212,12 @@ public class Delivery implements Serializable {
       return NOT_RECEIVED;
     }
 
-    switch (lastEvent.getType()) {
-      case LOAD:
-        return ONBOARD_CARRIER;
-      case UNLOAD:
-      case RECEIVE:
-      case CUSTOMS:
-        return IN_PORT;
-      case CLAIM:
-        return CLAIMED;
-      default:
-        return UNKNOWN;
-    }
+    return switch (lastEvent.getType()) {
+      case LOAD -> ONBOARD_CARRIER;
+      case UNLOAD, RECEIVE, CUSTOMS -> IN_PORT;
+      case CLAIM -> CLAIMED;
+      default -> UNKNOWN;
+    };
   }
 
   private Location calculateLastKnownLocation() {
@@ -352,11 +346,9 @@ public class Delivery implements Serializable {
     if (this == o) {
       return true;
     }
-    if (o == null || !(o instanceof Delivery)) {
+    if (!(o instanceof Delivery other)) {
       return false;
     }
-
-    Delivery other = (Delivery) o;
 
     return sameValueAs(other);
   }

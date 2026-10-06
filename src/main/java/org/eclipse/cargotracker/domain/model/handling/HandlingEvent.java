@@ -199,11 +199,9 @@ public class HandlingEvent implements Serializable {
       return true;
     }
 
-    if (o == null || !(o instanceof HandlingEvent)) {
+    if (!(o instanceof HandlingEvent event)) {
       return false;
     }
-
-    HandlingEvent event = (HandlingEvent) o;
 
     return sameEventAs(event);
   }

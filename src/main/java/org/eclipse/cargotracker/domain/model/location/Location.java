@@ -73,11 +73,9 @@ public class Location implements Serializable {
       return true;
     }
 
-    if (!(object instanceof Location)) {
+    if (!(object instanceof Location other)) {
       return false;
     }
-
-    Location other = (Location) object;
 
     return sameIdentityAs(other);
   }

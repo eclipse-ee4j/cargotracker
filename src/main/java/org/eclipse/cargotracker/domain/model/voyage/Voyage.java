@@ -69,11 +69,9 @@ public class Voyage implements Serializable {
       return false;
     }
 
-    if (!(o instanceof Voyage)) {
+    if (!(o instanceof Voyage that)) {
       return false;
     }
-
-    Voyage that = (Voyage) o;
 
     return sameIdentityAs(that);
   }

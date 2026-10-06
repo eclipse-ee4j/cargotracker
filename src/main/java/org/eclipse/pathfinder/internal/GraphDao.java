@@ -24,17 +24,12 @@ public class GraphDao implements Serializable {
   public String getVoyageNumber(String from, String to) {
     int i = random.nextInt(5);
 
-    switch (i) {
-      case 0:
-        return "0100S";
-      case 1:
-        return "0200T";
-      case 2:
-        return "0300A";
-      case 3:
-        return "0301S";
-      default:
-        return "0400S";
-    }
+    return switch (i) {
+      case 0 -> "0100S";
+      case 1 -> "0200T";
+      case 2 -> "0300A";
+      case 3 -> "0301S";
+      default -> "0400S";
+    };
   }
 }

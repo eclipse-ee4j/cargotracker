@@ -31,11 +31,9 @@ public class VoyageNumber implements Serializable {
       return true;
     }
 
-    if (!(o instanceof VoyageNumber)) {
+    if (!(o instanceof VoyageNumber other)) {
       return false;
     }
-
-    VoyageNumber other = (VoyageNumber) o;
 
     return sameValueAs(other);
   }

@@ -84,11 +84,9 @@ public class RouteSpecification extends AbstractSpecification<Itinerary> impleme
       return true;
     }
 
-    if (o == null || !(o instanceof RouteSpecification)) {
+    if (!(o instanceof RouteSpecification that)) {
       return false;
     }
-
-    RouteSpecification that = (RouteSpecification) o;
 
     return sameValueAs(that);
   }

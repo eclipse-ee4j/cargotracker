@@ -59,11 +59,9 @@ public class Schedule implements Serializable {
       return true;
     }
 
-    if (o == null || !(o instanceof Schedule)) {
+    if (!(o instanceof Schedule that)) {
       return false;
     }
-
-    Schedule that = (Schedule) o;
 
     return sameValueAs(that);
   }

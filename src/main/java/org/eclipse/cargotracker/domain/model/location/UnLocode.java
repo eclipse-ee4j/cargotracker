@@ -57,11 +57,9 @@ public class UnLocode implements Serializable {
       return true;
     }
 
-    if (!(o instanceof UnLocode)) {
+    if (!(o instanceof UnLocode other)) {
       return false;
     }
-
-    UnLocode other = (UnLocode) o;
 
     return sameValueAs(other);
   }
