@@ -17,6 +17,6 @@ public class UnknownCargoException extends CannotCreateHandlingEventException {
   /** {@inheritDoc} */
   @Override
   public String getMessage() {
-    return "No cargo with tracking id " + trackingId.getIdString() + " exists in the system.";
+    return "No cargo with tracking id " + trackingId + " exists in the system.";
   }
 }

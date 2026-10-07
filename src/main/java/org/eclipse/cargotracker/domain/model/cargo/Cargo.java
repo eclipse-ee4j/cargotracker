@@ -177,7 +177,7 @@ public class Cargo implements Serializable {
   }
 
   private boolean sameIdentityAs(Cargo other) {
-    return other != null && trackingId.sameValueAs(other.trackingId);
+    return other != null && trackingId.equals(other.trackingId);
   }
 
   /**

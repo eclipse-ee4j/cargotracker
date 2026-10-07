@@ -137,7 +137,7 @@ public class EventLogger implements Serializable {
                         .getDelivery()
                         .getTransportStatus()
                         .sameValueAs(TransportStatus.CLAIMED))
-        .map(cargo -> cargo.getTrackingId().getIdString())
+        .map(cargo -> cargo.getTrackingId().id())
         .forEachOrdered(trackingId -> trackingIds.add(new SelectItem(trackingId, trackingId)));
 
     List<Location> locations = locationRepository.findAll();

@@ -25,7 +25,7 @@ public class CargoTrackingViewAdapter {
   }
 
   public String getTrackingId() {
-    return cargo.getTrackingId().getIdString();
+    return cargo.getTrackingId().id();
   }
 
   public String getOriginName() {

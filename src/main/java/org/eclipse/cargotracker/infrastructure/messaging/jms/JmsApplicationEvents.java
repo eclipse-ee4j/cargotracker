@@ -42,7 +42,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
         .setPriority(LOW_PRIORITY)
         .setDisableMessageID(true)
         .setDisableMessageTimestamp(true)
-        .send(cargoHandledQueue, cargo.getTrackingId().getIdString());
+        .send(cargoHandledQueue, cargo.getTrackingId().id());
   }
 
   @Override
@@ -53,7 +53,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
         .setPriority(LOW_PRIORITY)
         .setDisableMessageID(true)
         .setDisableMessageTimestamp(true)
-        .send(misdirectedCargoQueue, cargo.getTrackingId().getIdString());
+        .send(misdirectedCargoQueue, cargo.getTrackingId().id());
   }
 
   @Override
@@ -64,7 +64,7 @@ public class JmsApplicationEvents implements ApplicationEvents, Serializable {
         .setPriority(LOW_PRIORITY)
         .setDisableMessageID(true)
         .setDisableMessageTimestamp(true)
-        .send(deliveredCargoQueue, cargo.getTrackingId().getIdString());
+        .send(deliveredCargoQueue, cargo.getTrackingId().id());
   }
 
   @Override
