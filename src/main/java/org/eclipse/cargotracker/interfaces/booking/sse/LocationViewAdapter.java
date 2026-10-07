@@ -14,7 +14,7 @@ public class LocationViewAdapter {
   }
 
   public String getUnLocode() {
-    return location.getUnLocode().getIdString();
+    return location.getUnLocode().code();
   }
 
   public String getName() {

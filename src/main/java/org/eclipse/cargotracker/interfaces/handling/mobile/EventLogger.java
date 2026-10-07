@@ -146,7 +146,7 @@ public class EventLogger implements Serializable {
 
     locations.forEach(
         location -> {
-          String locationCode = location.getUnLocode().getIdString();
+          String locationCode = location.getUnLocode().code();
           this.locations.add(
               new SelectItem(locationCode, location.getName() + " (" + locationCode + ")"));
         });

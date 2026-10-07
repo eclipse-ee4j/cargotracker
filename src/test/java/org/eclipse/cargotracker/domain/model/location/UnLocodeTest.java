@@ -9,12 +9,12 @@ public class UnLocodeTest {
 
   @Test
   public void testNormalizesToUpperCase() {
-    assertEquals("USNYC", new UnLocode("usnyc").getIdString());
+    assertEquals("USNYC", new UnLocode("usnyc").code());
   }
 
   @Test
   public void testAcceptsDigitsInLocationPart() {
-    assertEquals("US2A9", new UnLocode("us2a9").getIdString());
+    assertEquals("US2A9", new UnLocode("us2a9").code());
   }
 
   @Test

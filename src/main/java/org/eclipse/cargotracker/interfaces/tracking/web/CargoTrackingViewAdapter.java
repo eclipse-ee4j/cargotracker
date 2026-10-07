@@ -33,7 +33,7 @@ public class CargoTrackingViewAdapter {
   }
 
   public String getOriginCode() {
-    return cargo.getRouteSpecification().getOrigin().getUnLocode().getIdString();
+    return cargo.getRouteSpecification().getOrigin().getUnLocode().code();
   }
 
   public Coordinates getOriginCoordinates() {
@@ -45,7 +45,7 @@ public class CargoTrackingViewAdapter {
   }
 
   public String getDestinationCode() {
-    return cargo.getRouteSpecification().getDestination().getUnLocode().getIdString();
+    return cargo.getRouteSpecification().getDestination().getUnLocode().code();
   }
 
   public Coordinates getDestinationCoordinates() {
@@ -53,13 +53,13 @@ public class CargoTrackingViewAdapter {
   }
 
   public String getLastKnownLocationName() {
-    return cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString().equals("XXXXX")
+    return cargo.getDelivery().getLastKnownLocation().getUnLocode().code().equals("XXXXX")
         ? "Unknown"
         : cargo.getDelivery().getLastKnownLocation().getName();
   }
 
   public String getLastKnownLocationCode() {
-    return cargo.getDelivery().getLastKnownLocation().getUnLocode().getIdString();
+    return cargo.getDelivery().getLastKnownLocation().getUnLocode().code();
   }
 
   public Coordinates getLastKnownLocationCoordinates() {

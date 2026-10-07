@@ -37,7 +37,7 @@ public class CoordinatesFactory {
   }
 
   public static Coordinates find(UnLocode unLocode) {
-    return find(unLocode.getIdString());
+    return find(unLocode.code());
   }
 
   public static Coordinates find(String unLocode) {
@@ -48,20 +48,20 @@ public class CoordinatesFactory {
     Map<String, Coordinates> map = new HashMap<>();
 
     // TODO See if there is a service to get the latitude/longitude data from.
-    map.put(HONGKONG.getUnLocode().getIdString(), new Coordinates(22, 114));
-    map.put(MELBOURNE.getUnLocode().getIdString(), new Coordinates(-38, 145));
-    map.put(STOCKHOLM.getUnLocode().getIdString(), new Coordinates(59, 18));
-    map.put(HELSINKI.getUnLocode().getIdString(), new Coordinates(60, 25));
-    map.put(CHICAGO.getUnLocode().getIdString(), new Coordinates(42, -88));
-    map.put(TOKYO.getUnLocode().getIdString(), new Coordinates(36, 140));
-    map.put(HAMBURG.getUnLocode().getIdString(), new Coordinates(54, 10));
-    map.put(SHANGHAI.getUnLocode().getIdString(), new Coordinates(31, 121));
-    map.put(ROTTERDAM.getUnLocode().getIdString(), new Coordinates(52, 5));
-    map.put(GOTHENBURG.getUnLocode().getIdString(), new Coordinates(58, 12));
-    map.put(HANGZOU.getUnLocode().getIdString(), new Coordinates(30, 120));
-    map.put(NEWYORK.getUnLocode().getIdString(), new Coordinates(41, -74));
-    map.put(DALLAS.getUnLocode().getIdString(), new Coordinates(33, -97));
-    map.put(UNKNOWN.getUnLocode().getIdString(), new Coordinates(-90, 0)); // The South Pole.
+    map.put(HONGKONG.getUnLocode().code(), new Coordinates(22, 114));
+    map.put(MELBOURNE.getUnLocode().code(), new Coordinates(-38, 145));
+    map.put(STOCKHOLM.getUnLocode().code(), new Coordinates(59, 18));
+    map.put(HELSINKI.getUnLocode().code(), new Coordinates(60, 25));
+    map.put(CHICAGO.getUnLocode().code(), new Coordinates(42, -88));
+    map.put(TOKYO.getUnLocode().code(), new Coordinates(36, 140));
+    map.put(HAMBURG.getUnLocode().code(), new Coordinates(54, 10));
+    map.put(SHANGHAI.getUnLocode().code(), new Coordinates(31, 121));
+    map.put(ROTTERDAM.getUnLocode().code(), new Coordinates(52, 5));
+    map.put(GOTHENBURG.getUnLocode().code(), new Coordinates(58, 12));
+    map.put(HANGZOU.getUnLocode().code(), new Coordinates(30, 120));
+    map.put(NEWYORK.getUnLocode().code(), new Coordinates(41, -74));
+    map.put(DALLAS.getUnLocode().code(), new Coordinates(33, -97));
+    map.put(UNKNOWN.getUnLocode().code(), new Coordinates(-90, 0)); // The South Pole.
 
     COORDINATES_MAP = Map.copyOf(map);
   }
